@@ -1,0 +1,25 @@
+[project]
+authors = ["Scott Henderson <scottyhq@gmail.com>"]
+channels = ["conda-forge"]
+name = "stac-3dep-1m"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+create-stac="python scripts/create_static_stac.py"
+create-geoparquet="python scripts/create_geoparquet.py"
+update-catalog="python scripts/update_main_catalog.py"
+ruff="ruff check --fix ; ruff format"
+
+[dependencies]
+python = ">=3.13.2,<3.14"
+geopandas = ">=1.0.1,<2"
+cloudpathlib-s3 = ">=0.20.0,<0.21"
+ruff = ">=0.9.7,<0.10"
+pystac = ">=1.12.1,<2"
+ipython = ">=9.0.0,<10"
+libgdal-arrow-parquet = ">=3.10.2,<4"
+
+[pypi-dependencies]
+# https://github.com/stac-utils/stacrs/issues/40
+stacrs = { version = ">=0.5.8", extras=["arrow"]}
