@@ -53,15 +53,15 @@ def get_titiler_datetime(series):
 
 
 def add_wesm_metadata_to_collection(collection, series):
-    """Hijack "summaries" for WESM metadata rather than summaries of each item property"""
+    """Add to extra_fields dictionary"""
     links = ["lpc_link", "sourcedem_link", "metadata_link"]
-    # not ideal: displays as a big block
-    # collection.summaries.add('wesm', series.drop(links).to_dict())
-    # NOTE: sure how to do this in one go, so loop and add each key
-    # collection.summaries.update(series.drop(links).to_dict())
-    for k, v in series.drop(links).to_dict().items():
-        collection.summaries.add(k, str(v))
-
+    # Ensure JSON-serializable
+    wesm_properties = json.loads(series.drop(links).add_prefix('wesm:').to_json())
+    # STAC-browser does not render this
+    #collection.extra_fields = {'properties':wesm_properties}
+    # WARNING: this creates *invalid* STAC, be default STAC-browser still renders it!
+    for k,v in wesm_properties.items():
+        collection.summaries.add(k, v)
 
 # TODO: use aiohttp instead?
 # How to code async functions in a synchronous script...
@@ -233,7 +233,7 @@ def create_stac_catalog(project):
     collection.summaries.update(summaries)
 
     # Add WESM metadata to collection summaries
-    #add_wesm_metadata_to_collection(collection, s)
+    add_wesm_metadata_to_collection(collection, s)
 
     # collection.validate()
 
@@ -247,6 +247,11 @@ def create_stac_catalog(project):
     catalog.normalize_hrefs(
         f"./catalog/{project}", strategy=strategy
     )  # sets local path
+
+    # Validate
+    # catalog.validate_all()
+
+    # Trun absolute hrefs into relative ones
     catalog.save(catalog_type=pystac.CatalogType.SELF_CONTAINED)
 
 
