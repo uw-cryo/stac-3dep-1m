@@ -30,6 +30,7 @@ from cloudpathlib import S3Client
 from pystac import Provider, ProviderRole
 import pystac
 from pathlib import Path
+import warnings
 
 # explicitly instantiate a client that always uses the local cache
 client = S3Client(local_cache_dir="/tmp", no_sign_request=True)
@@ -59,7 +60,7 @@ def add_wesm_metadata_to_collection(collection, series):
     # NOTE: sure how to do this in one go, so loop and add each key
     # collection.summaries.update(series.drop(links).to_dict())
     for k, v in series.drop(links).to_dict().items():
-        collection.summaries.add(k, v)
+        collection.summaries.add(k, str(v))
 
 
 # TODO: use aiohttp instead?
@@ -93,7 +94,14 @@ def get_wesm_series(project):
         raise ValueError(
             f"Project '{project}' not found in WESM metadata, close matches: {alternatives}"
         )
+
     s = df[df.project == project].iloc[0]
+
+    if not s.onemeter_category == 'Meets':
+        warnings.warn(
+            f"Project '{project}' onemeter_category is not 'Meets' but '{s.onemeter_category}'"
+        )
+
     return s
 
 
@@ -225,7 +233,9 @@ def create_stac_catalog(project):
     collection.summaries.update(summaries)
 
     # Add WESM metadata to collection summaries
-    add_wesm_metadata_to_collection(collection, s)
+    #add_wesm_metadata_to_collection(collection, s)
+
+    # collection.validate()
 
     # Add to static catalog and save locally for stac-browser
     # TODO: add keywords (since static browsing allows filtering by 'title, description, keywords')!

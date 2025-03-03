@@ -8,7 +8,7 @@ version = "0.1.0"
 [tasks]
 create-stac="python scripts/create_static_stac.py"
 create-geoparquet="python scripts/create_geoparquet.py"
-update-catalog="python scripts/update_main_catalog.py"
+update-root-catalog="python scripts/update_root_catalog.py"
 ruff="ruff check --fix ; ruff format"
 
 [dependencies]
@@ -19,6 +19,7 @@ ruff = ">=0.9.7,<0.10"
 pystac = ">=1.12.1,<2"
 ipython = ">=9.0.0,<10"
 libgdal-arrow-parquet = ">=3.10.2,<4"
+jsonschema = ">=4.23.0,<5"
 
 [pypi-dependencies]
 # https://github.com/stac-utils/stacrs/issues/40
