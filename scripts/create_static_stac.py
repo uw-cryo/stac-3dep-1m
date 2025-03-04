@@ -237,22 +237,28 @@ def create_stac_catalog(project):
 
     # collection.validate()
 
-    # Add to static catalog and save locally for stac-browser
-    # TODO: add keywords (since static browsing allows filtering by 'title, description, keywords')!
-    catalog = pystac.Catalog(id=project, description="USGS 3DEP 1m tiles")
-    catalog.add_child(collection)
     strategy = pystac.layout.TemplateLayoutStrategy(
         item_template=""
     )  # flat layout (no subfolders per item)
-    catalog.normalize_hrefs(
+    collection.normalize_hrefs(
         f"./catalog/{project}", strategy=strategy
     )  # sets local path
+    collection.save(catalog_type=pystac.CatalogType.SELF_CONTAINED)
 
-    # Validate
+    # Create a subcatalog
+    # TODO: add keywords (since static browsing allows filtering by 'title, description, keywords')!
+    # catalog = pystac.Catalog(id=project, description="USGS 3DEP 1m tiles")
+    # catalog.add_child(collection)
+    # strategy = pystac.layout.TemplateLayoutStrategy(
+    #     item_template=""
+    # )  # flat layout (no subfolders per item)
+    # catalog.normalize_hrefs(
+    #     f"./catalog/{project}", strategy=strategy
+    # )  # sets local path
+    ## Validate
     # catalog.validate_all()
-
-    # Trun absolute hrefs into relative ones
-    catalog.save(catalog_type=pystac.CatalogType.SELF_CONTAINED)
+    ## Turn absolute hrefs into relative ones
+    # catalog.save(catalog_type=pystac.CatalogType.SELF_CONTAINED)
 
 
 if __name__ == "__main__":
