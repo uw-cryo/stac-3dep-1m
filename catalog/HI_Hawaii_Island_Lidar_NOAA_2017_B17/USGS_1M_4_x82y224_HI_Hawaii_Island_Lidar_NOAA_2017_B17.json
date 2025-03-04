@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_4_x82y224_HI_Hawaii_Island_Lidar_NOAA_2017_B17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -155.93933094020488,
+          20.140676087618456
+        ],
+        [
+          -155.84367550685835,
+          20.138986835862045
+        ],
+        [
+          -155.84185450242302,
+          20.229322253396827
+        ],
+        [
+          -155.93756490943755,
+          20.23101972614493
+        ],
+        [
+          -155.93933094020488,
+          20.140676087618456
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -155.93933094020488,
+    20.138986835862045,
+    -155.84185450242302,
+    20.23101972614493
+  ],
+  "properties": {
+    "start_datetime": "2018-01-30T00:00:00Z",
+    "end_datetime": "2020-01-06T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            819994.0000028894,
+            2229994.000027382
+          ],
+          [
+            830006.0000028894,
+            2229994.000027382
+          ],
+          [
+            830006.0000028894,
+            2240006.000027382
+          ],
+          [
+            819994.0000028894,
+            2240006.000027382
+          ],
+          [
+            819994.0000028894,
+            2229994.000027382
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      819994.0000028894,
+      2229994.000027382,
+      830006.0000028894,
+      2240006.000027382
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      819994.0000028894,
+      0.0,
+      -1.0,
+      2240006.000027382,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 4N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 4N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -159,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26904
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26904"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/HI_Hawaii_Island_Lidar_NOAA_2017_B17/TIFF/USGS_1M_4_x82y224_HI_Hawaii_Island_Lidar_NOAA_2017_B17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 214.73881178084562,
+            "minimum": -0.40180954337120056,
+            "maximum": 536.8226928710938,
+            "stddev": 131.8784460939202,
+            "valid_percent": 61.730194091796875
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.40180954337120056,
+            "max": 536.8226928710938,
+            "buckets": [
+              89355,
+              78850,
+              78981,
+              81142,
+              82083,
+              81708,
+              64108,
+              54506,
+              31164,
+              5391
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "HI_Hawaii_Island_Lidar_NOAA_2017_B17"
+}
