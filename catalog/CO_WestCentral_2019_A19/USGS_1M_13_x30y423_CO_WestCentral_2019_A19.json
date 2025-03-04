@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x30y423_CO_WestCentral_2019_A19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -107.28117338212313,
+          38.105641050185625
+        ],
+        [
+          -107.1670585810498,
+          38.1078021736613
+        ],
+        [
+          -107.16972960421752,
+          38.197972196315895
+        ],
+        [
+          -107.28398476781034,
+          38.19580410496813
+        ],
+        [
+          -107.28117338212313,
+          38.105641050185625
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -107.28398476781034,
+    38.105641050185625,
+    -107.1670585810498,
+    38.197972196315895
+  ],
+  "properties": {
+    "start_datetime": "2019-08-21T00:00:00Z",
+    "end_datetime": "2019-09-19T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            299993.999961468,
+            4219994.000033975
+          ],
+          [
+            310005.999961468,
+            4219994.000033975
+          ],
+          [
+            310005.999961468,
+            4230006.000033975
+          ],
+          [
+            299993.999961468,
+            4230006.000033975
+          ],
+          [
+            299993.999961468,
+            4219994.000033975
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      299993.999961468,
+      4219994.000033975,
+      310005.999961468,
+      4230006.000033975
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      299993.999961468,
+      0.0,
+      -1.0,
+      4230006.000033975,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_WestCentral_2019_A19/TIFF/USGS_1M_13_x30y423_CO_WestCentral_2019_A19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 3146.0047671028037,
+            "minimum": 2482.749267578125,
+            "maximum": 3816.447265625,
+            "stddev": 283.3341660411726,
+            "valid_percent": 63.77696990966797
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2482.749267578125,
+            "max": 3816.447265625,
+            "buckets": [
+              11704,
+              37955,
+              78594,
+              100173,
+              124719,
+              121003,
+              60916,
+              64015,
+              46665,
+              23006
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_WestCentral_2019_A19"
+}
