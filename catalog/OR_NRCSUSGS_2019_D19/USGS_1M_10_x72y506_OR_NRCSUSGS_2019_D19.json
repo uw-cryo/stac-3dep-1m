@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x72y506_OR_NRCSUSGS_2019_D19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -120.18069055950714,
+          45.568686367649235
+        ],
+        [
+          -120.05255019385244,
+          45.565449305711006
+        ],
+        [
+          -120.04782830891132,
+          45.65544732746865
+        ],
+        [
+          -120.17617327856806,
+          45.65869450909679
+        ],
+        [
+          -120.18069055950714,
+          45.568686367649235
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -120.18069055950714,
+    45.565449305711006,
+    -120.04782830891132,
+    45.65869450909679
+  ],
+  "properties": {
+    "start_datetime": "2019-10-10T00:00:00Z",
+    "end_datetime": "2019-10-12T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            719993.9999686453,
+            5049994.000039865
+          ],
+          [
+            730005.9999686453,
+            5049994.000039865
+          ],
+          [
+            730005.9999686453,
+            5060006.000039865
+          ],
+          [
+            719993.9999686453,
+            5060006.000039865
+          ],
+          [
+            719993.9999686453,
+            5049994.000039865
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      719993.9999686453,
+      5049994.000039865,
+      730005.9999686453,
+      5060006.000039865
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      719993.9999686453,
+      0.0,
+      -1.0,
+      5060006.000039865,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/OR_NRCSUSGS_2019_D19/TIFF/USGS_1M_10_x72y506_OR_NRCSUSGS_2019_D19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "foot",
+          "statistics": {
+            "mean": 271.4968566894531,
+            "minimum": 160.4239959716797,
+            "maximum": 364.11077880859375,
+            "stddev": 41.32324052946237,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 160.4239959716797,
+            "max": 364.11077880859375,
+            "buckets": [
+              19798,
+              43122,
+              82459,
+              122184,
+              148263,
+              146248,
+              217574,
+              182480,
+              70881,
+              15567
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "OR_NRCSUSGS_2019_D19"
+}
