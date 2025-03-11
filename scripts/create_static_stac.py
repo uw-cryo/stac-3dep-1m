@@ -31,6 +31,7 @@ from pystac import Provider, ProviderRole
 import pystac
 from pathlib import Path
 import warnings
+import argparse
 
 # explicitly instantiate a client that always uses the local cache
 client = S3Client(local_cache_dir="/tmp", no_sign_request=True)
@@ -84,18 +85,26 @@ def get_tif_list_s3(s3path):
     return tifs
 
 
-def get_wesm_series(project):
+def get_wesm_series(project, is_workunit=False):
     wesm_csv = client.CloudPath(
         "s3://prd-tnm/StagedProducts/Elevation/metadata/WESM.csv"
     )
     df = pd.read_csv(wesm_csv)
-    if project not in df.project.values:
-        alternatives = df[df.project.str.startswith(project)].project.to_list()
-        raise ValueError(
-            f"Project '{project}' not found in WESM metadata, close matches: {alternatives}"
-        )
+    if is_workunit:
+        if project not in df.workunit.values:
+            alternatives = df[df.workunit.str.startswith(project)].workunit.to_list()
+            raise ValueError(
+                f"Workunit '{project}' not found in WESM metadata, close matches: {alternatives}"
+            )
+        s = df[df.workunit == project].iloc[0]
+    else:
+        if project not in df.project.values:
+            alternatives = df[df.project.str.startswith(project)].project.to_list()
+            raise ValueError(
+                f"Project '{project}' not found in WESM metadata, close matches: {alternatives}"
+            )
+        s = df[df.project == project].iloc[0]
 
-    s = df[df.project == project].iloc[0]
 
     if not s.onemeter_category == 'Meets':
         warnings.warn(
@@ -133,9 +142,9 @@ def get_collection_bbox(results):
     return gf.total_bounds.tolist()
 
 
-def create_stac_catalog(project):
+def create_stac_catalog(project, is_workunit=False):
     """Create a STAC catalog from a 3DEP 1m project"""
-    s = get_wesm_series(project)
+    s = get_wesm_series(project, is_workunit=is_workunit)
     project_inventory = f"s3://prd-tnm/StagedProducts/Elevation/1m/Projects/{project}/0_file_download_links.txt"
     tifs = get_tif_list_s3(project_inventory)
 
@@ -262,9 +271,24 @@ def create_stac_catalog(project):
 
 
 if __name__ == "__main__":
-    project = sys.argv[1]  #'CO_WestCentral_2019_A19'
-    project_path = Path(f"./catalog/{project}")
-    if project_path.exists():
+    parser = argparse.ArgumentParser(description="Generate a STAC catalog from a 3DEP 1m project or workunit.")
+    parser.add_argument('-p', '--project', type=str, help='Project name (e.g. CO_WestCentral_2019_A19)')
+    parser.add_argument('-w', '--workunit', type=str, help='Workunit name (e.g. TX_RedRiver_3Area_B2_2018)')
+    args = parser.parse_args()
+
+    if not args.project and not args.workunit:
+        parser.error("Either --project or --workunit must be specified.")
+    elif args.project and args.workunit:
+        parser.error("Only one of --project or --workunit can be specified.")
+    elif args.project:
+        project = args.project
+        is_workunit = False
+    else:
+        project = args.workunit
+        is_workunit = True
+
+    stac_path = Path(f"./catalog/{project}")
+    if stac_path.exists():
         print(f"Project folder '{project}' already exists.")
     else:
-        create_stac_catalog(project)
+        create_stac_catalog(project, is_workunit)
