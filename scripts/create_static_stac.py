@@ -123,6 +123,7 @@ def generate_stac_from_titiler(tiflist, DATETIME):
 
     # In jupyter there is already an asyncio event loop so can just run this!
     # extracted_metadata = await asyncio.gather(*[create_stac_item_async(url) for url in metadata_urls])
+    
     # In script. Is there a better way to do this??
     # loop = asyncio.get_event_loop()
     loop = asyncio.new_event_loop()
@@ -199,39 +200,16 @@ def create_stac_catalog(project, is_workunit=False):
         description="USGS 3DEP 1m tiles",
         providers=[USGS_PROVIDER, TACOLAB_PROVIDER],
         extent=collection_extent,
-        # Seems either PDDL think this is correct https://resources.data.gov/open-licenses/ ?
-        # https://github.com/radiantearth/stac-spec/blob/ec002bb93dbfa47976822def8f11b2861775b662/commons/common-metadata.md#licensing
-        # license="CC0-1.0",
-        # Or providers=[USGS_PROVIDER],
-        # https://github.com/stactools-packages/threedep/blob/1948fd475cc73731703ecb9ed9f7f8d46066336c/src/stactools/threedep/commands.py#L18
-        license="PDDL-1.0",
+        # https://umbra.space/terms-of-use/
+        license="CC-BY-4.0",
     )
-    # Add WESM links to collection (assets?)
-    # ? OPR (Original Product Resolution)
-    sourcedem = pystac.Link(
-        title="Original Product",
-        rel="sourcedem",
-        target=s.sourcedem_link,
-    )
-    lpcdem = pystac.Link(
-        title="Lidar Point Cloud",
-        rel="lpc",
-        target=s.lpc_link,
-    )
-    metadata = pystac.Link(
-        title="Metadata",
-        rel="metadata",
-        target=s.metadata_link,
-    )
-    # 3DEP License https://registry.opendata.aws/usgs-lidar/
-    # https://resources.data.gov/open-licenses/
-    # NOTE: add link to corresponding EPT on AWS?
+
     license = pystac.Link(
-        title="USGS 3DEP License",
+        title="Umbra Create Common License",
         rel="license",
-        target="https://www.usgs.gov/faqs/what-are-terms-uselicensing-map-services-and-data-national-maps",
+        target="https://umbra.space/terms-of-use/",
     )
-    collection.add_links([sourcedem, lpcdem, metadata, license])
+    collection.add_links([license])
 
     collection.add_items(items)
 

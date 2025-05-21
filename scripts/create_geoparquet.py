@@ -28,7 +28,8 @@ async def collection_to_stac_geoparquet(collection_path, output_path=None):
     items = [i.to_dict() for i in c.get_items(recursive=True)]
     if not output_path:
         output_path = collection_path.replace(".json", ".parquet")
-    await stacrs.write(output_path, items)
+    # TODO: test different compressions (e.g. zstd)
+    await stacrs.write(output_path, items, format="parquet[snappy]")
 
 
 if __name__ == "__main__":
