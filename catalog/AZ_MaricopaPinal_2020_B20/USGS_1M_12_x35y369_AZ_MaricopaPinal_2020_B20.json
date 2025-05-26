@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x35y369_AZ_MaricopaPinal_2020_B20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -112.61023216229765,
+          33.248517150249185
+        ],
+        [
+          -112.50279211579952,
+          33.24986210850981
+        ],
+        [
+          -112.50434106534549,
+          33.34013865660902
+        ],
+        [
+          -112.61189173893098,
+          33.33878909819476
+        ],
+        [
+          -112.61023216229765,
+          33.248517150249185
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -112.61189173893098,
+    33.248517150249185,
+    -112.50279211579952,
+    33.34013865660902
+  ],
+  "properties": {
+    "start_datetime": "2020-10-02T00:00:00Z",
+    "end_datetime": "2021-12-18T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            349993.9999783792,
+            3679994.000021941
+          ],
+          [
+            360005.9999783792,
+            3679994.000021941
+          ],
+          [
+            360005.9999783792,
+            3690006.000021941
+          ],
+          [
+            349993.9999783792,
+            3690006.000021941
+          ],
+          [
+            349993.9999783792,
+            3679994.000021941
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      349993.9999783792,
+      3679994.000021941,
+      360005.9999783792,
+      3690006.000021941
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      349993.9999783792,
+      0.0,
+      -1.0,
+      3690006.000021941,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AZ_MaricopaPinal_2020_B20/TIFF/USGS_1M_12_x35y369_AZ_MaricopaPinal_2020_B20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 284.32304141801745,
+            "minimum": 246.43600463867188,
+            "maximum": 453.94573974609375,
+            "stddev": 26.997041874256315,
+            "valid_percent": 27.934646606445312
+          },
+          "histogram": {
+            "count": 11,
+            "min": 246.43600463867188,
+            "max": 453.94573974609375,
+            "buckets": [
+              74795,
+              120283,
+              51200,
+              24273,
+              13317,
+              5869,
+              2131,
+              691,
+              294,
+              63
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AZ_MaricopaPinal_2020_B20"
+}
