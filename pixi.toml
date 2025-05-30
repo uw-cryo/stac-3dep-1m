@@ -7,7 +7,8 @@ version = "0.1.0"
 
 [tasks]
 create-stac="python scripts/create_static_stac.py"
-create-geoparquet="python scripts/create_geoparquet.py"
+collection2geoparquet="python scripts/collection2geoparquet.py"
+catalog2geoparquet="python scripts/catalog2geoparquet.py /Users/scotthenderson/GitHub/uw-cryo/stac-3dep-1m/catalog/catalog.json"
 update-root-catalog="python scripts/update_root_catalog.py"
 ruff="ruff check --fix ; ruff format"
 
@@ -22,7 +23,4 @@ libgdal-arrow-parquet = ">=3.10.2,<4"
 jsonschema = ">=4.23.0,<5"
 pyarrow = ">=19.0.1,<20"
 libgfortran5 = ">=14.2.0"
-
-[pypi-dependencies]
-# https://github.com/stac-utils/stacrs/issues/40
-stacrs = { version = ">=0.5.8", extras=["arrow"]}
+rustac = "*"

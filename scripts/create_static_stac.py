@@ -20,7 +20,6 @@ Use TiTiler to generate a STAC Item Collection from Tiffs!
 Usage: python create_static_stac.py CO_WestCentral_2019_A19
 """
 
-import sys
 import asyncio
 import json
 import requests
@@ -123,7 +122,7 @@ def generate_stac_from_titiler(tiflist, DATETIME):
 
     # In jupyter there is already an asyncio event loop so can just run this!
     # extracted_metadata = await asyncio.gather(*[create_stac_item_async(url) for url in metadata_urls])
-    
+
     # In script. Is there a better way to do this??
     # loop = asyncio.get_event_loop()
     loop = asyncio.new_event_loop()
@@ -193,21 +192,19 @@ def create_stac_catalog(project, is_workunit=False):
         intervals=[(pd.to_datetime(s.collect_start), pd.to_datetime(s.collect_end))]
     )
     collection_extent = pystac.Extent(spatial=spatial_extent, temporal=temporal_extent)
-    # TODO: summaries?
     # Thumbnail asset?
     collection = pystac.Collection(
         id=project,
         description="USGS 3DEP 1m tiles",
         providers=[USGS_PROVIDER, TACOLAB_PROVIDER],
         extent=collection_extent,
-        # https://umbra.space/terms-of-use/
-        license="CC-BY-4.0",
+        license="PDDL-1.0",
     )
 
     license = pystac.Link(
-        title="Umbra Create Common License",
+        title="USGS 3DEP License",
         rel="license",
-        target="https://umbra.space/terms-of-use/",
+        target="https://www.usgs.gov/faqs/what-are-terms-uselicensing-map-services-and-data-national-maps",
     )
     collection.add_links([license])
 
