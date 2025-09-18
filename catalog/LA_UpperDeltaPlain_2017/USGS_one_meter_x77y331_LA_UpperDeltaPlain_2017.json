@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x77y331_LA_UpperDeltaPlain_2017",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -90.20674181252528,
+          29.800879570001314
+        ],
+        [
+          -90.10326977695406,
+          29.798650747552806
+        ],
+        [
+          -90.10066205522793,
+          29.8888912960025
+        ],
+        [
+          -90.2042269381013,
+          29.89112822530992
+        ],
+        [
+          -90.20674181252528,
+          29.800879570001314
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -90.20674181252528,
+    29.798650747552806,
+    -90.10066205522793,
+    29.89112822530992
+  ],
+  "properties": {
+    "start_datetime": "2017-01-23T00:00:00Z",
+    "end_datetime": "2017-04-24T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            769994.0,
+            3299994.0
+          ],
+          [
+            780006.0,
+            3299994.0
+          ],
+          [
+            780006.0,
+            3310006.0
+          ],
+          [
+            769994.0,
+            3310006.0
+          ],
+          [
+            769994.0,
+            3299994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      769994.0,
+      3299994.0,
+      780006.0,
+      3310006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      769994.0,
+      0.0,
+      -1.0,
+      3310006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/LA_UpperDeltaPlain_2017/TIFF/USGS_one_meter_x77y331_LA_UpperDeltaPlain_2017.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 0.1195847786761819,
+            "minimum": -3.640000104904175,
+            "maximum": 4.2335028648376465,
+            "stddev": 0.7352748191093825,
+            "valid_percent": 95.94964981079102
+          },
+          "histogram": {
+            "count": 11,
+            "min": -3.640000104904175,
+            "max": 4.2335028648376465,
+            "buckets": [
+              2829,
+              20088,
+              54230,
+              31247,
+              433496,
+              410468,
+              48565,
+              2837,
+              1757,
+              588
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "LA_UpperDeltaPlain_2017"
+}

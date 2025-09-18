@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x57y334_LA_Catahoula_Concordia_2017_D17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -92.27356670786713,
+          30.09914469532986
+        ],
+        [
+          -92.1696656453328,
+          30.09852914173176
+        ],
+        [
+          -92.16890877579254,
+          30.1888720368866
+        ],
+        [
+          -92.27290452483861,
+          30.18948981826025
+        ],
+        [
+          -92.27356670786713,
+          30.09914469532986
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -92.27356670786713,
+    30.09852914173176,
+    -92.16890877579254,
+    30.18948981826025
+  ],
+  "properties": {
+    "start_datetime": "2018-01-24T00:00:00Z",
+    "end_datetime": "2019-12-15T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            569993.9999991835,
+            3329994.00033752
+          ],
+          [
+            580005.9999991835,
+            3329994.00033752
+          ],
+          [
+            580005.9999991835,
+            3340006.00033752
+          ],
+          [
+            569993.9999991835,
+            3340006.00033752
+          ],
+          [
+            569993.9999991835,
+            3329994.00033752
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      569993.9999991835,
+      3329994.00033752,
+      580005.9999991835,
+      3340006.00033752
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      569993.9999991835,
+      0.0,
+      -1.0,
+      3340006.00033752,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/LA_Catahoula_Concordia_2017_D17/TIFF/USGS_1M_15_x57y334_LA_Catahoula_Concordia_2017_D17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 6.776643642614236,
+            "minimum": 1.777999997138977,
+            "maximum": 8.944757461547852,
+            "stddev": 0.6820029127377525,
+            "valid_percent": 6.421947479248047
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1.777999997138977,
+            "max": 8.944757461547852,
+            "buckets": [
+              82,
+              12,
+              11,
+              158,
+              311,
+              10981,
+              23221,
+              23125,
+              9147,
+              291
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "LA_Catahoula_Concordia_2017_D17"
+}

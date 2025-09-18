@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x57y347_LA_Sabine_River_Lidar_2018_D18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -92.26473108108796,
+          31.272125011249514
+        ],
+        [
+          -92.15956660511164,
+          31.2714802154384
+        ],
+        [
+          -92.15876400816347,
+          31.361806537805997
+        ],
+        [
+          -92.26402889042997,
+          31.362453614786837
+        ],
+        [
+          -92.26473108108796,
+          31.272125011249514
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -92.26473108108796,
+    31.2714802154384,
+    -92.15876400816347,
+    31.362453614786837
+  ],
+  "properties": {
+    "start_datetime": "2018-01-14T00:00:00Z",
+    "end_datetime": "2018-06-10T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            569994.0000152413,
+            3459994.0002891347
+          ],
+          [
+            580006.0000152413,
+            3459994.0002891347
+          ],
+          [
+            580006.0000152413,
+            3470006.0002891347
+          ],
+          [
+            569994.0000152413,
+            3470006.0002891347
+          ],
+          [
+            569994.0000152413,
+            3459994.0002891347
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      569994.0000152413,
+      3459994.0002891347,
+      580006.0000152413,
+      3470006.0002891347
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      569994.0000152413,
+      0.0,
+      -1.0,
+      3470006.0002891347,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/LA_Sabine_River_Lidar_2018_D18/TIFF/USGS_1M_15_x57y347_LA_Sabine_River_Lidar_2018_D18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 22.677278870240578,
+            "minimum": 11.199999809265137,
+            "maximum": 31.703889846801758,
+            "stddev": 4.247617644802584,
+            "valid_percent": 62.16917037963867
+          },
+          "histogram": {
+            "count": 11,
+            "min": 11.199999809265137,
+            "max": 31.703889846801758,
+            "buckets": [
+              10525,
+              23966,
+              43075,
+              77014,
+              82083,
+              120636,
+              120224,
+              91565,
+              52397,
+              30406
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "LA_Sabine_River_Lidar_2018_D18"
+}

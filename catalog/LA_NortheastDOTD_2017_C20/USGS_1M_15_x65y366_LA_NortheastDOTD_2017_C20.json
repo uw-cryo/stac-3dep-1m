@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x65y366_LA_NortheastDOTD_2017_C20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -91.39482488606875,
+          32.97801926242797
+        ],
+        [
+          -91.28772066952837,
+          32.97659633304575
+        ],
+        [
+          -91.2859741291846,
+          33.066867544158605
+        ],
+        [
+          -91.39318747463992,
+          33.068295360914405
+        ],
+        [
+          -91.39482488606875,
+          32.97801926242797
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -91.39482488606875,
+    32.97659633304575,
+    -91.2859741291846,
+    33.068295360914405
+  ],
+  "properties": {
+    "start_datetime": "2017-11-27T00:00:00Z",
+    "end_datetime": "2018-11-20T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            649993.9999648416,
+            3649994.000312894
+          ],
+          [
+            660005.9999648416,
+            3649994.000312894
+          ],
+          [
+            660005.9999648416,
+            3660006.000312894
+          ],
+          [
+            649993.9999648416,
+            3660006.000312894
+          ],
+          [
+            649993.9999648416,
+            3649994.000312894
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      649993.9999648416,
+      3649994.000312894,
+      660005.9999648416,
+      3660006.000312894
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      649993.9999648416,
+      0.0,
+      -1.0,
+      3660006.000312894,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/LA_NortheastDOTD_2017_C20/TIFF/USGS_1M_15_x65y366_LA_NortheastDOTD_2017_C20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 34.981583541261095,
+            "minimum": 29.207286834716797,
+            "maximum": 42.00974655151367,
+            "stddev": 2.3112263738761762,
+            "valid_percent": 31.30331039428711
+          },
+          "histogram": {
+            "count": 11,
+            "min": 29.207286834716797,
+            "max": 42.00974655151367,
+            "buckets": [
+              4134,
+              12148,
+              55585,
+              50996,
+              123051,
+              14589,
+              24288,
+              23956,
+              16939,
+              2553
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "LA_NortheastDOTD_2017_C20"
+}

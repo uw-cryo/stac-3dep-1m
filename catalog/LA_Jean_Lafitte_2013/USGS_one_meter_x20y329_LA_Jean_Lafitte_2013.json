@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x20y329_LA_Jean_Lafitte_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -90.09784888579873,
+          29.613721409526352
+        ],
+        [
+          -89.99458492691292,
+          29.616094342046235
+        ],
+        [
+          -89.99726081525344,
+          29.706329412892252
+        ],
+        [
+          -90.10061669392566,
+          29.703947817423302
+        ],
+        [
+          -90.09784888579873,
+          29.613721409526352
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -90.10061669392566,
+    29.613721409526352,
+    -89.99458492691292,
+    29.706329412892252
+  ],
+  "properties": {
+    "start_datetime": "2013-03-05T00:00:00Z",
+    "end_datetime": "2013-03-08T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            199993.99971668614,
+            3279994.000277145
+          ],
+          [
+            210005.99971668614,
+            3279994.000277145
+          ],
+          [
+            210005.99971668614,
+            3290006.0003771447
+          ],
+          [
+            199993.99971668614,
+            3290006.0003771447
+          ],
+          [
+            199993.99971668614,
+            3279994.000277145
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      199993.99971668614,
+      3279994.000277145,
+      210005.99971668614,
+      3290006.0003771447
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      199993.99971668614,
+      0.0,
+      -1.0000000099879973,
+      3290006.0003771447,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/LA_Jean_Lafitte_2013/TIFF/USGS_one_meter_x20y329_LA_Jean_Lafitte_2013.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": -0.15352436764868552,
+            "minimum": -2.662475109100342,
+            "maximum": 3.0531041622161865,
+            "stddev": 0.3308888139857654,
+            "valid_percent": 5.172920227050781
+          },
+          "histogram": {
+            "count": 11,
+            "min": -2.662475109100342,
+            "max": 3.0531041622161865,
+            "buckets": [
+              64,
+              45,
+              739,
+              790,
+              46149,
+              5677,
+              622,
+              119,
+              13,
+              24
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "LA_Jean_Lafitte_2013"
+}

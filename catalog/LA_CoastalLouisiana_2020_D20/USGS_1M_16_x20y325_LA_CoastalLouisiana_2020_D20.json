@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x20y325_LA_CoastalLouisiana_2020_D20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -90.08691588082888,
+          29.253233793096356
+        ],
+        [
+          -89.9840150194605,
+          29.255572264587197
+        ],
+        [
+          -89.98664262445958,
+          29.345813095985523
+        ],
+        [
+          -90.08963375070739,
+          29.343466021133377
+        ],
+        [
+          -90.08691588082888,
+          29.253233793096356
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -90.08963375070739,
+    29.253233793096356,
+    -89.9840150194605,
+    29.345813095985523
+  ],
+  "properties": {
+    "start_datetime": "2021-03-04T00:00:00Z",
+    "end_datetime": "2021-04-05T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            199993.99971555284,
+            3239994.000305593
+          ],
+          [
+            210005.99971555284,
+            3239994.000305593
+          ],
+          [
+            210005.99971555284,
+            3250006.000305593
+          ],
+          [
+            199993.99971555284,
+            3250006.000305593
+          ],
+          [
+            199993.99971555284,
+            3239994.000305593
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      199993.99971555284,
+      3239994.000305593,
+      210005.99971555284,
+      3250006.000305593
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      199993.99971555284,
+      0.0,
+      -1.0,
+      3250006.000305593,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/LA_CoastalLouisiana_2020_D20/TIFF/USGS_1M_16_x20y325_LA_CoastalLouisiana_2020_D20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": -0.5159822392036821,
+            "minimum": -0.6000235080718994,
+            "maximum": 1.0528342723846436,
+            "stddev": 0.2612933553640736,
+            "valid_percent": 64.95809555053711
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.6000235080718994,
+            "max": 1.0528342723846436,
+            "buckets": [
+              612814,
+              3936,
+              4537,
+              7172,
+              11655,
+              20894,
+              17336,
+              2707,
+              73,
+              11
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "LA_CoastalLouisiana_2020_D20"
+}

@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1m_x54y333_LA_Bayou_Nezpique_B5_2018",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -92.5852887846957,
+          30.01025424835791
+        ],
+        [
+          -92.48147419310858,
+          30.00988621640673
+        ],
+        [
+          -92.4810032154669,
+          30.100236146367635
+        ],
+        [
+          -92.58491209455659,
+          30.10060551277012
+        ],
+        [
+          -92.5852887846957,
+          30.01025424835791
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -92.5852887846957,
+    30.00988621640673,
+    -92.4810032154669,
+    30.10060551277012
+  ],
+  "properties": {
+    "start_datetime": "2018-04-05T00:00:00Z",
+    "end_datetime": "2018-06-08T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            539993.999999997,
+            3319994.0003
+          ],
+          [
+            550005.999999997,
+            3319994.0003
+          ],
+          [
+            550005.999999997,
+            3330006.0003
+          ],
+          [
+            539993.999999997,
+            3330006.0003
+          ],
+          [
+            539993.999999997,
+            3319994.0003
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      539993.999999997,
+      3319994.0003,
+      550005.999999997,
+      3330006.0003
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      539993.999999997,
+      0.0,
+      -1.0,
+      3330006.0003,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/LA_Bayou_Nezpique_B5_2018/TIFF/USGS_1m_x54y333_LA_Bayou_Nezpique_B5_2018.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028230607370965e+38,
+          "statistics": {
+            "mean": 1.9298959638271218,
+            "minimum": -0.3700000047683716,
+            "maximum": 3.6186232566833496,
+            "stddev": 1.0082235192957445,
+            "valid_percent": 9.135246276855469
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.3700000047683716,
+            "max": 3.6186232566833496,
+            "buckets": [
+              5283,
+              12606,
+              1917,
+              2021,
+              2994,
+              6886,
+              22865,
+              34062,
+              6933,
+              223
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "LA_Bayou_Nezpique_B5_2018"
+}

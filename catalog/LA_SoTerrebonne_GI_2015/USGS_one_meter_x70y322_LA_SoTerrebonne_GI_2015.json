@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x70y322_LA_SoTerrebonne_GI_2015",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -90.9468583664613,
+          29.002442032411267
+        ],
+        [
+          -90.8441336818743,
+          29.000833095934258
+        ],
+        [
+          -90.84225461949521,
+          29.09113620730994
+        ],
+        [
+          -90.94506868196542,
+          29.09275110040569
+        ],
+        [
+          -90.9468583664613,
+          29.002442032411267
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -90.9468583664613,
+    29.000833095934258,
+    -90.84225461949521,
+    29.09275110040569
+  ],
+  "properties": {
+    "start_datetime": "2015-01-18T00:00:00Z",
+    "end_datetime": "2015-02-13T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            699994.0,
+            3209994.0001999997
+          ],
+          [
+            710006.0,
+            3209994.0001999997
+          ],
+          [
+            710006.0,
+            3220006.0002999995
+          ],
+          [
+            699994.0,
+            3220006.0002999995
+          ],
+          [
+            699994.0,
+            3209994.0001999997
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      699994.0,
+      3209994.0001999997,
+      710006.0,
+      3220006.0002999995
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      699994.0,
+      0.0,
+      -1.0000000099879973,
+      3220006.0002999995,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/LA_SoTerrebonne_GI_2015/TIFF/USGS_one_meter_x70y322_LA_SoTerrebonne_GI_2015.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": -0.3053891152287927,
+            "minimum": -0.5429999828338623,
+            "maximum": 1.7469899654388428,
+            "stddev": 0.3769748959542142,
+            "valid_percent": 16.783618927001953
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.5429999828338623,
+            "max": 1.7469899654388428,
+            "buckets": [
+              129209,
+              3368,
+              22423,
+              5549,
+              6978,
+              5377,
+              2290,
+              492,
+              260,
+              43
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "LA_SoTerrebonne_GI_2015"
+}
