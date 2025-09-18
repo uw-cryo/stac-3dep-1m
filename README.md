@@ -1,5 +1,5 @@
 # stac-3dep-1m
-Static STAC Catalog + STAC GeoParquet for 3DEP 1m DEMs
+Static STAC Catalog + STAC GeoParquet for 3DEP 1m DEMs from here (https://prd-tnm.s3.amazonaws.com/index.html?prefix=StagedProducts/Elevation/1m)
 
 https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com/uw-cryo/stac-3dep-1m/refs/heads/main/catalog/catalog.json
 
