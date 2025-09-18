@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x34y416_UT_StatewideKane_2020_A20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -112.80973698157835,
+          37.48300599902642
+        ],
+        [
+          -112.69654389135694,
+          37.484686110164986
+        ],
+        [
+          -112.69858879276754,
+          37.574890773040096
+        ],
+        [
+          -112.81191814226094,
+          37.57320521217938
+        ],
+        [
+          -112.80973698157835,
+          37.48300599902642
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -112.81191814226094,
+    37.48300599902642,
+    -112.69654389135694,
+    37.574890773040096
+  ],
+  "properties": {
+    "start_datetime": "2019-10-11T00:00:00Z",
+    "end_datetime": "2019-11-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            339993.99998680025,
+            4149994.000029373
+          ],
+          [
+            350005.99998680025,
+            4149994.000029373
+          ],
+          [
+            350005.99998680025,
+            4160006.000029373
+          ],
+          [
+            339993.99998680025,
+            4160006.000029373
+          ],
+          [
+            339993.99998680025,
+            4149994.000029373
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      339993.99998680025,
+      4149994.000029373,
+      350005.99998680025,
+      4160006.000029373
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      339993.99998680025,
+      0.0,
+      -1.0,
+      4160006.000029373,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/UT_StatewideKane_2020_A20/TIFF/USGS_1M_12_x34y416_UT_StatewideKane_2020_A20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 2604.902508926575,
+            "minimum": 2340.462890625,
+            "maximum": 3038.1552734375,
+            "stddev": 144.86511199538435,
+            "valid_percent": 14.075565338134766
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2340.462890625,
+            "max": 3038.1552734375,
+            "buckets": [
+              4420,
+              21507,
+              32432,
+              37472,
+              23854,
+              8331,
+              4363,
+              3363,
+              7153,
+              4698
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "UT_StatewideKane_2020_A20"
+}

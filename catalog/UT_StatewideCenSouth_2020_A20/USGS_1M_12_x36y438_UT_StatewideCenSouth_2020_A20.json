@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x36y438_UT_StatewideCenSouth_2020_A20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -112.62758899353675,
+          39.46815000969859
+        ],
+        [
+          -112.5112375400143,
+          39.469720595302704
+        ],
+        [
+          -112.51319326744581,
+          39.559902811301136
+        ],
+        [
+          -112.62969513753119,
+          39.55832721424762
+        ],
+        [
+          -112.62758899353675,
+          39.46815000969859
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -112.62969513753119,
+    39.46815000969859,
+    -112.5112375400143,
+    39.559902811301136
+  ],
+  "properties": {
+    "start_datetime": "2020-09-20T00:00:00Z",
+    "end_datetime": "2020-10-10T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            359993.99999373173,
+            4369994.000049453
+          ],
+          [
+            370005.99999373173,
+            4369994.000049453
+          ],
+          [
+            370005.99999373173,
+            4380006.000049453
+          ],
+          [
+            359993.99999373173,
+            4380006.000049453
+          ],
+          [
+            359993.99999373173,
+            4369994.000049453
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      359993.99999373173,
+      4369994.000049453,
+      370005.99999373173,
+      4380006.000049453
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      359993.99999373173,
+      0.0,
+      -1.0,
+      4380006.000049453,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/UT_StatewideCenSouth_2020_A20/TIFF/USGS_1M_12_x36y438_UT_StatewideCenSouth_2020_A20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 1437.8493879429361,
+            "minimum": 1409.5841064453125,
+            "maximum": 1456.1356201171875,
+            "stddev": 11.532285478311188,
+            "valid_percent": 67.35086441040039
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1409.5841064453125,
+            "max": 1456.1356201171875,
+            "buckets": [
+              15977,
+              37905,
+              82277,
+              55815,
+              42814,
+              29592,
+              28399,
+              240202,
+              162978,
+              10266
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "UT_StatewideCenSouth_2020_A20"
+}

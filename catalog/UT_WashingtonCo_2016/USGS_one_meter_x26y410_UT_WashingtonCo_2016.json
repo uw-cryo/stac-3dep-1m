@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x26y410_UT_WashingtonCo_2016",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -113.69451454319949,
+          36.92544754839288
+        ],
+        [
+          -113.58221722526986,
+          36.92794357639356
+        ],
+        [
+          -113.58526699095079,
+          37.01810445540591
+        ],
+        [
+          -113.69769655545485,
+          37.015600290787205
+        ],
+        [
+          -113.69451454319949,
+          36.92544754839288
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -113.69769655545485,
+    36.92544754839288,
+    -113.58221722526986,
+    37.01810445540591
+  ],
+  "properties": {
+    "start_datetime": "2017-01-08T00:00:00Z",
+    "end_datetime": "2017-07-14T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            259994.0,
+            4089994.0
+          ],
+          [
+            270006.0,
+            4089994.0
+          ],
+          [
+            270006.0,
+            4100006.0
+          ],
+          [
+            259994.0,
+            4100006.0
+          ],
+          [
+            259994.0,
+            4089994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      259994.0,
+      4089994.0,
+      270006.0,
+      4100006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      259994.0,
+      0.0,
+      -1.0,
+      4100006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/UT_WashingtonCo_2016/TIFF/USGS_one_meter_x26y410_UT_WashingtonCo_2016.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 803.5952075310227,
+            "minimum": 745.4854125976562,
+            "maximum": 867.2504272460938,
+            "stddev": 23.700160002561027,
+            "valid_percent": 2.0058631896972656
+          },
+          "histogram": {
+            "count": 11,
+            "min": 745.4854125976562,
+            "max": 867.2504272460938,
+            "buckets": [
+              1365,
+              511,
+              243,
+              4487,
+              5754,
+              4260,
+              1431,
+              1652,
+              927,
+              403
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "UT_WashingtonCo_2016"
+}

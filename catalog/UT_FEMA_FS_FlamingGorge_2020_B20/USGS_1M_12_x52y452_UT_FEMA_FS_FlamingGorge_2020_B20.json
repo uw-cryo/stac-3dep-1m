@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x52y452_UT_FEMA_FS_FlamingGorge_2020_B20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -110.76318946364992,
+          40.74064669160662
+        ],
+        [
+          -110.64460834371621,
+          40.74034248706368
+        ],
+        [
+          -110.64412722237323,
+          40.830534602507356
+        ],
+        [
+          -110.76286887021618,
+          40.830839770402115
+        ],
+        [
+          -110.76318946364992,
+          40.74064669160662
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -110.76318946364992,
+    40.74034248706368,
+    -110.64412722237323,
+    40.830839770402115
+  ],
+  "properties": {
+    "start_datetime": "2020-08-08T00:00:00Z",
+    "end_datetime": "2020-08-18T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            519993.99997697154,
+            4509994.00003904
+          ],
+          [
+            530005.9999769715,
+            4509994.00003904
+          ],
+          [
+            530005.9999769715,
+            4520006.00003904
+          ],
+          [
+            519993.99997697154,
+            4520006.00003904
+          ],
+          [
+            519993.99997697154,
+            4509994.00003904
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      519993.99997697154,
+      4509994.00003904,
+      530005.9999769715,
+      4520006.00003904
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      519993.99997697154,
+      0.0,
+      -1.0,
+      4520006.00003904,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/UT_FEMA_FS_FlamingGorge_2020_B20/TIFF/USGS_1M_12_x52y452_UT_FEMA_FS_FlamingGorge_2020_B20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 3295.755727124652,
+            "minimum": 2790.0205078125,
+            "maximum": 3877.38916015625,
+            "stddev": 198.78260753399067,
+            "valid_percent": 96.37279510498047
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2790.0205078125,
+            "max": 3877.38916015625,
+            "buckets": [
+              17024,
+              56408,
+              117660,
+              177366,
+              233828,
+              186965,
+              103506,
+              72783,
+              36184,
+              8818
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "UT_FEMA_FS_FlamingGorge_2020_B20"
+}
