@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x57y433_Fork_Salt_River_NRCS",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -92.19138565331627,
+          39.02619056253728
+        ],
+        [
+          -92.07573394165209,
+          39.02533150625872
+        ],
+        [
+          -92.07455650377689,
+          39.11554034010072
+        ],
+        [
+          -92.19035550406895,
+          39.11640214710247
+        ],
+        [
+          -92.19138565331627,
+          39.02619056253728
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -92.19138565331627,
+    39.02533150625872,
+    -92.07455650377689,
+    39.11640214710247
+  ],
+  "properties": {
+    "start_datetime": "2011-12-10T00:00:00Z",
+    "end_datetime": "2012-01-09T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            569993.9999758479,
+            4319994.000353565
+          ],
+          [
+            580005.9999758479,
+            4319994.000353565
+          ],
+          [
+            580005.9999758479,
+            4330006.000353565
+          ],
+          [
+            569993.9999758479,
+            4330006.000353565
+          ],
+          [
+            569993.9999758479,
+            4319994.000353565
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      569993.9999758479,
+      4319994.000353565,
+      580005.9999758479,
+      4330006.000353565
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      569993.9999758479,
+      0.0,
+      -1.0,
+      4330006.000353565,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/Fork_Salt_River_NRCS/TIFF/USGS_1M_15_x57y433_Fork_Salt_River_NRCS.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 278.9647637934698,
+            "minimum": 267.71771240234375,
+            "maximum": 285.76885986328125,
+            "stddev": 3.654364602883778,
+            "valid_percent": 10.771942138671875
+          },
+          "histogram": {
+            "count": 11,
+            "min": 267.71771240234375,
+            "max": 285.76885986328125,
+            "buckets": [
+              1365,
+              2943,
+              4776,
+              7491,
+              11701,
+              15957,
+              23010,
+              25538,
+              12144,
+              8027
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "Fork_Salt_River_NRCS"
+}

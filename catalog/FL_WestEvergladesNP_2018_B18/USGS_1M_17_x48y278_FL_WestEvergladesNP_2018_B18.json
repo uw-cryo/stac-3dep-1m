@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_17_x48y278_FL_WestEvergladesNP_2018_B18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -81.19832919049584,
+          25.045440654840686
+        ],
+        [
+          -81.09907554975096,
+          25.045539998524497
+        ],
+        [
+          -81.0991483832579,
+          25.13595805432098
+        ],
+        [
+          -81.19847498755497,
+          25.135858303194325
+        ],
+        [
+          -81.19832919049584,
+          25.045440654840686
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -81.19847498755497,
+    25.045440654840686,
+    -81.09907554975096,
+    25.13595805432098
+  ],
+  "properties": {
+    "start_datetime": "2019-03-02T00:00:00Z",
+    "end_datetime": "2019-07-04T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            479993.99997793185,
+            2769994.0000465214
+          ],
+          [
+            490005.99997793185,
+            2769994.0000465214
+          ],
+          [
+            490005.99997793185,
+            2780006.0000465214
+          ],
+          [
+            479993.99997793185,
+            2780006.0000465214
+          ],
+          [
+            479993.99997793185,
+            2769994.0000465214
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      479993.99997793185,
+      2769994.0000465214,
+      490005.99997793185,
+      2780006.0000465214
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      479993.99997793185,
+      0.0,
+      -1.0,
+      2780006.0000465214,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/FL_WestEvergladesNP_2018_B18/TIFF/USGS_1M_17_x48y278_FL_WestEvergladesNP_2018_B18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": -1.4128661841383094,
+            "minimum": -1.5,
+            "maximum": 1.4171693325042725,
+            "stddev": 0.41794881778494375,
+            "valid_percent": 0.695037841796875
+          },
+          "histogram": {
+            "count": 11,
+            "min": -1.5,
+            "max": 1.4171693325042725,
+            "buckets": [
+              6969,
+              3,
+              9,
+              5,
+              6,
+              13,
+              195,
+              19,
+              19,
+              50
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "FL_WestEvergladesNP_2018_B18"
+}

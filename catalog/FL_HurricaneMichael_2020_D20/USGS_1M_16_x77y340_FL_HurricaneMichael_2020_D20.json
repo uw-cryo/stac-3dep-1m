@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x77y340_FL_HurricaneMichael_2020_D20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -84.18372031895585,
+          30.612092378607958
+        ],
+        [
+          -84.07939837829277,
+          30.60979016304556
+        ],
+        [
+          -84.07668231375466,
+          30.700017620435904
+        ],
+        [
+          -84.18110095144347,
+          30.70232807393989
+        ],
+        [
+          -84.18372031895585,
+          30.612092378607958
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -84.18372031895585,
+    30.60979016304556,
+    -84.07668231375466,
+    30.70232807393989
+  ],
+  "properties": {
+    "start_datetime": "2019-12-16T00:00:00Z",
+    "end_datetime": "2020-01-07T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            769993.9997021873,
+            3389994.0003246837
+          ],
+          [
+            780005.9997021873,
+            3389994.0003246837
+          ],
+          [
+            780005.9997021873,
+            3400006.0003246837
+          ],
+          [
+            769993.9997021873,
+            3400006.0003246837
+          ],
+          [
+            769993.9997021873,
+            3389994.0003246837
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      769993.9997021873,
+      3389994.0003246837,
+      780005.9997021873,
+      3400006.0003246837
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      769993.9997021873,
+      0.0,
+      -1.0,
+      3400006.0003246837,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/FL_HurricaneMichael_2020_D20/TIFF/USGS_1M_16_x77y340_FL_HurricaneMichael_2020_D20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 44.94508979000634,
+            "minimum": 27.316320419311523,
+            "maximum": 81.3682861328125,
+            "stddev": 11.135429649584074,
+            "valid_percent": 76.57327651977539
+          },
+          "histogram": {
+            "count": 11,
+            "min": 27.316320419311523,
+            "max": 81.3682861328125,
+            "buckets": [
+              157207,
+              112365,
+              102571,
+              130446,
+              126449,
+              93456,
+              47639,
+              21842,
+              8519,
+              2435
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "FL_HurricaneMichael_2020_D20"
+}
