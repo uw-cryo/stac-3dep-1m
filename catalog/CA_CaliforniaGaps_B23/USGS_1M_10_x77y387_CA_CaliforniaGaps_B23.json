@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x77y387_CA_CaliforniaGaps_B23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -120.04717846790457,
+          34.84646359523431
+        ],
+        [
+          -119.93781717217568,
+          34.84375707766897
+        ],
+        [
+          -119.93446736084782,
+          34.93391191171475
+        ],
+        [
+          -120.04394785753817,
+          34.936627467935125
+        ],
+        [
+          -120.04717846790457,
+          34.84646359523431
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -120.04717846790457,
+    34.84375707766897,
+    -119.93446736084782,
+    34.936627467935125
+  ],
+  "properties": {
+    "start_datetime": "2023-09-05T00:00:00Z",
+    "end_datetime": "2023-12-05T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            769993.9999671808,
+            3859993.9999919
+          ],
+          [
+            780005.9999671808,
+            3859993.9999919
+          ],
+          [
+            780005.9999671808,
+            3870005.9999919
+          ],
+          [
+            769993.9999671808,
+            3870005.9999919
+          ],
+          [
+            769993.9999671808,
+            3859993.9999919
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      769993.9999671808,
+      3859993.9999919,
+      780005.9999671808,
+      3870005.9999919
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      769993.9999671808,
+      0.0,
+      -1.0,
+      3870005.9999919,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_CaliforniaGaps_B23/TIFF/USGS_1M_10_x77y387_CA_CaliforniaGaps_B23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 782.0765601122869,
+            "minimum": 301.78887939453125,
+            "maximum": 1445.380859375,
+            "stddev": 177.3010512330977,
+            "valid_percent": 99.54023361206055
+          },
+          "histogram": {
+            "count": 11,
+            "min": 301.78887939453125,
+            "max": 1445.380859375,
+            "buckets": [
+              8646,
+              61821,
+              161665,
+              257791,
+              262978,
+              167359,
+              72567,
+              32169,
+              14982,
+              3777
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_CaliforniaGaps_B23"
+}

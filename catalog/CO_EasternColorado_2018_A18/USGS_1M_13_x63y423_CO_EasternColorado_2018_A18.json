@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x63y423_CO_EasternColorado_2018_A18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -103.51703711998834,
+          38.11843182733339
+        ],
+        [
+          -103.40286036056347,
+          38.1169348377781
+        ],
+        [
+          -103.40089093531645,
+          38.20713431039366
+        ],
+        [
+          -103.51520835468988,
+          38.20863612796544
+        ],
+        [
+          -103.51703711998834,
+          38.11843182733339
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -103.51703711998834,
+    38.1169348377781,
+    -103.40089093531645,
+    38.20863612796544
+  ],
+  "properties": {
+    "start_datetime": "2018-04-30T00:00:00Z",
+    "end_datetime": "2018-07-25T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            629993.9999916458,
+            4219994.00003186
+          ],
+          [
+            640005.9999916458,
+            4219994.00003186
+          ],
+          [
+            640005.9999916458,
+            4230006.00003186
+          ],
+          [
+            629993.9999916458,
+            4230006.00003186
+          ],
+          [
+            629993.9999916458,
+            4219994.00003186
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      629993.9999916458,
+      4219994.00003186,
+      640005.9999916458,
+      4230006.00003186
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      629993.9999916458,
+      0.0,
+      -1.0,
+      4230006.00003186,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_EasternColorado_2018_A18/TIFF/USGS_1M_13_x63y423_CO_EasternColorado_2018_A18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1260.7531983201725,
+            "minimum": 1235.8790283203125,
+            "maximum": 1299.32763671875,
+            "stddev": 10.969343163629947,
+            "valid_percent": 94.10552978515625
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1235.8790283203125,
+            "max": 1299.32763671875,
+            "buckets": [
+              31095,
+              85428,
+              219858,
+              194006,
+              217724,
+              115961,
+              65772,
+              38955,
+              13491,
+              4478
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_EasternColorado_2018_A18"
+}

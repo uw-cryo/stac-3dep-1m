@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1m_x57y445_CA_NoCAL_Wildfires_B2_2018",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -122.17872862920889,
+          40.1073381915366
+        ],
+        [
+          -122.06126725499217,
+          40.10644570104737
+        ],
+        [
+          -122.0600245992932,
+          40.19663733058912
+        ],
+        [
+          -122.17764141829713,
+          40.19753265755992
+        ],
+        [
+          -122.17872862920889,
+          40.1073381915366
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -122.17872862920889,
+    40.10644570104737,
+    -122.0600245992932,
+    40.19753265755992
+  ],
+  "properties": {
+    "start_datetime": "2018-07-07T00:00:00Z",
+    "end_datetime": "2019-02-21T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            569994.0,
+            4439994.0001
+          ],
+          [
+            580006.0,
+            4439994.0001
+          ],
+          [
+            580006.0,
+            4450006.0001
+          ],
+          [
+            569994.0,
+            4450006.0001
+          ],
+          [
+            569994.0,
+            4439994.0001
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      569994.0,
+      4439994.0001,
+      580006.0,
+      4450006.0001
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      569994.0,
+      0.0,
+      -1.0,
+      4450006.0001,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_NoCAL_Wildfires_B2_2018/TIFF/USGS_1m_x57y445_CA_NoCAL_Wildfires_B2_2018.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028230607370965e+38,
+          "statistics": {
+            "mean": 141.88376602156785,
+            "minimum": 67.11336517333984,
+            "maximum": 355.5404052734375,
+            "stddev": 81.37953475634787,
+            "valid_percent": 52.53028869628906
+          },
+          "histogram": {
+            "count": 11,
+            "min": 67.11336517333984,
+            "max": 355.5404052734375,
+            "buckets": [
+              269213,
+              43959,
+              39038,
+              32711,
+              34576,
+              37448,
+              35766,
+              26115,
+              19308,
+              12686
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_NoCAL_Wildfires_B2_2018"
+}

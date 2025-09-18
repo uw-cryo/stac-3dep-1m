@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x62y448_CO_SoPlatteRiver_Lot1_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -103.58658030867346,
+          40.37189444317564
+        ],
+        [
+          -103.46868648337842,
+          40.37039319523983
+        ],
+        [
+          -103.46664054304469,
+          40.46056051863951
+        ],
+        [
+          -103.58469174917926,
+          40.46206652913951
+        ],
+        [
+          -103.58658030867346,
+          40.37189444317564
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -103.58658030867346,
+    40.37039319523983,
+    -103.46664054304469,
+    40.46206652913951
+  ],
+  "properties": {
+    "start_datetime": "2013-10-25T00:00:00Z",
+    "end_datetime": "2014-05-31T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            619993.9999999974,
+            4469994.0
+          ],
+          [
+            630006.0000000002,
+            4469994.0
+          ],
+          [
+            630006.0000000002,
+            4480006.000000003
+          ],
+          [
+            619993.9999999974,
+            4480006.000000003
+          ],
+          [
+            619993.9999999974,
+            4469994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      619993.9999999974,
+      4469994.0,
+      630006.0000000002,
+      4480006.000000003
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.000000000000279,
+      0.0,
+      619993.9999999974,
+      0.0,
+      -1.000000000000279,
+      4480006.000000003,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_SoPlatteRiver_Lot1_2013/TIFF/USGS_one_meter_x62y448_CO_SoPlatteRiver_Lot1_2013.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 1285.139460542556,
+            "minimum": 1247.879638671875,
+            "maximum": 1330.001220703125,
+            "stddev": 20.101774172284774,
+            "valid_percent": 55.40056228637695
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1247.879638671875,
+            "max": 1330.001220703125,
+            "buckets": [
+              66730,
+              58782,
+              43970,
+              65797,
+              75907,
+              79700,
+              80826,
+              68198,
+              35946,
+              5061
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_SoPlatteRiver_Lot1_2013"
+}

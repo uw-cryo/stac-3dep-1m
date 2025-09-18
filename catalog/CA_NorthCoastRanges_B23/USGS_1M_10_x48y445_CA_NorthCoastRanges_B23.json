@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x48y445_CA_NorthCoastRanges_B23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -123.23474994160303,
+          40.110012044395866
+        ],
+        [
+          -123.11726971416003,
+          40.11019057050658
+        ],
+        [
+          -123.11742497837658,
+          40.20039410235819
+        ],
+        [
+          -123.23506074613869,
+          40.20021500880889
+        ],
+        [
+          -123.23474994160303,
+          40.110012044395866
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -123.23506074613869,
+    40.110012044395866,
+    -123.11726971416003,
+    40.20039410235819
+  ],
+  "properties": {
+    "start_datetime": "2023-09-16T00:00:00Z",
+    "end_datetime": "2023-12-15T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            479993.99997187825,
+            4439994.000012423
+          ],
+          [
+            490005.99997187825,
+            4439994.000012423
+          ],
+          [
+            490005.99997187825,
+            4450006.000012423
+          ],
+          [
+            479993.99997187825,
+            4450006.000012423
+          ],
+          [
+            479993.99997187825,
+            4439994.000012423
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      479993.99997187825,
+      4439994.000012423,
+      490005.99997187825,
+      4450006.000012423
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      479993.99997187825,
+      0.0,
+      -1.0,
+      4450006.000012423,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_NorthCoastRanges_B23/TIFF/USGS_1M_10_x48y445_CA_NorthCoastRanges_B23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 1471.6005509403235,
+            "minimum": 1088.250732421875,
+            "maximum": 1787.7249755859375,
+            "stddev": 121.71548610941983,
+            "valid_percent": 11.00912094116211
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1088.250732421875,
+            "max": 1787.7249755859375,
+            "buckets": [
+              1010,
+              3141,
+              5607,
+              10027,
+              23672,
+              28548,
+              20674,
+              14003,
+              6913,
+              1844
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_NorthCoastRanges_B23"
+}

@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x44y451_CO_SoPlatte_Lot3_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -105.70973617577116,
+          40.648621355018484
+        ],
+        [
+          -105.59132330636113,
+          40.649288446754646
+        ],
+        [
+          -105.59212125156283,
+          40.739478910319086
+        ],
+        [
+          -105.71069387998334,
+          40.73880970509187
+        ],
+        [
+          -105.70973617577116,
+          40.648621355018484
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -105.71069387998334,
+    40.648621355018484,
+    -105.59132330636113,
+    40.739478910319086
+  ],
+  "properties": {
+    "start_datetime": "2013-10-25T00:00:00Z",
+    "end_datetime": "2014-07-25T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            439994.0,
+            4499994.0
+          ],
+          [
+            450006.00000000023,
+            4499994.0
+          ],
+          [
+            450006.00000000023,
+            4510006.0
+          ],
+          [
+            439994.0,
+            4510006.0
+          ],
+          [
+            439994.0,
+            4499994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      439994.0,
+      4499994.0,
+      450006.00000000023,
+      4510006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000000233,
+      0.0,
+      439994.0,
+      0.0,
+      -1.0,
+      4510006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_SoPlatte_Lot3_2013/TIFF/USGS_one_meter_x44y451_CO_SoPlatte_Lot3_2013.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 2543.5406888564103,
+            "minimum": 2188.06787109375,
+            "maximum": 2871.66845703125,
+            "stddev": 178.2371964632099,
+            "valid_percent": 10.374927520751953
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2188.06787109375,
+            "max": 2871.66845703125,
+            "buckets": [
+              6652,
+              9360,
+              12709,
+              9171,
+              9322,
+              12671,
+              14380,
+              18748,
+              10318,
+              5458
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_SoPlatte_Lot3_2013"
+}

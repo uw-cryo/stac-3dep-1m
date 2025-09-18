@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x74y390_CA_SoCal_Wildfires_B3_2018",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -120.36630555349487,
+          35.1242235546548
+        ],
+        [
+          -120.25654362872919,
+          35.1217871078149
+        ],
+        [
+          -120.25351108165549,
+          35.2119633447735
+        ],
+        [
+          -120.36339398473487,
+          35.21440790125147
+        ],
+        [
+          -120.36630555349487,
+          35.1242235546548
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -120.36630555349487,
+    35.1217871078149,
+    -120.25351108165549,
+    35.21440790125147
+  ],
+  "properties": {
+    "start_datetime": "2018-05-27T00:00:00Z",
+    "end_datetime": "2018-07-22T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            739994.0,
+            3889994.0
+          ],
+          [
+            750006.0,
+            3889994.0
+          ],
+          [
+            750006.0,
+            3900006.0
+          ],
+          [
+            739994.0,
+            3900006.0
+          ],
+          [
+            739994.0,
+            3889994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      739994.0,
+      3889994.0,
+      750006.0,
+      3900006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      739994.0,
+      0.0,
+      -1.0,
+      3900006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SoCal_Wildfires_B3_2018/TIFF/USGS_one_meter_x74y390_CA_SoCal_Wildfires_B3_2018.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028230607370965e+38,
+          "statistics": {
+            "mean": 430.728759765625,
+            "minimum": 221.08334350585938,
+            "maximum": 973.3707275390625,
+            "stddev": 137.4101882446,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 221.08334350585938,
+            "max": 973.3707275390625,
+            "buckets": [
+              170838,
+              219749,
+              227258,
+              227739,
+              107137,
+              35958,
+              17016,
+              16764,
+              16777,
+              9340
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_SoCal_Wildfires_B3_2018"
+}

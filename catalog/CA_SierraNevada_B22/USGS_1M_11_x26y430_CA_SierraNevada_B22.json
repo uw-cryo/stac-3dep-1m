@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_11_x26y430_CA_SierraNevada_B22",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -119.76084527618251,
+          38.72603360828334
+        ],
+        [
+          -119.64579147967122,
+          38.72869588700367
+        ],
+        [
+          -119.64912547986312,
+          38.818824559952525
+        ],
+        [
+          -119.76432381678654,
+          38.816153745245856
+        ],
+        [
+          -119.76084527618251,
+          38.72603360828334
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -119.76432381678654,
+    38.72603360828334,
+    -119.64579147967122,
+    38.818824559952525
+  ],
+  "properties": {
+    "start_datetime": "2021-11-03T00:00:00Z",
+    "end_datetime": "2021-12-05T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            259993.99972459846,
+            4289994.000026865
+          ],
+          [
+            270005.9997245985,
+            4289994.000026865
+          ],
+          [
+            270005.9997245985,
+            4300006.000026865
+          ],
+          [
+            259993.99972459846,
+            4300006.000026865
+          ],
+          [
+            259993.99972459846,
+            4289994.000026865
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      259993.99972459846,
+      4289994.000026865,
+      270005.9997245985,
+      4300006.000026865
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      259993.99972459846,
+      0.0,
+      -1.0,
+      4300006.000026865,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 11N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 11N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -117,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26911
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26911"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SierraNevada_B22/TIFF/USGS_1M_11_x26y430_CA_SierraNevada_B22.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 1817.127952258738,
+            "minimum": 1534.5889892578125,
+            "maximum": 2361.8623046875,
+            "stddev": 180.1334464510647,
+            "valid_percent": 79.29630279541016
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1534.5889892578125,
+            "max": 2361.8623046875,
+            "buckets": [
+              80758,
+              177458,
+              166972,
+              147967,
+              67558,
+              60189,
+              56543,
+              45092,
+              18170,
+              10775
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_SierraNevada_B22"
+}

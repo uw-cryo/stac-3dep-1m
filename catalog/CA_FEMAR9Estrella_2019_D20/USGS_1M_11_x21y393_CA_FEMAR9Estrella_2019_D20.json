@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_11_x21y393_CA_FEMAR9Estrella_2019_D20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -120.19241842257462,
+          35.38115583079363
+        ],
+        [
+          -120.08235003859988,
+          35.38401678167175
+        ],
+        [
+          -120.08579004108883,
+          35.47416185826981
+        ],
+        [
+          -120.19598076403777,
+          35.47129141977672
+        ],
+        [
+          -120.19241842257462,
+          35.38115583079363
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -120.19598076403777,
+    35.38115583079363,
+    -120.08235003859988,
+    35.47416185826981
+  ],
+  "properties": {
+    "start_datetime": "2019-12-15T00:00:00Z",
+    "end_datetime": "2020-01-04T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            209993.9996692388,
+            3919994.0000512367
+          ],
+          [
+            220005.9996692388,
+            3919994.0000512367
+          ],
+          [
+            220005.9996692388,
+            3930006.0000512367
+          ],
+          [
+            209993.9996692388,
+            3930006.0000512367
+          ],
+          [
+            209993.9996692388,
+            3919994.0000512367
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      209993.9996692388,
+      3919994.0000512367,
+      220005.9996692388,
+      3930006.0000512367
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      209993.9996692388,
+      0.0,
+      -1.0,
+      3930006.0000512367,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 11N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 11N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -117,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26911
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26911"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_FEMAR9Estrella_2019_D20/TIFF/USGS_1M_11_x21y393_CA_FEMAR9Estrella_2019_D20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 567.7537526656051,
+            "minimum": 415.6921081542969,
+            "maximum": 700.93701171875,
+            "stddev": 74.42101320885546,
+            "valid_percent": 84.7468376159668
+          },
+          "histogram": {
+            "count": 11,
+            "min": 415.6921081542969,
+            "max": 700.93701171875,
+            "buckets": [
+              55173,
+              70051,
+              82122,
+              95260,
+              88927,
+              83237,
+              86495,
+              162470,
+              138082,
+              26818
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_FEMAR9Estrella_2019_D20"
+}

@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x62y416_CA_AlamedaCounty_2021_B21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -121.6426804136502,
+          37.48907129912417
+        ],
+        [
+          -121.52946188360407,
+          37.48771605676284
+        ],
+        [
+          -121.52768913637291,
+          37.57793054839226
+        ],
+        [
+          -121.64104404579918,
+          37.579290187240346
+        ],
+        [
+          -121.6426804136502,
+          37.48907129912417
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -121.6426804136502,
+    37.48771605676284,
+    -121.52768913637291,
+    37.579290187240346
+  ],
+  "properties": {
+    "start_datetime": "2019-07-02T00:00:00Z",
+    "end_datetime": "2021-07-02T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            619993.9999966046,
+            4149994.000034412
+          ],
+          [
+            630005.9999966046,
+            4149994.000034412
+          ],
+          [
+            630005.9999966046,
+            4160006.000034412
+          ],
+          [
+            619993.9999966046,
+            4160006.000034412
+          ],
+          [
+            619993.9999966046,
+            4149994.000034412
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      619993.9999966046,
+      4149994.000034412,
+      630005.9999966046,
+      4160006.000034412
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      619993.9999966046,
+      0.0,
+      -1.0,
+      4160006.000034412,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_AlamedaCounty_2021_B21/TIFF/USGS_1M_10_x62y416_CA_AlamedaCounty_2021_B21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 792.337514103432,
+            "minimum": 288.4318542480469,
+            "maximum": 1158.3125,
+            "stddev": 177.92995742692077,
+            "valid_percent": 69.7331428527832
+          },
+          "histogram": {
+            "count": 11,
+            "min": 288.4318542480469,
+            "max": 1158.3125,
+            "buckets": [
+              11358,
+              30742,
+              44210,
+              56433,
+              88052,
+              127358,
+              130788,
+              148126,
+              78077,
+              16061
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_AlamedaCounty_2021_B21"
+}

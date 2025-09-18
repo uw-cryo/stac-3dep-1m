@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x45y376_CA_AZ_FEMA_R9_Lidar_2017_D18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -111.54079152022048,
+          33.88912430171394
+        ],
+        [
+          -111.43251946021786,
+          33.88955195579386
+        ],
+        [
+          -111.43297623007804,
+          33.97984776182087
+        ],
+        [
+          -111.54136262047159,
+          33.97941865853968
+        ],
+        [
+          -111.54079152022048,
+          33.88912430171394
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -111.54136262047159,
+    33.88912430171394,
+    -111.43251946021786,
+    33.97984776182087
+  ],
+  "properties": {
+    "start_datetime": "2018-01-06T00:00:00Z",
+    "end_datetime": "2018-01-06T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            449994.0000160932,
+            3749994.0000252444
+          ],
+          [
+            460006.0000160932,
+            3749994.0000252444
+          ],
+          [
+            460006.0000160932,
+            3760006.0000252444
+          ],
+          [
+            449994.0000160932,
+            3760006.0000252444
+          ],
+          [
+            449994.0000160932,
+            3749994.0000252444
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      449994.0000160932,
+      3749994.0000252444,
+      460006.0000160932,
+      3760006.0000252444
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      449994.0000160932,
+      0.0,
+      -1.0,
+      3760006.0000252444,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_AZ_FEMA_R9_Lidar_2017_D18/TIFF/USGS_1M_12_x45y376_CA_AZ_FEMA_R9_Lidar_2017_D18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1404.9311453889072,
+            "minimum": 1162.429443359375,
+            "maximum": 1790.11181640625,
+            "stddev": 100.60939946037313,
+            "valid_percent": 11.623382568359375
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1162.429443359375,
+            "max": 1790.11181640625,
+            "buckets": [
+              2857,
+              13012,
+              20543,
+              29706,
+              28814,
+              16968,
+              4910,
+              3412,
+              1156,
+              502
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_AZ_FEMA_R9_Lidar_2017_D18"
+}

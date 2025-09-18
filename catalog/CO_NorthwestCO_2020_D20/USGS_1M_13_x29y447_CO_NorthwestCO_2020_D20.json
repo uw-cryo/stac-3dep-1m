@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x29y447_CO_NorthwestCO_2020_D20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -107.46966061456457,
+          40.26407647214568
+        ],
+        [
+          -107.35201623034716,
+          40.26652884980169
+        ],
+        [
+          -107.35514666791731,
+          40.356653863150775
+        ],
+        [
+          -107.47294725244956,
+          40.35419370499865
+        ],
+        [
+          -107.46966061456457,
+          40.26407647214568
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -107.47294725244956,
+    40.26407647214568,
+    -107.35201623034716,
+    40.356653863150775
+  ],
+  "properties": {
+    "start_datetime": "2020-06-20T00:00:00Z",
+    "end_datetime": "2021-08-28T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            289994.00001927494,
+            4459994.000011761
+          ],
+          [
+            300006.00001927494,
+            4459994.000011761
+          ],
+          [
+            300006.00001927494,
+            4470006.000011761
+          ],
+          [
+            289994.00001927494,
+            4470006.000011761
+          ],
+          [
+            289994.00001927494,
+            4459994.000011761
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      289994.00001927494,
+      4459994.000011761,
+      300006.00001927494,
+      4470006.000011761
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      289994.00001927494,
+      0.0,
+      -1.0,
+      4470006.000011761,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_NorthwestCO_2020_D20/TIFF/USGS_1M_13_x29y447_CO_NorthwestCO_2020_D20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "US survey foot",
+          "statistics": {
+            "mean": 2235.6828024279607,
+            "minimum": 2047.75244140625,
+            "maximum": 2534.52490234375,
+            "stddev": 95.48339530037478,
+            "valid_percent": 26.36394500732422
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2047.75244140625,
+            "max": 2534.52490234375,
+            "buckets": [
+              8514,
+              41329,
+              63470,
+              46325,
+              39482,
+              29128,
+              29736,
+              11055,
+              4372,
+              3035
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_NorthwestCO_2020_D20"
+}

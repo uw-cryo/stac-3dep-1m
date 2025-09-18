@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x74y408_CA_FEMAR9Fresno_2019_D20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -120.31193390405336,
+          36.74535640016174
+        ],
+        [
+          -120.19991298845251,
+          36.74277138254777
+        ],
+        [
+          -120.19662826788395,
+          36.83291889837639
+        ],
+        [
+          -120.308780198115,
+          36.8355123581071
+        ],
+        [
+          -120.31193390405336,
+          36.74535640016174
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -120.31193390405336,
+    36.74277138254777,
+    -120.19662826788395,
+    36.8355123581071
+  ],
+  "properties": {
+    "start_datetime": "2019-12-12T00:00:00Z",
+    "end_datetime": "2020-01-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            739993.9999551065,
+            4069993.9999884283
+          ],
+          [
+            750005.9999551065,
+            4069993.9999884283
+          ],
+          [
+            750005.9999551065,
+            4080005.9999884283
+          ],
+          [
+            739993.9999551065,
+            4080005.9999884283
+          ],
+          [
+            739993.9999551065,
+            4069993.9999884283
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      739993.9999551065,
+      4069993.9999884283,
+      750005.9999551065,
+      4080005.9999884283
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      739993.9999551065,
+      0.0,
+      -1.0,
+      4080005.9999884283,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_FEMAR9Fresno_2019_D20/TIFF/USGS_1M_10_x74y408_CA_FEMAR9Fresno_2019_D20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 52.66918302112582,
+            "minimum": 45.17425537109375,
+            "maximum": 58.76284408569336,
+            "stddev": 2.648975937234943,
+            "valid_percent": 77.54144668579102
+          },
+          "histogram": {
+            "count": 11,
+            "min": 45.17425537109375,
+            "max": 58.76284408569336,
+            "buckets": [
+              100,
+              5049,
+              47234,
+              172020,
+              153804,
+              115695,
+              112479,
+              92495,
+              72535,
+              41670
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_FEMAR9Fresno_2019_D20"
+}

@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x66y411_CA_SantaClaraCounty_2020_A20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -121.20114632594044,
+          37.03253028179742
+        ],
+        [
+          -121.08863417533476,
+          37.030770698512875
+        ],
+        [
+          -121.08636794751206,
+          37.120971601434235
+        ],
+        [
+          -121.19901331795975,
+          37.12273691755429
+        ],
+        [
+          -121.20114632594044,
+          37.03253028179742
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -121.20114632594044,
+    37.030770698512875,
+    -121.08636794751206,
+    37.12273691755429
+  ],
+  "properties": {
+    "start_datetime": "2020-04-03T00:00:00Z",
+    "end_datetime": "2020-04-22T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            659993.9999982072,
+            4099994.0000244835
+          ],
+          [
+            670005.9999982072,
+            4099994.0000244835
+          ],
+          [
+            670005.9999982072,
+            4110006.0000244835
+          ],
+          [
+            659993.9999982072,
+            4110006.0000244835
+          ],
+          [
+            659993.9999982072,
+            4099994.0000244835
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      659993.9999982072,
+      4099994.0000244835,
+      670005.9999982072,
+      4110006.0000244835
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      659993.9999982072,
+      0.0,
+      -1.0,
+      4110006.0000244835,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SantaClaraCounty_2020_A20/TIFF/USGS_1M_10_x66y411_CA_SantaClaraCounty_2020_A20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 340.49688088512244,
+            "minimum": 153.19277954101562,
+            "maximum": 707.8665161132812,
+            "stddev": 118.31062776403519,
+            "valid_percent": 25.927734375
+          },
+          "histogram": {
+            "count": 11,
+            "min": 153.19277954101562,
+            "max": 707.8665161132812,
+            "buckets": [
+              46176,
+              38494,
+              35216,
+              34449,
+              68244,
+              22641,
+              10911,
+              8046,
+              4784,
+              2911
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_SantaClaraCounty_2020_A20"
+}

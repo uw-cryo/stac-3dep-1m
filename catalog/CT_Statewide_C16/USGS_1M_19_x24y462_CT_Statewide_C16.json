@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_19_x24y462_CT_Statewide_C16",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -72.1198201710463,
+          41.59932931772154
+        ],
+        [
+          -71.99984742159573,
+          41.60252536505865
+        ],
+        [
+          -72.00403173116892,
+          41.69258166635469
+        ],
+        [
+          -72.1241711728809,
+          41.6893755545435
+        ],
+        [
+          -72.1198201710463,
+          41.59932931772154
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -72.1241711728809,
+    41.59932931772154,
+    -71.99984742159573,
+    41.69258166635469
+  ],
+  "properties": {
+    "start_datetime": "2016-03-11T00:00:00Z",
+    "end_datetime": "2016-04-05T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            239994.0003204096,
+            4609993.999603592
+          ],
+          [
+            250006.0003204096,
+            4609993.999603592
+          ],
+          [
+            250006.0003204096,
+            4620005.999603592
+          ],
+          [
+            239994.0003204096,
+            4620005.999603592
+          ],
+          [
+            239994.0003204096,
+            4609993.999603592
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      239994.0003204096,
+      4609993.999603592,
+      250006.0003204096,
+      4620005.999603592
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      239994.0003204096,
+      0.0,
+      -1.0,
+      4620005.999603592,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CT_Statewide_C16/TIFF/USGS_1M_19_x24y462_CT_Statewide_C16.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 122.51160578386606,
+            "minimum": 90.00184631347656,
+            "maximum": 133.68502807617188,
+            "stddev": 5.601094170255944,
+            "valid_percent": 0.501251220703125
+          },
+          "histogram": {
+            "count": 11,
+            "min": 90.00184631347656,
+            "max": 133.68502807617188,
+            "buckets": [
+              7,
+              13,
+              27,
+              41,
+              136,
+              445,
+              757,
+              2064,
+              1328,
+              438
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CT_Statewide_C16"
+}

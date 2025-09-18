@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x38y436_CO_SanLuisJuanMiguel_2020_D20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -106.39157352904758,
+          39.29100955515666
+        ],
+        [
+          -106.27550385677712,
+          39.292339155996885
+        ],
+        [
+          -106.27714419634749,
+          39.382533188718924
+        ],
+        [
+          -106.39336302526816,
+          39.38119933953884
+        ],
+        [
+          -106.39157352904758,
+          39.29100955515666
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -106.39336302526816,
+    39.29100955515666,
+    -106.27550385677712,
+    39.382533188718924
+  ],
+  "properties": {
+    "start_datetime": "2019-09-21T00:00:00Z",
+    "end_datetime": "2019-10-19T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            379993.9999854587,
+            4349993.999966176
+          ],
+          [
+            390005.9999854587,
+            4349993.999966176
+          ],
+          [
+            390005.9999854587,
+            4360005.999966176
+          ],
+          [
+            379993.9999854587,
+            4360005.999966176
+          ],
+          [
+            379993.9999854587,
+            4349993.999966176
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      379993.9999854587,
+      4349993.999966176,
+      390005.9999854587,
+      4360005.999966176
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      379993.9999854587,
+      0.0,
+      -1.0,
+      4360005.999966176,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_SanLuisJuanMiguel_2020_D20/TIFF/USGS_1M_13_x38y436_CO_SanLuisJuanMiguel_2020_D20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 3224.364378477805,
+            "minimum": 2992.328369140625,
+            "maximum": 3812.03955078125,
+            "stddev": 150.647965184714,
+            "valid_percent": 82.38515853881836
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2992.328369140625,
+            "max": 3812.03955078125,
+            "buckets": [
+              144781,
+              180540,
+              184623,
+              143240,
+              98352,
+              54216,
+              34779,
+              17532,
+              5146,
+              662
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_SanLuisJuanMiguel_2020_D20"
+}

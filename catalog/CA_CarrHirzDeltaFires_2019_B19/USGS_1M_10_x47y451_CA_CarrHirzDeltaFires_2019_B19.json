@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x47y451_CA_CarrHirzDeltaFires_2019_B19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -123.35491328184825,
+          40.65025705613304
+        ],
+        [
+          -123.23649177336696,
+          40.65056030104205
+        ],
+        [
+          -123.23681091985354,
+          40.74075479423217
+        ],
+        [
+          -123.35539223175459,
+          40.740450588536
+        ],
+        [
+          -123.35491328184825,
+          40.65025705613304
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -123.35539223175459,
+    40.65025705613304,
+    -123.23649177336696,
+    40.74075479423217
+  ],
+  "properties": {
+    "start_datetime": "2019-10-07T00:00:00Z",
+    "end_datetime": "2020-08-15T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            469994.00001275144,
+            4499994.000017488
+          ],
+          [
+            480006.00001275144,
+            4499994.000017488
+          ],
+          [
+            480006.00001275144,
+            4510006.000017488
+          ],
+          [
+            469994.00001275144,
+            4510006.000017488
+          ],
+          [
+            469994.00001275144,
+            4499994.000017488
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      469994.00001275144,
+      4499994.000017488,
+      480006.00001275144,
+      4510006.000017488
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      469994.00001275144,
+      0.0,
+      -1.0,
+      4510006.000017488,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_CarrHirzDeltaFires_2019_B19/TIFF/USGS_1M_10_x47y451_CA_CarrHirzDeltaFires_2019_B19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 976.0727289909514,
+            "minimum": 359.89361572265625,
+            "maximum": 1593.473388671875,
+            "stddev": 297.0607552947269,
+            "valid_percent": 40.366172790527344
+          },
+          "histogram": {
+            "count": 11,
+            "min": 359.89361572265625,
+            "max": 1593.473388671875,
+            "buckets": [
+              25574,
+              27449,
+              45889,
+              59874,
+              44671,
+              54779,
+              64814,
+              53132,
+              32903,
+              14185
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_CarrHirzDeltaFires_2019_B19"
+}

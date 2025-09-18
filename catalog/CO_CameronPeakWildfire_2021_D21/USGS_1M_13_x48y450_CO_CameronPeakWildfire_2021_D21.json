@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x48y450_CO_CameronPeakWildfire_2021_D21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -105.23631619463818,
+          40.56047220883925
+        ],
+        [
+          -105.11805214505091,
+          40.56065358366111
+        ],
+        [
+          -105.1182109526795,
+          40.65085006462569
+        ],
+        [
+          -105.23663409224528,
+          40.650668114850376
+        ],
+        [
+          -105.23631619463818,
+          40.56047220883925
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -105.23663409224528,
+    40.56047220883925,
+    -105.11805214505091,
+    40.65085006462569
+  ],
+  "properties": {
+    "start_datetime": "2021-09-07T00:00:00Z",
+    "end_datetime": "2021-09-22T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            479993.99997031,
+            4489994.0000245925
+          ],
+          [
+            490005.99997031,
+            4489994.0000245925
+          ],
+          [
+            490005.99997031,
+            4500006.0000245925
+          ],
+          [
+            479993.99997031,
+            4500006.0000245925
+          ],
+          [
+            479993.99997031,
+            4489994.0000245925
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      479993.99997031,
+      4489994.0000245925,
+      490005.99997031,
+      4500006.0000245925
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      479993.99997031,
+      0.0,
+      -1.0,
+      4500006.0000245925,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_CameronPeakWildfire_2021_D21/TIFF/USGS_1M_13_x48y450_CO_CameronPeakWildfire_2021_D21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "US survey foot",
+          "statistics": {
+            "mean": 1973.9938046090374,
+            "minimum": 1788.249267578125,
+            "maximum": 2292.624755859375,
+            "stddev": 112.90166287686853,
+            "valid_percent": 6.865406036376953
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1788.249267578125,
+            "max": 2292.624755859375,
+            "buckets": [
+              8276,
+              13887,
+              9597,
+              7551,
+              9715,
+              11368,
+              7120,
+              1893,
+              1307,
+              1275
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_CameronPeakWildfire_2021_D21"
+}

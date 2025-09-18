@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x63y413_CO_NESEColorado_2019_C20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -103.5348618945943,
+          37.21738994817745
+        ],
+        [
+          -103.4220561593972,
+          37.2159405504296
+        ],
+        [
+          -103.42017255598284,
+          37.30615468048077
+        ],
+        [
+          -103.53311282606633,
+          37.307608792460954
+        ],
+        [
+          -103.5348618945943,
+          37.21738994817745
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -103.5348618945943,
+    37.2159405504296,
+    -103.42017255598284,
+    37.307608792460954
+  ],
+  "properties": {
+    "start_datetime": "2019-07-31T00:00:00Z",
+    "end_datetime": "2019-09-08T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            629993.9999873012,
+            4119994.0000541643
+          ],
+          [
+            640005.9999873012,
+            4119994.0000541643
+          ],
+          [
+            640005.9999873012,
+            4130006.0000541643
+          ],
+          [
+            629993.9999873012,
+            4130006.0000541643
+          ],
+          [
+            629993.9999873012,
+            4119994.0000541643
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      629993.9999873012,
+      4119994.0000541643,
+      640005.9999873012,
+      4130006.0000541643
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      629993.9999873012,
+      0.0,
+      -1.0,
+      4130006.0000541643,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_NESEColorado_2019_C20/TIFF/USGS_1M_13_x63y413_CO_NESEColorado_2019_C20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1742.8581751379004,
+            "minimum": 1626.247314453125,
+            "maximum": 1801.2633056640625,
+            "stddev": 21.64295466213716,
+            "valid_percent": 99.77598190307617
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1626.247314453125,
+            "max": 1801.2633056640625,
+            "buckets": [
+              915,
+              1601,
+              929,
+              3638,
+              59368,
+              317617,
+              239019,
+              250324,
+              149738,
+              23078
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_NESEColorado_2019_C20"
+}

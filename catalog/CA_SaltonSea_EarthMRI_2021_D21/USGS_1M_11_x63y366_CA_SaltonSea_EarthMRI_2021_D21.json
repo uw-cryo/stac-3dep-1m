@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_11_x63y366_CA_SaltonSea_EarthMRI_2021_D21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -115.60879792913973,
+          32.980586807676076
+        ],
+        [
+          -115.50167963003278,
+          32.97934729827646
+        ],
+        [
+          -115.50015111617301,
+          33.06962795835275
+        ],
+        [
+          -115.60737860281768,
+          33.070871725381785
+        ],
+        [
+          -115.60879792913973,
+          32.980586807676076
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -115.60879792913973,
+    32.97934729827646,
+    -115.50015111617301,
+    33.070871725381785
+  ],
+  "properties": {
+    "start_datetime": "2021-11-02T00:00:00Z",
+    "end_datetime": "2021-11-27T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            629993.9996695227,
+            3649994.000016806
+          ],
+          [
+            640005.9996695227,
+            3649994.000016806
+          ],
+          [
+            640005.9996695227,
+            3660006.000016806
+          ],
+          [
+            629993.9996695227,
+            3660006.000016806
+          ],
+          [
+            629993.9996695227,
+            3649994.000016806
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      629993.9996695227,
+      3649994.000016806,
+      640005.9996695227,
+      3660006.000016806
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      629993.9996695227,
+      0.0,
+      -1.0,
+      3660006.000016806,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 11N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 11N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -117,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26911
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26911"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SaltonSea_EarthMRI_2021_D21/TIFF/USGS_1M_11_x63y366_CA_SaltonSea_EarthMRI_2021_D21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": -44.145729064941406,
+            "minimum": -62.705989837646484,
+            "maximum": -28.48989486694336,
+            "stddev": 5.912075917568609,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": -62.705989837646484,
+            "max": -28.48989486694336,
+            "buckets": [
+              2305,
+              12689,
+              57246,
+              174259,
+              205208,
+              208927,
+              165170,
+              131859,
+              89834,
+              1079
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_SaltonSea_EarthMRI_2021_D21"
+}
