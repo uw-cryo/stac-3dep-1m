@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x41y421_VA_Eastern_ShoreBAA_2015",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -76.02435173270032,
+          37.94307634708743
+        ],
+        [
+          -75.91041995885628,
+          37.9440131323181
+        ],
+        [
+          -75.91153573998004,
+          38.034239020544845
+        ],
+        [
+          -76.02560708860045,
+          38.03329920868921
+        ],
+        [
+          -76.02435173270032,
+          37.94307634708743
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -76.02560708860045,
+    37.94307634708743,
+    -75.91041995885628,
+    38.034239020544845
+  ],
+  "properties": {
+    "start_datetime": "2015-04-11T00:00:00Z",
+    "end_datetime": "2015-04-24T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            409994.0,
+            4199994.0
+          ],
+          [
+            420006.0,
+            4199994.0
+          ],
+          [
+            420006.0,
+            4210006.0
+          ],
+          [
+            409994.0,
+            4210006.0
+          ],
+          [
+            409994.0,
+            4199994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      409994.0,
+      4199994.0,
+      420006.0,
+      4210006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      409994.0,
+      0.0,
+      -1.0,
+      4210006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/VA_Eastern_ShoreBAA_2015/TIFF/USGS_one_meter_x41y421_VA_Eastern_ShoreBAA_2015.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": -0.04681745746854283,
+            "minimum": -0.3048005998134613,
+            "maximum": 1.7697793245315552,
+            "stddev": 0.31058477848941196,
+            "valid_percent": 11.63778305053711
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.3048005998134613,
+            "max": 1.7697793245315552,
+            "buckets": [
+              87955,
+              3176,
+              6420,
+              13504,
+              10001,
+              702,
+              138,
+              116,
+              17,
+              2
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "VA_Eastern_ShoreBAA_2015"
+}

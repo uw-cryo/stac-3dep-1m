@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_17_x38y426_WV_FEMAR3_Southcentral_2018_D19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -82.37413348684899,
+          38.390112277887724
+        ],
+        [
+          -82.25951748365581,
+          38.391400025397424
+        ],
+        [
+          -82.26108602215612,
+          38.481608570817926
+        ],
+        [
+          -82.3758446571342,
+          38.48031667947593
+        ],
+        [
+          -82.37413348684899,
+          38.390112277887724
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -82.3758446571342,
+    38.390112277887724,
+    -82.25951748365581,
+    38.481608570817926
+  ],
+  "properties": {
+    "start_datetime": "2018-11-17T00:00:00Z",
+    "end_datetime": "2019-04-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            379994.0000406264,
+            4249994.000022225
+          ],
+          [
+            390006.0000406264,
+            4249994.000022225
+          ],
+          [
+            390006.0000406264,
+            4260006.000022225
+          ],
+          [
+            379994.0000406264,
+            4260006.000022225
+          ],
+          [
+            379994.0000406264,
+            4249994.000022225
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      379994.0000406264,
+      4249994.000022225,
+      390006.0000406264,
+      4260006.000022225
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      379994.0000406264,
+      0.0,
+      -1.0,
+      4260006.000022225,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WV_FEMAR3_Southcentral_2018_D19/TIFF/USGS_1M_17_x38y426_WV_FEMAR3_Southcentral_2018_D19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 205.70532012259306,
+            "minimum": 158.16000366210938,
+            "maximum": 313.97796630859375,
+            "stddev": 35.4748066652156,
+            "valid_percent": 86.06891632080078
+          },
+          "histogram": {
+            "count": 11,
+            "min": 158.16000366210938,
+            "max": 313.97796630859375,
+            "buckets": [
+              237808,
+              144563,
+              108334,
+              96006,
+              91956,
+              97952,
+              82730,
+              33991,
+              8231,
+              927
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "WV_FEMAR3_Southcentral_2018_D19"
+}

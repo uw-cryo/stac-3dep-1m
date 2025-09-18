@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x74y509_WA_ColumbiaValley_2018_D19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -119.90990921000848,
+          45.831710359056935
+        ],
+        [
+          -119.78119917151285,
+          45.82815354850068
+        ],
+        [
+          -119.77599554114877,
+          45.91812438857441
+        ],
+        [
+          -119.9049128304566,
+          45.921692317801366
+        ],
+        [
+          -119.90990921000848,
+          45.831710359056935
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -119.90990921000848,
+    45.82815354850068,
+    -119.77599554114877,
+    45.921692317801366
+  ],
+  "properties": {
+    "start_datetime": "2019-10-23T00:00:00Z",
+    "end_datetime": "2020-02-27T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            739994.0000000872,
+            5079993.999978437
+          ],
+          [
+            750006.0000000872,
+            5079993.999978437
+          ],
+          [
+            750006.0000000872,
+            5090005.999978437
+          ],
+          [
+            739994.0000000872,
+            5090005.999978437
+          ],
+          [
+            739994.0000000872,
+            5079993.999978437
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      739994.0000000872,
+      5079993.999978437,
+      750006.0000000872,
+      5090005.999978437
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      739994.0000000872,
+      0.0,
+      -1.0,
+      5090005.999978437,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WA_ColumbiaValley_2018_D19/TIFF/USGS_1M_10_x74y509_WA_ColumbiaValley_2018_D19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 139.53264629427332,
+            "minimum": 81.23999786376953,
+            "maximum": 255.49560546875,
+            "stddev": 40.829025591132115,
+            "valid_percent": 69.22883987426758
+          },
+          "histogram": {
+            "count": 11,
+            "min": 81.23999786376953,
+            "max": 255.49560546875,
+            "buckets": [
+              196475,
+              30770,
+              36348,
+              91129,
+              187252,
+              130900,
+              25404,
+              10574,
+              11142,
+              5923
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "WA_ColumbiaValley_2018_D19"
+}

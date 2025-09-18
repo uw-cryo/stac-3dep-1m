@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_18_x36y418_VA_UpperMiddleNeck_2018_D18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -76.58743485246607,
+          37.66645598435313
+        ],
+        [
+          -76.47395123372151,
+          37.66792903636255
+        ],
+        [
+          -76.47573967962923,
+          37.75814062768176
+        ],
+        [
+          -76.58936085965315,
+          37.756662805360996
+        ],
+        [
+          -76.58743485246607,
+          37.66645598435313
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -76.58936085965315,
+    37.66645598435313,
+    -76.47395123372151,
+    37.75814062768176
+  ],
+  "properties": {
+    "start_datetime": "2018-12-03T00:00:00Z",
+    "end_datetime": "2018-12-07T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            359993.9999806213,
+            4169994.0000419263
+          ],
+          [
+            370005.9999806213,
+            4169994.0000419263
+          ],
+          [
+            370005.9999806213,
+            4180006.0000419263
+          ],
+          [
+            359993.9999806213,
+            4180006.0000419263
+          ],
+          [
+            359993.9999806213,
+            4169994.0000419263
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      359993.9999806213,
+      4169994.0000419263,
+      370005.9999806213,
+      4180006.0000419263
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      359993.9999806213,
+      0.0,
+      -1.0,
+      4180006.0000419263,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/VA_UpperMiddleNeck_2018_D18/TIFF/USGS_1M_18_x36y418_VA_UpperMiddleNeck_2018_D18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 6.832828521728516,
+            "minimum": -0.10999999940395355,
+            "maximum": 31.307947158813477,
+            "stddev": 8.016606860823687,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.10999999940395355,
+            "max": 31.307947158813477,
+            "buckets": [
+              483931,
+              70703,
+              159846,
+              139768,
+              33947,
+              27092,
+              34627,
+              61089,
+              36792,
+              781
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "VA_UpperMiddleNeck_2018_D18"
+}

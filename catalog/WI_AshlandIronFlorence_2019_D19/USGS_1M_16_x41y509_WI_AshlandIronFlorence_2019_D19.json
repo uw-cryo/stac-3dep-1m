@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x41y509_WI_AshlandIronFlorence_2019_D19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -88.15962303325009,
+          45.867627997885
+        ],
+        [
+          -88.03065243565034,
+          45.86886416580362
+        ],
+        [
+          -88.03232178418222,
+          45.958962353091785
+        ],
+        [
+          -88.1615011675411,
+          45.95772231556439
+        ],
+        [
+          -88.15962303325009,
+          45.867627997885
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -88.1615011675411,
+    45.867627997885,
+    -88.03065243565034,
+    45.958962353091785
+  ],
+  "properties": {
+    "start_datetime": "2019-10-25T00:00:00Z",
+    "end_datetime": "2019-11-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            409993.9997113965,
+            5079994.0002703965
+          ],
+          [
+            420005.9997113965,
+            5079994.0002703965
+          ],
+          [
+            420005.9997113965,
+            5090006.0002703965
+          ],
+          [
+            409993.9997113965,
+            5090006.0002703965
+          ],
+          [
+            409993.9997113965,
+            5079994.0002703965
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      409993.9997113965,
+      5079994.0002703965,
+      420005.9997113965,
+      5090006.0002703965
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      409993.9997113965,
+      0.0,
+      -1.0,
+      5090006.0002703965,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_AshlandIronFlorence_2019_D19/TIFF/USGS_1M_16_x41y509_WI_AshlandIronFlorence_2019_D19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 360.2996833945157,
+            "minimum": 325.8435974121094,
+            "maximum": 405.0433044433594,
+            "stddev": 13.164454243254422,
+            "valid_percent": 45.3333854675293
+          },
+          "histogram": {
+            "count": 11,
+            "min": 325.8435974121094,
+            "max": 405.0433044433594,
+            "buckets": [
+              4681,
+              57111,
+              40047,
+              92058,
+              106900,
+              102993,
+              42507,
+              25660,
+              2727,
+              671
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "WI_AshlandIronFlorence_2019_D19"
+}

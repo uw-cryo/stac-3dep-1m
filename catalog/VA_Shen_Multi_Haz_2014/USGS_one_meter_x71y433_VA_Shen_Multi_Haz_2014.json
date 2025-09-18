@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x71y433_VA_Shen_Multi_Haz_2014",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -78.57491910086013,
+          39.00378042845328
+        ],
+        [
+          -78.45940074688913,
+          39.00132063942191
+        ],
+        [
+          -78.45616792224571,
+          39.09145261663467
+        ],
+        [
+          -78.57183290896872,
+          39.09392027684813
+        ],
+        [
+          -78.57491910086013,
+          39.00378042845328
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -78.57491910086013,
+    39.00132063942191,
+    -78.45616792224571,
+    39.09392027684813
+  ],
+  "properties": {
+    "start_datetime": "2014-01-18T00:00:00Z",
+    "end_datetime": "2014-05-23T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            709993.9999999974,
+            4319994.0
+          ],
+          [
+            720006.0000000028,
+            4319994.0
+          ],
+          [
+            720006.0000000028,
+            4330006.000000003
+          ],
+          [
+            709993.9999999974,
+            4330006.000000003
+          ],
+          [
+            709993.9999999974,
+            4319994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      709993.9999999974,
+      4319994.0,
+      720006.0000000028,
+      4330006.000000003
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.000000000000535,
+      0.0,
+      709993.9999999974,
+      0.0,
+      -1.000000000000279,
+      4330006.000000003,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/VA_Shen_Multi_Haz_2014/TIFF/USGS_one_meter_x71y433_VA_Shen_Multi_Haz_2014.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 574.3751713737319,
+            "minimum": 445.3077392578125,
+            "maximum": 639.7117309570312,
+            "stddev": 46.10931054157121,
+            "valid_percent": 0.3478050231933594
+          },
+          "histogram": {
+            "count": 11,
+            "min": 445.3077392578125,
+            "max": 639.7117309570312,
+            "buckets": [
+              99,
+              150,
+              178,
+              206,
+              200,
+              209,
+              472,
+              872,
+              913,
+              348
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "VA_Shen_Multi_Haz_2014"
+}

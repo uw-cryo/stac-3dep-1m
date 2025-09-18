@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_18_x26y416_VA_SouthamptonHenricoWMBG_2019_B19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -77.71379734001893,
+          37.46569156590784
+        ],
+        [
+          -77.60069863606367,
+          37.4682366404328
+        ],
+        [
+          -77.60383086776879,
+          37.558387957157066
+        ],
+        [
+          -77.71706538576373,
+          37.555834630955154
+        ],
+        [
+          -77.71379734001893,
+          37.46569156590784
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -77.71706538576373,
+    37.46569156590784,
+    -77.60069863606367,
+    37.558387957157066
+  ],
+  "properties": {
+    "start_datetime": "2019-12-08T00:00:00Z",
+    "end_datetime": "2020-01-02T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            259993.99995990284,
+            4149993.999958599
+          ],
+          [
+            270005.99995990284,
+            4149993.999958599
+          ],
+          [
+            270005.99995990284,
+            4160005.999958599
+          ],
+          [
+            259993.99995990284,
+            4160005.999958599
+          ],
+          [
+            259993.99995990284,
+            4149993.999958599
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      259993.99995990284,
+      4149993.999958599,
+      270005.99995990284,
+      4160005.999958599
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      259993.99995990284,
+      0.0,
+      -1.0,
+      4160005.999958599,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/VA_SouthamptonHenricoWMBG_2019_B19/TIFF/USGS_1M_18_x26y416_VA_SouthamptonHenricoWMBG_2019_B19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 44.23345955987425,
+            "minimum": 34.61000061035156,
+            "maximum": 63.34428787231445,
+            "stddev": 7.018334946254673,
+            "valid_percent": 2.335834503173828
+          },
+          "histogram": {
+            "count": 11,
+            "min": 34.61000061035156,
+            "max": 63.34428787231445,
+            "buckets": [
+              4995,
+              3984,
+              2353,
+              3184,
+              3338,
+              2904,
+              1907,
+              956,
+              492,
+              380
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "VA_SouthamptonHenricoWMBG_2019_B19"
+}

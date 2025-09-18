@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x41y500_WI_Oshkosh_3Rivers_2018_D19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -88.1431340811525,
+          45.057684284134176
+        ],
+        [
+          -88.01599652386615,
+          45.05888621399894
+        ],
+        [
+          -88.01759629258736,
+          45.14899764564431
+        ],
+        [
+          -88.14493393765885,
+          45.14779195470451
+        ],
+        [
+          -88.1431340811525,
+          45.057684284134176
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -88.14493393765885,
+    45.057684284134176,
+    -88.01599652386615,
+    45.14899764564431
+  ],
+  "properties": {
+    "start_datetime": "2019-04-19T00:00:00Z",
+    "end_datetime": "2019-05-21T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            409993.9996626718,
+            4989994.000346601
+          ],
+          [
+            420005.9996626718,
+            4989994.000346601
+          ],
+          [
+            420005.9996626718,
+            5000006.000346601
+          ],
+          [
+            409993.9996626718,
+            5000006.000346601
+          ],
+          [
+            409993.9996626718,
+            4989994.000346601
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      409993.9996626718,
+      4989994.000346601,
+      420005.9996626718,
+      5000006.000346601
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      409993.9996626718,
+      0.0,
+      -1.0,
+      5000006.000346601,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_Oshkosh_3Rivers_2018_D19/TIFF/USGS_1M_16_x41y500_WI_Oshkosh_3Rivers_2018_D19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 235.43051993736242,
+            "minimum": 209.09263610839844,
+            "maximum": 268.5312805175781,
+            "stddev": 12.44365574049965,
+            "valid_percent": 16.808700561523438
+          },
+          "histogram": {
+            "count": 11,
+            "min": 209.09263610839844,
+            "max": 268.5312805175781,
+            "buckets": [
+              2675,
+              11053,
+              37828,
+              40103,
+              24262,
+              17719,
+              14548,
+              13600,
+              12960,
+              1504
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "WI_Oshkosh_3Rivers_2018_D19"
+}

@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x27y479_WI_4CountyStatewide_2017_A17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -89.82811969331213,
+          43.13774200293018
+        ],
+        [
+          -89.70515108873609,
+          43.140717587293274
+        ],
+        [
+          -89.70913351113336,
+          43.23077281122372
+        ],
+        [
+          -89.83228256861256,
+          43.227787902820104
+        ],
+        [
+          -89.82811969331213,
+          43.13774200293018
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -89.83228256861256,
+    43.13774200293018,
+    -89.70515108873609,
+    43.23077281122372
+  ],
+  "properties": {
+    "start_datetime": "2017-03-10T00:00:00Z",
+    "end_datetime": "2017-03-11T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            269993.9997022215,
+            4779994.000329487
+          ],
+          [
+            280005.9997022215,
+            4779994.000329487
+          ],
+          [
+            280005.9997022215,
+            4790006.000329487
+          ],
+          [
+            269993.9997022215,
+            4790006.000329487
+          ],
+          [
+            269993.9997022215,
+            4779994.000329487
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      269993.9997022215,
+      4779994.000329487,
+      280005.9997022215,
+      4790006.000329487
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      269993.9997022215,
+      0.0,
+      -1.0,
+      4790006.000329487,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_4CountyStatewide_2017_A17/TIFF/USGS_1M_16_x27y479_WI_4CountyStatewide_2017_A17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 254.4471930614743,
+            "minimum": 220.02122497558594,
+            "maximum": 343.20355224609375,
+            "stddev": 28.564885972643317,
+            "valid_percent": 99.09324645996094
+          },
+          "histogram": {
+            "count": 11,
+            "min": 220.02122497558594,
+            "max": 343.20355224609375,
+            "buckets": [
+              285368,
+              185979,
+              200988,
+              100338,
+              70976,
+              63951,
+              47803,
+              46285,
+              29773,
+              7607
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "WI_4CountyStatewide_2017_A17"
+}

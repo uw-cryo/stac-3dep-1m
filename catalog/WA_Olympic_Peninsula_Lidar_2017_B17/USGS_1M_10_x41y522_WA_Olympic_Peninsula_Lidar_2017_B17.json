@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x41y522_WA_Olympic_Peninsula_Lidar_2017_B17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -124.1847224556855,
+          47.037334624427984
+        ],
+        [
+          -124.05296167957766,
+          47.03862203007284
+        ],
+        [
+          -124.05473828035055,
+          47.12870107084581
+        ],
+        [
+          -124.18672124872724,
+          47.127409627314975
+        ],
+        [
+          -124.1847224556855,
+          47.037334624427984
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -124.18672124872724,
+    47.037334624427984,
+    -124.05296167957766,
+    47.12870107084581
+  ],
+  "properties": {
+    "start_datetime": "2017-09-14T00:00:00Z",
+    "end_datetime": "2019-04-25T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            409993.9999757954,
+            5209993.999975308
+          ],
+          [
+            420005.9999757954,
+            5209993.999975308
+          ],
+          [
+            420005.9999757954,
+            5220005.999975308
+          ],
+          [
+            409993.9999757954,
+            5220005.999975308
+          ],
+          [
+            409993.9999757954,
+            5209993.999975308
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      409993.9999757954,
+      5209993.999975308,
+      420005.9999757954,
+      5220005.999975308
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      409993.9999757954,
+      0.0,
+      -1.0,
+      5220005.999975308,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WA_Olympic_Peninsula_Lidar_2017_B17/TIFF/USGS_1M_10_x41y522_WA_Olympic_Peninsula_Lidar_2017_B17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 8.887363873565898,
+            "minimum": 1.4478057622909546,
+            "maximum": 32.35413360595703,
+            "stddev": 6.266255706521853,
+            "valid_percent": 14.729690551757812
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1.4478057622909546,
+            "max": 32.35413360595703,
+            "buckets": [
+              43657,
+              45552,
+              14845,
+              16070,
+              13412,
+              9046,
+              6913,
+              3749,
+              1025,
+              183
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "WA_Olympic_Peninsula_Lidar_2017_B17"
+}
