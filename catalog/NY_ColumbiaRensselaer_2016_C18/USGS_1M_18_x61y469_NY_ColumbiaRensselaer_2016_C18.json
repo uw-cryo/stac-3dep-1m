@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_18_x61y469_NY_ColumbiaRensselaer_2016_C18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -73.66632919166919,
+          42.26440007954675
+        ],
+        [
+          -73.54497064749533,
+          42.26292440039054
+        ],
+        [
+          -73.5428928357698,
+          42.353065125469165
+        ],
+        [
+          -73.6644245512326,
+          42.35454544478212
+        ],
+        [
+          -73.66632919166919,
+          42.26440007954675
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -73.66632919166919,
+    42.26292440039054,
+    -73.5428928357698,
+    42.35454544478212
+  ],
+  "properties": {
+    "start_datetime": "2015-12-20T00:00:00Z",
+    "end_datetime": "2016-03-21T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            609994.0000156582,
+            4679994.000044424
+          ],
+          [
+            620006.0000156582,
+            4679994.000044424
+          ],
+          [
+            620006.0000156582,
+            4690006.000044424
+          ],
+          [
+            609994.0000156582,
+            4690006.000044424
+          ],
+          [
+            609994.0000156582,
+            4679994.000044424
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      609994.0000156582,
+      4679994.000044424,
+      620006.0000156582,
+      4690006.000044424
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      609994.0000156582,
+      0.0,
+      -1.0,
+      4690006.000044424,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NY_ColumbiaRensselaer_2016_C18/TIFF/USGS_1M_18_x61y469_NY_ColumbiaRensselaer_2016_C18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 192.3971405029297,
+            "minimum": 77.17041015625,
+            "maximum": 403.7548522949219,
+            "stddev": 80.27672112290779,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 77.17041015625,
+            "max": 403.7548522949219,
+            "buckets": [
+              180526,
+              231048,
+              83408,
+              114788,
+              127172,
+              107731,
+              89280,
+              64459,
+              39989,
+              10175
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NY_ColumbiaRensselaer_2016_C18"
+}

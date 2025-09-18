@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_19_x34y499_NH_Umbagog_LiDAR_2016_D16",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -71.02856329914451,
+          44.95536690939385
+        ],
+        [
+          -70.90170300163304,
+          44.957550640614265
+        ],
+        [
+          -70.90468643085117,
+          45.04762809285593
+        ],
+        [
+          -71.03174542622553,
+          45.04543753105285
+        ],
+        [
+          -71.02856329914451,
+          44.95536690939385
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -71.03174542622553,
+    44.95536690939385,
+    -70.90170300163304,
+    45.04762809285593
+  ],
+  "properties": {
+    "start_datetime": "2016-04-06T00:00:00Z",
+    "end_datetime": "2018-05-24T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            339994.0002624701,
+            4979993.999593404
+          ],
+          [
+            350006.0002624701,
+            4979993.999593404
+          ],
+          [
+            350006.0002624701,
+            4990005.999593404
+          ],
+          [
+            339994.0002624701,
+            4990005.999593404
+          ],
+          [
+            339994.0002624701,
+            4979993.999593404
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      339994.0002624701,
+      4979993.999593404,
+      350006.0002624701,
+      4990005.999593404
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      339994.0002624701,
+      0.0,
+      -1.0,
+      4990005.999593404,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NH_Umbagog_LiDAR_2016_D16/TIFF/USGS_1M_19_x34y499_NH_Umbagog_LiDAR_2016_D16.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 595.9678344726562,
+            "minimum": 411.17718505859375,
+            "maximum": 1052.6729736328125,
+            "stddev": 112.41864789985554,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 411.17718505859375,
+            "max": 1052.6729736328125,
+            "buckets": [
+              194130,
+              197772,
+              209244,
+              177783,
+              137749,
+              73657,
+              37265,
+              13301,
+              5577,
+              2098
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NH_Umbagog_LiDAR_2016_D16"
+}

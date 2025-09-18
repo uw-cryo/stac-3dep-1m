@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_18_x56y439_NJ_South_Jersey_Lidar_2018_B18_FEMA",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -74.30155181837421,
+          39.567547958072154
+        ],
+        [
+          -74.18500272062944,
+          39.56678903495629
+        ],
+        [
+          -74.18394428508508,
+          39.656992074166084
+        ],
+        [
+          -74.30064471238217,
+          39.65775341790717
+        ],
+        [
+          -74.30155181837421,
+          39.567547958072154
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -74.30155181837421,
+    39.56678903495629,
+    -74.18394428508508,
+    39.65775341790717
+  ],
+  "properties": {
+    "start_datetime": "2019-03-08T00:00:00Z",
+    "end_datetime": "2019-03-08T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            559993.9999785759,
+            4379994.000036832
+          ],
+          [
+            570005.9999785759,
+            4379994.000036832
+          ],
+          [
+            570005.9999785759,
+            4390006.000036832
+          ],
+          [
+            559993.9999785759,
+            4390006.000036832
+          ],
+          [
+            559993.9999785759,
+            4379994.000036832
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      559993.9999785759,
+      4379994.000036832,
+      570005.9999785759,
+      4390006.000036832
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      559993.9999785759,
+      0.0,
+      -1.0,
+      4390006.000036832,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NJ_South_Jersey_Lidar_2018_B18_FEMA/TIFF/USGS_1M_18_x56y439_NJ_South_Jersey_Lidar_2018_B18_FEMA.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 0.10889154835516879,
+            "minimum": -1.162204623222351,
+            "maximum": 16.51712417602539,
+            "stddev": 1.4888388849330503,
+            "valid_percent": 86.09170913696289
+          },
+          "histogram": {
+            "count": 11,
+            "min": -1.162204623222351,
+            "max": 16.51712417602539,
+            "buckets": [
+              783867,
+              82461,
+              16582,
+              6989,
+              4234,
+              1931,
+              2359,
+              2333,
+              1404,
+              577
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NJ_South_Jersey_Lidar_2018_B18_FEMA"
+}

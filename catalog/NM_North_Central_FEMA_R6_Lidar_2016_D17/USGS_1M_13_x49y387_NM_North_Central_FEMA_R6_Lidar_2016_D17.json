@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x49y387_NM_North_Central_FEMA_R6_Lidar_2016_D17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -105.10949619850072,
+          34.882280373104194
+        ],
+        [
+          -104.99993434198399,
+          34.88232968060795
+        ],
+        [
+          -104.99993427002158,
+          34.97261338687709
+        ],
+        [
+          -105.10961620807184,
+          34.97256391455908
+        ],
+        [
+          -105.10949619850072,
+          34.882280373104194
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -105.10961620807184,
+    34.882280373104194,
+    -104.99993427002158,
+    34.97261338687709
+  ],
+  "properties": {
+    "start_datetime": "2016-10-02T00:00:00Z",
+    "end_datetime": "2017-10-25T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            489993.9999670067,
+            3859994.000014911
+          ],
+          [
+            500005.9999670067,
+            3859994.000014911
+          ],
+          [
+            500005.9999670067,
+            3870006.000014911
+          ],
+          [
+            489993.9999670067,
+            3870006.000014911
+          ],
+          [
+            489993.9999670067,
+            3859994.000014911
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      489993.9999670067,
+      3859994.000014911,
+      500005.9999670067,
+      3870006.000014911
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      489993.9999670067,
+      0.0,
+      -1.0,
+      3870006.000014911,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NM_North_Central_FEMA_R6_Lidar_2016_D17/TIFF/USGS_1M_13_x49y387_NM_North_Central_FEMA_R6_Lidar_2016_D17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1700.0211120803087,
+            "minimum": 1633.66845703125,
+            "maximum": 1765.9071044921875,
+            "stddev": 27.178068561980638,
+            "valid_percent": 51.604461669921875
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1633.66845703125,
+            "max": 1765.9071044921875,
+            "buckets": [
+              21365,
+              44015,
+              36998,
+              35524,
+              73586,
+              177231,
+              80163,
+              32561,
+              25910,
+              13759
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NM_North_Central_FEMA_R6_Lidar_2016_D17"
+}

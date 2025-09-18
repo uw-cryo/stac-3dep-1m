@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_14_x29y472_NE_CherryBrownCuster_Partial_2020_D21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -101.55635842427735,
+          42.513814173098275
+        ],
+        [
+          -101.43459413930162,
+          42.51646724408249
+        ],
+        [
+          -101.43810111159549,
+          42.60655147536739
+        ],
+        [
+          -101.56004033935498,
+          42.603890074516364
+        ],
+        [
+          -101.55635842427735,
+          42.513814173098275
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -101.56004033935498,
+    42.513814173098275,
+    -101.43459413930162,
+    42.60655147536739
+  ],
+  "properties": {
+    "start_datetime": "2021-03-19T00:00:00Z",
+    "end_datetime": "2021-04-14T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            289993.99998554634,
+            4709994.000026099
+          ],
+          [
+            300005.99998554634,
+            4709994.000026099
+          ],
+          [
+            300005.99998554634,
+            4720006.000026099
+          ],
+          [
+            289993.99998554634,
+            4720006.000026099
+          ],
+          [
+            289993.99998554634,
+            4709994.000026099
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      289993.99998554634,
+      4709994.000026099,
+      300005.99998554634,
+      4720006.000026099
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      289993.99998554634,
+      0.0,
+      -1.0,
+      4720006.000026099,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NE_CherryBrownCuster_Partial_2020_D21/TIFF/USGS_1M_14_x29y472_NE_CherryBrownCuster_Partial_2020_D21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 1049.692138671875,
+            "minimum": 974.7461547851562,
+            "maximum": 1122.58837890625,
+            "stddev": 17.701055969120684,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 974.7461547851562,
+            "max": 1122.58837890625,
+            "buckets": [
+              2252,
+              5374,
+              16614,
+              151096,
+              371272,
+              289276,
+              143577,
+              51919,
+              14743,
+              2453
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NE_CherryBrownCuster_Partial_2020_D21"
+}

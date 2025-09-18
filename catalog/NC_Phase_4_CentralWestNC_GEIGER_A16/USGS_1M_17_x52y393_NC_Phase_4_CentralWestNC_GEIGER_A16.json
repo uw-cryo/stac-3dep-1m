@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_17_x52y393_NC_Phase_4_CentralWestNC_GEIGER_A16",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -80.7797519441151,
+          35.423161664988115
+        ],
+        [
+          -80.66946404519246,
+          35.422910166176145
+        ],
+        [
+          -80.66909445068309,
+          35.513184288933644
+        ],
+        [
+          -80.7795056668892,
+          35.513436622606534
+        ],
+        [
+          -80.7797519441151,
+          35.423161664988115
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -80.7797519441151,
+    35.422910166176145,
+    -80.66909445068309,
+    35.513436622606534
+  ],
+  "properties": {
+    "start_datetime": "2016-02-27T00:00:00Z",
+    "end_datetime": "2017-10-30T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            519993.99995707616,
+            3919994.000010164
+          ],
+          [
+            530005.9999570762,
+            3919994.000010164
+          ],
+          [
+            530005.9999570762,
+            3930006.000010164
+          ],
+          [
+            519993.99995707616,
+            3930006.000010164
+          ],
+          [
+            519993.99995707616,
+            3919994.000010164
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      519993.99995707616,
+      3919994.000010164,
+      530005.9999570762,
+      3930006.000010164
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      519993.99995707616,
+      0.0,
+      -1.0,
+      3930006.000010164,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NC_Phase_4_CentralWestNC_GEIGER_A16/TIFF/USGS_1M_17_x52y393_NC_Phase_4_CentralWestNC_GEIGER_A16.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 218.38806157269738,
+            "minimum": 181.871826171875,
+            "maximum": 273.24322509765625,
+            "stddev": 18.097769890157874,
+            "valid_percent": 97.36747741699219
+          },
+          "histogram": {
+            "count": 11,
+            "min": 181.871826171875,
+            "max": 273.24322509765625,
+            "buckets": [
+              32133,
+              144624,
+              190397,
+              195138,
+              158145,
+              122863,
+              83720,
+              55646,
+              32885,
+              5421
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NC_Phase_4_CentralWestNC_GEIGER_A16"
+}

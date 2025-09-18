@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x53y467_NY_Sandy_Ul_Du_Or_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -74.63731115977068,
+          42.09145423333072
+        ],
+        [
+          -74.51624924377484,
+          42.09100776022426
+        ],
+        [
+          -74.51556252068829,
+          42.18117714658092
+        ],
+        [
+          -74.63679628306866,
+          42.18162502484349
+        ],
+        [
+          -74.63731115977068,
+          42.09145423333072
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -74.63731115977068,
+    42.09100776022426,
+    -74.51556252068829,
+    42.18162502484349
+  ],
+  "properties": {
+    "start_datetime": "2013-11-20T00:00:00Z",
+    "end_datetime": "2014-06-01T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            529993.9999999974,
+            4659993.999999997
+          ],
+          [
+            540006.0000000028,
+            4659993.999999997
+          ],
+          [
+            540006.0000000028,
+            4670006.000000003
+          ],
+          [
+            529993.9999999974,
+            4670006.000000003
+          ],
+          [
+            529993.9999999974,
+            4659993.999999997
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      529993.9999999974,
+      4659993.999999997,
+      540006.0000000028,
+      4670006.000000003
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.000000000000535,
+      0.0,
+      529993.9999999974,
+      0.0,
+      -1.0000000000005582,
+      4670006.000000003,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NY_Sandy_Ul_Du_Or_2013/TIFF/USGS_one_meter_x53y467_NY_Sandy_Ul_Du_Or_2013.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 715.9222230969062,
+            "minimum": 477.0452880859375,
+            "maximum": 1055.4637451171875,
+            "stddev": 135.26242053092162,
+            "valid_percent": 26.651954650878906
+          },
+          "histogram": {
+            "count": 11,
+            "min": 477.0452880859375,
+            "max": 1055.4637451171875,
+            "buckets": [
+              22233,
+              36101,
+              44368,
+              42016,
+              38270,
+              34383,
+              24347,
+              17728,
+              11612,
+              8408
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NY_Sandy_Ul_Du_Or_2013"
+}
