@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_19_x39y503_ME_Western_ME_LiDAR_2016_B16",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -70.40369960691591,
+          45.32482769810153
+        ],
+        [
+          -70.2759778167959,
+          45.32632621283182
+        ],
+        [
+          -70.27800571322105,
+          45.416425202178836
+        ],
+        [
+          -70.40593033462676,
+          45.414921998607426
+        ],
+        [
+          -70.40369960691591,
+          45.32482769810153
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -70.40593033462676,
+    45.32482769810153,
+    -70.2759778167959,
+    45.416425202178836
+  ],
+  "properties": {
+    "start_datetime": "2016-04-05T00:00:00Z",
+    "end_datetime": "2016-05-21T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            389994.00030726125,
+            5019993.999644258
+          ],
+          [
+            400006.00030726125,
+            5019993.999644258
+          ],
+          [
+            400006.00030726125,
+            5030005.999644258
+          ],
+          [
+            389994.00030726125,
+            5030005.999644258
+          ],
+          [
+            389994.00030726125,
+            5019993.999644258
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      389994.00030726125,
+      5019993.999644258,
+      400006.00030726125,
+      5030005.999644258
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      389994.00030726125,
+      0.0,
+      -1.0,
+      5030005.999644258,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/ME_Western_ME_LiDAR_2016_B16/TIFF/USGS_1M_19_x39y503_ME_Western_ME_LiDAR_2016_B16.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 467.6954040527344,
+            "minimum": 330.7999572753906,
+            "maximum": 724.7642822265625,
+            "stddev": 77.20126218767433,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 330.7999572753906,
+            "max": 724.7642822265625,
+            "buckets": [
+              131279,
+              122449,
+              190732,
+              189772,
+              165254,
+              143646,
+              68924,
+              27907,
+              7172,
+              1441
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "ME_Western_ME_LiDAR_2016_B16"
+}

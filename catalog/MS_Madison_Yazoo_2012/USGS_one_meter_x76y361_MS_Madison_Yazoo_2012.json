@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x76y361_MS_Madison_Yazoo_2012",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -90.23256365432604,
+          32.50684665700604
+        ],
+        [
+          -90.126106958452,
+          32.50445819153284
+        ],
+        [
+          -90.1232288761884,
+          32.59466262868471
+        ],
+        [
+          -90.22979184518756,
+          32.597059354295304
+        ],
+        [
+          -90.23256365432604,
+          32.50684665700604
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -90.23256365432604,
+    32.50445819153284,
+    -90.1232288761884,
+    32.597059354295304
+  ],
+  "properties": {
+    "start_datetime": "2012-02-19T00:00:00Z",
+    "end_datetime": "2012-02-24T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            759993.9999999974,
+            3599994.0002999995
+          ],
+          [
+            770006.0,
+            3599994.0002999995
+          ],
+          [
+            770006.0,
+            3610006.0003000023
+          ],
+          [
+            759993.9999999974,
+            3610006.0003000023
+          ],
+          [
+            759993.9999999974,
+            3599994.0002999995
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      759993.9999999974,
+      3599994.0002999995,
+      770006.0,
+      3610006.0003000023
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000002558,
+      0.0,
+      759993.9999999974,
+      0.0,
+      -1.000000000000279,
+      3610006.0003000023,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MS_Madison_Yazoo_2012/TIFF/USGS_one_meter_x76y361_MS_Madison_Yazoo_2012.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 87.95110321044922,
+            "minimum": 54.1154670715332,
+            "maximum": 140.75514221191406,
+            "stddev": 11.675411462432985,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 54.1154670715332,
+            "max": 140.75514221191406,
+            "buckets": [
+              3708,
+              52536,
+              225812,
+              326926,
+              209338,
+              155231,
+              55601,
+              13820,
+              4693,
+              911
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MS_Madison_Yazoo_2012"
+}

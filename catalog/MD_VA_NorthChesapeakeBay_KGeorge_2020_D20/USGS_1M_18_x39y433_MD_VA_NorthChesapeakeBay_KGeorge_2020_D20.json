@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_18_x39y433_MD_VA_NorthChesapeakeBay_KGeorge_2020_D20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -76.27077117847016,
+          39.02207112973906
+        ],
+        [
+          -76.1551372226498,
+          39.023273623962304
+        ],
+        [
+          -76.15660862738994,
+          39.11347586868517
+        ],
+        [
+          -76.27238978444075,
+          39.112269524374646
+        ],
+        [
+          -76.27077117847016,
+          39.02207112973906
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -76.27238978444075,
+    39.02207112973906,
+    -76.1551372226498,
+    39.11347586868517
+  ],
+  "properties": {
+    "start_datetime": "2020-12-06T00:00:00Z",
+    "end_datetime": "2020-12-12T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            389994.00001816574,
+            4319994.000015749
+          ],
+          [
+            400006.00001816574,
+            4319994.000015749
+          ],
+          [
+            400006.00001816574,
+            4330006.000015749
+          ],
+          [
+            389994.00001816574,
+            4330006.000015749
+          ],
+          [
+            389994.00001816574,
+            4319994.000015749
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      389994.00001816574,
+      4319994.000015749,
+      400006.00001816574,
+      4330006.000015749
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      389994.00001816574,
+      0.0,
+      -1.0,
+      4330006.000015749,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MD_VA_NorthChesapeakeBay_KGeorge_2020_D20/TIFF/USGS_1M_18_x39y433_MD_VA_NorthChesapeakeBay_KGeorge_2020_D20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 1.6945528782306671,
+            "minimum": -0.07999999821186066,
+            "maximum": 8.254698753356934,
+            "stddev": 1.9494131748554846,
+            "valid_percent": 9.335517883300781
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.07999999821186066,
+            "max": 8.254698753356934,
+            "buckets": [
+              45460,
+              9937,
+              12623,
+              10446,
+              5718,
+              4406,
+              3803,
+              3574,
+              1802,
+              121
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MD_VA_NorthChesapeakeBay_KGeorge_2020_D20"
+}

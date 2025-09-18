@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x56y536_MT_HighlineCompletionWibaux_2021_D21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -104.19103344943818,
+          48.300296089547665
+        ],
+        [
+          -104.05604807566213,
+          48.299267348678995
+        ],
+        [
+          -104.05438345570599,
+          48.389329504169304
+        ],
+        [
+          -104.189606801837,
+          48.390361484891216
+        ],
+        [
+          -104.19103344943818,
+          48.300296089547665
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -104.19103344943818,
+    48.299267348678995,
+    -104.05438345570599,
+    48.390361484891216
+  ],
+  "properties": {
+    "start_datetime": "2021-09-08T00:00:00Z",
+    "end_datetime": "2021-10-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            559993.9999903457,
+            5349994.000041121
+          ],
+          [
+            570005.9999903457,
+            5349994.000041121
+          ],
+          [
+            570005.9999903457,
+            5360006.000041121
+          ],
+          [
+            559993.9999903457,
+            5360006.000041121
+          ],
+          [
+            559993.9999903457,
+            5349994.000041121
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      559993.9999903457,
+      5349994.000041121,
+      570005.9999903457,
+      5360006.000041121
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      559993.9999903457,
+      0.0,
+      -1.0,
+      5360006.000041121,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MT_HighlineCompletionWibaux_2021_D21/TIFF/USGS_1M_13_x56y536_MT_HighlineCompletionWibaux_2021_D21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 693.8419663616411,
+            "minimum": 645.2131958007812,
+            "maximum": 755.12060546875,
+            "stddev": 22.04545622568225,
+            "valid_percent": 99.59068298339844
+          },
+          "histogram": {
+            "count": 11,
+            "min": 645.2131958007812,
+            "max": 755.12060546875,
+            "buckets": [
+              27863,
+              124629,
+              133477,
+              147664,
+              206074,
+              155443,
+              121785,
+              94389,
+              29503,
+              3457
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MT_HighlineCompletionWibaux_2021_D21"
+}

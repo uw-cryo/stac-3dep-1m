@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x36y490_ME_NRCS_Lot4_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -70.75067478981119,
+          44.149736037185896
+        ],
+        [
+          -70.62553376568916,
+          44.15158567301071
+        ],
+        [
+          -70.62801336749273,
+          44.2416893032476
+        ],
+        [
+          -70.75334505300539,
+          44.239833877833576
+        ],
+        [
+          -70.75067478981119,
+          44.149736037185896
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -70.75334505300539,
+    44.149736037185896,
+    -70.62553376568916,
+    44.2416893032476
+  ],
+  "properties": {
+    "start_datetime": "2013-11-05T00:00:00Z",
+    "end_datetime": "2013-12-04T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            359994.0002999979,
+            4889993.999599998
+          ],
+          [
+            370006.0003000031,
+            4889993.999599998
+          ],
+          [
+            370006.0003000031,
+            4900005.9996000035
+          ],
+          [
+            359994.0002999979,
+            4900005.9996000035
+          ],
+          [
+            359994.0002999979,
+            4889993.999599998
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      359994.0002999979,
+      4889993.999599998,
+      370006.0003000031,
+      4900005.9996000035
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000005174,
+      0.0,
+      359994.0002999979,
+      0.0,
+      -1.0000000000005582,
+      4900005.9996000035,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/ME_NRCS_Lot4_2013/TIFF/USGS_one_meter_x36y490_ME_NRCS_Lot4_2013.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 158.91374788045783,
+            "minimum": 130.60202026367188,
+            "maximum": 211.45130920410156,
+            "stddev": 18.15957467202936,
+            "valid_percent": 3.59954833984375
+          },
+          "histogram": {
+            "count": 11,
+            "min": 130.60202026367188,
+            "max": 211.45130920410156,
+            "buckets": [
+              8024,
+              4124,
+              4651,
+              4548,
+              5038,
+              4655,
+              4530,
+              1939,
+              165,
+              70
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "ME_NRCS_Lot4_2013"
+}
