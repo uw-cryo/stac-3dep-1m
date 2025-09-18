@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x67y392_AR_NRCS_Cache_2011",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -91.12991599690582,
+          35.318728881869625
+        ],
+        [
+          -91.01983217085596,
+          35.31697561150398
+        ],
+        [
+          -91.01762708075718,
+          35.407198699524024
+        ],
+        [
+          -91.12783331516735,
+          35.40895779434331
+        ],
+        [
+          -91.12991599690582,
+          35.318728881869625
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -91.12991599690582,
+    35.31697561150398,
+    -91.01762708075718,
+    35.40895779434331
+  ],
+  "properties": {
+    "start_datetime": "2011-04-07T00:00:00Z",
+    "end_datetime": "2011-04-11T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            669993.9999999972,
+            3909994.0002999967
+          ],
+          [
+            680006.0,
+            3909994.0002999967
+          ],
+          [
+            680006.0,
+            3920006.0002999995
+          ],
+          [
+            669993.9999999972,
+            3920006.0002999995
+          ],
+          [
+            669993.9999999972,
+            3909994.0002999967
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      669993.9999999972,
+      3909994.0002999967,
+      680006.0,
+      3920006.0002999995
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.000000000000279,
+      0.0,
+      669993.9999999972,
+      0.0,
+      -1.000000000000279,
+      3920006.0002999995,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AR_NRCS_Cache_2011/TIFF/USGS_one_meter_x67y392_AR_NRCS_Cache_2011.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 66.07848493624616,
+            "minimum": 61.88003921508789,
+            "maximum": 70.74710845947266,
+            "stddev": 1.55691093819534,
+            "valid_percent": 97.47085571289062
+          },
+          "histogram": {
+            "count": 11,
+            "min": 61.88003921508789,
+            "max": 70.74710845947266,
+            "buckets": [
+              3968,
+              45120,
+              150623,
+              170819,
+              188464,
+              219089,
+              123472,
+              86830,
+              30893,
+              2778
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AR_NRCS_Cache_2011"
+}

@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x59y365_AZ_BlackRock_Goodwin_2021_D21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -110.0377931126907,
+          32.89443033907415
+        ],
+        [
+          -109.93076113172815,
+          32.89356087401904
+        ],
+        [
+          -109.92967385287363,
+          32.98385799487054
+        ],
+        [
+          -110.03681462836639,
+          32.984730451055
+        ],
+        [
+          -110.0377931126907,
+          32.89443033907415
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -110.0377931126907,
+    32.89356087401904,
+    -109.92967385287363,
+    32.984730451055
+  ],
+  "properties": {
+    "start_datetime": "2021-10-04T00:00:00Z",
+    "end_datetime": "2021-10-15T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            589993.9999981467,
+            3639994.0000304133
+          ],
+          [
+            600005.9999981467,
+            3639994.0000304133
+          ],
+          [
+            600005.9999981467,
+            3650006.0000304133
+          ],
+          [
+            589993.9999981467,
+            3650006.0000304133
+          ],
+          [
+            589993.9999981467,
+            3639994.0000304133
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      589993.9999981467,
+      3639994.0000304133,
+      600005.9999981467,
+      3650006.0000304133
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      589993.9999981467,
+      0.0,
+      -1.0,
+      3650006.0000304133,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AZ_BlackRock_Goodwin_2021_D21/TIFF/USGS_1M_12_x59y365_AZ_BlackRock_Goodwin_2021_D21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 920.8970947265625,
+            "minimum": 834.0701904296875,
+            "maximum": 1047.3956298828125,
+            "stddev": 45.98879444749671,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 834.0701904296875,
+            "max": 1047.3956298828125,
+            "buckets": [
+              85587,
+              100794,
+              165845,
+              194796,
+              168843,
+              121950,
+              92038,
+              69332,
+              38562,
+              10829
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AZ_BlackRock_Goodwin_2021_D21"
+}

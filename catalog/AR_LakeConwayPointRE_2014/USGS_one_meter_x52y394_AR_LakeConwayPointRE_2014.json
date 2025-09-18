@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x52y394_AR_LakeConwayPointRE_2014",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -92.77950596224314,
+          35.51332842592088
+        ],
+        [
+          -92.66909489416524,
+          35.51307609324926
+        ],
+        [
+          -92.66872365454405,
+          35.60334886058224
+        ],
+        [
+          -92.77925858879576,
+          35.60360202995182
+        ],
+        [
+          -92.77950596224314,
+          35.51332842592088
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -92.77950596224314,
+    35.51307609324926,
+    -92.66872365454405,
+    35.60360202995182
+  ],
+  "properties": {
+    "start_datetime": "2012-01-13T00:00:00Z",
+    "end_datetime": "2012-05-10T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            519993.9999999974,
+            3929994.0002999995
+          ],
+          [
+            530006.0,
+            3929994.0002999995
+          ],
+          [
+            530006.0,
+            3940006.0003000023
+          ],
+          [
+            519993.9999999974,
+            3940006.0003000023
+          ],
+          [
+            519993.9999999974,
+            3929994.0002999995
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      519993.9999999974,
+      3929994.0002999995,
+      530006.0,
+      3940006.0003000023
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000002616,
+      0.0,
+      519993.9999999974,
+      0.0,
+      -1.000000000000279,
+      3940006.0003000023,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AR_LakeConwayPointRE_2014/TIFF/USGS_one_meter_x52y394_AR_LakeConwayPointRE_2014.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 328.8543379076497,
+            "minimum": 220.94447326660156,
+            "maximum": 465.3248596191406,
+            "stddev": 57.6559109562536,
+            "valid_percent": 21.487808227539062
+          },
+          "histogram": {
+            "count": 11,
+            "min": 220.94447326660156,
+            "max": 465.3248596191406,
+            "buckets": [
+              9008,
+              31106,
+              41463,
+              26566,
+              27669,
+              22932,
+              21648,
+              28533,
+              13468,
+              2923
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AR_LakeConwayPointRE_2014"
+}

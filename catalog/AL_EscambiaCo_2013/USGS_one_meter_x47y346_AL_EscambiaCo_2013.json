@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x47y346_AL_EscambiaCo_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -87.31491493513342,
+          31.18361433037336
+        ],
+        [
+          -87.2098390875181,
+          31.18382853092982
+        ],
+        [
+          -87.21003879714085,
+          31.27416524065041
+        ],
+        [
+          -87.31521464496544,
+          31.27395028099038
+        ],
+        [
+          -87.31491493513342,
+          31.18361433037336
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -87.31521464496544,
+    31.18361433037336,
+    -87.2098390875181,
+    31.27416524065041
+  ],
+  "properties": {
+    "start_datetime": "2013-01-22T00:00:00Z",
+    "end_datetime": "2013-01-31T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            469993.99969999684,
+            3449994.0002999967
+          ],
+          [
+            480005.9997000024,
+            3449994.0002999967
+          ],
+          [
+            480005.9997000024,
+            3460006.0003000023
+          ],
+          [
+            469993.99969999684,
+            3460006.0003000023
+          ],
+          [
+            469993.99969999684,
+            3449994.0002999967
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      469993.99969999684,
+      3449994.0002999967,
+      480005.9997000024,
+      3460006.0003000023
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000005522,
+      0.0,
+      469993.99969999684,
+      0.0,
+      -1.0000000000005582,
+      3460006.0003000023,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AL_EscambiaCo_2013/TIFF/USGS_one_meter_x47y346_AL_EscambiaCo_2013.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 81.68938712509741,
+            "minimum": 38.26594924926758,
+            "maximum": 113.92871856689453,
+            "stddev": 20.742553090652585,
+            "valid_percent": 88.84830474853516
+          },
+          "histogram": {
+            "count": 11,
+            "min": 38.26594924926758,
+            "max": 113.92871856689453,
+            "buckets": [
+              32826,
+              66670,
+              97093,
+              113755,
+              88493,
+              57220,
+              75960,
+              122827,
+              169639,
+              107159
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AL_EscambiaCo_2013"
+}

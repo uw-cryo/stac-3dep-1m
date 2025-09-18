@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x58y350_AL_CoffeeDaleGenevaEscambia_2021_D21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -86.15727727149505,
+          31.542131364972843
+        ],
+        [
+          -86.05181422499481,
+          31.54139286478596
+        ],
+        [
+          -86.05089910973663,
+          31.631712713310897
+        ],
+        [
+          -86.15646390973369,
+          31.632453813271326
+        ],
+        [
+          -86.15727727149505,
+          31.542131364972843
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -86.15727727149505,
+    31.54139286478596,
+    -86.05089910973663,
+    31.632453813271326
+  ],
+  "properties": {
+    "start_datetime": "2022-01-13T00:00:00Z",
+    "end_datetime": "2022-01-24T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            579993.9996744466,
+            3489994.000302128
+          ],
+          [
+            590005.9996744466,
+            3489994.000302128
+          ],
+          [
+            590005.9996744466,
+            3500006.000302128
+          ],
+          [
+            579993.9996744466,
+            3500006.000302128
+          ],
+          [
+            579993.9996744466,
+            3489994.000302128
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      579993.9996744466,
+      3489994.000302128,
+      590005.9996744466,
+      3500006.000302128
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      579993.9996744466,
+      0.0,
+      -1.0,
+      3500006.000302128,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AL_CoffeeDaleGenevaEscambia_2021_D21/TIFF/USGS_1M_16_x58y350_AL_CoffeeDaleGenevaEscambia_2021_D21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 102.54069641680685,
+            "minimum": 67.43311309814453,
+            "maximum": 142.5889434814453,
+            "stddev": 14.26348429452144,
+            "valid_percent": 77.15482711791992
+          },
+          "histogram": {
+            "count": 11,
+            "min": 67.43311309814453,
+            "max": 142.5889434814453,
+            "buckets": [
+              7703,
+              62451,
+              102595,
+              138569,
+              148278,
+              138878,
+              106985,
+              70153,
+              28878,
+              4537
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AL_CoffeeDaleGenevaEscambia_2021_D21"
+}
