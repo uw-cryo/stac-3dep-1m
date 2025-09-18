@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x38y434_IL_SouthCentral_2021_D21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -88.38802279026353,
+          39.110841788081
+        ],
+        [
+          -88.27224907780403,
+          39.1121629345176
+        ],
+        [
+          -88.27387477481093,
+          39.20235987960549
+        ],
+        [
+          -88.38979631332171,
+          39.20103450621774
+        ],
+        [
+          -88.38802279026353,
+          39.110841788081
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -88.38979631332171,
+    39.110841788081,
+    -88.27224907780403,
+    39.20235987960549
+  ],
+  "properties": {
+    "start_datetime": "2021-03-06T00:00:00Z",
+    "end_datetime": "2021-04-12T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            379993.9996648808,
+            4329994.000346684
+          ],
+          [
+            390005.9996648808,
+            4329994.000346684
+          ],
+          [
+            390005.9996648808,
+            4340006.000346684
+          ],
+          [
+            379993.9996648808,
+            4340006.000346684
+          ],
+          [
+            379993.9996648808,
+            4329994.000346684
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      379993.9996648808,
+      4329994.000346684,
+      390005.9996648808,
+      4340006.000346684
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      379993.9996648808,
+      0.0,
+      -1.0,
+      4340006.000346684,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IL_SouthCentral_2021_D21/TIFF/USGS_1M_16_x38y434_IL_SouthCentral_2021_D21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "US survey foot",
+          "statistics": {
+            "mean": 181.9808425870984,
+            "minimum": 173.63316345214844,
+            "maximum": 185.3234100341797,
+            "stddev": 1.1544977892521902,
+            "valid_percent": 18.00079345703125
+          },
+          "histogram": {
+            "count": 11,
+            "min": 173.63316345214844,
+            "max": 185.3234100341797,
+            "buckets": [
+              48,
+              61,
+              134,
+              150,
+              6549,
+              20263,
+              40188,
+              89320,
+              30386,
+              1653
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IL_SouthCentral_2021_D21"
+}

@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x43y406_KY_FluorsparDistrict_2019_D19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -87.78263574804423,
+          36.59286369890462
+        ],
+        [
+          -87.6707135928945,
+          36.59354609348166
+        ],
+        [
+          -87.67149642513883,
+          36.68379785266961
+        ],
+        [
+          -87.78354918148497,
+          36.68311322354098
+        ],
+        [
+          -87.78263574804423,
+          36.59286369890462
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -87.78354918148497,
+    36.59286369890462,
+    -87.6707135928945,
+    36.68379785266961
+  ],
+  "properties": {
+    "start_datetime": "2019-12-05T00:00:00Z",
+    "end_datetime": "2020-02-08T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            429993.99966526905,
+            4049994.0003027027
+          ],
+          [
+            440005.99966526905,
+            4049994.0003027027
+          ],
+          [
+            440005.99966526905,
+            4060006.0003027027
+          ],
+          [
+            429993.99966526905,
+            4060006.0003027027
+          ],
+          [
+            429993.99966526905,
+            4049994.0003027027
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      429993.99966526905,
+      4049994.0003027027,
+      440005.99966526905,
+      4060006.0003027027
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      429993.99966526905,
+      0.0,
+      -1.0,
+      4060006.0003027027,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/KY_FluorsparDistrict_2019_D19/TIFF/USGS_1M_16_x43y406_KY_FluorsparDistrict_2019_D19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 172.02776992223832,
+            "minimum": 126.27687072753906,
+            "maximum": 207.8683319091797,
+            "stddev": 12.561179226562007,
+            "valid_percent": 58.34016799926758
+          },
+          "histogram": {
+            "count": 11,
+            "min": 126.27687072753906,
+            "max": 207.8683319091797,
+            "buckets": [
+              9444,
+              14620,
+              20347,
+              29270,
+              74716,
+              221827,
+              139919,
+              82292,
+              17740,
+              1566
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "KY_FluorsparDistrict_2019_D19"
+}

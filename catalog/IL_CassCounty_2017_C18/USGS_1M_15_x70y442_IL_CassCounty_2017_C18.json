@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x70y442_IL_CassCounty_2017_C18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -90.66340770619533,
+          39.816419836367565
+        ],
+        [
+          -90.54653295646523,
+          39.8140060123619
+        ],
+        [
+          -90.54331945396697,
+          39.90413136442994
+        ],
+        [
+          -90.6603469351229,
+          39.90655286848902
+        ],
+        [
+          -90.66340770619533,
+          39.816419836367565
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -90.66340770619533,
+    39.8140060123619,
+    -90.54331945396697,
+    39.90655286848902
+  ],
+  "properties": {
+    "start_datetime": "2017-03-21T00:00:00Z",
+    "end_datetime": "2017-11-30T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            699993.9999773713,
+            4409994.0002861535
+          ],
+          [
+            710005.9999773713,
+            4409994.0002861535
+          ],
+          [
+            710005.9999773713,
+            4420006.0002861535
+          ],
+          [
+            699993.9999773713,
+            4420006.0002861535
+          ],
+          [
+            699993.9999773713,
+            4409994.0002861535
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      699993.9999773713,
+      4409994.0002861535,
+      710005.9999773713,
+      4420006.0002861535
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      699993.9999773713,
+      0.0,
+      -1.0,
+      4420006.0002861535,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IL_CassCounty_2017_C18/TIFF/USGS_1M_15_x70y442_IL_CassCounty_2017_C18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 130.78229519411664,
+            "minimum": 128.00404357910156,
+            "maximum": 137.76730346679688,
+            "stddev": 1.4827856458480781,
+            "valid_percent": 13.94033432006836
+          },
+          "histogram": {
+            "count": 11,
+            "min": 128.00404357910156,
+            "max": 137.76730346679688,
+            "buckets": [
+              331,
+              54309,
+              30026,
+              21270,
+              28833,
+              9118,
+              903,
+              787,
+              316,
+              282
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IL_CassCounty_2017_C18"
+}

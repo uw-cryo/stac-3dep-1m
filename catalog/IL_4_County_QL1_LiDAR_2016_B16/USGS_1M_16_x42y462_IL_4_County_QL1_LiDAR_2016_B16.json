@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x42y462_IL_4_County_QL1_LiDAR_2016_B16",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -87.96061491587719,
+          41.63766953995777
+        ],
+        [
+          -87.8404163107548,
+          41.638611231463734
+        ],
+        [
+          -87.84159053844655,
+          41.728781237415184
+        ],
+        [
+          -87.96195702564597,
+          41.72783657707827
+        ],
+        [
+          -87.96061491587719,
+          41.63766953995777
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -87.96195702564597,
+    41.63766953995777,
+    -87.8404163107548,
+    41.728781237415184
+  ],
+  "properties": {
+    "start_datetime": "2017-04-16T00:00:00Z",
+    "end_datetime": "2017-05-07T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            419993.99967933557,
+            4609994.00028572
+          ],
+          [
+            430005.99967933557,
+            4609994.00028572
+          ],
+          [
+            430005.99967933557,
+            4620006.00028572
+          ],
+          [
+            419993.99967933557,
+            4620006.00028572
+          ],
+          [
+            419993.99967933557,
+            4609994.00028572
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      419993.99967933557,
+      4609994.00028572,
+      430005.99967933557,
+      4620006.00028572
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      419993.99967933557,
+      0.0,
+      -1.0,
+      4620006.00028572,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IL_4_County_QL1_LiDAR_2016_B16/TIFF/USGS_1M_16_x42y462_IL_4_County_QL1_LiDAR_2016_B16.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 205.87774658203125,
+            "minimum": 175.5922393798828,
+            "maximum": 240.3097381591797,
+            "stddev": 14.517569170085212,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 175.5922393798828,
+            "max": 240.3097381591797,
+            "buckets": [
+              142240,
+              69224,
+              44363,
+              56428,
+              126347,
+              239823,
+              269745,
+              89736,
+              9423,
+              1247
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IL_4_County_QL1_LiDAR_2016_B16"
+}

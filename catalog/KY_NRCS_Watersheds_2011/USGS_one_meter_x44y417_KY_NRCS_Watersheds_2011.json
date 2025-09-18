@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x44y417_KY_NRCS_Watersheds_2011",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -87.67964461745439,
+          37.58504853962739
+        ],
+        [
+          -87.5662515095596,
+          37.58564698678268
+        ],
+        [
+          -87.56693661083553,
+          37.67588538993527
+        ],
+        [
+          -87.68046688813014,
+          37.67528500269987
+        ],
+        [
+          -87.67964461745439,
+          37.58504853962739
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -87.68046688813014,
+    37.58504853962739,
+    -87.5662515095596,
+    37.67588538993527
+  ],
+  "properties": {
+    "start_datetime": "2011-01-03T00:00:00Z",
+    "end_datetime": "2012-04-10T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            439993.9996999969,
+            4159994.0002999995
+          ],
+          [
+            450005.9996999996,
+            4159994.0002999995
+          ],
+          [
+            450005.9996999996,
+            4170006.0003000023
+          ],
+          [
+            439993.9996999969,
+            4170006.0003000023
+          ],
+          [
+            439993.9996999969,
+            4159994.0002999995
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      439993.9996999969,
+      4159994.0002999995,
+      450005.9996999996,
+      4170006.0003000023
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000002673,
+      0.0,
+      439993.9996999969,
+      0.0,
+      -1.000000000000279,
+      4170006.0003000023,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/KY_NRCS_Watersheds_2011/TIFF/USGS_one_meter_x44y417_KY_NRCS_Watersheds_2011.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 134.12158543624096,
+            "minimum": 116.53622436523438,
+            "maximum": 197.5041961669922,
+            "stddev": 11.146020681997951,
+            "valid_percent": 60.474586486816406
+          },
+          "histogram": {
+            "count": 11,
+            "min": 116.53622436523438,
+            "max": 197.5041961669922,
+            "buckets": [
+              138399,
+              182796,
+              165193,
+              84840,
+              37874,
+              16837,
+              4380,
+              1820,
+              1298,
+              685
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "KY_NRCS_Watersheds_2011"
+}

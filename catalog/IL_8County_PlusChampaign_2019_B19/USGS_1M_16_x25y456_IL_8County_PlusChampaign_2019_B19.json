@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x25y456_IL_8County_PlusChampaign_2019_B19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -89.97530895794351,
+          41.06279474258806
+        ],
+        [
+          -89.85630110154017,
+          41.06580850219237
+        ],
+        [
+          -89.86021088892743,
+          41.155884809404036
+        ],
+        [
+          -89.979381071193,
+          41.1528615342432
+        ],
+        [
+          -89.97530895794351,
+          41.06279474258806
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -89.979381071193,
+    41.06279474258806,
+    -89.85630110154017,
+    41.155884809404036
+  ],
+  "properties": {
+    "start_datetime": "2019-04-16T00:00:00Z",
+    "end_datetime": "2019-04-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            249993.9996696944,
+            4549994.000291877
+          ],
+          [
+            260005.9996696944,
+            4549994.000291877
+          ],
+          [
+            260005.9996696944,
+            4560006.000291877
+          ],
+          [
+            249993.9996696944,
+            4560006.000291877
+          ],
+          [
+            249993.9996696944,
+            4549994.000291877
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      249993.9996696944,
+      4549994.000291877,
+      260005.9996696944,
+      4560006.000291877
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      249993.9996696944,
+      0.0,
+      -1.0,
+      4560006.000291877,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IL_8County_PlusChampaign_2019_B19/TIFF/USGS_1M_16_x25y456_IL_8County_PlusChampaign_2019_B19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 233.5995589248794,
+            "minimum": 213.78176879882812,
+            "maximum": 249.08116149902344,
+            "stddev": 8.663448132691661,
+            "valid_percent": 13.837814331054688
+          },
+          "histogram": {
+            "count": 11,
+            "min": 213.78176879882812,
+            "max": 249.08116149902344,
+            "buckets": [
+              4094,
+              7439,
+              8861,
+              17929,
+              28194,
+              17392,
+              13365,
+              12722,
+              20065,
+              15039
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IL_8County_PlusChampaign_2019_B19"
+}

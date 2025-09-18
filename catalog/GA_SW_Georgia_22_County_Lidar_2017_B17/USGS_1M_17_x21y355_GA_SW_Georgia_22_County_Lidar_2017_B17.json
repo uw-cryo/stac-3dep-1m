@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_17_x21y355_GA_SW_Georgia_22_County_Lidar_2017_B17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -84.06827993977588,
+          31.958911914128294
+        ],
+        [
+          -83.96247575208737,
+          31.961427067271597
+        ],
+        [
+          -83.96538089479957,
+          32.05163212327998
+        ],
+        [
+          -84.07128844831522,
+          32.049108192461716
+        ],
+        [
+          -84.06827993977588,
+          31.958911914128294
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -84.07128844831522,
+    31.958911914128294,
+    -83.96247575208737,
+    32.05163212327998
+  ],
+  "properties": {
+    "start_datetime": "2017-03-15T00:00:00Z",
+    "end_datetime": "2017-04-02T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            209993.99998477346,
+            3539994.0000142185
+          ],
+          [
+            220005.99998477346,
+            3539994.0000142185
+          ],
+          [
+            220005.99998477346,
+            3550006.0000142185
+          ],
+          [
+            209993.99998477346,
+            3550006.0000142185
+          ],
+          [
+            209993.99998477346,
+            3539994.0000142185
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      209993.99998477346,
+      3539994.0000142185,
+      220005.99998477346,
+      3550006.0000142185
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      209993.99998477346,
+      0.0,
+      -1.0,
+      3550006.0000142185,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/GA_SW_Georgia_22_County_Lidar_2017_B17/TIFF/USGS_1M_17_x21y355_GA_SW_Georgia_22_County_Lidar_2017_B17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "US survey foot",
+          "statistics": {
+            "mean": 72.32902307035033,
+            "minimum": 71.93968200683594,
+            "maximum": 79.54785919189453,
+            "stddev": 0.7940771988336822,
+            "valid_percent": 1.6741752624511719
+          },
+          "histogram": {
+            "count": 11,
+            "min": 71.93968200683594,
+            "max": 79.54785919189453,
+            "buckets": [
+              14990,
+              1211,
+              694,
+              350,
+              85,
+              87,
+              49,
+              59,
+              26,
+              4
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "GA_SW_Georgia_22_County_Lidar_2017_B17"
+}

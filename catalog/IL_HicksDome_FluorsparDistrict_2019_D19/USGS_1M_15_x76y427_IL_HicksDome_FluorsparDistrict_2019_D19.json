@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x76y427_IL_HicksDome_FluorsparDistrict_2019_D19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -90.02069465516676,
+          38.45038831138803
+        ],
+        [
+          -89.90611787077268,
+          38.44741612039746
+        ],
+        [
+          -89.90225873787308,
+          38.53751367274472
+        ],
+        [
+          -90.01697791229046,
+          38.54049541230258
+        ],
+        [
+          -90.02069465516676,
+          38.45038831138803
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -90.02069465516676,
+    38.44741612039746,
+    -89.90225873787308,
+    38.54049541230258
+  ],
+  "properties": {
+    "start_datetime": "2020-02-29T00:00:00Z",
+    "end_datetime": "2020-12-11T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            759993.999978723,
+            4259994.000251939
+          ],
+          [
+            770005.999978723,
+            4259994.000251939
+          ],
+          [
+            770005.999978723,
+            4270006.000251939
+          ],
+          [
+            759993.999978723,
+            4270006.000251939
+          ],
+          [
+            759993.999978723,
+            4259994.000251939
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      759993.999978723,
+      4259994.000251939,
+      770005.999978723,
+      4270006.000251939
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      759993.999978723,
+      0.0,
+      -1.0,
+      4270006.000251939,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IL_HicksDome_FluorsparDistrict_2019_D19/TIFF/USGS_1M_15_x76y427_IL_HicksDome_FluorsparDistrict_2019_D19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "US survey foot",
+          "statistics": {
+            "mean": 153.97686767578125,
+            "minimum": 129.9091339111328,
+            "maximum": 196.24525451660156,
+            "stddev": 9.529923740895452,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 129.9091339111328,
+            "max": 196.24525451660156,
+            "buckets": [
+              9301,
+              112474,
+              268228,
+              275087,
+              206995,
+              109965,
+              45967,
+              14710,
+              4904,
+              945
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IL_HicksDome_FluorsparDistrict_2019_D19"
+}

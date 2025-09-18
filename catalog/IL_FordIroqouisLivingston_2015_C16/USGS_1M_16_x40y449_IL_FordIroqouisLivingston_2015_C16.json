@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x40y449_IL_FordIroqouisLivingston_2015_C16",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -88.1796035479438,
+          40.46460452656133
+        ],
+        [
+          -88.06152903029563,
+          40.465749311373685
+        ],
+        [
+          -88.0629521782194,
+          40.55593193528169
+        ],
+        [
+          -88.18118490831253,
+          40.55478352023404
+        ],
+        [
+          -88.1796035479438,
+          40.46460452656133
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -88.18118490831253,
+    40.46460452656133,
+    -88.06152903029563,
+    40.55593193528169
+  ],
+  "properties": {
+    "start_datetime": "2015-04-27T00:00:00Z",
+    "end_datetime": "2015-06-07T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            399993.9996704827,
+            4479994.000335331
+          ],
+          [
+            410005.9996704827,
+            4479994.000335331
+          ],
+          [
+            410005.9996704827,
+            4490006.000335331
+          ],
+          [
+            399993.9996704827,
+            4490006.000335331
+          ],
+          [
+            399993.9996704827,
+            4479994.000335331
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      399993.9996704827,
+      4479994.000335331,
+      410005.9996704827,
+      4490006.000335331
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      399993.9996704827,
+      0.0,
+      -1.0,
+      4490006.000335331,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IL_FordIroqouisLivingston_2015_C16/TIFF/USGS_1M_16_x40y449_IL_FordIroqouisLivingston_2015_C16.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "US survey foot",
+          "statistics": {
+            "mean": 234.15011596679688,
+            "minimum": 212.8441162109375,
+            "maximum": 250.38938903808594,
+            "stddev": 4.766383902760635,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 212.8441162109375,
+            "max": 250.38938903808594,
+            "buckets": [
+              4889,
+              11910,
+              28232,
+              65873,
+              126588,
+              351254,
+              339840,
+              111402,
+              8193,
+              395
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IL_FordIroqouisLivingston_2015_C16"
+}

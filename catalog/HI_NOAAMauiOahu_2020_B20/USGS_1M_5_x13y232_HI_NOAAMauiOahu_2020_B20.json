@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_5_x13y232_HI_NOAAMauiOahu_2020_B20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -156.55501110647518,
+          20.853224335006633
+        ],
+        [
+          -156.4589502185668,
+          20.855194356402443
+        ],
+        [
+          -156.46102296294114,
+          20.94549460057877
+        ],
+        [
+          -156.55714112245101,
+          20.943515268865063
+        ],
+        [
+          -156.55501110647518,
+          20.853224335006633
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -156.55714112245101,
+    20.853224335006633,
+    -156.4589502185668,
+    20.94549460057877
+  ],
+  "properties": {
+    "start_datetime": "2022-08-02T00:00:00Z",
+    "end_datetime": "2023-07-09T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            129993.99998538126,
+            2309994.000017474
+          ],
+          [
+            140005.99998538126,
+            2309994.000017474
+          ],
+          [
+            140005.99998538126,
+            2320006.000017474
+          ],
+          [
+            129993.99998538126,
+            2320006.000017474
+          ],
+          [
+            129993.99998538126,
+            2309994.000017474
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      129993.99998538126,
+      2309994.000017474,
+      140005.99998538126,
+      2320006.000017474
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      129993.99998538126,
+      0.0,
+      -1.0,
+      2320006.000017474,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 5N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 5N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -153,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26905
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26905"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/HI_NOAAMauiOahu_2020_B20/TIFF/USGS_1M_5_x13y232_HI_NOAAMauiOahu_2020_B20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 281.131208951138,
+            "minimum": -0.08997537195682526,
+            "maximum": 1350.2227783203125,
+            "stddev": 287.5512691844782,
+            "valid_percent": 81.5176010131836
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.08997537195682526,
+            "max": 1350.2227783203125,
+            "buckets": [
+              388912,
+              123439,
+              99307,
+              81387,
+              61105,
+              41175,
+              29701,
+              17819,
+              8061,
+              3868
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "HI_NOAAMauiOahu_2020_B20"
+}

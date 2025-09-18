@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x33y467_IL_12_County_OgleCo_2008",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -89.05510059033514,
+          42.073622574634626
+        ],
+        [
+          -88.93414032033579,
+          42.075725716745175
+        ],
+        [
+          -88.9368840288503,
+          42.165847018772745
+        ],
+        [
+          -89.058015602788,
+          42.163737261017424
+        ],
+        [
+          -89.05510059033514,
+          42.073622574634626
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -89.058015602788,
+    42.073622574634626,
+    -88.93414032033579,
+    42.165847018772745
+  ],
+  "properties": {
+    "start_datetime": "2009-03-20T00:00:00Z",
+    "end_datetime": "2009-03-20T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            329993.9996999995,
+            4659994.0002999995
+          ],
+          [
+            340005.9996999996,
+            4659994.0002999995
+          ],
+          [
+            340005.9996999996,
+            4670006.0002999995
+          ],
+          [
+            329993.9996999995,
+            4670006.0002999995
+          ],
+          [
+            329993.9996999995,
+            4659994.0002999995
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      329993.9996999995,
+      4659994.0002999995,
+      340005.9996999996,
+      4670006.0002999995
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000000058,
+      0.0,
+      329993.9996999995,
+      0.0,
+      -1.0,
+      4670006.0002999995,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IL_12_County_OgleCo_2008/TIFF/USGS_one_meter_x33y467_IL_12_County_OgleCo_2008.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 243.40834937917597,
+            "minimum": 216.82644653320312,
+            "maximum": 272.4330139160156,
+            "stddev": 11.346742497888293,
+            "valid_percent": 82.61375427246094
+          },
+          "histogram": {
+            "count": 11,
+            "min": 216.82644653320312,
+            "max": 272.4330139160156,
+            "buckets": [
+              4823,
+              67781,
+              123104,
+              147834,
+              140848,
+              117940,
+              117391,
+              89155,
+              46593,
+              10799
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IL_12_County_OgleCo_2008"
+}
