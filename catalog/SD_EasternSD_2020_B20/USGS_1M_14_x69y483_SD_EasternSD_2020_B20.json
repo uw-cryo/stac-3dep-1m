@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_14_x69y483_SD_EasternSD_2020_B20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -96.6495753282771,
+          43.50872402562043
+        ],
+        [
+          -96.52582718111978,
+          43.50611172751059
+        ],
+        [
+          -96.52213778483883,
+          43.59617765392998
+        ],
+        [
+          -96.64607003459805,
+          43.598798133398034
+        ],
+        [
+          -96.6495753282771,
+          43.50872402562043
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -96.6495753282771,
+    43.50611172751059,
+    -96.52213778483883,
+    43.598798133398034
+  ],
+  "properties": {
+    "start_datetime": "2020-04-10T00:00:00Z",
+    "end_datetime": "2020-12-22T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            689993.9999857078,
+            4819994.000048991
+          ],
+          [
+            700005.9999857078,
+            4819994.000048991
+          ],
+          [
+            700005.9999857078,
+            4830006.000048991
+          ],
+          [
+            689993.9999857078,
+            4830006.000048991
+          ],
+          [
+            689993.9999857078,
+            4819994.000048991
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      689993.9999857078,
+      4819994.000048991,
+      700005.9999857078,
+      4830006.000048991
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      689993.9999857078,
+      0.0,
+      -1.0,
+      4830006.000048991,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/SD_EasternSD_2020_B20/TIFF/USGS_1M_14_x69y483_SD_EasternSD_2020_B20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 420.51971435546875,
+            "minimum": 361.8668518066406,
+            "maximum": 465.02740478515625,
+            "stddev": 18.733947418454388,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 361.8668518066406,
+            "max": 465.02740478515625,
+            "buckets": [
+              320,
+              620,
+              48386,
+              169163,
+              241964,
+              142784,
+              146387,
+              154533,
+              120840,
+              23579
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "SD_EasternSD_2020_B20"
+}

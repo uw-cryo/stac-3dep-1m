@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_14_x28y489_SD_Southwest_NRCS_SD_2018_D18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -101.74591658662273,
+          44.0401094387727
+        ],
+        [
+          -101.62108835637684,
+          44.04304336030739
+        ],
+        [
+          -101.62507061580924,
+          44.13309048703614
+        ],
+        [
+          -101.75008793029951,
+          44.13014738684002
+        ],
+        [
+          -101.74591658662273,
+          44.0401094387727
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -101.75008793029951,
+    44.0401094387727,
+    -101.62108835637684,
+    44.13309048703614
+  ],
+  "properties": {
+    "start_datetime": "2018-04-22T00:00:00Z",
+    "end_datetime": "2018-12-17T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            279993.9999628977,
+            4879994.000022135
+          ],
+          [
+            290005.9999628977,
+            4879994.000022135
+          ],
+          [
+            290005.9999628977,
+            4890006.000022135
+          ],
+          [
+            279993.9999628977,
+            4890006.000022135
+          ],
+          [
+            279993.9999628977,
+            4879994.000022135
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      279993.9999628977,
+      4879994.000022135,
+      290005.9999628977,
+      4890006.000022135
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      279993.9999628977,
+      0.0,
+      -1.0,
+      4890006.000022135,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/SD_Southwest_NRCS_SD_2018_D18/TIFF/USGS_1M_14_x28y489_SD_Southwest_NRCS_SD_2018_D18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 707.2396240234375,
+            "minimum": 646.0982055664062,
+            "maximum": 761.13037109375,
+            "stddev": 19.80471536642158,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 646.0982055664062,
+            "max": 761.13037109375,
+            "buckets": [
+              5640,
+              25414,
+              84239,
+              122834,
+              190822,
+              248441,
+              184640,
+              129014,
+              51806,
+              5726
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "SD_Southwest_NRCS_SD_2018_D18"
+}

@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_11_x45y383_San_Bernadino_County_Flood_Control_Lidar",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -117.5448381989747,
+          34.520399199389985
+        ],
+        [
+          -117.43575602266156,
+          34.520837049366015
+        ],
+        [
+          -117.43622722957635,
+          34.61112350269652
+        ],
+        [
+          -117.54542734961774,
+          34.610684182116216
+        ],
+        [
+          -117.5448381989747,
+          34.520399199389985
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -117.54542734961774,
+    34.520399199389985,
+    -117.43575602266156,
+    34.61112350269652
+  ],
+  "properties": {
+    "start_datetime": "2013-03-10T00:00:00Z",
+    "end_datetime": "2013-03-19T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            449993.999732589,
+            3819993.9999891613
+          ],
+          [
+            460005.999732589,
+            3819993.9999891613
+          ],
+          [
+            460005.999732589,
+            3830005.9999891613
+          ],
+          [
+            449993.999732589,
+            3830005.9999891613
+          ],
+          [
+            449993.999732589,
+            3819993.9999891613
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      449993.999732589,
+      3819993.9999891613,
+      460005.999732589,
+      3830005.9999891613
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      449993.999732589,
+      0.0,
+      -1.0,
+      3830005.9999891613,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 11N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 11N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -117,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26911
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26911"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/San_Bernadino_County_Flood_Control_Lidar/TIFF/USGS_1M_11_x45y383_San_Bernadino_County_Flood_Control_Lidar.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 906.8546989607108,
+            "minimum": 848.6192016601562,
+            "maximum": 983.3963623046875,
+            "stddev": 32.79313408525687,
+            "valid_percent": 68.85833740234375
+          },
+          "histogram": {
+            "count": 11,
+            "min": 848.6192016601562,
+            "max": 983.3963623046875,
+            "buckets": [
+              66033,
+              94320,
+              83854,
+              97056,
+              91963,
+              84847,
+              82017,
+              68256,
+              39268,
+              14418
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "San_Bernadino_County_Flood_Control_Lidar"
+}
