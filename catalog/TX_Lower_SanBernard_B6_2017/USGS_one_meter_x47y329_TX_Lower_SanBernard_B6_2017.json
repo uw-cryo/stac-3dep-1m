@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x47y329_TX_Lower_SanBernard_B6_2017",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -99.31002737876845,
+          29.649551395193054
+        ],
+        [
+          -99.20658229720043,
+          29.649752915398967
+        ],
+        [
+          -99.20676722956192,
+          29.74011090719423
+        ],
+        [
+          -99.3103049120954,
+          29.739908650791303
+        ],
+        [
+          -99.31002737876845,
+          29.649551395193054
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -99.3103049120954,
+    29.649551395193054,
+    -99.20658229720043,
+    29.74011090719423
+  ],
+  "properties": {
+    "start_datetime": "2018-02-25T00:00:00Z",
+    "end_datetime": "2018-04-22T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            469994.0,
+            3279994.0
+          ],
+          [
+            480006.0,
+            3279994.0
+          ],
+          [
+            480006.0,
+            3290006.0
+          ],
+          [
+            469994.0,
+            3290006.0
+          ],
+          [
+            469994.0,
+            3279994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      469994.0,
+      3279994.0,
+      480006.0,
+      3290006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      469994.0,
+      0.0,
+      -1.0,
+      3290006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_Lower_SanBernard_B6_2017/TIFF/USGS_one_meter_x47y329_TX_Lower_SanBernard_B6_2017.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028230607370965e+38,
+          "statistics": {
+            "mean": 492.220947265625,
+            "minimum": 390.9786682128906,
+            "maximum": 640.0096435546875,
+            "stddev": 54.56755030023962,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 390.9786682128906,
+            "max": 640.0096435546875,
+            "buckets": [
+              72096,
+              146503,
+              154918,
+              188046,
+              135242,
+              119312,
+              91000,
+              99753,
+              39384,
+              2322
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_Lower_SanBernard_B6_2017"
+}

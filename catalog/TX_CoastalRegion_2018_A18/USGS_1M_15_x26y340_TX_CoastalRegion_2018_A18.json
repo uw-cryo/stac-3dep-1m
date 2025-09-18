@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x26y340_TX_CoastalRegion_2018_A18",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -95.50374511980674,
+          30.61848813180707
+        ],
+        [
+          -95.39937862850599,
+          30.620456471451675
+        ],
+        [
+          -95.40161123192793,
+          30.71072209899095
+        ],
+        [
+          -95.50607459290651,
+          30.70874671487822
+        ],
+        [
+          -95.50374511980674,
+          30.61848813180707
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -95.50607459290651,
+    30.61848813180707,
+    -95.39937862850599,
+    30.71072209899095
+  ],
+  "properties": {
+    "start_datetime": "2018-01-13T00:00:00Z",
+    "end_datetime": "2018-06-11T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            259993.99995426234,
+            3389994.0002948847
+          ],
+          [
+            270005.99995426234,
+            3389994.0002948847
+          ],
+          [
+            270005.99995426234,
+            3400006.0002948847
+          ],
+          [
+            259993.99995426234,
+            3400006.0002948847
+          ],
+          [
+            259993.99995426234,
+            3389994.0002948847
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      259993.99995426234,
+      3389994.0002948847,
+      270005.99995426234,
+      3400006.0002948847
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      259993.99995426234,
+      0.0,
+      -1.0,
+      3400006.0002948847,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_CoastalRegion_2018_A18/TIFF/USGS_1M_15_x26y340_TX_CoastalRegion_2018_A18.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 120.67356754082138,
+            "minimum": 98.6290283203125,
+            "maximum": 142.0515899658203,
+            "stddev": 8.17263296530544,
+            "valid_percent": 4.818439483642578
+          },
+          "histogram": {
+            "count": 11,
+            "min": 98.6290283203125,
+            "max": 142.0515899658203,
+            "buckets": [
+              898,
+              1941,
+              4785,
+              6372,
+              9940,
+              10047,
+              8918,
+              4537,
+              2291,
+              796
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_CoastalRegion_2018_A18"
+}

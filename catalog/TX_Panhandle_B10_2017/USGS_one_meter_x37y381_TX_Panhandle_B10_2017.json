@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x37y381_TX_Panhandle_B10_2017",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -100.41327398604584,
+          34.33309215148529
+        ],
+        [
+          -100.30446105244665,
+          34.334299837893944
+        ],
+        [
+          -100.30586173201003,
+          34.424568175748476
+        ],
+        [
+          -100.41479141341543,
+          34.423356423625975
+        ],
+        [
+          -100.41327398604584,
+          34.33309215148529
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -100.41479141341543,
+    34.33309215148529,
+    -100.30446105244665,
+    34.424568175748476
+  ],
+  "properties": {
+    "start_datetime": "2018-03-13T00:00:00Z",
+    "end_datetime": "2018-04-11T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            369994.0,
+            3799994.0
+          ],
+          [
+            380006.0,
+            3799994.0
+          ],
+          [
+            380006.0,
+            3810006.0
+          ],
+          [
+            369994.0,
+            3810006.0
+          ],
+          [
+            369994.0,
+            3799994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      369994.0,
+      3799994.0,
+      380006.0,
+      3810006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      369994.0,
+      0.0,
+      -1.0,
+      3810006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_Panhandle_B10_2017/TIFF/USGS_one_meter_x37y381_TX_Panhandle_B10_2017.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 578.0537719726562,
+            "minimum": 526.4119873046875,
+            "maximum": 613.6854858398438,
+            "stddev": 13.958252741768934,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 526.4119873046875,
+            "max": 613.6854858398438,
+            "buckets": [
+              3284,
+              13928,
+              34874,
+              81439,
+              141678,
+              242922,
+              229721,
+              222758,
+              74178,
+              3794
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_Panhandle_B10_2017"
+}

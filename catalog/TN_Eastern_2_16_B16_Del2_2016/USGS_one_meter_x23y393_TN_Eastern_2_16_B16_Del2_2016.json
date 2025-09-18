@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x23y393_TN_Eastern_2_16_B16_Del2_2016",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -83.97253031255804,
+          35.38677114019476
+        ],
+        [
+          -83.86243202349291,
+          35.38943209998677
+        ],
+        [
+          -83.86562744063481,
+          35.479595136934876
+        ],
+        [
+          -83.97584820175761,
+          35.47692535155252
+        ],
+        [
+          -83.97253031255804,
+          35.38677114019476
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -83.97584820175761,
+    35.38677114019476,
+    -83.86243202349291,
+    35.479595136934876
+  ],
+  "properties": {
+    "start_datetime": "2016-02-05T00:00:00Z",
+    "end_datetime": "2016-04-04T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            229994.0,
+            3919994.0
+          ],
+          [
+            240006.0,
+            3919994.0
+          ],
+          [
+            240006.0,
+            3930006.0
+          ],
+          [
+            229994.0,
+            3930006.0
+          ],
+          [
+            229994.0,
+            3919994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      229994.0,
+      3919994.0,
+      240006.0,
+      3930006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      229994.0,
+      0.0,
+      -1.0,
+      3930006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TN_Eastern_2_16_B16_Del2_2016/TIFF/USGS_one_meter_x23y393_TN_Eastern_2_16_B16_Del2_2016.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028230607370965e+38,
+          "statistics": {
+            "mean": 522.8488118761717,
+            "minimum": 330.4038391113281,
+            "maximum": 769.1248168945312,
+            "stddev": 94.93147168379632,
+            "valid_percent": 15.058135986328125
+          },
+          "histogram": {
+            "count": 11,
+            "min": 330.4038391113281,
+            "max": 769.1248168945312,
+            "buckets": [
+              15197,
+              10618,
+              12899,
+              20708,
+              33038,
+              28950,
+              19561,
+              11481,
+              4308,
+              1136
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TN_Eastern_2_16_B16_Del2_2016"
+}

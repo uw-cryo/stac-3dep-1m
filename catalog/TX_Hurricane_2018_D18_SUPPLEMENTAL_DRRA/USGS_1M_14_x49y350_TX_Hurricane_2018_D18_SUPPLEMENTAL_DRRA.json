@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_14_x49y350_TX_Hurricane_2018_D18_SUPPLEMENTAL_DRRA",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -99.10541622991161,
+          31.544864682115435
+        ],
+        [
+          -98.99993678776322,
+          31.544908131135653
+        ],
+        [
+          -98.99993672674452,
+          31.63524035497441
+        ],
+        [
+          -99.1055179878428,
+          31.635196752988673
+        ],
+        [
+          -99.10541622991161,
+          31.544864682115435
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -99.1055179878428,
+    31.544864682115435,
+    -98.99993672674452,
+    31.63524035497441
+  ],
+  "properties": {
+    "start_datetime": "2019-01-04T00:00:00Z",
+    "end_datetime": "2019-02-18T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            489994.0000360831,
+            3489994.0000104825
+          ],
+          [
+            500006.0000360831,
+            3489994.0000104825
+          ],
+          [
+            500006.0000360831,
+            3500006.0000104825
+          ],
+          [
+            489994.0000360831,
+            3500006.0000104825
+          ],
+          [
+            489994.0000360831,
+            3489994.0000104825
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      489994.0000360831,
+      3489994.0000104825,
+      500006.0000360831,
+      3500006.0000104825
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      489994.0000360831,
+      0.0,
+      -1.0,
+      3500006.0000104825,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_Hurricane_2018_D18_SUPPLEMENTAL_DRRA/TIFF/USGS_1M_14_x49y350_TX_Hurricane_2018_D18_SUPPLEMENTAL_DRRA.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 437.2694302851645,
+            "minimum": 401.42071533203125,
+            "maximum": 485.2939453125,
+            "stddev": 17.64683845786258,
+            "valid_percent": 93.17207336425781
+          },
+          "histogram": {
+            "count": 11,
+            "min": 401.42071533203125,
+            "max": 485.2939453125,
+            "buckets": [
+              39806,
+              128143,
+              130938,
+              164290,
+              142270,
+              157089,
+              105369,
+              61626,
+              38978,
+              8471
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_Hurricane_2018_D18_SUPPLEMENTAL_DRRA"
+}

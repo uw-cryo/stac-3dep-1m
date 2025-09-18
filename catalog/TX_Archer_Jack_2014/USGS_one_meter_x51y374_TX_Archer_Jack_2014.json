@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x51y374_TX_Archer_Jack_2014",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -98.89214403866966,
+          33.70987976094725
+        ],
+        [
+          -98.78409432286011,
+          33.70973816498924
+        ],
+        [
+          -98.78386785053944,
+          33.800038549044274
+        ],
+        [
+          -98.89203090332283,
+          33.800180626113296
+        ],
+        [
+          -98.89214403866966,
+          33.70987976094725
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -98.89214403866966,
+    33.70973816498924,
+    -98.78386785053944,
+    33.800180626113296
+  ],
+  "properties": {
+    "start_datetime": "2015-01-04T00:00:00Z",
+    "end_datetime": "2015-03-12T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            509993.9999999972,
+            3729993.999999997
+          ],
+          [
+            520006.0000000028,
+            3729993.999999997
+          ],
+          [
+            520006.0000000028,
+            3740006.000000003
+          ],
+          [
+            509993.9999999972,
+            3740006.000000003
+          ],
+          [
+            509993.9999999972,
+            3729993.999999997
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      509993.9999999972,
+      3729993.999999997,
+      520006.0000000028,
+      3740006.000000003
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000005582,
+      0.0,
+      509993.9999999972,
+      0.0,
+      -1.0000000000005582,
+      3740006.000000003,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_Archer_Jack_2014/TIFF/USGS_one_meter_x51y374_TX_Archer_Jack_2014.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 334.48291015625,
+            "minimum": 318.3240051269531,
+            "maximum": 353.9945068359375,
+            "stddev": 6.112141432340951,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 318.3240051269531,
+            "max": 353.9945068359375,
+            "buckets": [
+              7837,
+              60702,
+              144240,
+              214397,
+              208539,
+              192056,
+              133519,
+              63973,
+              20256,
+              3057
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_Archer_Jack_2014"
+}

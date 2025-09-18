@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x23y345_TX_Neches_B2_2016",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -95.82960507931854,
+          31.06271275662593
+        ],
+        [
+          -95.72478384294509,
+          31.064971347546106
+        ],
+        [
+          -95.72736402274172,
+          31.155207732646808
+        ],
+        [
+          -95.83228420006759,
+          31.152941128970898
+        ],
+        [
+          -95.82960507931854,
+          31.06271275662593
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -95.83228420006759,
+    31.06271275662593,
+    -95.72478384294509,
+    31.155207732646808
+  ],
+  "properties": {
+    "start_datetime": "2016-03-03T00:00:00Z",
+    "end_datetime": "2017-10-09T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            229994.0,
+            3439994.0
+          ],
+          [
+            240006.0,
+            3439994.0
+          ],
+          [
+            240006.0,
+            3450006.0
+          ],
+          [
+            229994.0,
+            3450006.0
+          ],
+          [
+            229994.0,
+            3439994.0
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      229994.0,
+      3439994.0,
+      240006.0,
+      3450006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      229994.0,
+      0.0,
+      -1.0,
+      3450006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_Neches_B2_2016/TIFF/USGS_one_meter_x23y345_TX_Neches_B2_2016.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 52.43744911295224,
+            "minimum": 39.95000076293945,
+            "maximum": 78.84134674072266,
+            "stddev": 7.440701288115491,
+            "valid_percent": 40.64455032348633
+          },
+          "histogram": {
+            "count": 11,
+            "min": 39.95000076293945,
+            "max": 78.84134674072266,
+            "buckets": [
+              14952,
+              23249,
+              288941,
+              23667,
+              6774,
+              10660,
+              19766,
+              15288,
+              22474,
+              418
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_Neches_B2_2016"
+}

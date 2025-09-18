@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_14_x55y348_TX_CentralEast_A23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -98.47431595369865,
+          31.363379373879308
+        ],
+        [
+          -98.36904531832181,
+          31.36290482195075
+        ],
+        [
+          -98.36844059438853,
+          31.45323411561154
+        ],
+        [
+          -98.47381211149674,
+          31.453710343675738
+        ],
+        [
+          -98.47431595369865,
+          31.363379373879308
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -98.47431595369865,
+    31.36290482195075,
+    -98.36844059438853,
+    31.453710343675738
+  ],
+  "properties": {
+    "start_datetime": "2024-01-07T00:00:00Z",
+    "end_datetime": "2024-03-10T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            549994.0000018469,
+            3469994.0000517606
+          ],
+          [
+            560006.0000018469,
+            3469994.0000517606
+          ],
+          [
+            560006.0000018469,
+            3480006.0000517606
+          ],
+          [
+            549994.0000018469,
+            3480006.0000517606
+          ],
+          [
+            549994.0000018469,
+            3469994.0000517606
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      549994.0000018469,
+      3469994.0000517606,
+      560006.0000018469,
+      3480006.0000517606
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      549994.0000018469,
+      0.0,
+      -1.0,
+      3480006.0000517606,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_CentralEast_A23/TIFF/USGS_1M_14_x55y348_TX_CentralEast_A23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 450.7264404296875,
+            "minimum": 382.23687744140625,
+            "maximum": 520.3915405273438,
+            "stddev": 24.366476058412793,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 382.23687744140625,
+            "max": 520.3915405273438,
+            "buckets": [
+              10437,
+              16437,
+              99382,
+              207675,
+              242969,
+              195252,
+              123977,
+              94541,
+              40007,
+              17899
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_CentralEast_A23"
+}

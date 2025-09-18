@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_14_x68y289_TX_LowerRioGrande_D22",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -97.20121744216394,
+          26.027722320668605
+        ],
+        [
+          -97.10120451302114,
+          26.026442487666642
+        ],
+        [
+          -97.09974622076592,
+          26.11679866154613
+        ],
+        [
+          -97.19983585685227,
+          26.118083595965622
+        ],
+        [
+          -97.20121744216394,
+          26.027722320668605
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -97.20121744216394,
+    26.026442487666642,
+    -97.09974622076592,
+    26.118083595965622
+  ],
+  "properties": {
+    "start_datetime": "2023-01-22T00:00:00Z",
+    "end_datetime": "2023-02-18T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            679993.999959664,
+            2879993.9999864222
+          ],
+          [
+            690005.999959664,
+            2879993.9999864222
+          ],
+          [
+            690005.999959664,
+            2890005.9999864222
+          ],
+          [
+            679993.999959664,
+            2890005.9999864222
+          ],
+          [
+            679993.999959664,
+            2879993.9999864222
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      679993.999959664,
+      2879993.9999864222,
+      690005.999959664,
+      2890005.9999864222
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      679993.999959664,
+      0.0,
+      -1.0,
+      2890005.9999864222,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_LowerRioGrande_D22/TIFF/USGS_1M_14_x68y289_TX_LowerRioGrande_D22.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 0.6045170344214722,
+            "minimum": -1.0099999904632568,
+            "maximum": 10.516550064086914,
+            "stddev": 1.5265316207334352,
+            "valid_percent": 17.68045425415039
+          },
+          "histogram": {
+            "count": 11,
+            "min": -1.0099999904632568,
+            "max": 10.516550064086914,
+            "buckets": [
+              96894,
+              58506,
+              15052,
+              4024,
+              4141,
+              1832,
+              2840,
+              1461,
+              501,
+              142
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_LowerRioGrande_D22"
+}

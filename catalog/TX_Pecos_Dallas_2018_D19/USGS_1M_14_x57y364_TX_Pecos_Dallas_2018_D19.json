@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_14_x57y364_TX_Pecos_Dallas_2018_D19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -98.25236988349549,
+          32.80569470465729
+        ],
+        [
+          -98.1454378903204,
+          32.80501057945713
+        ],
+        [
+          -98.14457182955088,
+          32.895314686302385
+        ],
+        [
+          -98.25161216715158,
+          32.89600116852019
+        ],
+        [
+          -98.25236988349549,
+          32.80569470465729
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -98.25236988349549,
+    32.80501057945713,
+    -98.14457182955088,
+    32.89600116852019
+  ],
+  "properties": {
+    "start_datetime": "2019-01-26T00:00:00Z",
+    "end_datetime": "2019-07-12T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            569993.999959339,
+            3629993.9999968894
+          ],
+          [
+            580005.999959339,
+            3629993.9999968894
+          ],
+          [
+            580005.999959339,
+            3640005.9999968894
+          ],
+          [
+            569993.999959339,
+            3640005.9999968894
+          ],
+          [
+            569993.999959339,
+            3629993.9999968894
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      569993.999959339,
+      3629993.9999968894,
+      580005.999959339,
+      3640005.9999968894
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      569993.999959339,
+      0.0,
+      -1.0,
+      3640005.9999968894,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_Pecos_Dallas_2018_D19/TIFF/USGS_1M_14_x57y364_TX_Pecos_Dallas_2018_D19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 296.58763505402163,
+            "minimum": 241.3123321533203,
+            "maximum": 363.9140625,
+            "stddev": 38.569112140765526,
+            "valid_percent": 0.7149696350097656
+          },
+          "histogram": {
+            "count": 11,
+            "min": 241.3123321533203,
+            "max": 363.9140625,
+            "buckets": [
+              868,
+              456,
+              1948,
+              1563,
+              92,
+              133,
+              129,
+              144,
+              1249,
+              915
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_Pecos_Dallas_2018_D19"
+}

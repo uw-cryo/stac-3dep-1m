@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x34y402_TN_WestTN_2019_B19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -88.78023332497104,
+          36.221575426728904
+        ],
+        [
+          -88.66888341593997,
+          36.223180650368555
+        ],
+        [
+          -88.67080490401645,
+          36.313405790790036
+        ],
+        [
+          -88.78228285687307,
+          36.31179529111223
+        ],
+        [
+          -88.78023332497104,
+          36.221575426728904
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -88.78228285687307,
+    36.221575426728904,
+    -88.66888341593997,
+    36.313405790790036
+  ],
+  "properties": {
+    "start_datetime": "2015-12-17T00:00:00Z",
+    "end_datetime": "2019-03-29T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            339993.9996543941,
+            4009994.000344671
+          ],
+          [
+            350005.9996543941,
+            4009994.000344671
+          ],
+          [
+            350005.9996543941,
+            4020006.000344671
+          ],
+          [
+            339993.9996543941,
+            4020006.000344671
+          ],
+          [
+            339993.9996543941,
+            4009994.000344671
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      339993.9996543941,
+      4009994.000344671,
+      350005.9996543941,
+      4020006.000344671
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      339993.9996543941,
+      0.0,
+      -1.0,
+      4020006.000344671,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TN_WestTN_2019_B19/TIFF/USGS_1M_16_x34y402_TN_WestTN_2019_B19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 120.55135345458984,
+            "minimum": 95.60545349121094,
+            "maximum": 162.6066131591797,
+            "stddev": 12.919670302527928,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 95.60545349121094,
+            "max": 162.6066131591797,
+            "buckets": [
+              104688,
+              120427,
+              158636,
+              196424,
+              197725,
+              131642,
+              80849,
+              50056,
+              7308,
+              821
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TN_WestTN_2019_B19"
+}
