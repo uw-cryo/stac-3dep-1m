@@ -5,15 +5,24 @@ import boto3
 from botocore import UNSIGNED
 from botocore.client import Config
 import subprocess
+from pathlib import Path
 
 s3 = boto3.client('s3', config=Config(signature_version=UNSIGNED))
 response = s3.list_objects_v2(Bucket='prd-tnm', Prefix='StagedProducts/Elevation/1m/Projects/', Delimiter='/')
 folders = [content['Prefix'] for content in response.get('CommonPrefixes')]
 all_folders = [x.split('/')[-2] for x in folders]
-print('Creating STAC for {} projects...'.format(len(all_folders)))
+
+print('Located {} folders in S3...'.format(len(all_folders)))
+
+# For efficiency only work with folders that don't already have a STAC
+catalog_path = Path('catalog')
+subfolders = [f.name for f in catalog_path.iterdir() if f.is_dir()]
+missing_folders = set(all_folders) - set(subfolders)
+
+print('Processing {} folders without local STAC...'.format(len(missing_folders)))
 
 # Non-elegant approach to creating all STACs for workunit or project
-for i, project in enumerate(all_folders):
+for i, project in enumerate(missing_folders):
     print(i, project)
     try:
         subprocess.run(['./scripts/create_static_stac.py', '--workunit', project], check=True, capture_output=False)

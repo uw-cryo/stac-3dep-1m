@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_19_x35y473_MA_CentralEastern_2021_B21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -70.82905330142147,
+          42.61779052031515
+        ],
+        [
+          -70.70702961028844,
+          42.61967418183183
+        ],
+        [
+          -70.70949781887897,
+          42.70979829779355
+        ],
+        [
+          -70.83169771281398,
+          42.70790872124355
+        ],
+        [
+          -70.82905330142147,
+          42.61779052031515
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -70.83169771281398,
+    42.61779052031515,
+    -70.70702961028844,
+    42.70979829779355
+  ],
+  "properties": {
+    "start_datetime": "2021-03-20T00:00:00Z",
+    "end_datetime": "2021-04-24T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            349994.00028893806,
+            4719993.999583381
+          ],
+          [
+            360006.00028893806,
+            4719993.999583381
+          ],
+          [
+            360006.00028893806,
+            4730005.999583381
+          ],
+          [
+            349994.00028893806,
+            4730005.999583381
+          ],
+          [
+            349994.00028893806,
+            4719993.999583381
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      349994.00028893806,
+      4719993.999583381,
+      360006.00028893806,
+      4730005.999583381
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      349994.00028893806,
+      0.0,
+      -1.0,
+      4730005.999583381,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MA_CentralEastern_2021_B21/TIFF/USGS_1M_19_x35y473_MA_CentralEastern_2021_B21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 8.061646373287914,
+            "minimum": -1.5299999713897705,
+            "maximum": 69.57299041748047,
+            "stddev": 11.299106584749358,
+            "valid_percent": 88.80367279052734
+          },
+          "histogram": {
+            "count": 11,
+            "min": -1.5299999713897705,
+            "max": 69.57299041748047,
+            "buckets": [
+              549302,
+              154846,
+              82937,
+              61128,
+              41768,
+              22337,
+              13664,
+              4368,
+              741,
+              83
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MA_CentralEastern_2021_B21"
+}

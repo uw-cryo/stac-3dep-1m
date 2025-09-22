@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x37y392_NM_NorthCentral_B2_2016",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -106.43189260368442,
+          35.32470946094768
+        ],
+        [
+          -106.31874328451008,
+          35.32599676196908
+        ],
+        [
+          -106.3201980599286,
+          35.41536642240245
+        ],
+        [
+          -106.43347210008352,
+          35.41407488602738
+        ],
+        [
+          -106.43189260368442,
+          35.32470946094768
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -106.43347210008352,
+    35.32470946094768,
+    -106.31874328451008,
+    35.41536642240245
+  ],
+  "properties": {
+    "start_datetime": "2016-11-29T00:00:00Z",
+    "end_datetime": "2018-10-31T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            369851.17002915416,
+            3909993.5272108256
+          ],
+          [
+            380138.17002915416,
+            3909993.5272108256
+          ],
+          [
+            380138.17002915416,
+            3919907.5272108256
+          ],
+          [
+            369851.17002915416,
+            3919907.5272108256
+          ],
+          [
+            369851.17002915416,
+            3909993.5272108256
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      369851.17002915416,
+      3909993.5272108256,
+      380138.17002915416,
+      3919907.5272108256
+    ],
+    "proj:shape": [
+      9914,
+      10287
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      369851.17002915416,
+      0.0,
+      -1.0,
+      3919907.5272108256,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NM_NorthCentral_B2_2016/TIFF/USGS_one_meter_x37y392_NM_NorthCentral_B2_2016.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 1751.081440770022,
+            "minimum": 1654.5797119140625,
+            "maximum": 1928.0242919921875,
+            "stddev": 51.67838658327076,
+            "valid_percent": 55.01559333839919
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1654.5797119140625,
+            "max": 1928.0242919921875,
+            "buckets": [
+              19819,
+              85081,
+              172358,
+              120206,
+              37475,
+              39184,
+              39948,
+              30437,
+              10168,
+              1360
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NM_NorthCentral_B2_2016"
+}

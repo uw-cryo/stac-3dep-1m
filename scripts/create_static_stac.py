@@ -32,6 +32,10 @@ from pathlib import Path
 import warnings
 import argparse
 import time
+import boto3
+from botocore import UNSIGNED
+from botocore.client import Config
+s3 = boto3.client('s3', config=Config(signature_version=UNSIGNED))
 
 # explicitly instantiate a client that always uses the local cache
 client = S3Client(local_cache_dir="/tmp", no_sign_request=True)
@@ -204,13 +208,30 @@ def get_collection_bbox(results):
     return gf.total_bounds.tolist()
 
 
+def list_tiffs_in_project(project, bucket="prd-tnm"):
+    project_prefix = f"StagedProducts/Elevation/1m/Projects/{project}/TIFF"
+    response = s3.list_objects_v2(Bucket=bucket, Prefix=project_prefix)
+    tiff_files = [
+        obj['Key'] for obj in response.get('Contents', [])
+        if obj['Key'].endswith('.tif')
+    ]
+
+    return [f"https://{bucket}.s3.amazonaws.com/{key}" for key in tiff_files]
+
+
 def create_stac_catalog(project, is_workunit=False):
     """Create a STAC catalog from a 3DEP 1m project"""
     s = get_wesm_series(project, is_workunit=is_workunit)
-    project_inventory = f"s3://prd-tnm/StagedProducts/Elevation/1m/Projects/{project}/0_file_download_links.txt"
-    tifs = get_tif_list_s3(project_inventory)
 
-    tiflist = tifs  # (for testing)
+    # NOTE: not all folders have 0_file_download_links.txt
+    # or 0_file_download_links.txt has errors
+    #project_inventory = f"s3://prd-tnm/StagedProducts/Elevation/1m/Projects/{project}/0_file_download_links.txt"
+    #tiflist = get_tif_list_s3(project_inventory)
+
+    # Instead list TIFF/ folder directly
+    tiflist = list_tiffs_in_project(project)
+    if len(tiflist) == 0:
+        raise ValueError(f"No tiffs found for project '{project}'")
 
     print(f"creating STAC Items from {len(tiflist)} tifs...")
     # Same datatime range for all tifs in a project
@@ -255,7 +276,6 @@ def create_stac_catalog(project, is_workunit=False):
     #     item = pystac.read_dict(json.loads(x))
     #     print(item.id)
     #     items.append(item)
-
     items = [pystac.read_dict(json.loads(x)) for x in results]
 
     # THis will be 'collection' level metadata, not in each item

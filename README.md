@@ -61,6 +61,9 @@ Note: file list has both `USGS_1M` and `USGS_1m` lowercase m, but actually TIFFs
 https://github.com/OpenTopography/Data_Catalog_Spatial_Boundaries/blob/main/USGS_3DEP/CA_FEMAR9PanocheSanLuis_2019.geojson
 
 
+Solution: read from TIFF Directory instead of 0_file_download_links.txt
+
+
 ### Overlapping source data
 
 Single seamless cell, multiple tiffs:
