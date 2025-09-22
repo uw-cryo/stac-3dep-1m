@@ -31,12 +31,51 @@ import pystac
 from pathlib import Path
 import warnings
 import argparse
+import time
 
 # explicitly instantiate a client that always uses the local cache
 client = S3Client(local_cache_dir="/tmp", no_sign_request=True)
 
 # Can change to whatever you want >=GDAL 3.10.1
 ASSET_NAME = "elevation"
+
+## 1m folder to WESM metadata mapping for non-conforming naming schemes
+# If commented out unsure for some reason or another
+onemeter_folder_to_wesm = {
+    "AR_BentonCoBAA_2015": "AR_Benton_Co_2015",
+    "BLev8MI_31Co_Mason_2017": "MI_31Co_Mason_2017",
+    "CA_Eastern_SanDiegoCo_2016": "CA_E_SanDiegoCo_2016",
+    #"CA_SanDiegoCo_2016": "CA_SanDiego_2015_C17_1",  # not sure, different year?
+    #'CO_MesaCo_QL2_UTM12_2016' : 'CO_MesaCo_QL2_UTM13_2015' # not sure, different UTM
+    "Elwha_River_LiDAR_2014_MOD2": "WA_ElwhaRiver_2014",
+    "IL_12_County_HenryCO_2009": "IL_12_County_HenryCo_2009",
+    "IL_KankakeeCo_2014": "IL_5County_KankakeeCo_2014",
+    "IL_McHenryCo_2008": "IL_Twelve_Counties_McHenry",
+    "IL_StephensonCo_2009": "IL_12_County_Stephenson_Co_2009",
+    #"KS_South_Central_AOI_2_Manhattan_2015": "KS_SCentral_L2_2015",  # not sure
+    "KS_SthCentral_AOI4_2015": "KS_SCentral_L4_2015",  # not sure
+    "LA_Atchafalaya2_2012": "LA_ATCHAFALAYA2_2013",
+    #"MA_NE_CMGP_Sandy_Z19_2013": "MA_NE_CMGP_Sandy_Z18_2013",  # or 'MA_NE_CMGP_Sandy_Z19_A3_2015' ?!
+    "MA_NE_CMGP_Snds_2013": "MA_NE_CMGP_Sandy_Z18_2013",
+    "ME_SouthernArea_2012": "ME_SouthernAreas_2012",
+    "MI_13Co_Emmett_2015": "MI_EmmetCo_2015",
+    "MI_25County_AlleganCo_2015": "MI_AlleganCo_2015",
+    #"MI_Montcalm_2016": "MI_Montcalm_2015",  # NOTE: why is 2015 in name if collection in 2018/10/24?
+    "MO_BooneCo_2014": "MO_BooneCo_2015",
+    "MO_SaintLouis_2017": "MO_StLouis_2017",
+    "MS_NRCS_Lauderdale_2013": "MS_NRCS_LAUDERDALE_2013",
+    "MS_TishomingoNorth_2016": "MS_Tishomingo_North_2016",
+    "MS_TishomingoSouth_2016": "MS_Tishomingo_South_2016",
+    #"NH_CT_RiverNorthL6_2015": "NH_CT_RiverNorthL6_P1_2015",  # or 'NH_CT_RiverNorthL6_P2_2015',
+    "NH_CT_River_North_L6_p3_2015": "NH_CT_River_North_L6_P3_2015",
+    "NY_Southwest_2_Co_2016": "NY_Southwest_2_CO_2016",
+    "OR_Wallowa_2015": "OR_OLC_Wallowa_2015",
+    "SD_NRCS_Fugro_B2_TL_2017": "SD_NRCS_Fugro_B2_2017",
+    #"TN_NRCS_2011": "TN_NRCS_L2_2011_12",  # or 'TN_NRCS_L1_2011_12' ?,
+    #"UT_Area1WasatchFault_2013": "UT_WasatchFault_L2_2013",
+    "UT_MonroeMountain_2016": "UT_MonroeMoutain_2016",
+    "UT_Wasatch_L3_2013": "UT_WasatchFault_L3_2013",
+}
 
 
 def get_titiler_datetime(series):
@@ -56,24 +95,42 @@ def add_wesm_metadata_to_collection(collection, series):
     """Add to extra_fields dictionary"""
     links = ["lpc_link", "sourcedem_link", "metadata_link"]
     # Ensure JSON-serializable
-    wesm_properties = json.loads(series.drop(links).add_prefix('wesm:').to_json())
+    wesm_properties = json.loads(series.drop(links).add_prefix("wesm:").to_json())
     # STAC-browser does not render this
-    #collection.extra_fields = {'properties':wesm_properties}
+    # collection.extra_fields = {'properties':wesm_properties}
     # WARNING: this creates *invalid* STAC, be default STAC-browser still renders it!
-    for k,v in wesm_properties.items():
+    for k, v in wesm_properties.items():
         collection.summaries.add(k, v)
+
+
+# NOTE: TiTiler now rate limited :(
+# https://github.com/developmentseed/titiler/discussions/1223
+# Should deploy our own version anyways
 
 # TODO: use aiohttp instead?
 # How to code async functions in a synchronous script...
 def create_stac_item(URL, DATETIME):
     ID = URL.split("/")[-1][:-4]
     PROJECT = URL.split("/")[-3]
-    stacify = f"https://titiler.xyz/cog/stac?id={ID}&datetime={DATETIME}&collection={PROJECT}&asset_name={ASSET_NAME}&asset_roles=data&with_eo=false&url={URL}"
-    r = requests.get(stacify)
-    # outpath = f'{outdir}/{ID}.json'
-    # with open(outpath, 'w') as f:
-    #    f.write(r.text)
-    # return outpath
+    params = {
+        "id": ID,
+        "datetime": DATETIME,
+        "collection": PROJECT,
+        "asset_name": ASSET_NAME,
+        "asset_roles": "data",
+        "with_eo": "false",
+        "url": URL,
+    }
+    stacify = f"https://titiler.xyz/cog/stac"
+    #print(f"Requesting STAC item for {ID}")
+    r = requests.get(stacify, params=params)
+
+    # Omit raster stats if it fails (or omit item entirely?)
+    if r.status_code != 200:
+        if r.json().get("detail", "").startswith("Too many bins for data range"):
+            params["with_raster"] = "false"
+            r = requests.get(stacify, params=params)
+
     return r.text
 
 
@@ -89,23 +146,28 @@ def get_wesm_series(project, is_workunit=False):
         "s3://prd-tnm/StagedProducts/Elevation/metadata/WESM.csv"
     )
     df = pd.read_csv(wesm_csv)
-    if is_workunit:
-        if project not in df.workunit.values:
-            alternatives = df[df.workunit.str.startswith(project)].workunit.to_list()
-            raise ValueError(
-                f"Workunit '{project}' not found in WESM metadata, close matches: {alternatives}"
-            )
-        s = df[df.workunit == project].iloc[0]
+
+    # Fast track manually specified mappings
+    if project in onemeter_folder_to_wesm:
+        name = onemeter_folder_to_wesm[project]
+        s = df[df.workunit == name].iloc[0]
     else:
-        if project not in df.project.values:
-            alternatives = df[df.project.str.startswith(project)].project.to_list()
-            raise ValueError(
-                f"Project '{project}' not found in WESM metadata, close matches: {alternatives}"
-            )
-        s = df[df.project == project].iloc[0]
+        if is_workunit:
+            if project not in df.workunit.values:
+                alternatives = df[df.workunit.str.startswith(project)].workunit.to_list()
+                raise ValueError(
+                    f"Workunit '{project}' not found in WESM metadata, close matches: {alternatives}"
+                )
+            s = df[df.workunit == project].iloc[0]
+        else:
+            if project not in df.project.values:
+                alternatives = df[df.project.str.startswith(project)].project.to_list()
+                raise ValueError(
+                    f"Project '{project}' not found in WESM metadata, close matches: {alternatives}"
+                )
+            s = df[df.project == project].iloc[0]
 
-
-    if not s.onemeter_category == 'Meets':
+    if not s.onemeter_category == "Meets":
         warnings.warn(
             f"Project '{project}' onemeter_category is not 'Meets' but '{s.onemeter_category}'"
         )
@@ -154,7 +216,15 @@ def create_stac_catalog(project, is_workunit=False):
     # Same datatime range for all tifs in a project
     # Formatted for TITILER 2019-08-21T00:00:00Z/2019-09-19T00:00:00Z'
     DATETIME = get_titiler_datetime(s)
-    results = generate_stac_from_titiler(tiflist, DATETIME)
+
+    # ASYNC
+    #results = generate_stac_from_titiler(tiflist, DATETIME)
+
+    # SYNC
+    results = []
+    for url in tiflist:
+        results.append(create_stac_item(url, DATETIME))
+        time.sleep(0.1)
 
     USGS_PROVIDER = Provider(
         name="USGS",
@@ -178,6 +248,14 @@ def create_stac_catalog(project, is_workunit=False):
     )
 
     # Pystac.Items
+    # Debug: do loop in serial to see where we're failing (or use function...)
+    # items = []
+    # for x in results:
+    #     print(x)
+    #     item = pystac.read_dict(json.loads(x))
+    #     print(item.id)
+    #     items.append(item)
+
     items = [pystac.read_dict(json.loads(x)) for x in results]
 
     # THis will be 'collection' level metadata, not in each item
@@ -246,9 +324,24 @@ def create_stac_catalog(project, is_workunit=False):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate a STAC catalog from a 3DEP 1m project or workunit.")
-    parser.add_argument('-p', '--project', type=str, help='Project name (e.g. CO_WestCentral_2019_A19)')
-    parser.add_argument('-w', '--workunit', type=str, help='Workunit name (e.g. TX_RedRiver_3Area_B2_2018)')
+    parser = argparse.ArgumentParser(
+        description="Generate a STAC catalog from a 3DEP 1m project or workunit."
+    )
+    parser.add_argument(
+        "-p", "--project", type=str, help="Project name (e.g. CO_WestCentral_2019_A19)"
+    )
+    parser.add_argument(
+        "-w",
+        "--workunit",
+        type=str,
+        help="Workunit name (e.g. TX_RedRiver_3Area_B2_2018)",
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        default=False,
+        help="Overwrite existing project folder if it exists",
+    )
     args = parser.parse_args()
 
     if not args.project and not args.workunit:
@@ -264,6 +357,10 @@ if __name__ == "__main__":
 
     stac_path = Path(f"./catalog/{project}")
     if stac_path.exists():
-        print(f"Project folder '{project}' already exists.")
+        if args.overwrite:
+            print(f"Overwriting existing project folder '{project}'.")
+            create_stac_catalog(project, is_workunit)
+        else:
+            print(f"Output folder '{project}' already exists, skipping.")
     else:
         create_stac_catalog(project, is_workunit)

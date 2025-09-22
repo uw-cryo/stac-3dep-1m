@@ -16,7 +16,7 @@ print('Creating STAC for {} projects...'.format(len(all_folders)))
 for i, project in enumerate(all_folders):
     print(i, project)
     try:
-        subprocess.run(['./scripts/create_static_stac.py', '--workunit', project], check=True, capture_output=True)
+        subprocess.run(['./scripts/create_static_stac.py', '--workunit', project], check=True, capture_output=False)
     except subprocess.CalledProcessError:
         print('Failed processing as WESM Workunit, trying as Project...')
         try:
