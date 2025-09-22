@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x73y474_MA_NE_CMGP_Snds_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -72.19253141921017,
+          42.688029654351304
+        ],
+        [
+          -72.07047031483675,
+          42.68497046947122
+        ],
+        [
+          -72.06622601828832,
+          42.7750154721191
+        ],
+        [
+          -72.18846338442863,
+          42.77808425391166
+        ],
+        [
+          -72.19253141921017,
+          42.688029654351304
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -72.19253141921017,
+    42.68497046947122,
+    -72.06622601828832,
+    42.77808425391166
+  ],
+  "properties": {
+    "start_datetime": "2013-11-16T00:00:00Z",
+    "end_datetime": "2014-12-31T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            729993.9999999998,
+            4729994.000099997
+          ],
+          [
+            740006.0000000028,
+            4729994.000099997
+          ],
+          [
+            740006.0000000028,
+            4740006.0
+          ],
+          [
+            729993.9999999998,
+            4740006.0
+          ],
+          [
+            729993.9999999998,
+            4729994.000099997
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      729993.9999999998,
+      4729994.000099997,
+      740006.0000000028,
+      4740006.0
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0000000000003024,
+      0.0,
+      729993.9999999998,
+      0.0,
+      -0.9999999900122817,
+      4740006.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MA_NE_CMGP_Snds_2013/TIFF/USGS_one_meter_x73y474_MA_NE_CMGP_Snds_2013.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 297.77982855283443,
+            "minimum": 253.8882598876953,
+            "maximum": 375.9916076660156,
+            "stddev": 23.744821734001018,
+            "valid_percent": 35.75572967529297
+          },
+          "histogram": {
+            "count": 11,
+            "min": 253.8882598876953,
+            "max": 375.9916076660156,
+            "buckets": [
+              39128,
+              58363,
+              50877,
+              66551,
+              68978,
+              49401,
+              26230,
+              9220,
+              4125,
+              2053
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MA_NE_CMGP_Snds_2013"
+}

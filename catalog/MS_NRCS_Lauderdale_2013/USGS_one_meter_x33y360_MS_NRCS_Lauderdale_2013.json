@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x33y360_MS_NRCS_Lauderdale_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -88.80829966658547,
+          32.43410729967026
+        ],
+        [
+          -88.70184691175474,
+          32.43559094701023
+        ],
+        [
+          -88.7035471912058,
+          32.525870452707736
+        ],
+        [
+          -88.81010616341908,
+          32.52438166452176
+        ],
+        [
+          -88.80829966658547,
+          32.43410729967026
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -88.81010616341908,
+    32.43410729967026,
+    -88.70184691175474,
+    32.525870452707736
+  ],
+  "properties": {
+    "start_datetime": "2013-01-31T00:00:00Z",
+    "end_datetime": "2013-03-03T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            329993.9997184081,
+            3589994.0002634437
+          ],
+          [
+            340005.9997184081,
+            3589994.0002634437
+          ],
+          [
+            340005.9997184081,
+            3600006.0003634435
+          ],
+          [
+            329993.9997184081,
+            3600006.0003634435
+          ],
+          [
+            329993.9997184081,
+            3589994.0002634437
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      329993.9997184081,
+      3589994.0002634437,
+      340005.9997184081,
+      3600006.0003634435
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      329993.9997184081,
+      0.0,
+      -1.0000000099879973,
+      3600006.0003634435,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MS_NRCS_Lauderdale_2013/TIFF/USGS_one_meter_x33y360_MS_NRCS_Lauderdale_2013.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 116.87621307373047,
+            "minimum": 93.8879165649414,
+            "maximum": 162.46499633789062,
+            "stddev": 14.837498624037424,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 93.8879165649414,
+            "max": 162.46499633789062,
+            "buckets": [
+              131406,
+              250328,
+              137040,
+              133757,
+              147351,
+              102155,
+              74404,
+              48669,
+              21542,
+              1924
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MS_NRCS_Lauderdale_2013"
+}

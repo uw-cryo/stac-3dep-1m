@@ -1,0 +1,273 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_19_x52y499_ME_MidCoast_2021_B21",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -68.74636107206472,
+          44.97314187434965
+        ],
+        [
+          -68.61954371557985,
+          44.9727898137975
+        ],
+        [
+          -68.61894702344621,
+          45.06282481540121
+        ],
+        [
+          -68.74596326859388,
+          45.06317797670702
+        ],
+        [
+          -68.74636107206472,
+          44.97314187434965
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -68.74636107206472,
+    44.9727898137975,
+    -68.61894702344621,
+    45.06317797670702
+  ],
+  "properties": {
+    "start_datetime": "2021-05-09T00:00:00Z",
+    "end_datetime": "2021-05-27T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            519999.96462323976,
+            4979998.09764437
+          ],
+          [
+            529999.9646232398,
+            4979998.09764437
+          ],
+          [
+            529999.9646232398,
+            4990000.09764437
+          ],
+          [
+            519999.96462323976,
+            4990000.09764437
+          ],
+          [
+            519999.96462323976,
+            4979998.09764437
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      519999.96462323976,
+      4979998.09764437,
+      529999.9646232398,
+      4990000.09764437
+    ],
+    "proj:shape": [
+      10002,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      519999.96462323976,
+      0.0,
+      -1.0,
+      4990000.09764437,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/ME_MidCoast_2021_B21/TIFF/USGS_1M_19_x52y499_ME_MidCoast_2021_B21.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": 45.20995013210933,
+            "minimum": 32.09208679199219,
+            "maximum": 119.37843322753906,
+            "stddev": 11.277233240149528,
+            "valid_percent": 10.575580596923828
+          },
+          "histogram": {
+            "count": 11,
+            "min": 32.09208679199219,
+            "max": 119.37843322753906,
+            "buckets": [
+              40729,
+              44207,
+              18415,
+              3909,
+              1009,
+              605,
+              522,
+              495,
+              485,
+              517
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "ME_MidCoast_2021_B21"
+}

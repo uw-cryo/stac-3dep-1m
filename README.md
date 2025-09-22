@@ -20,6 +20,7 @@ pixi run create-all
 ```
 
 ```
+ulimit -n 500000
 pixi run catalog-to-geoparquet
 ```
 
@@ -158,6 +159,10 @@ Request ID: GuGy4HUODNobDBWobDe-KWE5wb8Ln3VObFpzmze1gJ41vyzQnG-2Mg==
 ```
 
 NOTE: best solution is to deploy your own! Otherwise, avoid async requests or add 0.5s delay in between requests.
+
+
+pixi run create-stac --project TX_WestTexas_2018_D19
+✨ Pixi task (create-stac): python scripts/create_static_stac.py --project TX_WestTexas_2018_D19                                                                            creating STAC Items from 999 tifs...
 
 
 

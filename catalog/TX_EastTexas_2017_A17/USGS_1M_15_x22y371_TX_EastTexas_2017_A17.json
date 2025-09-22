@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x22y371_TX_EastTexas_2017_A17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -96.01062145376154,
+          33.40279101226501
+        ],
+        [
+          -95.90309511535732,
+          33.40535563447595
+        ],
+        [
+          -95.90610415121803,
+          33.49554471842877
+        ],
+        [
+          -96.01374153600868,
+          33.49297135376804
+        ],
+        [
+          -96.01062145376154,
+          33.40279101226501
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -96.01374153600868,
+    33.40279101226501,
+    -95.90309511535732,
+    33.49554471842877
+  ],
+  "properties": {
+    "start_datetime": "2016-12-29T00:00:00Z",
+    "end_datetime": "2017-01-07T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            219994.00002253905,
+            3699994.0003029327
+          ],
+          [
+            230006.00002253905,
+            3699994.0003029327
+          ],
+          [
+            230006.00002253905,
+            3710006.0003029327
+          ],
+          [
+            219994.00002253905,
+            3710006.0003029327
+          ],
+          [
+            219994.00002253905,
+            3699994.0003029327
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      219994.00002253905,
+      3699994.0003029327,
+      230006.00002253905,
+      3710006.0003029327
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      219994.00002253905,
+      0.0,
+      -1.0,
+      3710006.0003029327,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TX_EastTexas_2017_A17/TIFF/USGS_1M_15_x22y371_TX_EastTexas_2017_A17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 171.0361000353611,
+            "minimum": 141.13668823242188,
+            "maximum": 199.81399536132812,
+            "stddev": 12.020184267887027,
+            "valid_percent": 39.105892181396484
+          },
+          "histogram": {
+            "count": 11,
+            "min": 141.13668823242188,
+            "max": 199.81399536132812,
+            "buckets": [
+              2798,
+              5510,
+              73742,
+              57254,
+              69287,
+              69193,
+              44451,
+              40595,
+              38524,
+              8701
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TX_EastTexas_2017_A17"
+}

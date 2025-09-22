@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x35y484_SD_NRCS_QSI_A2_2017",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -100.8613279257077,
+          43.60777821203145
+        ],
+        [
+          -100.73233170298222,
+          43.60980633459025
+        ],
+        [
+          -100.73491948195456,
+          43.69973360413856
+        ],
+        [
+          -100.86410813846906,
+          43.6976991411964
+        ],
+        [
+          -100.8613279257077,
+          43.60777821203145
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -100.86410813846906,
+    43.60777821203145,
+    -100.73233170298222,
+    43.69973360413856
+  ],
+  "properties": {
+    "start_datetime": "2017-03-20T00:00:00Z",
+    "end_datetime": "2017-04-27T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            349788.8006693642,
+            4829994.281436913
+          ],
+          [
+            360203.8006693642,
+            4829994.281436913
+          ],
+          [
+            360203.8006693642,
+            4839986.281436913
+          ],
+          [
+            349788.8006693642,
+            4839986.281436913
+          ],
+          [
+            349788.8006693642,
+            4829994.281436913
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      349788.8006693642,
+      4829994.281436913,
+      360203.8006693642,
+      4839986.281436913
+    ],
+    "proj:shape": [
+      9992,
+      10415
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      349788.8006693642,
+      0.0,
+      -1.0,
+      4839986.281436913,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/SD_NRCS_QSI_A2_2017/TIFF/USGS_one_meter_x35y484_SD_NRCS_QSI_A2_2017.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 648.8717540781745,
+            "minimum": 579.83203125,
+            "maximum": 695.6217041015625,
+            "stddev": 21.71723683888067,
+            "valid_percent": 36.467208163784335
+          },
+          "histogram": {
+            "count": 11,
+            "min": 579.83203125,
+            "max": 695.6217041015625,
+            "buckets": [
+              3571,
+              6276,
+              19240,
+              28339,
+              48781,
+              63943,
+              76903,
+              73189,
+              34808,
+              12026
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "SD_NRCS_QSI_A2_2017"
+}

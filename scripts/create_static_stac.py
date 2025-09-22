@@ -125,12 +125,21 @@ def create_stac_item(URL, DATETIME):
         "with_eo": "false",
         "url": URL,
     }
-    stacify = f"https://titiler.xyz/cog/stac"
+    #stacify = f"https://titiler.xyz/cog/stac"
+    stacify = "https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac"
+
+    # Test:
+    # https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac?id=USGS_1M_16_x24y472_WI_Statewide_2019_A19&datetime=2019-04-08T00:00:00Z/2019-04-08T00:00:00Z&collection=WI_Statewide_2019_A19&asset_name=elevation&asset_roles=data&with_eo=false&url=https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_Statewide_2019_A19/TIFF/USGS_1M_16_x24y472_WI_Statewide_2019_A19.tif
+
     #print(f"Requesting STAC item for {ID}")
     r = requests.get(stacify, params=params)
 
     # Omit raster stats if it fails (or omit item entirely?)
     if r.status_code != 200:
+        # Debug:
+        print(r.url)
+        print(r.status_code)
+        print(r.text)
         if r.json().get("detail", "").startswith("Too many bins for data range"):
             params["with_raster"] = "false"
             r = requests.get(stacify, params=params)
@@ -180,6 +189,7 @@ def get_wesm_series(project, is_workunit=False):
 
 
 def generate_stac_from_titiler(tiflist, DATETIME):
+    # TODO: compare to running rio-stac locally.
     # Neat: How to wrap a synchronous function to run asynchronously!
     # https://www.youtube.com/watch?v=p8tnmEdeOU0
     async def create_stac_item_async(url, datetime):
@@ -193,12 +203,29 @@ def generate_stac_from_titiler(tiflist, DATETIME):
     # loop = asyncio.get_event_loop()
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    task_group = asyncio.gather(
-        *[create_stac_item_async(url, DATETIME) for url in tiflist]
-    )
-    # All the results as a list
-    results = loop.run_until_complete(task_group)
+
+    # Break tiflist into batches of no more than 100 URLs
+    def batch_urls(urls, batch_size=100):
+        for i in range(0, len(urls), batch_size):
+            yield urls[i:i + batch_size]
+
+    # waiting on quota increase... from 10 to 2000 :)
+    results = []
+    for batch in batch_urls(tiflist, batch_size=10):
+        task_group = asyncio.gather(
+            *[create_stac_item_async(url, DATETIME) for url in batch]
+        )
+        batch_results = loop.run_until_complete(task_group)
+        results.extend(batch_results)
+
+    # NOTE: this results in {"Reason":"ConcurrentInvocationLimitExceeded","Type":"User","message":"Rate Exceeded."}
+    # task_group = asyncio.gather(
+    #     *[create_stac_item_async(url, DATETIME) for url in tiflist]
+    # )
+    # # All the results as a list
+    # results = loop.run_until_complete(task_group)
     loop.close()
+
     return results
 
 
@@ -239,13 +266,13 @@ def create_stac_catalog(project, is_workunit=False):
     DATETIME = get_titiler_datetime(s)
 
     # ASYNC
-    #results = generate_stac_from_titiler(tiflist, DATETIME)
+    results = generate_stac_from_titiler(tiflist, DATETIME)
 
     # SYNC
-    results = []
-    for url in tiflist:
-        results.append(create_stac_item(url, DATETIME))
-        time.sleep(0.1)
+    # results = []
+    # for url in tiflist:
+    #     results.append(create_stac_item(url, DATETIME))
+    # #     time.sleep(0.1)
 
     USGS_PROVIDER = Provider(
         name="USGS",
