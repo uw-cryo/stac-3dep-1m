@@ -49,38 +49,39 @@ onemeter_folder_to_wesm = {
     "AR_BentonCoBAA_2015": "AR_Benton_Co_2015",
     "BLev8MI_31Co_Mason_2017": "MI_31Co_Mason_2017",
     "CA_Eastern_SanDiegoCo_2016": "CA_E_SanDiegoCo_2016",
-    #"CA_SanDiegoCo_2016": "CA_SanDiego_2015_C17_1",  # not sure, different year?
-    #'CO_MesaCo_QL2_UTM12_2016' : 'CO_MesaCo_QL2_UTM13_2015' # not sure, different UTM
+    "CA_SanDiegoCo_2016": "CA_SanDiego_2015_C17_1",
+    "CA_Sonoma_A1_2013": "CA_Sonoma_2013",
+    'CO_MesaCo_QL2_UTM12_2016' : 'CO_MesaCo_QL2_2015',
     "Elwha_River_LiDAR_2014_MOD2": "WA_ElwhaRiver_2014",
     "IL_12_County_HenryCO_2009": "IL_12_County_HenryCo_2009",
     "IL_KankakeeCo_2014": "IL_5County_KankakeeCo_2014",
     "IL_McHenryCo_2008": "IL_Twelve_Counties_McHenry",
     "IL_StephensonCo_2009": "IL_12_County_Stephenson_Co_2009",
-    #"KS_South_Central_AOI_2_Manhattan_2015": "KS_SCentral_L2_2015",  # not sure
-    "KS_SthCentral_AOI4_2015": "KS_SCentral_L4_2015",  # not sure
+    "KS_South_Central_AOI_2_Manhattan_2015": "KS_SCentral_L2_2015",
+    "KS_SthCentral_AOI4_2015": "KS_SCentral_L4_2015",
     "LA_Atchafalaya2_2012": "LA_ATCHAFALAYA2_2013",
-    #"MA_NE_CMGP_Sandy_Z19_2013": "MA_NE_CMGP_Sandy_Z18_2013",  # or 'MA_NE_CMGP_Sandy_Z19_A3_2015' ?!
+    "MA_NE_CMGP_Sandy_Z19_2013": "MA_NE_CMGP_Sandy_Z18_2013",  # note not sure about Z18 vs Z19...
     "MA_NE_CMGP_Snds_2013": "MA_NE_CMGP_Sandy_Z18_2013",
     "ME_SouthernArea_2012": "ME_SouthernAreas_2012",
     "MI_13Co_Emmett_2015": "MI_EmmetCo_2015",
     "MI_25County_AlleganCo_2015": "MI_AlleganCo_2015",
-    #"MI_Montcalm_2016": "MI_Montcalm_2015",  # NOTE: why is 2015 in name if collection in 2018/10/24?
+    "MI_Montcalm_2016": "MI_Montcalm_2015",  # note dates all over the place (2016,2015, 20181024)
     "MO_BooneCo_2014": "MO_BooneCo_2015",
     "MO_SaintLouis_2017": "MO_StLouis_2017",
     "MS_NRCS_Lauderdale_2013": "MS_NRCS_LAUDERDALE_2013",
     "MS_TishomingoNorth_2016": "MS_Tishomingo_North_2016",
     "MS_TishomingoSouth_2016": "MS_Tishomingo_South_2016",
-    #"NH_CT_RiverNorthL6_2015": "NH_CT_RiverNorthL6_P1_2015",  # or 'NH_CT_RiverNorthL6_P2_2015',
+    "NH_CT_RiverNorthL6_2015": "NH_CT_RiverNorthL6_P2_2015",  # or 'NH_CT_RiverNorthL6_P1_2015'?
     "NH_CT_River_North_L6_p3_2015": "NH_CT_River_North_L6_P3_2015",
     "NY_Southwest_2_Co_2016": "NY_Southwest_2_CO_2016",
     "OR_Wallowa_2015": "OR_OLC_Wallowa_2015",
     "SD_NRCS_Fugro_B2_TL_2017": "SD_NRCS_Fugro_B2_2017",
-    #"TN_NRCS_2011": "TN_NRCS_L2_2011_12",  # or 'TN_NRCS_L1_2011_12' ?,
-    #"UT_Area1WasatchFault_2013": "UT_WasatchFault_L2_2013",
+    #"TN_NRCS_2011": but "TN_NRCS_L2_2011_12" or 'TN_NRCS_L1_2011_12' also present?...
+    "UT_Area1WasatchFault_2013": "UT_Wasatch_L4_2013", # note: unsure, use most recent sourcedem update...
     "UT_MonroeMountain_2016": "UT_MonroeMoutain_2016",
     "UT_Wasatch_L3_2013": "UT_WasatchFault_L3_2013",
+    "VA_FEMA-NRCS_SouthCentral_2017_D17":"VA_FEMA_NRCS_SouthCentral_2017_D17",
 }
-
 
 def get_titiler_datetime(series):
     start = pd.to_datetime(series.collect_start).isoformat() + "Z"
@@ -88,7 +89,6 @@ def get_titiler_datetime(series):
     datestr = f"{start}/{end}"
     # print(datestr)
     return datestr
-
 
 # def add_wesm_metadata_to_properties(item, series):
 #     '''add all WESM metadata with wesm: prefix to STAC properties inplace'''
@@ -137,12 +137,20 @@ def create_stac_item(URL, DATETIME):
     # Omit raster stats if it fails (or omit item entirely?)
     if r.status_code != 200:
         # Debug:
+        print(URL)
         print(r.url)
         print(r.status_code)
         print(r.text)
-        if r.json().get("detail", "").startswith("Too many bins for data range"):
-            params["with_raster"] = "false"
+
+        if r.status_code == 500:
+            if r.json().get("detail", "").startswith("Too many bins for data range"):
+                params["with_raster"] = "false"
+                r = requests.get(stacify, params=params)
+        else: # internal server errors seem to be 502?
+            # just retry after a moment
+            time.sleep(1)
             r = requests.get(stacify, params=params)
+
 
     return r.text
 
@@ -163,6 +171,8 @@ def get_wesm_series(project, is_workunit=False):
     # Fast track manually specified mappings
     if project in onemeter_folder_to_wesm:
         name = onemeter_folder_to_wesm[project]
+        # NOTE: maybe issue here in cases of updated processing? check for source_dem update?
+        #.e.g. TN_NRCS_L2_2011_12
         s = df[df.workunit == name].iloc[0]
     else:
         if is_workunit:
@@ -204,14 +214,14 @@ def generate_stac_from_titiler(tiflist, DATETIME):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
-    # Break tiflist into batches of no more than 100 URLs
+    # Break tiflist into batches of no more than 200 URLs
+    # waiting on quota increase... from 10 to 1000 :)
     def batch_urls(urls, batch_size=100):
         for i in range(0, len(urls), batch_size):
             yield urls[i:i + batch_size]
 
-    # waiting on quota increase... from 10 to 2000 :)
     results = []
-    for batch in batch_urls(tiflist, batch_size=10):
+    for batch in batch_urls(tiflist):
         task_group = asyncio.gather(
             *[create_stac_item_async(url, DATETIME) for url in batch]
         )

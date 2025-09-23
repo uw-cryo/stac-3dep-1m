@@ -76,12 +76,6 @@ These tend to have just a little bit of valid data on the edges:
 More coverage
 * USGS_1M_10_x69y406_CA_FEMAR9PanocheSanLuis_2019_D20
 
-### No TIFFs despite 1m folder:
-
-* CA_LakeCounty_2015/
-
-* TX_EastTexas_2017_A17
-
 
 ### No 0_file_download_links.txt
 
@@ -181,3 +175,49 @@ https://titiler.xyz/cog/stac?id=USGS_1M_15_x56y492_WI_Statewide_2019_A19&datetim
 Very strange! Little valid blob in middle of mississippi river, maybe passing ship, barge, or seasonal island...
 
 Solution: with_raster=True to skip histogram generation
+
+### No TIFF/ subfolder:
+
+CA_LakeCounty_2015
+CA_SanDiegoQL2_2014
+ME_Western_2016
+MI_25County_AlleganCo_2015
+MI_31Co_Ottawa_2016
+MI_13Co_BerrienCO_2015
+MI_13Co_Emmett_2015
+MI_13Co_VanBurrenCo_2015
+MI_AlgerCo_2015
+MI_Baraga_2015
+MI_BenzieCo_2015
+MI_BranchCo_2017
+MI_DeltaCo_2015
+MI_CalhounCo_2017
+MI_GrandTraverseCO_2015
+MI_HiawathaNF_QL1_2018
+MI_HiawathaNF_QL2_2018
+MI_LeelanauCo_2015
+MI_MackinacCo_2015
+MI_ManisteeCo_2015
+MI_Marquette_2015
+NY_ClintonEssexLakeChamplain_2014
+
+
+## Project versus workunit collection date range:
+
+1m tiffs stored by project rather than workunit, so would need to extract full date range from all workunits within that project for accuracy:
+
+* TX_WestTexas_2018_D19
+
+999 tiffs!
+
+
+## Duplicate project folders?
+
+Note `TN_NRCS_2011`  folder but WESM workunits only `TN_NRCS_L2_2011_12` and `TN_NRCS_L1_2011_12` ...
+
+```
+TN_NRCS_2011/
+TN_NRCS_L1_2011_12/
+TN_NRCS_L2_2011_12/
+```
+

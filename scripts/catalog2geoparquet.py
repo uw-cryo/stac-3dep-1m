@@ -12,6 +12,8 @@ import asyncio
 import rustac
 import sys
 
+import geopandas as gpd
+import stac_geoparquet
 
 async def collection_to_stac_geoparquet(catalog_path, output_path=None):
     """
@@ -29,7 +31,15 @@ async def collection_to_stac_geoparquet(catalog_path, output_path=None):
     await rustac.write(output_path, all_items, format="parquet[snappy]")
 
 
+# Re-write with stac-geoparquet for now:
+# https://github.com/stac-utils/rustac-py/issues/160
+def rewrite(output_path):
+    gf = gpd.read_parquet(output_path)
+    stac_geoparquet.arrow.to_parquet(gf.to_arrow(), output_path)
+
+
 if __name__ == "__main__":
     collection_path = sys.argv[1]
     output_path = sys.argv[2] if len(sys.argv) > 2 else None
     asyncio.run(collection_to_stac_geoparquet(collection_path, output_path))
+    #rewrite(output_path)
