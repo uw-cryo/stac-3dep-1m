@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_17_x35y423_VA_FEMA-NRCS_SouthCentral_2017_D17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -82.71117079040164,
+          38.11532894605821
+        ],
+        [
+          -82.5970027970387,
+          38.116936698042956
+        ],
+        [
+          -82.59897205372114,
+          38.207136176659155
+        ],
+        [
+          -82.7132806649353,
+          38.205523239650965
+        ],
+        [
+          -82.71117079040164,
+          38.11532894605821
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -82.7132806649353,
+    38.11532894605821,
+    -82.5970027970387,
+    38.207136176659155
+  ],
+  "properties": {
+    "start_datetime": "2017-04-14T00:00:00Z",
+    "end_datetime": "2017-12-06T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            349993.99997545884,
+            4219993.999993295
+          ],
+          [
+            360005.99997545884,
+            4219993.999993295
+          ],
+          [
+            360005.99997545884,
+            4230005.999993295
+          ],
+          [
+            349993.99997545884,
+            4230005.999993295
+          ],
+          [
+            349993.99997545884,
+            4219993.999993295
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      349993.99997545884,
+      4219993.999993295,
+      360005.99997545884,
+      4230005.999993295
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      349993.99997545884,
+      0.0,
+      -1.0,
+      4230005.999993295,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/VA_FEMA-NRCS_SouthCentral_2017_D17/TIFF/USGS_1M_17_x35y423_VA_FEMA-NRCS_SouthCentral_2017_D17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 203.55110904666054,
+            "minimum": 158.3112030029297,
+            "maximum": 301.3250427246094,
+            "stddev": 30.60830264279081,
+            "valid_percent": 24.021434783935547
+          },
+          "histogram": {
+            "count": 11,
+            "min": 158.3112030029297,
+            "max": 301.3250427246094,
+            "buckets": [
+              40140,
+              58474,
+              31506,
+              30957,
+              28994,
+              28668,
+              23975,
+              8254,
+              735,
+              180
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "VA_FEMA-NRCS_SouthCentral_2017_D17"
+}
