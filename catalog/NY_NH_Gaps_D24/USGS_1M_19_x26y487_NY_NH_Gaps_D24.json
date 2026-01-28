@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_19_x26y487_NY_NH_Gaps_D24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -71.98619150143492,
+          43.854014641616224
+        ],
+        [
+          -71.86177749204974,
+          43.85720062757586
+        ],
+        [
+          -71.86609703872429,
+          43.94723252175341
+        ],
+        [
+          -71.99069816984122,
+          43.94403656798135
+        ],
+        [
+          -71.98619150143492,
+          43.854014641616224
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -71.99069816984122,
+    43.854014641616224,
+    -71.86177749204974,
+    43.94723252175341
+  ],
+  "properties": {
+    "start_datetime": "2024-05-07T00:00:00Z",
+    "end_datetime": "2024-06-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            259994.00031438263,
+            4859993.99960725
+          ],
+          [
+            270006.0003143826,
+            4859993.99960725
+          ],
+          [
+            270006.0003143826,
+            4870005.99960725
+          ],
+          [
+            259994.00031438263,
+            4870005.99960725
+          ],
+          [
+            259994.00031438263,
+            4859993.99960725
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      259994.00031438263,
+      4859993.99960725,
+      270006.0003143826,
+      4870005.99960725
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      259994.00031438263,
+      0.0,
+      -1.0,
+      4870005.99960725,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NY_NH_Gaps_D24/TIFF/USGS_1M_19_x26y487_NY_NH_Gaps_D24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 425.65037049146315,
+            "minimum": 212.52281188964844,
+            "maximum": 692.2208862304688,
+            "stddev": 107.360807675289,
+            "valid_percent": 30.335521697998047
+          },
+          "histogram": {
+            "count": 11,
+            "min": 212.52281188964844,
+            "max": 692.2208862304688,
+            "buckets": [
+              18829,
+              37527,
+              39084,
+              43333,
+              42943,
+              47244,
+              44346,
+              27329,
+              13543,
+              3913
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NY_NH_Gaps_D24"
+}
