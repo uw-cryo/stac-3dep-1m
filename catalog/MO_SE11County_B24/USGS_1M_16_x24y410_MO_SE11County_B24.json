@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x24y410_MO_SE11County_B24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -89.91879712238465,
+          36.92014415528993
+        ],
+        [
+          -89.80652860159722,
+          36.92285188684771
+        ],
+        [
+          -89.8098424780548,
+          37.01299616838803
+        ],
+        [
+          -89.9222431116731,
+          37.010279611288546
+        ],
+        [
+          -89.91879712238465,
+          36.92014415528993
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -89.9222431116731,
+    36.92014415528993,
+    -89.80652860159722,
+    37.01299616838803
+  ],
+  "properties": {
+    "start_datetime": "2024-03-16T00:00:00Z",
+    "end_datetime": "2024-04-13T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            239993.99967639803,
+            4089994.000279211
+          ],
+          [
+            250005.99967639803,
+            4089994.000279211
+          ],
+          [
+            250005.99967639803,
+            4100006.000279211
+          ],
+          [
+            239993.99967639803,
+            4100006.000279211
+          ],
+          [
+            239993.99967639803,
+            4089994.000279211
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      239993.99967639803,
+      4089994.000279211,
+      250005.99967639803,
+      4100006.000279211
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      239993.99967639803,
+      0.0,
+      -1.0,
+      4100006.000279211,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MO_SE11County_B24/TIFF/USGS_1M_16_x24y410_MO_SE11County_B24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 110.4160385131836,
+            "minimum": 87.55316925048828,
+            "maximum": 178.22879028320312,
+            "stddev": 18.860768138393812,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 87.55316925048828,
+            "max": 178.22879028320312,
+            "buckets": [
+              412765,
+              172730,
+              93869,
+              113615,
+              95913,
+              73304,
+              45353,
+              24843,
+              13192,
+              2992
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MO_SE11County_B24"
+}
