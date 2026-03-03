@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x77y420_KY_WestCentral_2017_C19",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -83.93275957726541,
+          37.81744494284522
+        ],
+        [
+          -83.81917743453724,
+          37.814429655381645
+        ],
+        [
+          -83.81529907432925,
+          37.904529414864896
+        ],
+        [
+          -83.92901916673534,
+          37.907554442453936
+        ],
+        [
+          -83.93275957726541,
+          37.81744494284522
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -83.93275957726541,
+    37.814429655381645,
+    -83.81529907432925,
+    37.907554442453936
+  ],
+  "properties": {
+    "start_datetime": "2016-12-15T00:00:00Z",
+    "end_datetime": "2017-04-02T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            769993.999709851,
+            4189994.0002993634
+          ],
+          [
+            780005.999709851,
+            4189994.0002993634
+          ],
+          [
+            780005.999709851,
+            4200006.000299363
+          ],
+          [
+            769993.999709851,
+            4200006.000299363
+          ],
+          [
+            769993.999709851,
+            4189994.0002993634
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      769993.999709851,
+      4189994.0002993634,
+      780005.999709851,
+      4200006.000299363
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      769993.999709851,
+      0.0,
+      -1.0,
+      4200006.000299363,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/KY_WestCentral_2017_C19/TIFF/USGS_1M_16_x77y420_KY_WestCentral_2017_C19.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 242.21847534179688,
+            "minimum": 179.8161163330078,
+            "maximum": 440.69866943359375,
+            "stddev": 54.61703736320616,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 179.8161163330078,
+            "max": 440.69866943359375,
+            "buckets": [
+              337120,
+              260200,
+              161065,
+              86626,
+              58092,
+              46621,
+              42103,
+              38589,
+              15498,
+              2662
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "KY_WestCentral_2017_C19"
+}
