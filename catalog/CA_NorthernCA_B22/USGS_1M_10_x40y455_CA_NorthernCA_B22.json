@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x40y455_CA_NorthernCA_B22",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -124.18911794425918,
+          41.00506283662322
+        ],
+        [
+          -124.07022706389635,
+          41.00622812586668
+        ],
+        [
+          -124.07168771635233,
+          41.09629394323704
+        ],
+        [
+          -124.19074077099998,
+          41.095124974000036
+        ],
+        [
+          -124.18911794425918,
+          41.00506283662322
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -124.19074077099998,
+    41.00506283662322,
+    -124.07022706389635,
+    41.09629394323704
+  ],
+  "properties": {
+    "start_datetime": "2022-08-26T00:00:00Z",
+    "end_datetime": "2022-10-20T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            400000.0000041983,
+            4540000.000011844
+          ],
+          [
+            410000.0000041983,
+            4540000.000011844
+          ],
+          [
+            410000.0000041983,
+            4550000.000011844
+          ],
+          [
+            400000.0000041983,
+            4550000.000011844
+          ],
+          [
+            400000.0000041983,
+            4540000.000011844
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      400000.0000041983,
+      4540000.000011844,
+      410000.0000041983,
+      4550000.000011844
+    ],
+    "proj:shape": [
+      10000,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      400000.0000041983,
+      0.0,
+      -1.0,
+      4550000.000011844,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_NorthernCA_B22/TIFF/USGS_1M_10_x40y455_CA_NorthernCA_B22.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 154.57456968043297,
+            "minimum": -3.711566686630249,
+            "maximum": 439.9647521972656,
+            "stddev": 93.57552433971878,
+            "valid_percent": 55.083656311035156
+          },
+          "histogram": {
+            "count": 11,
+            "min": -3.711566686630249,
+            "max": 439.9647521972656,
+            "buckets": [
+              79723,
+              72725,
+              74411,
+              85510,
+              129679,
+              75505,
+              26081,
+              16872,
+              12507,
+              4581
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_NorthernCA_B22"
+}
