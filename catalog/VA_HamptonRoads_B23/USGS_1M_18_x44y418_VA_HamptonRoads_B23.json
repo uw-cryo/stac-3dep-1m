@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_18_x44y418_VA_HamptonRoads_B23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -75.68046589690144,
+          37.67517684714913
+        ],
+        [
+          -75.56693578438298,
+          37.675777232053065
+        ],
+        [
+          -75.56762394551089,
+          37.766014242029065
+        ],
+        [
+          -75.68129183998037,
+          37.765411912416155
+        ],
+        [
+          -75.68046589690144,
+          37.67517684714913
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -75.68129183998037,
+    37.67517684714913,
+    -75.56693578438298,
+    37.766014242029065
+  ],
+  "properties": {
+    "start_datetime": "2024-01-17T00:00:00Z",
+    "end_datetime": "2024-03-21T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            439994.0000057437,
+            4169994.0000295797
+          ],
+          [
+            450006.0000057437,
+            4169994.0000295797
+          ],
+          [
+            450006.0000057437,
+            4180006.0000295797
+          ],
+          [
+            439994.0000057437,
+            4180006.0000295797
+          ],
+          [
+            439994.0000057437,
+            4169994.0000295797
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      439994.0000057437,
+      4169994.0000295797,
+      450006.0000057437,
+      4180006.0000295797
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      439994.0000057437,
+      0.0,
+      -1.0,
+      4180006.0000295797,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/VA_HamptonRoads_B23/TIFF/USGS_1M_18_x44y418_VA_HamptonRoads_B23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 5.321819649593964,
+            "minimum": -0.728489875793457,
+            "maximum": 19.58770751953125,
+            "stddev": 4.734854744463364,
+            "valid_percent": 95.452880859375
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.728489875793457,
+            "max": 19.58770751953125,
+            "buckets": [
+              297049,
+              108749,
+              136945,
+              136656,
+              66656,
+              81169,
+              154369,
+              19000,
+              279,
+              24
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "VA_HamptonRoads_B23"
+}
