@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x47y448_NV_USFSR4_D23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -111.35342066100372,
+          40.380046549714876
+        ],
+        [
+          -111.23561495450235,
+          40.380346571485916
+        ],
+        [
+          -111.23592952127719,
+          40.47043719467074
+        ],
+        [
+          -111.35389250213932,
+          40.470136221999624
+        ],
+        [
+          -111.35342066100372,
+          40.380046549714876
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -111.35389250213932,
+    40.380046549714876,
+    -111.23561495450235,
+    40.47043719467074
+  ],
+  "properties": {
+    "start_datetime": "2011-09-14T00:00:00Z",
+    "end_datetime": "2023-09-09T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            469999.9999643352,
+            4470000.00005436
+          ],
+          [
+            479999.9999643352,
+            4470000.00005436
+          ],
+          [
+            479999.9999643352,
+            4480000.00005436
+          ],
+          [
+            469999.9999643352,
+            4480000.00005436
+          ],
+          [
+            469999.9999643352,
+            4470000.00005436
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      469999.9999643352,
+      4470000.00005436,
+      479999.9999643352,
+      4480000.00005436
+    ],
+    "proj:shape": [
+      10000,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      469999.9999643352,
+      0.0,
+      -1.0,
+      4480000.00005436,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NV_USFSR4_D23/TIFF/USGS_1M_12_x47y448_NV_USFSR4_D23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 2301.9627576443545,
+            "minimum": 1877.3623046875,
+            "maximum": 2761.60302734375,
+            "stddev": 179.69287384862344,
+            "valid_percent": 27.21538543701172
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1877.3623046875,
+            "max": 2761.60302734375,
+            "buckets": [
+              9960,
+              21536,
+              28517,
+              37058,
+              45265,
+              56845,
+              46357,
+              28448,
+              7260,
+              4128
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NV_USFSR4_D23"
+}

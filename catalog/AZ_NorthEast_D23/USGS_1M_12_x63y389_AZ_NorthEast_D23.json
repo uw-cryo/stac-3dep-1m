@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x63y389_AZ_NorthEast_D23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -109.57447555468472,
+          35.05434765057611
+        ],
+        [
+          -109.51981712246382,
+          35.05369292336985
+        ],
+        [
+          -109.51818644488323,
+          35.14384467031121
+        ],
+        [
+          -109.57290504208076,
+          35.14450157800102
+        ],
+        [
+          -109.57447555468472,
+          35.05434765057611
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -109.57447555468472,
+    35.05369292336985,
+    -109.51818644488323,
+    35.14450157800102
+  ],
+  "properties": {
+    "start_datetime": "2023-05-28T00:00:00Z",
+    "end_datetime": "2023-09-05T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            630000.0000072361,
+            3879998.9999814834
+          ],
+          [
+            634986.0000072361,
+            3879998.9999814834
+          ],
+          [
+            634986.0000072361,
+            3889999.9999814834
+          ],
+          [
+            630000.0000072361,
+            3889999.9999814834
+          ],
+          [
+            630000.0000072361,
+            3879998.9999814834
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      630000.0000072361,
+      3879998.9999814834,
+      634986.0000072361,
+      3889999.9999814834
+    ],
+    "proj:shape": [
+      10001,
+      4986
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      630000.0000072361,
+      0.0,
+      -1.0,
+      3889999.9999814834,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AZ_NorthEast_D23/TIFF/USGS_1M_12_x63y389_AZ_NorthEast_D23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1736.5350029490494,
+            "minimum": 1700.4737548828125,
+            "maximum": 1775.1878662109375,
+            "stddev": 16.595456049287733,
+            "valid_percent": 67.39542563600783
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1700.4737548828125,
+            "max": 1775.1878662109375,
+            "buckets": [
+              13979,
+              35257,
+              46236,
+              31191,
+              30784,
+              72303,
+              70915,
+              28641,
+              18186,
+              5164
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AZ_NorthEast_D23"
+}

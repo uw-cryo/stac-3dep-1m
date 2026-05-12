@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x25y515_MI_31Co_Chippewa_2017",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -84.2554891984504,
+          46.36715725340371
+        ],
+        [
+          -84.1154749681008,
+          46.37106152443242
+        ],
+        [
+          -84.12060808194686,
+          46.46103279164921
+        ],
+        [
+          -84.26085202754702,
+          46.457116307989565
+        ],
+        [
+          -84.2554891984504,
+          46.36715725340371
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -84.26085202754702,
+    46.36715725340371,
+    -84.1154749681008,
+    46.46103279164921
+  ],
+  "properties": {
+    "start_datetime": "2017-05-04T00:00:00Z",
+    "end_datetime": "2017-05-11T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            249598.75654230162,
+            5139994.000005247
+          ],
+          [
+            260384.75654230162,
+            5139994.000005247
+          ],
+          [
+            260384.75654230162,
+            5150006.000005247
+          ],
+          [
+            249598.75654230162,
+            5150006.000005247
+          ],
+          [
+            249598.75654230162,
+            5139994.000005247
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      249598.75654230162,
+      5139994.000005247,
+      260384.75654230162,
+      5150006.000005247
+    ],
+    "proj:shape": [
+      10012,
+      10786
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      249598.75654230162,
+      0.0,
+      -1.0,
+      5150006.000005247,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MI_31Co_Chippewa_2017/TIFF/USGS_one_meter_x25y515_MI_31Co_Chippewa_2017.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028230607370965e38,
+          "statistics": {
+            "mean": 187.51504170718073,
+            "minimum": 176.2146759033203,
+            "maximum": 247.0212860107422,
+            "stddev": 18.36479009072028,
+            "valid_percent": 55.656155527076756
+          },
+          "histogram": {
+            "count": 11,
+            "min": 176.2146759033203,
+            "max": 247.0212860107422,
+            "buckets": [
+              380681,
+              33482,
+              16275,
+              6244,
+              20221,
+              22003,
+              22786,
+              20744,
+              11871,
+              7686
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MI_31Co_Chippewa_2017"
+}
