@@ -1,36 +1,40 @@
-[project]
-authors = ["Scott Henderson <scottyhq@gmail.com>"]
+[workspace]
+authors = ["Scott Henderson <3924836+scottyhq@users.noreply.github.com>"]
 channels = ["conda-forge"]
 name = "stac-3dep-1m"
-platforms = ["osx-arm64"]
+platforms = ["osx-arm64","linux-64"]
 version = "0.1.0"
 
 [tasks]
-create-all="python scripts/create_all.py"
-create-stac="python scripts/create_static_stac.py"
-collection2geoparquet="python scripts/collection2geoparquet.py"
-catalog2geoparquet="python scripts/catalog2geoparquet.py /Users/scotthenderson/GitHub/uw-cryo/stac-3dep-1m/catalog/catalog.json"
-update-root-catalog="python scripts/update_root_catalog.py"
-ruff="ruff check --fix ; ruff format"
+create-all = "python scripts/create_all.py"
+create-stac = "python scripts/create_static_stac.py"
+collection2geoparquet = "python scripts/collection2geoparquet.py"
+catalog2geoparquet = "python scripts/catalog2geoparquet.py /Users/scotthenderson/GitHub/uw-cryo/stac-3dep-1m/catalog/catalog.json"
+catalog2hive = "python scripts/catalog2hive.py"
+create-collection-parquets = "python scripts/create_collection_parquets.py"
+update-root-catalog = "python scripts/update_root_catalog.py"
+list-collections = "ls -1d catalog/*/ | sed 's|catalog/||;s|/||' > collections.txt"
+ruff = "ruff check --fix ; ruff format"
 
 [dependencies]
-python = ">=3.13.2,<3.14"
-geopandas = ">=1.0.1,<2"
-cloudpathlib-s3 = ">=0.20.0,<0.21"
-ruff = ">=0.9.7,<0.10"
-pystac = ">=1.12.1,<2"
-ipython = ">=9.0.0,<10"
-libgdal-arrow-parquet = ">=3.10.2,<4"
-jsonschema = ">=4.23.0,<5"
-pyarrow = ">=19.0.1,<20"
-libgfortran5 = ">=14.2.0"
-rustac = ">=0.8.2,<0.9"
-obstore = ">=0.8.1,<0.9"
-ipykernel = ">=6.30.1,<7"
-gdal = "3.11.*"
-stac-geoparquet = ">=0.7.0,<0.8"
-duckdb = ">=1.3.2,<2"
 arro3-core = ">=0.6.3,<0.7"
+cloudpathlib-s3 = ">=0.20.0,<0.21"
+duckdb = ">=1.3.2,<2"
+gdal = ">=3.12.0,<4"
+geopandas = ">=1.0.1,<2"
+ipykernel = ">=6.30.1,<7"
+ipython = ">=9.0.0,<10"
+jsonschema = ">=4.23.0,<5"
+libgdal-arrow-parquet = ">=3.10.2,<4"
+#libgfortran5 = ">=14.2.0"
+obstore = ">=0.8.1,<0.9"
+pyarrow = ">=19.0.1,<20"
+python = ">=3.13.2,<3.14"
+pystac = ">=1.12.1,<2"
+ruff = ">=0.9.7,<0.10"
+rustac = ">=0.9.8,<0.10"
+stac-geoparquet = ">=0.7.0,<0.8"
+cartopy = ">=0.25.0,<0.26"
+rioxarray = ">=0.22.0,<0.23"
+cql2 = "*"
 
-[pypi-dependencies]
-cql2 = ">=0.4.0, <0.5"
