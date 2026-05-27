@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x44y395_Santa_Fe_County_QL2_Lidar",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -105.6624707028586,
+          35.60187506706429
+        ],
+        [
+          -105.5519425255793,
+          35.60243200180641
+        ],
+        [
+          -105.55256378067327,
+          35.692700733856256
+        ],
+        [
+          -105.66321634582336,
+          35.69214195448786
+        ],
+        [
+          -105.6624707028586,
+          35.60187506706429
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -105.66321634582336,
+    35.60187506706429,
+    -105.5519425255793,
+    35.692700733856256
+  ],
+  "properties": {
+    "start_datetime": "2014-03-12T00:00:00Z",
+    "end_datetime": "2014-08-11T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            439993.9999807237,
+            3939994.000024273
+          ],
+          [
+            450005.9999807237,
+            3939994.000024273
+          ],
+          [
+            450005.9999807237,
+            3950006.000024273
+          ],
+          [
+            439993.9999807237,
+            3950006.000024273
+          ],
+          [
+            439993.9999807237,
+            3939994.000024273
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      439993.9999807237,
+      3939994.000024273,
+      450005.9999807237,
+      3950006.000024273
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      439993.9999807237,
+      0.0,
+      -1.0,
+      3950006.000024273,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/Santa_Fe_County_QL2_Lidar/TIFF/USGS_1M_13_x44y395_Santa_Fe_County_QL2_Lidar.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 2612.5169051047187,
+            "minimum": 2244.37060546875,
+            "maximum": 2941.7568359375,
+            "stddev": 122.80538241110989,
+            "valid_percent": 37.35694885253906
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2244.37060546875,
+            "max": 2941.7568359375,
+            "buckets": [
+              1719,
+              12132,
+              24605,
+              59093,
+              71071,
+              89473,
+              64226,
+              43497,
+              21771,
+              4129
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "Santa_Fe_County_QL2_Lidar"
+}
