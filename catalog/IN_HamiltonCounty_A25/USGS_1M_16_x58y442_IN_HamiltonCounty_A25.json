@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x58y442_IN_HamiltonCounty_A25",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -86.06509761541516,
+          39.83618762275693
+        ],
+        [
+          -85.94810334476439,
+          39.83518576240143
+        ],
+        [
+          -85.94672421297874,
+          39.92537852028422
+        ],
+        [
+          -86.06387181573488,
+          39.92638357014339
+        ],
+        [
+          -86.06509761541516,
+          39.83618762275693
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -86.06509761541516,
+    39.83518576240143,
+    -85.94672421297874,
+    39.92638357014339
+  ],
+  "properties": {
+    "start_datetime": "2024-02-12T00:00:00Z",
+    "end_datetime": "2024-02-13T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            579993.9996967168,
+            4409994.000323413
+          ],
+          [
+            590005.9996967168,
+            4409994.000323413
+          ],
+          [
+            590005.9996967168,
+            4420006.000323413
+          ],
+          [
+            579993.9996967168,
+            4420006.000323413
+          ],
+          [
+            579993.9996967168,
+            4409994.000323413
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      579993.9996967168,
+      4409994.000323413,
+      590005.9996967168,
+      4420006.000323413
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      579993.9996967168,
+      0.0,
+      -1.0,
+      4420006.000323413,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IN_HamiltonCounty_A25/TIFF/USGS_1M_16_x58y442_IN_HamiltonCounty_A25.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 246.5526074808049,
+            "minimum": 232.77626037597656,
+            "maximum": 256.03106689453125,
+            "stddev": 5.593177248601246,
+            "valid_percent": 8.123207092285156
+          },
+          "histogram": {
+            "count": 11,
+            "min": 232.77626037597656,
+            "max": 256.03106689453125,
+            "buckets": [
+              257,
+              2989,
+              16317,
+              4742,
+              6615,
+              6788,
+              8269,
+              14623,
+              22281,
+              2297
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IN_HamiltonCounty_A25"
+}
