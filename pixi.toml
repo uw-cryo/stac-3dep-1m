@@ -6,15 +6,15 @@ platforms = ["osx-arm64","linux-64"]
 version = "0.1.0"
 
 [tasks]
-create-all = "python scripts/create_all.py"
-create-stac = "python scripts/create_static_stac.py"
-collection2geoparquet = "python scripts/collection2geoparquet.py"
-catalog2geoparquet = "python scripts/catalog2geoparquet.py /Users/scotthenderson/GitHub/uw-cryo/stac-3dep-1m/catalog/catalog.json"
-catalog2hive = "python scripts/catalog2hive.py"
-create-collection-parquets = "python scripts/create_collection_parquets.py"
-update-root-catalog = "python scripts/update_root_catalog.py"
-list-collections = "ls -1d catalog/*/ | sed 's|catalog/||;s|/||' > collections.txt"
-ruff = "ruff check --fix ; ruff format"
+create-all = { cmd = "python scripts/create_all.py", description = "Create static STAC for every 3DEP 1m S3 project folder that isn't already in catalog/" }
+create-stac = { cmd = "python scripts/create_static_stac.py", description = "Create a static STAC catalog+collection for a single project or WESM workunit" }
+collection2geoparquet = { cmd = "python scripts/collection2geoparquet.py", description = "Convert one collection.json and its items to a STAC-GeoParquet file" }
+catalog2geoparquet = { cmd = "python scripts/catalog2geoparquet.py /Users/scotthenderson/GitHub/uw-cryo/stac-3dep-1m/catalog/catalog.json", description = "Convert the full root catalog to a single STAC-GeoParquet file" }
+catalog2hive = { cmd = "python scripts/catalog2hive.py", description = "Write the catalog as hive-partitioned STAC-GeoParquet (collection=<id>/part0.parquet)" }
+create-collection-parquets = { cmd = "python scripts/create_collection_parquets.py", description = "Write a .parquet next to each collection.json under a catalog directory" }
+update-root-catalog = { cmd = "python scripts/update_root_catalog.py", description = "Add any new child collections to the top-level catalog.json" }
+list-collections = { cmd = "ls -1d catalog/*/ | sed 's|catalog/||;s|/||' > collections.txt", description = "Write the list of collection IDs in catalog/ to collections.txt" }
+ruff = { cmd = "ruff check --fix ; ruff format", description = "Lint with autofix and format the codebase using ruff" }
 
 [dependencies]
 arro3-core = ">=0.6.3,<0.7"

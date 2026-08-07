@@ -1,0 +1,75 @@
+name: Update Catalog
+
+on:
+  schedule:
+    # Mondays at 06:00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-catalog
+  cancel-in-progress: false
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+    # create-all can process many new projects, each hitting titiler per TIFF
+    timeout-minutes: 330
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: prefix-dev/setup-pixi@v0
+        with:
+          cache: true
+
+      # Only creates STAC for S3 project folders missing from catalog/
+      - name: Create STAC for new projects
+        run: pixi run create-all
+
+      - name: Update root catalog
+        run: pixi run update-root-catalog
+
+      - name: Summarize changes
+        id: changes
+        run: |
+          new_collections=$(git status --porcelain --untracked-files=all -- catalog/ \
+            | awk '$1 == "??" {print $2}' | cut -d/ -f2 | sort -u)
+          count=$(printf '%s' "$new_collections" | grep -c . || true)
+
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          {
+            echo "collections<<EOF"
+            echo "$new_collections"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo "### New collections: $count"
+            echo '```'
+            echo "$new_collections"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          add-paths: catalog
+          branch: update-catalog
+          delete-branch: true
+          commit-message: "Add ${{ steps.changes.outputs.count }} new 3DEP 1m collections"
+          title: "Update catalog (${{ steps.changes.outputs.count }} new collections)"
+          body: |
+            Automated weekly run of `pixi run create-all` and `pixi run update-root-catalog`.
+
+            New collections (${{ steps.changes.outputs.count }}):
+
+            ```
+            ${{ steps.changes.outputs.collections }}
+            ```
+
+            [Workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})

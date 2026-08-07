@@ -76,12 +76,22 @@ onemeter_folder_to_wesm = {
     "NY_Southwest_2_Co_2016": "NY_Southwest_2_CO_2016",
     "OR_Wallowa_2015": "OR_OLC_Wallowa_2015",
     "SD_NRCS_Fugro_B2_TL_2017": "SD_NRCS_Fugro_B2_2017",
-    #"TN_NRCS_2011": but "TN_NRCS_L2_2011_12" or 'TN_NRCS_L1_2011_12' also present?...
+    #"TN_NRCS_2011": but "TN_NRCS_L2_2011_12" or 'TN_NRCS_L1_2011_12' also present?... L2 matches TIFF XML rngdates so I'll use that
+    "TN_NRCS_2011": "TN_NRCS_L2_2011_12",
     "UT_Area1WasatchFault_2013": "UT_Wasatch_L4_2013", # note: unsure, use most recent sourcedem update...
     "UT_MonroeMountain_2016": "UT_MonroeMoutain_2016",
     "UT_Wasatch_L3_2013": "UT_WasatchFault_L3_2013",
-    "VA_FEMA-NRCS_SouthCentral_2017_D17":"VA_FEMA_NRCS_SouthCentral_2017_D17",
+    # PROBLEM: 3 different workunits B1, B2, B3.... should use merge of 3 but code is currently setup to just pick one...
+    "VA_FEMA-NRCS_SouthCentral_2017_D17":"VA_South_Central_B2_2017",
 }
+# XML metadata https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/VA_FEMA-NRCS_SouthCentral_2017_D17/metadata/USGS_1M_17_x35y422_VA_FEMA-NRCS_SouthCentral_2017_D17.xml
+#<begdate>20170414</begdate>
+#<enddate>20180524</enddate>
+# VA_FEMA-NRCS_SouthCentral_2017_D17
+#                      workunit collect_start collect_end
+#1703  VA_South_Central_B2_2017    2017/04/14  2017/12/06
+#1704  VA_South_Central_B3_2017    2017/04/14  2017/12/07
+#1836  VA_South_Central_B1_2017    2017/11/16  2018/05/24
 
 def get_titiler_datetime(series):
     start = pd.to_datetime(series.collect_start).isoformat() + "Z"
