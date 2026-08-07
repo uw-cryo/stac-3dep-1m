@@ -11,6 +11,7 @@ python scripts/catalog2geoparquet.py catalog/ catalog.parquet
 import asyncio
 import rustac
 import sys
+from pathlib import Path
 
 import geopandas as gpd
 import stac_geoparquet
@@ -27,11 +28,13 @@ async def collection_to_stac_geoparquet(catalog_path, output_path=None):
     if not output_path:
         output_path = catalog_path.replace(".json", ".parquet")
 
-    # TODO: test different compressions (e.g. zstd)
-    await rustac.write(output_path, all_items)#, format="parquet[snappy]")
+    # zstd to match the v0.3 release assets
+    await rustac.write(output_path, all_items, format="parquet[zstd]")
 
 
 if __name__ == "__main__":
-    collection_path = sys.argv[1]
+    # rustac resolves relative child hrefs against the input path, so it must
+    # be absolute (a relative path resolves them against the filesystem root)
+    collection_path = str(Path(sys.argv[1]).resolve())
     output_path = sys.argv[2] if len(sys.argv) > 2 else None
     asyncio.run(collection_to_stac_geoparquet(collection_path, output_path))

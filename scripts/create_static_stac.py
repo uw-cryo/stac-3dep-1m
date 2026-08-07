@@ -249,6 +249,29 @@ def generate_stac_from_titiler(tiflist, DATETIME):
     return results
 
 
+PROJ_EXT_V2 = "https://stac-extensions.github.io/projection/v2.0.0/schema.json"
+PROJ_EXT_V1_PREFIX = "https://stac-extensions.github.io/projection/v1."
+
+
+def normalize_projection(item_dict):
+    """Normalize projection extension to v2.0.0 (proj:code).
+
+    The existing catalog (~123k items) uniformly uses projection v2.0.0 with
+    proj:code, but depending on the deployed titiler version the STAC endpoint
+    may return v1.1.0 with proj:epsg. Keep the catalog (and the geoparquet
+    column schema) uniform regardless of which titiler is answering.
+    """
+    exts = item_dict.get("stac_extensions", [])
+    item_dict["stac_extensions"] = [
+        PROJ_EXT_V2 if e.startswith(PROJ_EXT_V1_PREFIX) else e for e in exts
+    ]
+    props = item_dict.get("properties", {})
+    epsg = props.pop("proj:epsg", None)
+    if epsg is not None and "proj:code" not in props:
+        props["proj:code"] = f"EPSG:{epsg}"
+    return item_dict
+
+
 # TODO: can probably speed this up a lot just by taking min/max of bboxes
 def get_collection_bbox(results):
     gf = gpd.GeoDataFrame.from_features([json.loads(x) for x in results])
@@ -256,12 +279,16 @@ def get_collection_bbox(results):
 
 
 def list_tiffs_in_project(project, bucket="prd-tnm"):
+    # NOTE: must paginate! A single list_objects_v2 call returns at most 1000
+    # keys, which silently truncated projects with >1000 tiles (e.g. OR_SouthEast_D22)
     project_prefix = f"StagedProducts/Elevation/1m/Projects/{project}/TIFF"
-    response = s3.list_objects_v2(Bucket=bucket, Prefix=project_prefix)
-    tiff_files = [
-        obj['Key'] for obj in response.get('Contents', [])
-        if obj['Key'].endswith('.tif')
-    ]
+    paginator = s3.get_paginator('list_objects_v2')
+    tiff_files = []
+    for page in paginator.paginate(Bucket=bucket, Prefix=project_prefix):
+        tiff_files += [
+            obj['Key'] for obj in page.get('Contents', [])
+            if obj['Key'].endswith('.tif')
+        ]
 
     return [f"https://{bucket}.s3.amazonaws.com/{key}" for key in tiff_files]
 
@@ -323,7 +350,7 @@ def create_stac_catalog(project, is_workunit=False):
     #     item = pystac.read_dict(json.loads(x))
     #     print(item.id)
     #     items.append(item)
-    items = [pystac.read_dict(json.loads(x)) for x in results]
+    items = [pystac.read_dict(normalize_projection(json.loads(x))) for x in results]
 
     # THis will be 'collection' level metadata, not in each item
     # [add_wesm_metadata_to_properties(item, s) for item in items]
