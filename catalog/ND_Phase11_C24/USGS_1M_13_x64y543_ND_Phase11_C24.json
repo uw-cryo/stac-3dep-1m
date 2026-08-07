@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x64y543_ND_Phase11_C24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -103.08913428055206,
+          48.91704444512412
+        ],
+        [
+          -102.95256246743608,
+          48.9146999276709
+        ],
+        [
+          -102.9488735249794,
+          49.00470699903498
+        ],
+        [
+          -103.08569102535402,
+          49.00705891648915
+        ],
+        [
+          -103.08913428055206,
+          48.91704444512412
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -103.08913428055206,
+    48.9146999276709,
+    -102.9488735249794,
+    49.00705891648915
+  ],
+  "properties": {
+    "start_datetime": "2023-05-04T00:00:00Z",
+    "end_datetime": "2024-05-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            639993.9999657813,
+            5419994.000015119
+          ],
+          [
+            650005.9999657813,
+            5419994.000015119
+          ],
+          [
+            650005.9999657813,
+            5430006.000015119
+          ],
+          [
+            639993.9999657813,
+            5430006.000015119
+          ],
+          [
+            639993.9999657813,
+            5419994.000015119
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      639993.9999657813,
+      5419994.000015119,
+      650005.9999657813,
+      5430006.000015119
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      639993.9999657813,
+      0.0,
+      -1.0,
+      5430006.000015119,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/ND_Phase11_C24/TIFF/USGS_1M_13_x64y543_ND_Phase11_C24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 578.8929391427006,
+            "minimum": 560.8599853515625,
+            "maximum": 587.063232421875,
+            "stddev": 2.7221403465793457,
+            "valid_percent": 99.52125549316406
+          },
+          "histogram": {
+            "count": 11,
+            "min": 560.8599853515625,
+            "max": 587.063232421875,
+            "buckets": [
+              1840,
+              5650,
+              3831,
+              4170,
+              42614,
+              83078,
+              367799,
+              437712,
+              96332,
+              530
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "ND_Phase11_C24"
+}
