@@ -249,22 +249,31 @@ def main():
     # Prune classification: a cataloged project with no tifs on S3 is either
     # truly deleted (folder prefix gone) or a folder remnant / mid-restage
     # (folder still present, e.g. only browse/ thumbnails remain, issue #6).
-    # For the latter, prune only if its cataloged tiles are actually dead --
-    # if any sampled item URL still answers 200, carry it unchanged.
+    # For the latter, prune only on affirmative evidence: every probed item
+    # URL returns 404. Any 200 -> carry (possible restage in progress); probe
+    # errors or nothing to probe -> inconclusive -> carry with a warning and
+    # let a later run decide (pruning is destructive, so never prune on
+    # network errors or unreadable item JSONs).
     removed, carried_empty = [], []
     for p in sorted(set(local) - set(holdings)):
         if p not in folders:
             removed.append(p)
             continue
         urls = [u for u in (item_asset_url(p, i) for i in sorted(local[p])[:5]) if u]
-        if any(head_status(u) == 200 for u in urls):
+        codes = [head_status(u) for u in urls]
+        if any(c == 200 for c in codes):
             carried_empty.append(p)
             print(f"  CARRIED  {p}: TIFF/ empty but folder present and items still "
                   "reachable -- possible restage in progress, not pruning", flush=True)
-        else:
+        elif codes and all(c == 404 for c in codes):
             removed.append(p)
-            print(f"  {p}: folder remnant with no tifs and no reachable items "
-                  "-- treating as removed", flush=True)
+            print(f"  {p}: folder remnant with no tifs and all {len(codes)} probed "
+                  "items 404 -- treating as removed", flush=True)
+        else:
+            carried_empty.append(p)
+            print(f"  CARRIED  {p}: TIFF/ empty but probe inconclusive "
+                  f"(HEAD codes {codes}) -- carrying unchanged, will re-probe "
+                  "next run", flush=True)
 
     n_tiles_added = (sum(len(holdings[p]) for p in new)
                      + sum(len(set(holdings[p]) - local[p]) for p in changed))
@@ -360,8 +369,14 @@ def main():
         sys.exit(f"VALIDATION: {nerr}/{n} new/changed HEAD checks errored -- "
                  "network looks degraded, not committing")
 
+    # sample only projects NOT successfully rebuilt this run (untouched ones,
+    # carried remnants, and failed rebuilds): rebuilt projects' URLs were just
+    # HEAD-checked above, and including them would bias this gate away from
+    # its purpose -- catching 404 drift in projects the run didn't touch
+    rebuilt_ok = {p for p in changed if p not in failures} | set(built_new)
     carried = [(p, i) for p, ids in catalog_state().items()
-               for i in ids if p in local and i in local.get(p, set())]
+               for i in ids
+               if p not in rebuilt_ok and p in local and i in local.get(p, set())]
     sample = random.sample(carried, min(args.sample_existing, len(carried)))
     urls = [u for u in (item_asset_url(p, i) for p, i in sample) if u]
     n, n404, nerr = head_check(urls, "existing", args.threads)
