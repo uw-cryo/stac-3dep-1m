@@ -1,18 +1,18 @@
-# Publish release assets whenever the catalog content on main changes
-# (i.e. when an update-catalog PR merges, or catalog edits are pushed).
+# Publish release assets on a monthly cadence (or on demand) so that
+# releases/latest/download/catalog.parquet tracks the catalog without a
+# release per merge (this is what downstream consumers like SlideRule AMS
+# ingest).
 #
 # Rebuilds catalog.parquet from the static catalog, checks the row count
 # against the item-file count, regenerates the catalog.gti wrapper, and
-# publishes a dated release (vYYYY.MM.DD) so that
-# releases/latest/download/catalog.parquet always serves the current catalog
-# (this is what downstream consumers like SlideRule AMS ingest).
+# publishes a dated CalVer release (vYYYY.MM.DD). Skips cleanly when the
+# catalog is unchanged since the latest release. For a quarterly cadence,
+# change the cron to "17 6 1 1,4,7,10 *".
 name: Release Catalog Assets
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "catalog/**"
+  schedule:
+    - cron: "17 6 1 * *"  # monthly: 1st, 06:17 UTC
   workflow_dispatch:
 
 permissions:
@@ -29,11 +29,26 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Skip if catalog unchanged since latest release
+        id: changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LAST_SHA="$(gh release view --json targetCommitish --jq .targetCommitish 2>/dev/null || echo '')"
+          if [ -n "$LAST_SHA" ] && git diff --quiet "$LAST_SHA" HEAD -- catalog/ 2>/dev/null; then
+            echo "catalog unchanged since latest release ($LAST_SHA); skipping"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: prefix-dev/setup-pixi@v0.10.1
+        if: steps.changed.outputs.changed == 'true'
         with:
           cache: true
 
       - name: Build STAC-GeoParquet + GTI
+        if: steps.changed.outputs.changed == 'true'
         run: |
           ulimit -n 65536
           pixi run catalog2geoparquet
@@ -64,6 +79,7 @@ jobs:
           EOF
 
       - name: Tag and release
+        if: steps.changed.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
