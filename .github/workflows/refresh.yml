@@ -34,9 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - uses: prefix-dev/setup-pixi@v0.10.1
+      - uses: prefix-dev/setup-pixi@f00437f565399d418b0acc85936d12c1fb668347 # v0.10.1
         with:
           pixi-version: v0.76.1  # pixi.lock is lock-file version 7
           cache: true
@@ -101,18 +101,32 @@ jobs:
           EOF
 
       - name: Commit and push
+        id: commit
         if: steps.refresh.outputs.changed == 'true'
+        env:
+          # env indirection: the changelog embeds S3-derived folder names --
+          # never interpolate ${{ }} of untrusted content into run: scripts
+          CHANGELOG: ${{ steps.refresh.outputs.changelog }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add catalog collections.txt
-          git commit -m "nightly refresh: ${{ steps.refresh.outputs.changelog }}"
-          git push
+          if git diff --cached --quiet; then
+            echo "tile set changed but tree is identical (all builds soft-failed?) -- nothing to commit"
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "nightly refresh: $CHANGELOG"
+            git push
+            echo "committed=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Tag and release
-        if: steps.refresh.outputs.changed == 'true'
+        if: steps.commit.outputs.committed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          CHANGELOG: ${{ steps.refresh.outputs.changelog }}
+          N_ITEMS: ${{ steps.refresh.outputs.n_items }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           TAG="v$(date -u +%Y.%m.%d)"
           N=1
@@ -123,6 +137,6 @@ jobs:
           gh release create "$TAG" catalog.parquet catalog.gti \
             --target "$(git rev-parse HEAD)" \
             --title "$TAG" \
-            --notes "Automated nightly refresh: ${{ steps.refresh.outputs.changelog }}
+            --notes "Automated nightly refresh: $CHANGELOG
 
-          Catalog items: ${{ steps.refresh.outputs.n_items }}. Diff details: see the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+          Catalog items: $N_ITEMS. Diff details: see the [workflow run]($RUN_URL)."

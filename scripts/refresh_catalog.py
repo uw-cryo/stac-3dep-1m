@@ -79,7 +79,10 @@ def list_project_tifs(project):
 
 
 def discover_s3(threads=8):
-    """{project: {item_id: url}} for the entire bucket; skips tif-less folders."""
+    """(holdings, folders): {project: {item_id: url}} for tif-bearing projects,
+    plus the set of *all* project folder names (some folders hold only
+    browse/metadata remnants, or are mid-restage with tifs temporarily gone --
+    the distinction matters for prune decisions)."""
     folders = list_project_folders()
     print(f"S3 lists {len(folders)} project folders", flush=True)
     holdings = {}
@@ -89,7 +92,7 @@ def discover_s3(threads=8):
                 holdings[project] = tifs
     n_tiles = sum(len(v) for v in holdings.values())
     print(f"{len(holdings)} projects contain {n_tiles} tifs", flush=True)
-    return holdings
+    return holdings, set(folders)
 
 
 # ------------------------------------------------------------ local catalog
@@ -186,6 +189,12 @@ def github_output(**kwargs):
         return
     with open(out, "a") as f:
         for k, v in kwargs.items():
+            # values may embed S3-derived folder names: collapse whitespace so
+            # the k=v single-line format can't be corrupted, and truncate (the
+            # full changelog always lands in the summary JSON / job summary)
+            v = " ".join(str(v).split())
+            if len(v) > 500:
+                v = v[:500] + " ..."
             f.write(f"{k}={v}\n")
 
 
@@ -198,6 +207,9 @@ def main():
                     help="restrict the diff/rebuild to named project(s) (testing)")
     ap.add_argument("--min-projects", type=int, default=900,
                     help="abort if S3 lists fewer project folders than this")
+    # NOTE: this cap counts tiles, not projects -- several small projects can
+    # be pruned in one night without tripping it (acceptable blast radius given
+    # the folder-present/items-reachable carry logic below)
     ap.add_argument("--max-removed-tiles", type=int, default=2000,
                     help="abort if the diff would remove more tiles than this")
     ap.add_argument("--allow-large-removals", action="store_true",
@@ -218,21 +230,41 @@ def main():
         sys.exit("run from the repository root (catalog/ not found)")
 
     t0 = time.time()
-    holdings = discover_s3(threads=args.threads)
+    holdings, folders = discover_s3(threads=args.threads)
     local = catalog_state()
 
     if args.only:
-        holdings = {p: holdings.get(p, {}) for p in args.only}
-        holdings = {p: v for p, v in holdings.items() if v}
-        local = {p: v for p, v in local.items() if p in set(args.only)}
+        only = set(args.only)
+        holdings = {p: v for p, v in holdings.items() if p in only and v}
+        folders = folders & only
+        local = {p: v for p, v in local.items() if p in only}
     elif len(holdings) < args.min_projects:
         sys.exit(f"GUARDRAIL: only {len(holdings)} projects listed on S3 "
                  f"(< {args.min_projects}); bucket may be mid-repopulation (see issue #6)")
 
     new = sorted(set(holdings) - set(local))
-    removed = sorted(set(local) - set(holdings))
     changed = sorted(p for p in set(holdings) & set(local)
                      if set(holdings[p]) != local[p])
+
+    # Prune classification: a cataloged project with no tifs on S3 is either
+    # truly deleted (folder prefix gone) or a folder remnant / mid-restage
+    # (folder still present, e.g. only browse/ thumbnails remain, issue #6).
+    # For the latter, prune only if its cataloged tiles are actually dead --
+    # if any sampled item URL still answers 200, carry it unchanged.
+    removed, carried_empty = [], []
+    for p in sorted(set(local) - set(holdings)):
+        if p not in folders:
+            removed.append(p)
+            continue
+        urls = [u for u in (item_asset_url(p, i) for i in sorted(local[p])[:5]) if u]
+        if any(head_status(u) == 200 for u in urls):
+            carried_empty.append(p)
+            print(f"  CARRIED  {p}: TIFF/ empty but folder present and items still "
+                  "reachable -- possible restage in progress, not pruning", flush=True)
+        else:
+            removed.append(p)
+            print(f"  {p}: folder remnant with no tifs and no reachable items "
+                  "-- treating as removed", flush=True)
 
     n_tiles_added = (sum(len(holdings[p]) for p in new)
                      + sum(len(set(holdings[p]) - local[p]) for p in changed))
@@ -257,6 +289,7 @@ def main():
         "s3_projects": len(holdings), "s3_tiles": n_s3,
         "catalog_projects_before": len(local), "catalog_items_before": n_local,
         "new_projects": new, "changed_projects": changed, "removed_projects": removed,
+        "carried_empty_projects": carried_empty,
         "tiles_added": n_tiles_added, "tiles_removed": n_tiles_removed,
         "dry_run": args.dry_run, "build_failures": [],
     }
@@ -293,6 +326,17 @@ def main():
             failures.append(p)
     for p in removed:
         prune_project(p)
+    # a rebuilt collection.json only links the current tile set, but item
+    # files for tiles removed *in place* must be unlinked explicitly --
+    # otherwise the file-count/walk-count parquet gate diverges and the same
+    # projects get flagged as changed (and rebuilt) every night
+    for p in changed:
+        if p in failures:
+            continue
+        keep = set(holdings[p])
+        for f in (CATALOG_DIR / p).glob("*.json"):
+            if f.name != "collection.json" and f.stem not in keep:
+                f.unlink()
     built_new = [p for p in new if p not in failures]
     sync_root_catalog(removed=removed)
     # add new children + regenerate the meta collection (catalog/collection.json)
@@ -312,6 +356,9 @@ def main():
     n, n404, nerr = head_check(new_urls[: args.sample_new], "new/changed", args.threads)
     if n404:
         sys.exit(f"VALIDATION: {n404}/{n} new/changed URLs return 404 -- not committing")
+    if n and nerr > max(2, 0.1 * n):
+        sys.exit(f"VALIDATION: {nerr}/{n} new/changed HEAD checks errored -- "
+                 "network looks degraded, not committing")
 
     carried = [(p, i) for p, ids in catalog_state().items()
                for i in ids if p in local and i in local.get(p, set())]
@@ -321,6 +368,9 @@ def main():
     if n and 100.0 * n404 / n > args.max_404_pct:
         sys.exit(f"VALIDATION: {n404}/{n} sampled existing URLs return 404 "
                  f"(> {args.max_404_pct}%) -- catalog/S3 disagree, not committing")
+    if n and nerr > max(2, 0.1 * n):
+        sys.exit(f"VALIDATION: {nerr}/{n} existing HEAD checks errored -- "
+                 "network looks degraded, not committing")
 
     # ------------------------------------------------------------- summary
     parts = [f"+{n_tiles_added}/-{n_tiles_removed} tiles"]

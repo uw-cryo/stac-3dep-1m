@@ -142,7 +142,18 @@ def create_stac_item(URL, DATETIME):
     # https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac?id=USGS_1M_16_x24y472_WI_Statewide_2019_A19&datetime=2019-04-08T00:00:00Z/2019-04-08T00:00:00Z&collection=WI_Statewide_2019_A19&asset_name=elevation&asset_roles=data&with_eo=false&url=https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_Statewide_2019_A19/TIFF/USGS_1M_16_x24y472_WI_Statewide_2019_A19.tif
 
     #print(f"Requesting STAC item for {ID}")
-    r = requests.get(stacify, params=params)
+    # timeout so one wedged connection can't stall an unattended run's batch,
+    # with a short bounded retry on connection errors/timeouts
+    TIMEOUT = (10, 120)  # (connect, read) seconds
+    for attempt in range(3):
+        try:
+            r = requests.get(stacify, params=params, timeout=TIMEOUT)
+            break
+        except requests.RequestException as e:
+            print(f"{ID}: {e} (attempt {attempt + 1})")
+            time.sleep(2 ** attempt)
+    else:
+        raise RuntimeError(f"titiler request failed repeatedly for {URL}")
 
     # Omit raster stats if it fails (or omit item entirely?)
     if r.status_code != 200:
@@ -155,11 +166,11 @@ def create_stac_item(URL, DATETIME):
         if r.status_code == 500:
             if r.json().get("detail", "").startswith("Too many bins for data range"):
                 params["with_raster"] = "false"
-                r = requests.get(stacify, params=params)
+                r = requests.get(stacify, params=params, timeout=TIMEOUT)
         else: # internal server errors seem to be 502?
             # just retry after a moment
             time.sleep(1)
-            r = requests.get(stacify, params=params)
+            r = requests.get(stacify, params=params, timeout=TIMEOUT)
 
 
     return r.text
