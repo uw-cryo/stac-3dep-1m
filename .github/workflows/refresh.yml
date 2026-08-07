@@ -1,0 +1,128 @@
+# Nightly refresh of the static STAC catalog against current USGS holdings.
+#
+# - Diffs the catalog against a paginated listing of
+#   s3://prd-tnm/StagedProducts/Elevation/1m/Projects/ (see scripts/refresh_catalog.py)
+# - Rebuilds only new/changed projects, prunes projects deleted upstream
+# - Validates with HTTP HEAD spot checks and removal guardrails (issue #6)
+# - Commits + tags a dated release with catalog.parquet/catalog.gti assets
+#   ONLY when the tile set actually changed (no-op nights leave no trace)
+name: refresh-catalog
+
+on:
+  schedule:
+    - cron: "17 9 * * *"  # nightly ~09:17 UTC (off the top of the hour)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Report the diff only; do not rebuild/commit/release"
+        type: boolean
+        default: false
+      allow_large_removals:
+        description: "Override the max-removed-tiles guardrail (after reviewing a dry run)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-catalog
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: prefix-dev/setup-pixi@v0.10.1
+        with:
+          pixi-version: v0.76.1  # pixi.lock is lock-file version 7
+          cache: true
+
+      - name: Refresh catalog (S3 diff + incremental rebuild + validation)
+        id: refresh
+        run: |
+          ARGS="--summary refresh_summary.json"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ "${{ inputs.allow_large_removals }}" = "true" ]; then
+            ARGS="$ARGS --allow-large-removals"
+          fi
+          pixi run python scripts/refresh_catalog.py $ARGS
+
+      - name: Job summary
+        if: always()
+        run: |
+          echo "## Catalog refresh" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f refresh_summary.json ]; then
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat refresh_summary.json >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "refresh_summary.json not produced (guardrail/validation failure -- see log)" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Warn on per-project build failures
+        if: steps.refresh.outputs.n_failures != '' && steps.refresh.outputs.n_failures != '0'
+        run: |
+          echo "::warning::${{ steps.refresh.outputs.n_failures }} project build(s) failed (likely WESM name mismatch -- see scripts/create_static_stac.py onemeter_folder_to_wesm)"
+
+      - name: Rebuild STAC-GeoParquet + GTI
+        if: steps.refresh.outputs.changed == 'true'
+        run: |
+          ulimit -n 65536
+          pixi run python scripts/catalog2geoparquet.py catalog/catalog.json catalog.parquet
+          # sanity: parquet row count must match the refreshed item count
+          pixi run python - <<'EOF'
+          import json
+          import pyarrow.parquet as pq
+          n_parquet = pq.ParquetFile("catalog.parquet").metadata.num_rows
+          n_items = json.load(open("refresh_summary.json"))["catalog_items_after"]
+          print(f"parquet rows: {n_parquet}, catalog items: {n_items}")
+          assert n_parquet == n_items, "parquet row count != catalog item count"
+          EOF
+          cat > catalog.gti <<'EOF'
+          <GDALTileIndexDataset>
+              <!-- Minimal metadata for GDAL to avoid reading a first .tif -->
+              <IndexDataset>catalog.parquet</IndexDataset>
+              <BandCount>1</BandCount>
+              <DataType>Float32</DataType>
+              <SRS>EPSG:4326</SRS>
+              <Resampling>Bilinear</Resampling>
+              <NoData>-999999</NoData>
+              <!-- approximately, 1m spacing in degrees for CONUS -->
+              <ResX>0.000009</ResX>
+              <ResY>0.000009</ResY>
+              <LocationField>assets.elevation.href</LocationField>
+          </GDALTileIndexDataset>
+          EOF
+
+      - name: Commit and push
+        if: steps.refresh.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalog collections.txt
+          git commit -m "nightly refresh: ${{ steps.refresh.outputs.changelog }}"
+          git push
+
+      - name: Tag and release
+        if: steps.refresh.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v$(date -u +%Y.%m.%d)"
+          N=1
+          while gh release view "$TAG" >/dev/null 2>&1; do
+            N=$((N + 1))
+            TAG="v$(date -u +%Y.%m.%d).$N"
+          done
+          gh release create "$TAG" catalog.parquet catalog.gti \
+            --target "$(git rev-parse HEAD)" \
+            --title "$TAG" \
+            --notes "Automated nightly refresh: ${{ steps.refresh.outputs.changelog }}
+
+          Catalog items: ${{ steps.refresh.outputs.n_items }}. Diff details: see the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."

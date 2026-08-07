@@ -68,6 +68,17 @@ pixi run catalog2geoparquet
 
 See NOTES.md for more details on the creation process and some of the challenges we ran into.
 
+## Automated refresh
+
+A scheduled GitHub Actions workflow ([.github/workflows/refresh.yml](.github/workflows/refresh.yml), nightly at ~09:17 UTC, or on demand via *workflow_dispatch*) keeps the catalog in sync with USGS holdings: it diffs the catalog against a paginated S3 listing of `prd-tnm/StagedProducts/Elevation/1m/Projects/`, rebuilds only new/changed projects, prunes projects deleted upstream (see #6), spot-checks URLs with HTTP HEAD, and commits + publishes a dated release (`vYYYY.MM.DD`, with `catalog.parquet` and `catalog.gti` assets) only when the tile set actually changed. Nights with no upstream changes leave no commits or releases.
+
+The same refresh can be run locally:
+
+```
+pixi run refresh --dry-run   # report the diff only
+pixi run refresh             # apply it
+```
+
 
 ## References
 
