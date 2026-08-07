@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_20_x25y203_PR_PuertoRicoUSVI_D24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -65.3644847262233,
+          18.25481305266831
+        ],
+        [
+          -65.26984992559943,
+          18.255959162301718
+        ],
+        [
+          -65.27102846367299,
+          18.34637976546409
+        ],
+        [
+          -65.36571229055335,
+          18.345227587395954
+        ],
+        [
+          -65.3644847262233,
+          18.25481305266831
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -65.36571229055335,
+    18.25481305266831,
+    -65.26984992559943,
+    18.34637976546409
+  ],
+  "properties": {
+    "start_datetime": "2023-12-27T00:00:00Z",
+    "end_datetime": "2025-02-17T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            249993.9999803824,
+            2019994.0000372904
+          ],
+          [
+            260005.9999803824,
+            2019994.0000372904
+          ],
+          [
+            260005.9999803824,
+            2030006.0000372904
+          ],
+          [
+            249993.9999803824,
+            2030006.0000372904
+          ],
+          [
+            249993.9999803824,
+            2019994.0000372904
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      249993.9999803824,
+      2019994.0000372904,
+      260005.9999803824,
+      2030006.0000372904
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      249993.9999803824,
+      0.0,
+      -1.0,
+      2030006.0000372904,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 20N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 20N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -63,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26920
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26920"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/PR_PuertoRicoUSVI_D24/TIFF/USGS_1M_20_x25y203_PR_PuertoRicoUSVI_D24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 40.68827971746024,
+            "minimum": -0.9206628203392029,
+            "maximum": 197.0626983642578,
+            "stddev": 39.254521375235846,
+            "valid_percent": 24.599647521972656
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.9206628203392029,
+            "max": 197.0626983642578,
+            "buckets": [
+              98440,
+              44255,
+              43927,
+              27489,
+              17060,
+              12426,
+              8810,
+              3432,
+              1777,
+              330
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "PR_PuertoRicoUSVI_D24"
+}

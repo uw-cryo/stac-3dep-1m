@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x45y338_FL_2017EscambiaSantaRosa_C22",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -87.52089932757464,
+          30.4610819247599
+        ],
+        [
+          -87.41660956921338,
+          30.461456644783357
+        ],
+        [
+          -87.4169948838775,
+          30.551801654972106
+        ],
+        [
+          -87.52138108837323,
+          30.551425588508415
+        ],
+        [
+          -87.52089932757464,
+          30.4610819247599
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -87.52138108837323,
+    30.4610819247599,
+    -87.41660956921338,
+    30.551801654972106
+  ],
+  "properties": {
+    "start_datetime": "2017-03-31T00:00:00Z",
+    "end_datetime": "2017-06-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            449993.99968053395,
+            3369994.0002759667
+          ],
+          [
+            460005.99968053395,
+            3369994.0002759667
+          ],
+          [
+            460005.99968053395,
+            3380006.0002759667
+          ],
+          [
+            449993.99968053395,
+            3380006.0002759667
+          ],
+          [
+            449993.99968053395,
+            3369994.0002759667
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      449993.99968053395,
+      3369994.0002759667,
+      460005.99968053395,
+      3380006.0002759667
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      449993.99968053395,
+      0.0,
+      -1.0,
+      3380006.0002759667,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/FL_2017EscambiaSantaRosa_C22/TIFF/USGS_1M_16_x45y338_FL_2017EscambiaSantaRosa_C22.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 5.420929013793302,
+            "minimum": -0.15998829901218414,
+            "maximum": 36.32866287231445,
+            "stddev": 6.498574425083076,
+            "valid_percent": 19.92626190185547
+          },
+          "histogram": {
+            "count": 11,
+            "min": -0.15998829901218414,
+            "max": 36.32866287231445,
+            "buckets": [
+              104247,
+              51722,
+              25590,
+              10682,
+              5044,
+              3052,
+              2367,
+              2418,
+              2502,
+              1318
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "FL_2017EscambiaSantaRosa_C22"
+}
