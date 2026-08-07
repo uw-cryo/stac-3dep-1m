@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Incremental refresh of the static STAC catalog against current USGS holdings.
 
-Designed to run unattended (nightly CI) but equally usable locally:
+Designed to run unattended (scheduled CI) but equally usable locally:
 
 1. Discover the current 1m DEM tile set with a *paginated* S3 listing of
    s3://prd-tnm/StagedProducts/Elevation/1m/Projects/ (the same source of
