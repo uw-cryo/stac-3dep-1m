@@ -28,17 +28,35 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
+        with:
+          # full history + tags: the skip gate diffs against the commit of
+          # the latest release tag
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Skip if catalog unchanged since latest release
         id: changed
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          LAST_SHA="$(gh release view --json targetCommitish --jq .targetCommitish 2>/dev/null || echo '')"
-          if [ -n "$LAST_SHA" ] && git diff --quiet "$LAST_SHA" HEAD -- catalog/ 2>/dev/null; then
-            echo "catalog unchanged since latest release ($LAST_SHA); skipping"
+          # Resolve the latest release to a commit via its TAG, not
+          # targetCommitish: releases cut from the GitHub UI store a branch
+          # NAME there (v0.3's is the literal string "main", which would
+          # compare HEAD to HEAD and always skip). No previous release, or a
+          # tag that doesn't resolve, counts as changed -> publish.
+          LAST_TAG="$(gh release view --json tagName --jq .tagName 2>/dev/null || echo '')"
+          LAST_COMMIT=""
+          if [ -n "$LAST_TAG" ]; then
+            LAST_COMMIT="$(git rev-list -n 1 "$LAST_TAG" 2>/dev/null || echo '')"
+          fi
+          if [ -z "$LAST_COMMIT" ]; then
+            echo "no previous release (or tag '$LAST_TAG' unresolvable); publishing"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet "$LAST_COMMIT" HEAD -- catalog/; then
+            echo "catalog unchanged since release $LAST_TAG ($LAST_COMMIT); skipping"
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
+            echo "catalog changed since release $LAST_TAG ($LAST_COMMIT); publishing"
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
