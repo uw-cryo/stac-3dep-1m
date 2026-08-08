@@ -5,7 +5,8 @@
 # rebuilds projects whose tile set drifted (tiles added/removed in place,
 # restaged data), prunes projects deleted upstream, and validates with
 # guardrails + HTTP HEAD spot checks before the PR is opened (see the script
-# docstring). Release assets are cut by release.yml when the PR merges.
+# docstring). Release assets are cut by release.yml (monthly cron or manual
+# dispatch, skipping when the catalog is unchanged since the latest release).
 name: Update Catalog
 
 on:
@@ -97,5 +98,6 @@ jobs:
 
             Catalog items after refresh: ${{ steps.refresh.outputs.n_items }}.
             Full diff summary in the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
-            Merging this PR triggers `release.yml`, which rebuilds
-            `catalog.parquet`/`catalog.gti` and publishes a dated release.
+            After merging, `release.yml` (monthly cron, or run it manually via
+            workflow_dispatch) rebuilds `catalog.parquet`/`catalog.gti` and
+            publishes a dated release.

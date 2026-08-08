@@ -1,7 +1,7 @@
 # Publish release assets on a monthly cadence (or on demand) so that
 # releases/latest/download/catalog.parquet tracks the catalog without a
-# release per merge (this is what downstream consumers like SlideRule AMS
-# ingest).
+# release per merge (this is the input downstream consumers like SlideRule
+# AMS build their databases from).
 #
 # Rebuilds catalog.parquet from the static catalog, checks the row count
 # against the item-file count, regenerates the catalog.gti wrapper, and

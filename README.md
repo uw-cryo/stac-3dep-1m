@@ -73,7 +73,7 @@ See NOTES.md for more details on the creation process and some of the challenges
 Two scheduled GitHub Actions workflows keep the catalog and its release assets in sync with USGS holdings:
 
 * [.github/workflows/update-catalog.yml](.github/workflows/update-catalog.yml) (weekly, Mondays 06:00 UTC, or on demand via *workflow_dispatch* with a `dry_run` option) diffs the catalog against a paginated S3 listing of `prd-tnm/StagedProducts/Elevation/1m/Projects/`, builds new projects, rebuilds projects whose tile set drifted, prunes projects deleted upstream (see #6), validates with guardrails and HTTP HEAD spot checks, and opens a pull request with the changes. Weeks with no upstream changes open no PR.
-* [.github/workflows/release.yml](.github/workflows/release.yml) runs when catalog changes land on `main` (e.g. that PR merging): it rebuilds `catalog.parquet`, checks the row count against the catalog item count, regenerates `catalog.gti`, and publishes a dated release (`vYYYY.MM.DD`) so `releases/latest/download/catalog.parquet` always serves the current catalog.
+* [.github/workflows/release.yml](.github/workflows/release.yml) runs on a monthly cron (1st, 06:17 UTC) or on demand via *workflow_dispatch*, and skips cleanly when the catalog is unchanged since the latest release tag. Otherwise it rebuilds `catalog.parquet`, checks the row count against the catalog item count, regenerates `catalog.gti`, and publishes a dated release (`vYYYY.MM.DD`) so `releases/latest/download/catalog.parquet` serves the current catalog.
 
 The same refresh can be run locally:
 
