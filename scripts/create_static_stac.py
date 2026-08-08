@@ -183,6 +183,32 @@ def get_tif_list_s3(s3path):
     return tifs
 
 
+def collapse_workunit_rows(rows):
+    """Collapse one or more matched WESM rows to a single series.
+
+    Many projects span multiple WESM workunits (currently 214 of the 909
+    cataloged collections) whose collect ranges disagree; taking .iloc[0]
+    made the project's dates depend on WESM.csv row order (e.g.
+    NV_USFSR4_D23 shipped with workunit _2's dates, but today's CSV orders
+    _1 first). Instead use the project-level temporal extent:
+    min(collect_start) / max(collect_end) across all matched rows, with the
+    remaining fields from a deterministic representative row (first by
+    workunit name). Single-row matches are returned unchanged.
+    """
+    rows = rows.sort_values("workunit")
+    s = rows.iloc[0].copy()
+    if len(rows) > 1:
+        start = pd.to_datetime(rows.collect_start, errors="coerce").min()
+        end = pd.to_datetime(rows.collect_end, errors="coerce").max()
+        if pd.isna(end):  # no usable collect_end anywhere: fall back to start
+            end = start
+        if pd.notna(start):
+            s.collect_start = start.strftime("%Y/%m/%d")
+        if pd.notna(end):
+            s.collect_end = end.strftime("%Y/%m/%d")
+    return s
+
+
 def get_wesm_series(project, is_workunit=False):
     wesm_csv = client.CloudPath(
         "s3://prd-tnm/StagedProducts/Elevation/metadata/WESM.csv"
@@ -194,7 +220,7 @@ def get_wesm_series(project, is_workunit=False):
         name = onemeter_folder_to_wesm[project]
         # NOTE: maybe issue here in cases of updated processing? check for source_dem update?
         #.e.g. TN_NRCS_L2_2011_12
-        s = df[df.workunit == name].iloc[0]
+        s = collapse_workunit_rows(df[df.workunit == name])
     else:
         if is_workunit:
             if project not in df.workunit.values:
@@ -202,14 +228,14 @@ def get_wesm_series(project, is_workunit=False):
                 raise ValueError(
                     f"Workunit '{project}' not found in WESM metadata, close matches: {alternatives}"
                 )
-            s = df[df.workunit == project].iloc[0]
+            s = collapse_workunit_rows(df[df.workunit == project])
         else:
             if project not in df.project.values:
                 alternatives = df[df.project.str.startswith(project)].project.to_list()
                 raise ValueError(
                     f"Project '{project}' not found in WESM metadata, close matches: {alternatives}"
                 )
-            s = df[df.project == project].iloc[0]
+            s = collapse_workunit_rows(df[df.project == project])
 
     if not s.onemeter_category == "Meets":
         warnings.warn(
