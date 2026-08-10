@@ -142,7 +142,18 @@ def create_stac_item(URL, DATETIME):
     # https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac?id=USGS_1M_16_x24y472_WI_Statewide_2019_A19&datetime=2019-04-08T00:00:00Z/2019-04-08T00:00:00Z&collection=WI_Statewide_2019_A19&asset_name=elevation&asset_roles=data&with_eo=false&url=https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_Statewide_2019_A19/TIFF/USGS_1M_16_x24y472_WI_Statewide_2019_A19.tif
 
     #print(f"Requesting STAC item for {ID}")
-    r = requests.get(stacify, params=params)
+    # timeout so one wedged connection can't stall an unattended run's batch,
+    # with a short bounded retry on connection errors/timeouts
+    TIMEOUT = (10, 120)  # (connect, read) seconds
+    for attempt in range(3):
+        try:
+            r = requests.get(stacify, params=params, timeout=TIMEOUT)
+            break
+        except requests.RequestException as e:
+            print(f"{ID}: {e} (attempt {attempt + 1})")
+            time.sleep(2 ** attempt)
+    else:
+        raise RuntimeError(f"titiler request failed repeatedly for {URL}")
 
     # Omit raster stats if it fails (or omit item entirely?)
     if r.status_code != 200:
@@ -155,11 +166,11 @@ def create_stac_item(URL, DATETIME):
         if r.status_code == 500:
             if r.json().get("detail", "").startswith("Too many bins for data range"):
                 params["with_raster"] = "false"
-                r = requests.get(stacify, params=params)
+                r = requests.get(stacify, params=params, timeout=TIMEOUT)
         else: # internal server errors seem to be 502?
             # just retry after a moment
             time.sleep(1)
-            r = requests.get(stacify, params=params)
+            r = requests.get(stacify, params=params, timeout=TIMEOUT)
 
 
     return r.text
@@ -170,6 +181,32 @@ def get_tif_list_s3(s3path):
         lines = [x.strip("\n") for x in f.readlines()]
         tifs = [x for x in lines if x.endswith(".tif")]
     return tifs
+
+
+def collapse_workunit_rows(rows):
+    """Collapse one or more matched WESM rows to a single series.
+
+    Many projects span multiple WESM workunits (currently 214 of the 909
+    cataloged collections) whose collect ranges disagree; taking .iloc[0]
+    made the project's dates depend on WESM.csv row order (e.g.
+    NV_USFSR4_D23 shipped with workunit _2's dates, but today's CSV orders
+    _1 first). Instead use the project-level temporal extent:
+    min(collect_start) / max(collect_end) across all matched rows, with the
+    remaining fields from a deterministic representative row (first by
+    workunit name). Single-row matches are returned unchanged.
+    """
+    rows = rows.sort_values("workunit")
+    s = rows.iloc[0].copy()
+    if len(rows) > 1:
+        start = pd.to_datetime(rows.collect_start, errors="coerce").min()
+        end = pd.to_datetime(rows.collect_end, errors="coerce").max()
+        if pd.isna(end):  # no usable collect_end anywhere: fall back to start
+            end = start
+        if pd.notna(start):
+            s.collect_start = start.strftime("%Y/%m/%d")
+        if pd.notna(end):
+            s.collect_end = end.strftime("%Y/%m/%d")
+    return s
 
 
 def get_wesm_series(project, is_workunit=False):
@@ -183,7 +220,7 @@ def get_wesm_series(project, is_workunit=False):
         name = onemeter_folder_to_wesm[project]
         # NOTE: maybe issue here in cases of updated processing? check for source_dem update?
         #.e.g. TN_NRCS_L2_2011_12
-        s = df[df.workunit == name].iloc[0]
+        s = collapse_workunit_rows(df[df.workunit == name])
     else:
         if is_workunit:
             if project not in df.workunit.values:
@@ -191,14 +228,14 @@ def get_wesm_series(project, is_workunit=False):
                 raise ValueError(
                     f"Workunit '{project}' not found in WESM metadata, close matches: {alternatives}"
                 )
-            s = df[df.workunit == project].iloc[0]
+            s = collapse_workunit_rows(df[df.workunit == project])
         else:
             if project not in df.project.values:
                 alternatives = df[df.project.str.startswith(project)].project.to_list()
                 raise ValueError(
                     f"Project '{project}' not found in WESM metadata, close matches: {alternatives}"
                 )
-            s = df[df.project == project].iloc[0]
+            s = collapse_workunit_rows(df[df.project == project])
 
     if not s.onemeter_category == "Meets":
         warnings.warn(
@@ -249,6 +286,29 @@ def generate_stac_from_titiler(tiflist, DATETIME):
     return results
 
 
+PROJ_EXT_V2 = "https://stac-extensions.github.io/projection/v2.0.0/schema.json"
+PROJ_EXT_V1_PREFIX = "https://stac-extensions.github.io/projection/v1."
+
+
+def normalize_projection(item_dict):
+    """Normalize projection extension to v2.0.0 (proj:code).
+
+    The existing catalog (~123k items) uniformly uses projection v2.0.0 with
+    proj:code, but depending on the deployed titiler version the STAC endpoint
+    may return v1.1.0 with proj:epsg. Keep the catalog (and the geoparquet
+    column schema) uniform regardless of which titiler is answering.
+    """
+    exts = item_dict.get("stac_extensions", [])
+    item_dict["stac_extensions"] = [
+        PROJ_EXT_V2 if e.startswith(PROJ_EXT_V1_PREFIX) else e for e in exts
+    ]
+    props = item_dict.get("properties", {})
+    epsg = props.pop("proj:epsg", None)
+    if epsg is not None and "proj:code" not in props:
+        props["proj:code"] = f"EPSG:{epsg}"
+    return item_dict
+
+
 # TODO: can probably speed this up a lot just by taking min/max of bboxes
 def get_collection_bbox(results):
     gf = gpd.GeoDataFrame.from_features([json.loads(x) for x in results])
@@ -256,12 +316,16 @@ def get_collection_bbox(results):
 
 
 def list_tiffs_in_project(project, bucket="prd-tnm"):
+    # NOTE: must paginate! A single list_objects_v2 call returns at most 1000
+    # keys, which silently truncated projects with >1000 tiles (e.g. OR_SouthEast_D22)
     project_prefix = f"StagedProducts/Elevation/1m/Projects/{project}/TIFF"
-    response = s3.list_objects_v2(Bucket=bucket, Prefix=project_prefix)
-    tiff_files = [
-        obj['Key'] for obj in response.get('Contents', [])
-        if obj['Key'].endswith('.tif')
-    ]
+    paginator = s3.get_paginator('list_objects_v2')
+    tiff_files = []
+    for page in paginator.paginate(Bucket=bucket, Prefix=project_prefix):
+        tiff_files += [
+            obj['Key'] for obj in page.get('Contents', [])
+            if obj['Key'].endswith('.tif')
+        ]
 
     return [f"https://{bucket}.s3.amazonaws.com/{key}" for key in tiff_files]
 
@@ -323,7 +387,7 @@ def create_stac_catalog(project, is_workunit=False):
     #     item = pystac.read_dict(json.loads(x))
     #     print(item.id)
     #     items.append(item)
-    items = [pystac.read_dict(json.loads(x)) for x in results]
+    items = [pystac.read_dict(normalize_projection(json.loads(x))) for x in results]
 
     # THis will be 'collection' level metadata, not in each item
     # [add_wesm_metadata_to_properties(item, s) for item in items]

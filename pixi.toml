@@ -9,7 +9,8 @@ version = "0.1.0"
 create-all = { cmd = "python scripts/create_all.py", description = "Create static STAC for every 3DEP 1m S3 project folder that isn't already in catalog/" }
 create-stac = { cmd = "python scripts/create_static_stac.py", description = "Create a static STAC catalog+collection for a single project or WESM workunit" }
 collection2geoparquet = { cmd = "python scripts/collection2geoparquet.py", description = "Convert one collection.json and its items to a STAC-GeoParquet file" }
-catalog2geoparquet = { cmd = "python scripts/catalog2geoparquet.py /Users/scotthenderson/GitHub/uw-cryo/stac-3dep-1m/catalog/catalog.json", description = "Convert the full root catalog to a single STAC-GeoParquet file" }
+catalog2geoparquet = { cmd = "python scripts/catalog2geoparquet.py catalog/catalog.json catalog.parquet", description = "Convert the full root catalog to a single STAC-GeoParquet file" }
+refresh = { cmd = "python scripts/refresh_catalog.py", description = "Diff catalog/ against current S3 holdings; rebuild new/changed projects, prune deleted ones, validate" }
 catalog2hive = { cmd = "python scripts/catalog2hive.py", description = "Write the catalog as hive-partitioned STAC-GeoParquet (collection=<id>/part0.parquet)" }
 create-collection-parquets = { cmd = "python scripts/create_collection_parquets.py", description = "Write a .parquet next to each collection.json under a catalog directory" }
 update-root-catalog = { cmd = "python scripts/update_root_catalog.py", description = "Add any new child collections to the top-level catalog.json" }

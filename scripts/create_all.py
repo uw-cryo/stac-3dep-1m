@@ -8,8 +8,12 @@ import subprocess
 from pathlib import Path
 
 s3 = boto3.client('s3', config=Config(signature_version=UNSIGNED))
-response = s3.list_objects_v2(Bucket='prd-tnm', Prefix='StagedProducts/Elevation/1m/Projects/', Delimiter='/')
-folders = [content['Prefix'] for content in response.get('CommonPrefixes')]
+# NOTE: paginate — a single list_objects_v2 call returns at most 1000 prefixes
+# and the bucket currently has ~960 project folders
+paginator = s3.get_paginator('list_objects_v2')
+folders = []
+for page in paginator.paginate(Bucket='prd-tnm', Prefix='StagedProducts/Elevation/1m/Projects/', Delimiter='/'):
+    folders += [content['Prefix'] for content in page.get('CommonPrefixes', [])]
 all_folders = [x.split('/')[-2] for x in folders]
 
 print('Located {} folders in S3...'.format(len(all_folders)))
