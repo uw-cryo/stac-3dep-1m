@@ -55,28 +55,40 @@ carries its own drift baseline and downstream consumers can tell whether their c
 123k items. Alternative — a sidecar `checkpoints/s3-manifest.parquet` diffed run over run — is cheaper but
 adds a second source of truth.
 
-## Gap 2: WESM metadata drift
+## Gap 2: WESM metadata drift — **closed** ([#18](https://github.com/uw-cryo/stac-3dep-1m/issues/18))
 
-**This is the one that matters most and is currently unhandled.** `refresh_catalog.py` rebuilds a project only
-when its *tile set* changes. Collection summaries carry `wesm:*` snapshotted at build time, and every item's
-`start_datetime`/`end_datetime` derives from WESM `collect_start`/`collect_end` — the exact field SlideRule's
-AMS table keys on. If USGS revises WESM without touching the tiles, the catalog keeps the stale values
-indefinitely.
+`refresh_catalog.py` used to rebuild a project only when its *tile set* changed. Collection summaries carry
+`wesm:*` snapshotted at build time, and every item's `start_datetime`/`end_datetime` derives from WESM
+`collect_start`/`collect_end` — the exact field SlideRule's AMS table keys on. A WESM revision that touched no
+tiles therefore never reached the catalog.
 
-Measured today, 946 collections vs live `WESM.csv`:
+`refresh` now diffs the snapshotted summaries against live `WESM.csv` on every run and repairs the drifted
+collections **in place** (`wesm_diff` / `refresh_collection_metadata`): summaries, collection temporal extent,
+and item datetimes only when the collect range itself moved. No titiler round trip — the answer to open
+question 4 below is *metadata-only refresh*, and the guardrail is `--max-metadata-updates` (300) since a WESM
+schema change would drift every collection at once.
+
+The backlog this cleared was larger than the original measurement suggested — 192 of 946 collections, because
+the drift includes not only USGS revisions but the `collapse_workunit_rows` fix (deterministic representative
+row, min/max collect range over multi-workunit projects) that collections built before it never picked up:
 
 | Field | Collections drifted |
 | --- | --- |
-| `sourcedem_update` | 28 |
-| `lpc_update` | 17 |
-| `onemeter_category` | 15 |
-| `collect_start` | 1 (`NV_USFSR4_D23`) |
-| `spec`, `lpc_pub_date`, `sourcedem_pub_date` | 1 each |
-| workunit no longer in WESM at all | 1 (`UT_StrawberryRiver_2019`) |
+| `workunit` / `workunit_id` | 115 |
+| `lpc_pub_date` | 108 |
+| `sourcedem_pub_date` | 106 |
+| `collect_end` | 105 |
+| `horiz_crs` | 44 |
+| `sourcedem_update` | 33 |
+| `dem_gsd_meters` | 30 |
+| `lpc_update` | 22 |
+| `ql` | 19 |
+| `*_category` / `*_reason` | 13–14 each |
+| `spec`, `vert_crs`, `geoid`, `p_method` | 3–8 each |
 
-Small, but not zero, and `collect_start` drift is a silent wrong answer rather than a missing one. Proposed:
-extend the diff to include a WESM-summary comparison, and treat a WESM change as a rebuild trigger (or at
-minimum a collection-metadata refresh, which is far cheaper than re-running titiler over every tile).
+105 of those moved a collect range, i.e. ~39k item files whose `start_datetime`/`end_datetime` were wrong.
+No cataloged collection is currently unresolvable in WESM (`UT_StrawberryRiver_2019` resolves again); when one
+is, it is reported and left untouched rather than guessed at.
 
 ## Attributing *why* something changed
 
@@ -184,5 +196,5 @@ Note the labels are evidence classes, not statements of USGS intent — only `wi
 3. **Which artifact is checked — `catalog/` or the release parquet?** `main` runs ahead of the tag that
    SlideRule's AMS table is built from, so "the repo is right" and "what people use is right" are different
    questions.
-4. **Does WESM drift trigger a full titiler rebuild, or a metadata-only collection refresh?** The latter is
-   orders of magnitude cheaper and covers all 28 drifted collections.
+4. ~~**Does WESM drift trigger a full titiler rebuild, or a metadata-only collection refresh?**~~ Resolved:
+   metadata-only refresh, implemented in `refresh_catalog.py` (see Gap 2 above).

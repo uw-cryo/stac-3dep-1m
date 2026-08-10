@@ -11,10 +11,14 @@ Designed to run unattended (scheduled CI) but equally usable locally:
      - changed projects    -> rebuild with create_static_stac.py --overwrite
        (tile added/removed within an existing project, e.g. restaged data)
      - removed projects    -> prune catalog/<project> and root catalog link
+     - WESM metadata drift -> metadata-only refresh of catalog/<project>
+       (collection summaries + temporal extent, item datetimes; no titiler)
 3. Guardrails (issue #6: the bucket has been observed mid-repopulation):
      - abort if S3 lists fewer than --min-projects project folders
      - abort if the diff would remove more than --max-removed-tiles tiles
        (override with --allow-large-removals after human review)
+     - abort if more than --max-metadata-updates collections drifted in WESM
+       (override with --allow-large-metadata-updates)
 4. Validate with HTTP HEAD spot checks:
      - every new/changed item URL sampled up to --sample-new must return 200
      - a random sample (--sample-existing) of carried-over item URLs must
@@ -46,6 +50,11 @@ import boto3
 import requests
 from botocore import UNSIGNED
 from botocore.client import Config
+
+# sibling script (scripts/ is on sys.path when this file is run directly), so the
+# refresh and the builder agree on how a folder name maps to a WESM row and how
+# that row is serialized into collection summaries
+import create_static_stac
 
 BUCKET = "prd-tnm"
 PROJECTS_PREFIX = "StagedProducts/Elevation/1m/Projects/"
@@ -117,6 +126,109 @@ def item_asset_url(project, item_id):
         return item["assets"]["elevation"]["href"]
     except Exception:
         return None
+
+
+# ------------------------------------------------------------ WESM metadata
+# A rebuild triggers on tile-set change, so a WESM revision that adds or removes
+# no tiles would otherwise never reach the catalog (issue #18): collection wesm:*
+# summaries are snapshotted at build time, and every item's start_datetime /
+# end_datetime derives from WESM collect_start / collect_end -- the field
+# SlideRule's AMS 3DEP1M table keys on (issue #11), where a stale value is a
+# wrong answer rather than a missing one.
+def wesm_row(project, df):
+    """Live WESM row for a cataloged folder name, or None if WESM has none.
+
+    Mirrors build_project: try the folder as a workunit first, then as a project
+    (the S3 folder name is sometimes one, sometimes the other, and sometimes
+    neither -- see onemeter_folder_to_wesm in create_static_stac.py).
+    """
+    for is_workunit in (True, False):
+        try:
+            return create_static_stac.get_wesm_series(project, is_workunit=is_workunit,
+                                                      df=df, warn=False)
+        except (ValueError, KeyError, IndexError):
+            continue
+    return None
+
+
+def collection_wesm_summaries(project):
+    """wesm:* summaries recorded in a collection.json (None if unreadable)."""
+    path = CATALOG_DIR / project / "collection.json"
+    try:
+        summaries = json.loads(path.read_text()).get("summaries", {})
+    except Exception:
+        return None
+    return {k: v for k, v in summaries.items() if k.startswith("wesm:")}
+
+
+def wesm_diff(projects):
+    """(drift, rows, missing) for the given cataloged projects.
+
+    drift    {project: [drifted summary field, ...]}
+    rows     {project: live WESM row} for the drifted projects
+    missing  [project, ...] cataloged but no longer resolvable in WESM
+
+    Both sides of the comparison are produced by wesm_summary_fields(), so a
+    serialization difference cannot masquerade as drift. `missing` is reported
+    but never acted on: WESM dropping a workunit says nothing about whether the
+    tiles are still staged (that is the S3 diff's job), so it is a human's call.
+    """
+    df = create_static_stac.load_wesm()
+    drift, rows, missing = {}, {}, []
+    for project in projects:
+        have = collection_wesm_summaries(project)
+        if have is None:
+            continue
+        series = wesm_row(project, df)
+        if series is None:
+            missing.append(project)
+            continue
+        want = create_static_stac.wesm_summary_fields(series)
+        fields = sorted(k for k in set(have) | set(want) if have.get(k) != want.get(k))
+        if fields:
+            drift[project] = fields
+            rows[project] = series
+    return drift, rows, missing
+
+
+def refresh_collection_metadata(project, series):
+    """Rewrite the WESM-derived fields of one collection in place.
+
+    Orders of magnitude cheaper than a rebuild: no titiler round trip, and the
+    tile set is untouched. Collection summaries and temporal extent are always
+    rewritten; item start_datetime/end_datetime only when the collect range
+    actually moved (rare, and the expensive case -- every item file in the
+    collection). Returns the number of item files rewritten.
+    """
+    # the same string the builder hands titiler, so a metadata refresh and a full
+    # rebuild land on identical datetimes
+    start, end = create_static_stac.get_titiler_datetime(series).split("/")
+    if "NaT" in start or "NaT" in end:
+        raise ValueError(f"unusable WESM collect range ({start}/{end})")
+
+    path = CATALOG_DIR / project / "collection.json"
+    collection = json.loads(path.read_text())
+    summaries = collection.get("summaries", {})
+    for key in [k for k in summaries if k.startswith("wesm:")]:
+        del summaries[key]
+    summaries.update(create_static_stac.wesm_summary_fields(series))
+    collection["summaries"] = summaries
+    collection["extent"]["temporal"]["interval"] = [[start, end]]
+    path.write_text(json.dumps(collection, indent=2))
+
+    n_items = 0
+    for item_path in sorted((CATALOG_DIR / project).glob("*.json")):
+        if item_path.name == "collection.json":
+            continue
+        item = json.loads(item_path.read_text())
+        props = item.get("properties", {})
+        if props.get("start_datetime") == start and props.get("end_datetime") == end:
+            continue
+        props["start_datetime"] = start
+        props["end_datetime"] = end
+        item_path.write_text(json.dumps(item, indent=2))
+        n_items += 1
+    return n_items
 
 
 # ------------------------------------------------------------------ rebuild
@@ -225,17 +337,26 @@ def render_pr_body(summary, run_url=None):
         f"`{p}`", f"+{d['added']}" if d["added"] else "—",
         f"−{d['removed']}" if d["removed"] else "—"))
     pruned = rows("pruned", lambda p, d: (f"`{p}`", f"−{d['removed']}"))
+    metadata = rows("metadata", lambda p, d: (
+        f"`{p}`",
+        ", ".join(f"`{f.removeprefix('wesm:')}`" for f in d["fields"]),
+        d.get("items_updated") or "—"))
 
     added, removed = summary["tiles_added"], summary["tiles_removed"]
     before = summary["catalog_items_before"]
     after = summary.get("catalog_items_after")
 
+    counts = [f"{len(new)} new", f"{len(rebuilt)} rebuilt", f"{len(pruned)} pruned"]
+    if metadata:
+        counts.append(f"{len(metadata)} metadata-only")
+
     out = [
         "Automated run of `pixi run refresh` — S3 diff, incremental rebuild, "
-        "prune, HEAD validation (see `scripts/refresh_catalog.py`).",
+        "prune, WESM metadata refresh, HEAD validation "
+        "(see `scripts/refresh_catalog.py`).",
         "",
         f"**+{added:,} / −{removed:,} tiles** across {len(details):,} collections "
-        f"— {len(new)} new, {len(rebuilt)} rebuilt, {len(pruned)} pruned.",
+        f"— {', '.join(counts)}.",
         "",
         f"Catalog items: {before:,}" + (f" → **{after:,}**" if after else ""),
         "",
@@ -244,7 +365,22 @@ def render_pr_body(summary, run_url=None):
     out.append(_section("Rebuilt collections", rebuilt,
                         ["Collection", "Added", "Removed"]))
     out.append(_section("Pruned collections", pruned, ["Collection", "Tiles"]))
+    # tiles untouched: only WESM-derived collection metadata moved, plus item
+    # datetimes in the collections whose collect range itself changed
+    out.append(_section("WESM metadata updates", metadata,
+                        ["Collection", "Fields", "Items updated"]))
 
+    if summary.get("wesm_missing_projects"):
+        names = summary["wesm_missing_projects"]
+        shown = ", ".join(f"`{p}`" for p in names[:10])
+        more = f" … and {len(names) - 10} more" if len(names) > 10 else ""
+        out.append(f"> **No WESM row:** {shown}{more} — cataloged but no longer "
+                   "resolvable in `WESM.csv`; metadata left untouched (the tiles are "
+                   "diffed against S3 independently).\n")
+    if summary.get("metadata_failures"):
+        names = ", ".join(f"`{p}`" for p in summary["metadata_failures"])
+        out.append(f"> **⚠️ Metadata refresh failed:** {names} — previous values kept, "
+                   "retried next run.\n")
     if summary.get("carried_empty_projects"):
         names = ", ".join(f"`{p}`" for p in summary["carried_empty_projects"])
         out.append(f"> **Carried, not pruned:** {names} — TIFF listing empty but the "
@@ -304,6 +440,14 @@ def main():
                     help="abort if the diff would remove more tiles than this")
     ap.add_argument("--allow-large-removals", action="store_true",
                     help="override --max-removed-tiles after human review")
+    ap.add_argument("--skip-wesm-check", action="store_true",
+                    help="skip the WESM summary comparison (tile diff only)")
+    # a WESM schema change (column added or renamed) drifts every collection at
+    # once -- a legitimate but very large diff, so make a human confirm it
+    ap.add_argument("--max-metadata-updates", type=int, default=300,
+                    help="abort if more cataloged collections than this drifted in WESM")
+    ap.add_argument("--allow-large-metadata-updates", action="store_true",
+                    help="override --max-metadata-updates after human review")
     ap.add_argument("--sample-new", type=int, default=200,
                     help="max new/changed item URLs to HEAD-check (all must be 200)")
     ap.add_argument("--sample-existing", type=int, default=300,
@@ -368,6 +512,15 @@ def main():
                   f"(HEAD codes {codes}) -- carrying unchanged, will re-probe "
                   "next run", flush=True)
 
+    # WESM revisions that add or remove no tiles are invisible to the diff above,
+    # so compare the snapshotted collection summaries too (issue #18). Projects
+    # about to be rebuilt or pruned are skipped: a rebuild re-reads WESM anyway,
+    # and a failed rebuild leaves the drift to be caught next run.
+    wesm_drift, wesm_rows, wesm_missing = {}, {}, []
+    if not args.skip_wesm_check:
+        wesm_drift, wesm_rows, wesm_missing = wesm_diff(
+            sorted(set(local) - set(changed) - set(removed)))
+
     # Per-project tile deltas, computed once and reused by the console log, the
     # summary JSON and the PR body table.
     details = {}
@@ -379,6 +532,9 @@ def main():
                       "removed": len(local[p] - set(holdings[p]))}
     for p in removed:
         details[p] = {"action": "pruned", "added": 0, "removed": len(local[p])}
+    for p, fields in sorted(wesm_drift.items()):
+        details[p] = {"action": "metadata", "added": 0, "removed": 0,
+                      "fields": fields, "items_updated": 0}
 
     n_tiles_added = sum(d["added"] for d in details.values())
     n_tiles_removed = sum(d["removed"] for d in details.values())
@@ -394,18 +550,32 @@ def main():
         print(f"  CHANGED  {p} (+{details[p]['added']} / -{details[p]['removed']})")
     for p in removed:
         print(f"  REMOVED  {p} ({details[p]['removed']} tiles)")
+    for p, fields in sorted(wesm_drift.items()):
+        names = ", ".join(f.removeprefix("wesm:") for f in fields)
+        print(f"  METADATA {p} ({names})")
+    if wesm_missing:
+        print(f"  {len(wesm_missing)} cataloged collections have no WESM row "
+              f"(metadata left untouched): {', '.join(wesm_missing[:10])}"
+              + (" ..." if len(wesm_missing) > 10 else ""))
 
-    changed_any = bool(new or changed or removed)
+    changed_any = bool(new or changed or removed or wesm_drift)
     summary = {
         "s3_projects": len(holdings), "s3_tiles": n_s3,
         "catalog_projects_before": len(local), "catalog_items_before": n_local,
         "new_projects": new, "changed_projects": changed, "removed_projects": removed,
         "carried_empty_projects": carried_empty,
+        "metadata_projects": sorted(wesm_drift), "wesm_missing_projects": wesm_missing,
         "tiles_added": n_tiles_added, "tiles_removed": n_tiles_removed,
-        "dry_run": args.dry_run, "build_failures": [], "details": details,
+        "dry_run": args.dry_run, "build_failures": [], "metadata_failures": [],
+        "details": details,
     }
-    # "+1429/-678 tiles" -- short enough for a PR/commit title on its own
+    # "+1429/-678 tiles" -- short enough for a PR/commit title on its own; a
+    # metadata-only run has no tile delta to report, so it names itself
     title = f"+{n_tiles_added}/-{n_tiles_removed} tiles"
+    if wesm_drift:
+        title += f", {len(wesm_drift)} WESM metadata"
+    if not (new or changed or removed):
+        title = f"WESM metadata for {len(wesm_drift)} collections"
 
     if not changed_any:
         print("no changes -- catalog is current")
@@ -420,6 +590,13 @@ def main():
         sys.exit(f"GUARDRAIL: refusing to remove {n_tiles_removed} tiles "
                  f"(> {args.max_removed_tiles}); rerun with --allow-large-removals "
                  "after reviewing the diff")
+
+    if (len(wesm_drift) > args.max_metadata_updates
+            and not args.allow_large_metadata_updates and not args.dry_run):
+        sys.exit(f"GUARDRAIL: {len(wesm_drift)} collections drifted in WESM "
+                 f"(> {args.max_metadata_updates}); a WESM schema change hits every "
+                 "collection at once -- review the diff, then rerun with "
+                 "--allow-large-metadata-updates")
 
     if args.dry_run:
         print("dry run -- exiting before rebuild")
@@ -454,6 +631,25 @@ def main():
             if f.name != "collection.json" and f.stem not in keep:
                 f.unlink()
     built_new = [p for p in new if p not in failures]
+
+    # metadata-only refreshes, before the meta collection is regenerated below
+    # (create_root_collection unions the per-collection temporal extents this
+    # step can move). A failure here is per-collection and non-fatal: the old
+    # values stay put and the drift is re-detected next run.
+    metadata_failures, n_items_touched = [], 0
+    for p in sorted(wesm_drift):
+        try:
+            n = refresh_collection_metadata(p, wesm_rows[p])
+        except Exception as e:
+            metadata_failures.append(p)
+            details.pop(p, None)
+            print(f"  {p}: metadata refresh failed ({e})", flush=True)
+            continue
+        details[p]["items_updated"] = n
+        n_items_touched += n
+        print(f"  METADATA {p}: summaries updated"
+              + (f", {n} item datetimes rewritten" if n else ""), flush=True)
+
     sync_root_catalog(removed=removed)
     # add new children + regenerate the meta collection (catalog/collection.json)
     import update_root_catalog
@@ -502,13 +698,20 @@ def main():
         parts.append(f"rebuilt: {', '.join(changed)}")
     if removed:
         parts.append(f"pruned: {', '.join(removed)}")
+    metadata_done = sorted(p for p in wesm_drift if p not in metadata_failures)
+    if metadata_done:
+        parts.append(f"metadata: {', '.join(metadata_done)}")
     if failures:
         parts.append(f"FAILED: {', '.join(failures)}")
+    if metadata_failures:
+        parts.append(f"METADATA FAILED: {', '.join(metadata_failures)}")
     changelog = "; ".join(parts)
 
     n_after = sum(len(v) for v in catalog_state().values())
     summary.update({
         "catalog_items_after": n_after, "build_failures": failures,
+        "metadata_projects": metadata_done, "metadata_failures": metadata_failures,
+        "metadata_items_updated": n_items_touched,
         "changelog": changelog, "elapsed_s": round(time.time() - t0, 1),
     })
     if args.summary:
@@ -518,7 +721,7 @@ def main():
     # `title` and `subject` stay short enough to read in a PR list / git log;
     # the exhaustive project list lives in the PR body table and the summary JSON
     subject = (f"{title} ({len(new)} new, {len(changed)} rebuilt, "
-               f"{len(removed)} pruned)")
+               f"{len(removed)} pruned, {len(metadata_done)} metadata)")
     github_output(changed="true", changelog=changelog, title=title,
                   subject=subject, n_items=n_after, n_failures=len(failures))
     print(f"\nrefresh complete in {summary['elapsed_s']}s: {changelog}")

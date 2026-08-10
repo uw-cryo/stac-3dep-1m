@@ -3,7 +3,8 @@
 # Extends the original create-all-based version of this workflow: in addition
 # to building STAC for new project folders, scripts/refresh_catalog.py also
 # rebuilds projects whose tile set drifted (tiles added/removed in place,
-# restaged data), prunes projects deleted upstream, and validates with
+# restaged data), prunes projects deleted upstream, refreshes collections whose
+# WESM metadata was revised without touching tiles, and validates with
 # guardrails + HTTP HEAD spot checks before the PR is opened (see the script
 # docstring). Release assets are cut by release.yml (monthly cron or manual
 # dispatch, skipping when the catalog is unchanged since the latest release).
@@ -21,6 +22,10 @@ on:
         default: false
       allow_large_removals:
         description: "Override the max-removed-tiles guardrail (after reviewing a dry run)"
+        type: boolean
+        default: false
+      allow_large_metadata_updates:
+        description: "Override the max-metadata-updates guardrail (after reviewing a dry run)"
         type: boolean
         default: false
 
@@ -57,6 +62,9 @@ jobs:
           fi
           if [ "${{ inputs.allow_large_removals }}" = "true" ]; then
             ARGS="$ARGS --allow-large-removals"
+          fi
+          if [ "${{ inputs.allow_large_metadata_updates }}" = "true" ]; then
+            ARGS="$ARGS --allow-large-metadata-updates"
           fi
           pixi run refresh $ARGS
 
