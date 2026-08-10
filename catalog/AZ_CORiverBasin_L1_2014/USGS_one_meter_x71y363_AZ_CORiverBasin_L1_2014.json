@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x71y363_AZ_CORiverBasin_L1_2014",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -114.75995798424572,
+          32.69578820801765
+        ],
+        [
+          -114.65322268861792,
+          32.69383575664069
+        ],
+        [
+          -114.65079480706522,
+          32.78636480126273
+        ],
+        [
+          -114.75764029587243,
+          32.78832415773391
+        ],
+        [
+          -114.75995798424572,
+          32.69578820801765
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -114.75995798424572,
+    32.69383575664069,
+    -114.65079480706522,
+    32.78832415773391
+  ],
+  "properties": {
+    "start_datetime": "2014-03-07T00:00:00Z",
+    "end_datetime": "2014-03-20T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            709993.0000178991,
+            3619780.9147088453
+          ],
+          [
+            720006.0000178991,
+            3619780.9147088453
+          ],
+          [
+            720006.0000178991,
+            3630046.9147088453
+          ],
+          [
+            709993.0000178991,
+            3630046.9147088453
+          ],
+          [
+            709993.0000178991,
+            3619780.9147088453
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      709993.0000178991,
+      3619780.9147088453,
+      720006.0000178991,
+      3630046.9147088453
+    ],
+    "proj:shape": [
+      10266,
+      10013
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      709993.0000178991,
+      0.0,
+      -1.0,
+      3630046.9147088453,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 11N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 11N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -117,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26911
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26911"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AZ_CORiverBasin_L1_2014/TIFF/USGS_one_meter_x71y363_AZ_CORiverBasin_L1_2014.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 35.79006974288678,
+            "minimum": 27.733911514282227,
+            "maximum": 53.27979278564453,
+            "stddev": 5.456421403450248,
+            "valid_percent": 0.659644019019019
+          },
+          "histogram": {
+            "count": 11,
+            "min": 27.733911514282227,
+            "max": 53.27979278564453,
+            "buckets": [
+              944,
+              870,
+              1645,
+              1795,
+              674,
+              99,
+              65,
+              184,
+              350,
+              122
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AZ_CORiverBasin_L1_2014"
+}
