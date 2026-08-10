@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x55y505_ME_Eastern_B2_2017",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -68.3599678784249,
+          45.51089524458703
+        ],
+        [
+          -68.2317902981666,
+          45.51010512124761
+        ],
+        [
+          -68.23053994480863,
+          45.601790519941176
+        ],
+        [
+          -68.35892611115898,
+          45.60258315953806
+        ],
+        [
+          -68.3599678784249,
+          45.51089524458703
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -68.3599678784249,
+    45.51010512124761,
+    -68.23053994480863,
+    45.60258315953806
+  ],
+  "properties": {
+    "start_datetime": "2017-04-30T00:00:00Z",
+    "end_datetime": "2017-12-04T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            549993.9999996301,
+            5039906.14000054
+          ],
+          [
+            560006.9999996301,
+            5039906.14000054
+          ],
+          [
+            560006.9999996301,
+            5050093.14000054
+          ],
+          [
+            549993.9999996301,
+            5050093.14000054
+          ],
+          [
+            549993.9999996301,
+            5039906.14000054
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      549993.9999996301,
+      5039906.14000054,
+      560006.9999996301,
+      5050093.14000054
+    ],
+    "proj:shape": [
+      10187,
+      10013
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      549993.9999996301,
+      0.0,
+      -1.0,
+      5050093.14000054,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/ME_Eastern_B2_2017/TIFF/USGS_one_meter_x55y505_ME_Eastern_B2_2017.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 112.36962437984363,
+            "minimum": 58.81208038330078,
+            "maximum": 154.74830627441406,
+            "stddev": 16.187756349911204,
+            "valid_percent": 95.42829102532274
+          },
+          "histogram": {
+            "count": 11,
+            "min": 58.81208038330078,
+            "max": 154.74830627441406,
+            "buckets": [
+              12290,
+              11669,
+              20462,
+              139828,
+              178797,
+              184776,
+              235383,
+              132794,
+              58359,
+              9668
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "ME_Eastern_B2_2017"
+}

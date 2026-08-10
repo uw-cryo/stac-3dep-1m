@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_19_x53y500_Maine_and_Massachusetts_QL1_and_QL2_LiDAR_BAA",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -68.61894657599744,
+          45.06282393138592
+        ],
+        [
+          -68.4919331469735,
+          45.06232951455005
+        ],
+        [
+          -68.4911339882798,
+          45.152343536001275
+        ],
+        [
+          -68.61834718803264,
+          45.15283949833609
+        ],
+        [
+          -68.61894657599744,
+          45.06282393138592
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -68.61894657599744,
+    45.06232951455005,
+    -68.4911339882798,
+    45.15283949833609
+  ],
+  "properties": {
+    "start_datetime": "2015-04-16T00:00:00Z",
+    "end_datetime": "2015-12-05T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            530000.000312825,
+            4989999.999606241
+          ],
+          [
+            540000.000312825,
+            4989999.999606241
+          ],
+          [
+            540000.000312825,
+            4999999.999606241
+          ],
+          [
+            530000.000312825,
+            4999999.999606241
+          ],
+          [
+            530000.000312825,
+            4989999.999606241
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      530000.000312825,
+      4989999.999606241,
+      540000.000312825,
+      4999999.999606241
+    ],
+    "proj:shape": [
+      10000,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      530000.000312825,
+      0.0,
+      -1.0,
+      4999999.999606241,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 19N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 19N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -69,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26919
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26919"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/Maine_and_Massachusetts_QL1_and_QL2_LiDAR_BAA/TIFF/USGS_1M_19_x53y500_Maine_and_Massachusetts_QL1_and_QL2_LiDAR_BAA.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 49.854641269987596,
+            "minimum": 34.164608001708984,
+            "maximum": 99.7005615234375,
+            "stddev": 8.289335518061305,
+            "valid_percent": 99.31526184082031
+          },
+          "histogram": {
+            "count": 11,
+            "min": 34.164608001708984,
+            "max": 99.7005615234375,
+            "buckets": [
+              113890,
+              341110,
+              310979,
+              163406,
+              67493,
+              30889,
+              9611,
+              2254,
+              1283,
+              481
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "Maine_and_Massachusetts_QL1_and_QL2_LiDAR_BAA"
+}

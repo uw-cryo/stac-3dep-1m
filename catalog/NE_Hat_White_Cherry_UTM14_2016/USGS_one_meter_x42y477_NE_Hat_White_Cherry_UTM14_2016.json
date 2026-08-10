@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x42y477_NE_Hat_White_Cherry_UTM14_2016",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -99.98280167350319,
+          42.988386105276234
+        ],
+        [
+          -99.85734414490946,
+          42.98939465274915
+        ],
+        [
+          -99.85859842316528,
+          43.07942589638308
+        ],
+        [
+          -99.98423942618915,
+          43.078414188232074
+        ],
+        [
+          -99.98280167350319,
+          42.988386105276234
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -99.98423942618915,
+    42.988386105276234,
+    -99.85734414490946,
+    43.07942589638308
+  ],
+  "properties": {
+    "start_datetime": "2016-11-09T00:00:00Z",
+    "end_datetime": "2017-05-12T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            419878.08697542956,
+            4759993.665309014
+          ],
+          [
+            430107.08697542956,
+            4759993.665309014
+          ],
+          [
+            430107.08697542956,
+            4769992.665309014
+          ],
+          [
+            419878.08697542956,
+            4769992.665309014
+          ],
+          [
+            419878.08697542956,
+            4759993.665309014
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      419878.08697542956,
+      4759993.665309014,
+      430107.08697542956,
+      4769992.665309014
+    ],
+    "proj:shape": [
+      9999,
+      10229
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      419878.08697542956,
+      0.0,
+      -1.0,
+      4769992.665309014,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NE_Hat_White_Cherry_UTM14_2016/TIFF/USGS_one_meter_x42y477_NE_Hat_White_Cherry_UTM14_2016.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 729.1574041667434,
+            "minimum": 692.8236083984375,
+            "maximum": 768.511474609375,
+            "stddev": 16.975227949029023,
+            "valid_percent": 10.59233735014985
+          },
+          "histogram": {
+            "count": 11,
+            "min": 692.8236083984375,
+            "max": 768.511474609375,
+            "buckets": [
+              5517,
+              11344,
+              8363,
+              12658,
+              19401,
+              12420,
+              16718,
+              14953,
+              7127,
+              73
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NE_Hat_White_Cherry_UTM14_2016"
+}

@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x26y362_MS_Laurel_2014",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -89.55993475701243,
+          32.599292418811984
+        ],
+        [
+          -89.44831336997618,
+          32.60151872467057
+        ],
+        [
+          -89.45089100132239,
+          32.69600697001364
+        ],
+        [
+          -89.56262959891171,
+          32.6937726119904
+        ],
+        [
+          -89.55993475701243,
+          32.599292418811984
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -89.56262959891171,
+    32.599292418811984,
+    -89.44831336997618,
+    32.69600697001364
+  ],
+  "properties": {
+    "start_datetime": "2014-01-07T00:00:00Z",
+    "end_datetime": "2015-02-15T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            259752.6575819769,
+            3609758.612541187
+          ],
+          [
+            270236.6575819769,
+            3609758.612541187
+          ],
+          [
+            270236.6575819769,
+            3620242.612541187
+          ],
+          [
+            259752.6575819769,
+            3620242.612541187
+          ],
+          [
+            259752.6575819769,
+            3609758.612541187
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      259752.6575819769,
+      3609758.612541187,
+      270236.6575819769,
+      3620242.612541187
+    ],
+    "proj:shape": [
+      10484,
+      10484
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      259752.6575819769,
+      0.0,
+      -1.0,
+      3620242.612541187,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MS_Laurel_2014/TIFF/USGS_one_meter_x26y362_MS_Laurel_2014.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 118.70003473301281,
+            "minimum": 97.57749938964844,
+            "maximum": 160.457763671875,
+            "stddev": 11.631771732659502,
+            "valid_percent": 88.68703842163086
+          },
+          "histogram": {
+            "count": 11,
+            "min": 97.57749938964844,
+            "max": 160.457763671875,
+            "buckets": [
+              125595,
+              146028,
+              126965,
+              166002,
+              173873,
+              118435,
+              52377,
+              16021,
+              3881,
+              774
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MS_Laurel_2014"
+}

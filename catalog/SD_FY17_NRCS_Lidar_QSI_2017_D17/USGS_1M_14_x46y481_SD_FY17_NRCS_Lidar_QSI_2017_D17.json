@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_14_x46y481_SD_FY17_NRCS_Lidar_QSI_2017_D17",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -99.49357385023265,
+          43.351791155676274
+        ],
+        [
+          -99.37018378480352,
+          43.35225708902214
+        ],
+        [
+          -99.37073233862124,
+          43.44229983285812
+        ],
+        [
+          -99.49430523274545,
+          43.44183244029916
+        ],
+        [
+          -99.49357385023265,
+          43.351791155676274
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -99.49430523274545,
+    43.351791155676274,
+    -99.37018378480352,
+    43.44229983285812
+  ],
+  "properties": {
+    "start_datetime": "2017-03-20T00:00:00Z",
+    "end_datetime": "2017-12-15T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            459999.8553288341,
+            4800000.085651102
+          ],
+          [
+            469999.8553288341,
+            4800000.085651102
+          ],
+          [
+            469999.8553288341,
+            4810000.085651102
+          ],
+          [
+            459999.8553288341,
+            4810000.085651102
+          ],
+          [
+            459999.8553288341,
+            4800000.085651102
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      459999.8553288341,
+      4800000.085651102,
+      469999.8553288341,
+      4810000.085651102
+    ],
+    "proj:shape": [
+      10000,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      459999.8553288341,
+      0.0,
+      -1.0,
+      4810000.085651102,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 14N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 14N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -99,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26914
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26914"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/SD_FY17_NRCS_Lidar_QSI_2017_D17/TIFF/USGS_1M_14_x46y481_SD_FY17_NRCS_Lidar_QSI_2017_D17.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 585.6155553455752,
+            "minimum": 464.3327331542969,
+            "maximum": 642.9048461914062,
+            "stddev": 22.020413047703258,
+            "valid_percent": 90.8346176147461
+          },
+          "histogram": {
+            "count": 11,
+            "min": 464.3327331542969,
+            "max": 642.9048461914062,
+            "buckets": [
+              1332,
+              4681,
+              9911,
+              12070,
+              10201,
+              169624,
+              342330,
+              249928,
+              133977,
+              18416
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "SD_FY17_NRCS_Lidar_QSI_2017_D17"
+}

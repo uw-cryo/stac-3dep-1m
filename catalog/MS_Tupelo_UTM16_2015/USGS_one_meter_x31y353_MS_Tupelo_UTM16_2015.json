@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_one_meter_x31y353_MS_Tupelo_UTM16_2015",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -89.0089823755791,
+          31.798092987399066
+        ],
+        [
+          -88.89946570740628,
+          31.799774660822226
+        ],
+        [
+          -88.9013841495182,
+          31.89330854449785
+        ],
+        [
+          -89.01101125178536,
+          31.891620768227114
+        ],
+        [
+          -89.0089823755791,
+          31.798092987399066
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -89.01101125178536,
+    31.798092987399066,
+    -88.89946570740628,
+    31.89330854449785
+  ],
+  "properties": {
+    "start_datetime": "2015-01-30T00:00:00Z",
+    "end_datetime": "2015-03-15T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            309808.7592046522,
+            3519813.5972387013
+          ],
+          [
+            320181.7592046522,
+            3519813.5972387013
+          ],
+          [
+            320181.7592046522,
+            3530186.5972387013
+          ],
+          [
+            309808.7592046522,
+            3530186.5972387013
+          ],
+          [
+            309808.7592046522,
+            3519813.5972387013
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      309808.7592046522,
+      3519813.5972387013,
+      320181.7592046522,
+      3530186.5972387013
+    ],
+    "proj:shape": [
+      10373,
+      10373
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      309808.7592046522,
+      0.0,
+      -1.0,
+      3530186.5972387013,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MS_Tupelo_UTM16_2015/TIFF/USGS_one_meter_x31y353_MS_Tupelo_UTM16_2015.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -3.4028234663852886e+38,
+          "statistics": {
+            "mean": 96.66078463843242,
+            "minimum": 78.42514038085938,
+            "maximum": 127.16576385498047,
+            "stddev": 10.118635185867893,
+            "valid_percent": 24.763202667236328
+          },
+          "histogram": {
+            "count": 11,
+            "min": 78.42514038085938,
+            "max": 127.16576385498047,
+            "buckets": [
+              32754,
+              27558,
+              40327,
+              43012,
+              39718,
+              35719,
+              23887,
+              11805,
+              4113,
+              768
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MS_Tupelo_UTM16_2015"
+}

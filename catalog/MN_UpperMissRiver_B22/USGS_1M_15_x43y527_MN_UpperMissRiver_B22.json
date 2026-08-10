@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x43y527_MN_UpperMissRiver_B22",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -93.90179034464668,
+          47.489887901363026
+        ],
+        [
+          -93.79652804879835,
+          47.49066743136774
+        ],
+        [
+          -93.7978918037327,
+          47.58063789751112
+        ],
+        [
+          -93.90333426550451,
+          47.57985592231583
+        ],
+        [
+          -93.90179034464668,
+          47.489887901363026
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -93.90333426550451,
+    47.489887901363026,
+    -93.79652804879835,
+    47.58063789751112
+  ],
+  "properties": {
+    "start_datetime": "2022-05-23T00:00:00Z",
+    "end_datetime": "2023-05-20T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            432070.27580389223,
+            5260000.000284057
+          ],
+          [
+            440000.27580389223,
+            5260000.000284057
+          ],
+          [
+            440000.27580389223,
+            5270000.000284057
+          ],
+          [
+            432070.27580389223,
+            5270000.000284057
+          ],
+          [
+            432070.27580389223,
+            5260000.000284057
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      432070.27580389223,
+      5260000.000284057,
+      440000.27580389223,
+      5270000.000284057
+    ],
+    "proj:shape": [
+      10000,
+      7930
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      432070.27580389223,
+      0.0,
+      -1.0,
+      5270000.000284057,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MN_UpperMissRiver_B22/TIFF/USGS_1M_15_x43y527_MN_UpperMissRiver_B22.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 411.3827517240074,
+            "minimum": 402.6518249511719,
+            "maximum": 434.35052490234375,
+            "stddev": 5.877354617006768,
+            "valid_percent": 38.076808502460025
+          },
+          "histogram": {
+            "count": 11,
+            "min": 402.6518249511719,
+            "max": 434.35052490234375,
+            "buckets": [
+              83924,
+              47489,
+              34458,
+              65801,
+              43431,
+              28286,
+              9786,
+              2883,
+              626,
+              310
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MN_UpperMissRiver_B22"
+}

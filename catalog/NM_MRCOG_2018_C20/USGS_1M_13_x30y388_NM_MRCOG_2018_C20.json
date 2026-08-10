@@ -1,0 +1,272 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x30y388_NM_MRCOG_2018_C20",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -107.19209297511239,
+          35.020079503301545
+        ],
+        [
+          -107.08255434413421,
+          35.022009465584425
+        ],
+        [
+          -107.08313395281604,
+          35.0448443944035
+        ],
+        [
+          -107.19270301211782,
+          35.04291280478886
+        ],
+        [
+          -107.19209297511239,
+          35.020079503301545
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -107.19270301211782,
+    35.020079503301545,
+    -107.08255434413421,
+    35.0448443944035
+  ],
+  "properties": {
+    "start_datetime": "2018-03-18T00:00:00Z",
+    "end_datetime": "2018-04-09T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            299999.97027423244,
+            3877466.0000236146
+          ],
+          [
+            309999.97027423244,
+            3877466.0000236146
+          ],
+          [
+            309999.97027423244,
+            3880000.0000236146
+          ],
+          [
+            299999.97027423244,
+            3880000.0000236146
+          ],
+          [
+            299999.97027423244,
+            3877466.0000236146
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      299999.97027423244,
+      3877466.0000236146,
+      309999.97027423244,
+      3880000.0000236146
+    ],
+    "proj:shape": [
+      2534,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      299999.97027423244,
+      0.0,
+      -1.0,
+      3880000.0000236146,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NM_MRCOG_2018_C20/TIFF/USGS_1M_13_x30y388_NM_MRCOG_2018_C20.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1704.0690992420236,
+            "minimum": 1688.7843017578125,
+            "maximum": 1718.02099609375,
+            "stddev": 6.626337151298459,
+            "valid_percent": 8.52313701923077
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1688.7843017578125,
+            "max": 1718.02099609375,
+            "buckets": [
+              436,
+              1196,
+              2992,
+              2971,
+              2942,
+              3358,
+              3096,
+              2613,
+              2160,
+              928
+            ]
+          }
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NM_MRCOG_2018_C20"
+}
