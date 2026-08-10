@@ -82,6 +82,13 @@ pixi run refresh --dry-run   # report the diff only
 pixi run refresh             # apply it
 ```
 
+To preview the pull request body the workflow would post (headline counts plus a
+per-collection table of added/removed tiles), without touching the catalog:
+
+```
+pixi run refresh --dry-run --pr-body /tmp/body.md
+```
+
 Note for local runs: validation failures abort *after* the working tree was
 modified (in CI the commit is a separate gated step, so nothing is published) —
 recover with `git restore catalog collections.txt && git clean -fd catalog`.

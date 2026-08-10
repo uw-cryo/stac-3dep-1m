@@ -19,13 +19,15 @@ Designed to run unattended (scheduled CI) but equally usable locally:
      - every new/changed item URL sampled up to --sample-new must return 200
      - a random sample (--sample-existing) of carried-over item URLs must
        404 at a rate below --max-404-pct
-5. Write a machine-readable summary (--summary) plus GitHub Actions outputs
-   (changed / changelog / counts) when GITHUB_OUTPUT is set.
+5. Write a machine-readable summary (--summary), a markdown PR body with a
+   per-collection table (--pr-body), plus GitHub Actions outputs (changed /
+   title / subject / changelog / counts) when GITHUB_OUTPUT is set.
 
 Exit codes: 0 = success (changed or no-op), 1 = guardrail/validation failure.
 
 Usage:
   python scripts/refresh_catalog.py --dry-run          # report the diff only
+  python scripts/refresh_catalog.py --dry-run --pr-body /tmp/body.md
   python scripts/refresh_catalog.py --summary refresh_summary.json
 """
 
@@ -183,6 +185,94 @@ def head_check(urls, label, threads=8):
 
 
 # ------------------------------------------------------------------ summary
+# GitHub rejects a pull request body over 65536 characters, so long tables are
+# capped well short of that and the remainder left to the run summary.
+PR_BODY_MAX_ROWS = 150
+
+
+def _table(rows, headers):
+    out = ["| " + " | ".join(headers) + " |",
+           "| " + " | ".join(["---"] + ["---:"] * (len(headers) - 1)) + " |"]
+    for r in rows[:PR_BODY_MAX_ROWS]:
+        out.append("| " + " | ".join(str(c) for c in r) + " |")
+    if len(rows) > PR_BODY_MAX_ROWS:
+        out.append(f"| _… and {len(rows) - PR_BODY_MAX_ROWS} more_ | | |")
+    return "\n".join(out)
+
+
+def _section(title, rows, headers, collapse_over=25):
+    """A heading plus table, collapsed behind <details> when it gets long."""
+    if not rows:
+        return ""
+    body = _table(rows, headers)
+    if len(rows) > collapse_over:
+        return (f"<details>\n<summary><b>{title}</b> (click to expand)</summary>\n\n"
+                f"{body}\n\n</details>\n")
+    return f"#### {title}\n\n{body}\n"
+
+
+def render_pr_body(summary, run_url=None):
+    """Markdown PR body: headline counts plus a per-collection table."""
+    details = summary["details"]
+    failures = set(summary.get("build_failures") or [])
+
+    def rows(action, cols):
+        return [cols(p, d) for p, d in sorted(details.items())
+                if d["action"] == action]
+
+    new = rows("new", lambda p, d: (f"`{p}`", f"+{d['added']}"))
+    rebuilt = rows("rebuilt", lambda p, d: (
+        f"`{p}`", f"+{d['added']}" if d["added"] else "—",
+        f"−{d['removed']}" if d["removed"] else "—"))
+    pruned = rows("pruned", lambda p, d: (f"`{p}`", f"−{d['removed']}"))
+
+    added, removed = summary["tiles_added"], summary["tiles_removed"]
+    before = summary["catalog_items_before"]
+    after = summary.get("catalog_items_after")
+
+    out = [
+        "Automated run of `pixi run refresh` — S3 diff, incremental rebuild, "
+        "prune, HEAD validation (see `scripts/refresh_catalog.py`).",
+        "",
+        f"**+{added:,} / −{removed:,} tiles** across {len(details):,} collections "
+        f"— {len(new)} new, {len(rebuilt)} rebuilt, {len(pruned)} pruned.",
+        "",
+        f"Catalog items: {before:,}" + (f" → **{after:,}**" if after else ""),
+        "",
+    ]
+    out.append(_section("New collections", new, ["Collection", "Tiles"]))
+    out.append(_section("Rebuilt collections", rebuilt,
+                        ["Collection", "Added", "Removed"]))
+    out.append(_section("Pruned collections", pruned, ["Collection", "Tiles"]))
+
+    if summary.get("carried_empty_projects"):
+        names = ", ".join(f"`{p}`" for p in summary["carried_empty_projects"])
+        out.append(f"> **Carried, not pruned:** {names} — TIFF listing empty but the "
+                   "removal probe was inconclusive; re-probed next run.\n")
+    if failures:
+        names = ", ".join(f"`{p}`" for p in sorted(failures))
+        out.append(f"> **⚠️ Build failures:** {names} — previous version kept. Usually a "
+                   "WESM name mismatch (see `onemeter_folder_to_wesm` in "
+                   "`scripts/create_static_stac.py`).\n")
+
+    if run_url:
+        out.append(f"Full diff summary in the [workflow run]({run_url}).")
+    out.append("After merging, `release.yml` (monthly cron, or manual "
+               "workflow_dispatch) rebuilds `catalog.parquet`/`catalog.gti` and "
+               "publishes a dated release.")
+    return "\n".join(out).replace("\n\n\n", "\n\n") + "\n"
+
+
+def run_url():
+    """URL of the running workflow job, or None outside Actions."""
+    server = os.environ.get("GITHUB_SERVER_URL")
+    repo = os.environ.get("GITHUB_REPOSITORY")
+    run_id = os.environ.get("GITHUB_RUN_ID")
+    if server and repo and run_id:
+        return f"{server}/{repo}/actions/runs/{run_id}"
+    return None
+
+
 def github_output(**kwargs):
     out = os.environ.get("GITHUB_OUTPUT")
     if not out:
@@ -224,6 +314,9 @@ def main():
                     help="S3 listing / HEAD check concurrency")
     ap.add_argument("--summary", type=Path, default=None,
                     help="write a JSON run summary to this path")
+    ap.add_argument("--pr-body", type=Path, default=None,
+                    help="write the rendered markdown PR body to this path "
+                         "(also written on --dry-run, for local preview)")
     args = ap.parse_args()
 
     if not CATALOG_DIR.is_dir():
@@ -275,10 +368,20 @@ def main():
                   f"(HEAD codes {codes}) -- carrying unchanged, will re-probe "
                   "next run", flush=True)
 
-    n_tiles_added = (sum(len(holdings[p]) for p in new)
-                     + sum(len(set(holdings[p]) - local[p]) for p in changed))
-    n_tiles_removed = (sum(len(local[p]) for p in removed)
-                       + sum(len(local[p] - set(holdings[p])) for p in changed))
+    # Per-project tile deltas, computed once and reused by the console log, the
+    # summary JSON and the PR body table.
+    details = {}
+    for p in new:
+        details[p] = {"action": "new", "added": len(holdings[p]), "removed": 0}
+    for p in changed:
+        details[p] = {"action": "rebuilt",
+                      "added": len(set(holdings[p]) - local[p]),
+                      "removed": len(local[p] - set(holdings[p]))}
+    for p in removed:
+        details[p] = {"action": "pruned", "added": 0, "removed": len(local[p])}
+
+    n_tiles_added = sum(d["added"] for d in details.values())
+    n_tiles_removed = sum(d["removed"] for d in details.values())
     n_local = sum(len(v) for v in local.values())
     n_s3 = sum(len(v) for v in holdings.values())
 
@@ -286,12 +389,11 @@ def main():
     print(f"diff: +{n_tiles_added} tiles / -{n_tiles_removed} tiles  "
           f"({len(new)} new, {len(changed)} changed, {len(removed)} removed projects)")
     for p in new:
-        print(f"  NEW      {p} ({len(holdings[p])} tiles)")
+        print(f"  NEW      {p} ({details[p]['added']} tiles)")
     for p in changed:
-        print(f"  CHANGED  {p} (+{len(set(holdings[p]) - local[p])} / "
-              f"-{len(local[p] - set(holdings[p]))})")
+        print(f"  CHANGED  {p} (+{details[p]['added']} / -{details[p]['removed']})")
     for p in removed:
-        print(f"  REMOVED  {p} ({len(local[p])} tiles)")
+        print(f"  REMOVED  {p} ({details[p]['removed']} tiles)")
 
     changed_any = bool(new or changed or removed)
     summary = {
@@ -300,8 +402,10 @@ def main():
         "new_projects": new, "changed_projects": changed, "removed_projects": removed,
         "carried_empty_projects": carried_empty,
         "tiles_added": n_tiles_added, "tiles_removed": n_tiles_removed,
-        "dry_run": args.dry_run, "build_failures": [],
+        "dry_run": args.dry_run, "build_failures": [], "details": details,
     }
+    # "+1429/-678 tiles" -- short enough for a PR/commit title on its own
+    title = f"+{n_tiles_added}/-{n_tiles_removed} tiles"
 
     if not changed_any:
         print("no changes -- catalog is current")
@@ -319,10 +423,13 @@ def main():
 
     if args.dry_run:
         print("dry run -- exiting before rebuild")
-        github_output(changed="false", changelog="dry run")
+        github_output(changed="false", changelog="dry run", title=title)
         if args.summary:
             summary["elapsed_s"] = round(time.time() - t0, 1)
             args.summary.write_text(json.dumps(summary, indent=1))
+        if args.pr_body:
+            args.pr_body.write_text(render_pr_body(summary, run_url()))
+            print(f"PR body preview written to {args.pr_body}")
         return
 
     # ------------------------------------------------------------- rebuild
@@ -406,8 +513,14 @@ def main():
     })
     if args.summary:
         args.summary.write_text(json.dumps(summary, indent=1))
-    github_output(changed="true", changelog=changelog,
-                  n_items=n_after, n_failures=len(failures))
+    if args.pr_body:
+        args.pr_body.write_text(render_pr_body(summary, run_url()))
+    # `title` and `subject` stay short enough to read in a PR list / git log;
+    # the exhaustive project list lives in the PR body table and the summary JSON
+    subject = (f"{title} ({len(new)} new, {len(changed)} rebuilt, "
+               f"{len(removed)} pruned)")
+    github_output(changed="true", changelog=changelog, title=title,
+                  subject=subject, n_items=n_after, n_failures=len(failures))
     print(f"\nrefresh complete in {summary['elapsed_s']}s: {changelog}")
     print(f"catalog items: {n_local} -> {n_after}")
 
