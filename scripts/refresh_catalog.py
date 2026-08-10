@@ -107,11 +107,15 @@ def discover_s3(threads=8):
 
 
 # ------------------------------------------------------------ local catalog
-def catalog_state():
-    """{project: {item_id}} for the local static catalog (item JSON files)."""
+def catalog_state(only=None):
+    """{project: {item_id}} for the local static catalog (item JSON files).
+
+    `only` restricts it to the named projects, so the before/after item counts
+    stay on the same footing when --only narrows the run.
+    """
     state = {}
     for coll in sorted(CATALOG_DIR.iterdir()):
-        if not coll.is_dir():
+        if not coll.is_dir() or (only is not None and coll.name not in only):
             continue
         ids = {p.stem for p in coll.glob("*.json") if p.name != "collection.json"}
         state[coll.name] = ids
@@ -468,13 +472,12 @@ def main():
 
     t0 = time.time()
     holdings, folders = discover_s3(threads=args.threads)
-    local = catalog_state()
+    only = set(args.only) if args.only else None
+    local = catalog_state(only)
 
-    if args.only:
-        only = set(args.only)
+    if only:
         holdings = {p: v for p, v in holdings.items() if p in only and v}
         folders = folders & only
-        local = {p: v for p, v in local.items() if p in only}
     elif len(holdings) < args.min_projects:
         sys.exit(f"GUARDRAIL: only {len(holdings)} projects listed on S3 "
                  f"(< {args.min_projects}); bucket may be mid-repopulation (see issue #6)")
@@ -543,7 +546,8 @@ def main():
 
     print(f"\ncatalog items: {n_local}  |  S3 tifs: {n_s3}")
     print(f"diff: +{n_tiles_added} tiles / -{n_tiles_removed} tiles  "
-          f"({len(new)} new, {len(changed)} changed, {len(removed)} removed projects)")
+          f"({len(new)} new, {len(changed)} changed, {len(removed)} removed, "
+          f"{len(wesm_drift)} metadata-only projects)")
     for p in new:
         print(f"  NEW      {p} ({details[p]['added']} tiles)")
     for p in changed:
@@ -677,7 +681,7 @@ def main():
     # HEAD-checked above, and including them would bias this gate away from
     # its purpose -- catching 404 drift in projects the run didn't touch
     rebuilt_ok = {p for p in changed if p not in failures} | set(built_new)
-    carried = [(p, i) for p, ids in catalog_state().items()
+    carried = [(p, i) for p, ids in catalog_state(only).items()
                for i in ids
                if p not in rebuilt_ok and p in local and i in local.get(p, set())]
     sample = random.sample(carried, min(args.sample_existing, len(carried)))
@@ -707,7 +711,7 @@ def main():
         parts.append(f"METADATA FAILED: {', '.join(metadata_failures)}")
     changelog = "; ".join(parts)
 
-    n_after = sum(len(v) for v in catalog_state().values())
+    n_after = sum(len(v) for v in catalog_state(only).values())
     summary.update({
         "catalog_items_after": n_after, "build_failures": failures,
         "metadata_projects": metadata_done, "metadata_failures": metadata_failures,
