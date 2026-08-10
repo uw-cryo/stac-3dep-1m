@@ -51,7 +51,7 @@ jobs:
       - name: Refresh catalog from S3 holdings
         id: refresh
         run: |
-          ARGS="--summary refresh_summary.json"
+          ARGS="--summary refresh_summary.json --pr-body pr_body.md"
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             ARGS="$ARGS --dry-run"
           fi
@@ -86,18 +86,8 @@ jobs:
             collections.txt
           branch: update-catalog
           delete-branch: true
-          commit-message: "Refresh catalog: ${{ steps.refresh.outputs.changelog }}"
-          title: "Update catalog (${{ steps.refresh.outputs.changelog }})"
-          body: |
-            Automated weekly run of `pixi run refresh` (S3 diff, incremental
-            rebuild, prune, HEAD validation -- see `scripts/refresh_catalog.py`).
-
-            ```
-            ${{ steps.refresh.outputs.changelog }}
-            ```
-
-            Catalog items after refresh: ${{ steps.refresh.outputs.n_items }}.
-            Full diff summary in the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
-            After merging, `release.yml` (monthly cron, or run it manually via
-            workflow_dispatch) rebuilds `catalog.parquet`/`catalog.gti` and
-            publishes a dated release.
+          commit-message: "Refresh catalog: ${{ steps.refresh.outputs.subject }}"
+          title: "Update catalog (${{ steps.refresh.outputs.title }})"
+          # rendered by refresh_catalog.py --pr-body: headline counts plus a
+          # per-collection table (too long for a GITHUB_OUTPUT variable)
+          body-path: pr_body.md
