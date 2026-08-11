@@ -17,7 +17,10 @@ def get_subcollections(base_path="./catalog"):
     identical content. Sorting makes the file a function of the catalog alone.
     """
     base_path = pathlib.Path(base_path)
-    return [pystac.read_file(path) for path in sorted(base_path.rglob("./*/collection.json"))]
+    return [
+        pystac.read_file(path)
+        for path in sorted(base_path.rglob("./*/collection.json"))
+    ]
 
 
 def update_root_catalog(base_path="./catalog"):

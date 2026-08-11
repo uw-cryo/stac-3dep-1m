@@ -120,7 +120,9 @@ def collection_dirs():
     candidates -- and prune_project() is an rmtree.
     """
     return sorted(
-        p for p in CATALOG_DIR.iterdir() if p.is_dir() and (p / "collection.json").is_file()
+        p
+        for p in CATALOG_DIR.iterdir()
+        if p.is_dir() and (p / "collection.json").is_file()
     )
 
 
