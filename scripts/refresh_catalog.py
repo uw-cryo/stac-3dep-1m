@@ -109,6 +109,21 @@ def discover_s3(threads=8):
 
 
 # ------------------------------------------------------------ local catalog
+def collection_dirs():
+    """Child collection directories: those that actually hold a collection.json.
+
+    A directory without one is not a collection. Locally it is usually output
+    from another script -- create_collection_parquets.py writes <ID>.parquet
+    into each collection folder, and its runs left 11 such directories here.
+    Counting them as collections put stray names in collections.txt and, worse,
+    made them look like cataloged projects with zero items on S3, i.e. prune
+    candidates -- and prune_project() is an rmtree.
+    """
+    return sorted(
+        p for p in CATALOG_DIR.iterdir() if p.is_dir() and (p / "collection.json").is_file()
+    )
+
+
 def catalog_state(only=None):
     """{project: {item_id}} for the local static catalog (item JSON files).
 
@@ -116,8 +131,8 @@ def catalog_state(only=None):
     stay on the same footing when --only narrows the run.
     """
     state = {}
-    for coll in sorted(CATALOG_DIR.iterdir()):
-        if not coll.is_dir() or (only is not None and coll.name not in only):
+    for coll in collection_dirs():
+        if only is not None and coll.name not in only:
             continue
         ids = {p.stem for p in coll.glob("*.json") if p.name != "collection.json"}
         state[coll.name] = ids
@@ -274,7 +289,7 @@ def sync_root_catalog(removed):
 
 
 def write_collections_txt():
-    names = sorted(p.name for p in CATALOG_DIR.iterdir() if p.is_dir())
+    names = [p.name for p in collection_dirs()]
     COLLECTIONS_TXT.write_text("\n".join(names) + "\n")
 
 
