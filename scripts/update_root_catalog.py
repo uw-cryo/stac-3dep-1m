@@ -9,8 +9,18 @@ from itertools import chain
 
 
 def get_subcollections(base_path="./catalog"):
+    """Every child collection, in a stable order.
+
+    sorted() matters: create_root_collection writes one bbox per collection in
+    this order, and rglob returns filesystem order, so regenerating on a
+    different machine reshuffled all ~936 entries -- a 7.5k-line diff with
+    identical content. Sorting makes the file a function of the catalog alone.
+    """
     base_path = pathlib.Path(base_path)
-    return [pystac.read_file(path) for path in base_path.rglob("./*/collection.json")]
+    return [
+        pystac.read_file(path)
+        for path in sorted(base_path.rglob("./*/collection.json"))
+    ]
 
 
 def update_root_catalog(base_path="./catalog"):
