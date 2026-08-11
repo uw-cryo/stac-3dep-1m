@@ -105,15 +105,25 @@ def get_titiler_datetime(series):
 #     item.properties.update(series.add_prefix('wesm:').to_dict())
 
 
-def add_wesm_metadata_to_collection(collection, series):
-    """Add to extra_fields dictionary"""
+def wesm_summary_fields(series):
+    """The wesm:-prefixed collection summaries for one WESM row (JSON-safe).
+
+    Kept separate from add_wesm_metadata_to_collection so refresh_catalog.py can
+    compare a live WESM row field-for-field against the summaries snapshotted in
+    an existing collection.json (issue #18) -- both sides have to come out of the
+    same serialization to be comparable.
+    """
     links = ["lpc_link", "sourcedem_link", "metadata_link"]
     # Ensure JSON-serializable
-    wesm_properties = json.loads(series.drop(links).add_prefix("wesm:").to_json())
+    return json.loads(series.drop(links).add_prefix("wesm:").to_json())
+
+
+def add_wesm_metadata_to_collection(collection, series):
+    """Add to extra_fields dictionary"""
     # STAC-browser does not render this
     # collection.extra_fields = {'properties':wesm_properties}
     # WARNING: this creates *invalid* STAC, be default STAC-browser still renders it!
-    for k, v in wesm_properties.items():
+    for k, v in wesm_summary_fields(series).items():
         collection.summaries.add(k, v)
 
 
@@ -209,18 +219,35 @@ def collapse_workunit_rows(rows):
     return s
 
 
-def get_wesm_series(project, is_workunit=False):
+def load_wesm():
+    """The USGS WESM metadata table (locally cached by cloudpathlib)."""
     wesm_csv = client.CloudPath(
         "s3://prd-tnm/StagedProducts/Elevation/metadata/WESM.csv"
     )
-    df = pd.read_csv(wesm_csv)
+    return pd.read_csv(wesm_csv)
+
+
+def get_wesm_series(project, is_workunit=False, df=None, warn=True):
+    """Single collapsed WESM row for a project or workunit name.
+
+    Pass an already-loaded `df` to look up many names without re-reading the CSV,
+    and warn=False to look them up quietly (refresh_catalog.py checks all ~900
+    cataloged collections on every run).
+    """
+    if df is None:
+        df = load_wesm()
 
     # Fast track manually specified mappings
     if project in onemeter_folder_to_wesm:
         name = onemeter_folder_to_wesm[project]
         # NOTE: maybe issue here in cases of updated processing? check for source_dem update?
         #.e.g. TN_NRCS_L2_2011_12
-        s = collapse_workunit_rows(df[df.workunit == name])
+        rows = df[df.workunit == name]
+        if rows.empty:
+            raise ValueError(
+                f"Workunit '{name}' mapped from folder '{project}' not found in WESM metadata"
+            )
+        s = collapse_workunit_rows(rows)
     else:
         if is_workunit:
             if project not in df.workunit.values:
@@ -237,7 +264,7 @@ def get_wesm_series(project, is_workunit=False):
                 )
             s = collapse_workunit_rows(df[df.project == project])
 
-    if not s.onemeter_category == "Meets":
+    if warn and not s.onemeter_category == "Meets":
         warnings.warn(
             f"Project '{project}' onemeter_category is not 'Meets' but '{s.onemeter_category}'"
         )

@@ -63,6 +63,9 @@ Some folders have no TIFFs at all; those are listed in `NO_TIFFS` in `create_all
 * abort if the diff would remove > `--max-removed-tiles` (2000) tiles, unless `--allow-large-removals`;
 * a cataloged project whose `TIFF/` went empty is pruned **only** if the folder prefix is gone, or every probed item URL returns 404 — a 200, a probe error, or nothing to probe means carry unchanged and re-decide next run. Never make pruning fire on network errors.
 * new/changed item URLs must all HEAD 200; a random sample of *untouched* carried-over items must 404 below `--max-404-pct`.
+* abort if more than `--max-metadata-updates` (300) collections drift in WESM, unless `--allow-large-metadata-updates` — a WESM schema change (column added/renamed) drifts every collection at once.
+
+A tile-set diff cannot see a WESM revision that adds or removes no tiles (issue #18), so `refresh` also compares each `collection.json`'s snapshotted `wesm:*` summaries against live `WESM.csv` and repairs the drifted ones **in place** — summaries, collection temporal extent, and (only when `collect_start`/`collect_end` moved) every item's `start_datetime`/`end_datetime`. No titiler round trip; the tiles are untouched. Both sides of the comparison go through `create_static_stac.wesm_summary_fields()` so a serialization difference cannot masquerade as drift, and the rewrite is byte-identical to a full rebuild apart from those fields. A collection whose folder name no longer resolves in WESM is reported, never modified. Disable with `--skip-wesm-check`.
 
 Tiles removed in place also need their item JSONs unlinked explicitly after a rebuild, otherwise the same projects are flagged changed every run and the parquet row-count gate diverges.
 
