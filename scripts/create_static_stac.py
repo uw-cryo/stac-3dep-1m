@@ -35,7 +35,8 @@ import time
 import boto3
 from botocore import UNSIGNED
 from botocore.client import Config
-s3 = boto3.client('s3', config=Config(signature_version=UNSIGNED))
+
+s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 
 # explicitly instantiate a client that always uses the local cache
 client = S3Client(local_cache_dir="/tmp", no_sign_request=True)
@@ -51,7 +52,7 @@ onemeter_folder_to_wesm = {
     "CA_Eastern_SanDiegoCo_2016": "CA_E_SanDiegoCo_2016",
     "CA_SanDiegoCo_2016": "CA_SanDiego_2015_C17_1",
     "CA_Sonoma_A1_2013": "CA_Sonoma_2013",
-    'CO_MesaCo_QL2_UTM12_2016' : 'CO_MesaCo_QL2_2015',
+    "CO_MesaCo_QL2_UTM12_2016": "CO_MesaCo_QL2_2015",
     "Elwha_River_LiDAR_2014_MOD2": "WA_ElwhaRiver_2014",
     "IL_12_County_HenryCO_2009": "IL_12_County_HenryCo_2009",
     "IL_KankakeeCo_2014": "IL_5County_KankakeeCo_2014",
@@ -76,22 +77,23 @@ onemeter_folder_to_wesm = {
     "NY_Southwest_2_Co_2016": "NY_Southwest_2_CO_2016",
     "OR_Wallowa_2015": "OR_OLC_Wallowa_2015",
     "SD_NRCS_Fugro_B2_TL_2017": "SD_NRCS_Fugro_B2_2017",
-    #"TN_NRCS_2011": but "TN_NRCS_L2_2011_12" or 'TN_NRCS_L1_2011_12' also present?... L2 matches TIFF XML rngdates so I'll use that
+    # "TN_NRCS_2011": but "TN_NRCS_L2_2011_12" or 'TN_NRCS_L1_2011_12' also present?... L2 matches TIFF XML rngdates so I'll use that
     "TN_NRCS_2011": "TN_NRCS_L2_2011_12",
-    "UT_Area1WasatchFault_2013": "UT_Wasatch_L4_2013", # note: unsure, use most recent sourcedem update...
+    "UT_Area1WasatchFault_2013": "UT_Wasatch_L4_2013",  # note: unsure, use most recent sourcedem update...
     "UT_MonroeMountain_2016": "UT_MonroeMoutain_2016",
     "UT_Wasatch_L3_2013": "UT_WasatchFault_L3_2013",
     # PROBLEM: 3 different workunits B1, B2, B3.... should use merge of 3 but code is currently setup to just pick one...
-    "VA_FEMA-NRCS_SouthCentral_2017_D17":"VA_South_Central_B2_2017",
+    "VA_FEMA-NRCS_SouthCentral_2017_D17": "VA_South_Central_B2_2017",
 }
 # XML metadata https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/VA_FEMA-NRCS_SouthCentral_2017_D17/metadata/USGS_1M_17_x35y422_VA_FEMA-NRCS_SouthCentral_2017_D17.xml
-#<begdate>20170414</begdate>
-#<enddate>20180524</enddate>
+# <begdate>20170414</begdate>
+# <enddate>20180524</enddate>
 # VA_FEMA-NRCS_SouthCentral_2017_D17
 #                      workunit collect_start collect_end
-#1703  VA_South_Central_B2_2017    2017/04/14  2017/12/06
-#1704  VA_South_Central_B3_2017    2017/04/14  2017/12/07
-#1836  VA_South_Central_B1_2017    2017/11/16  2018/05/24
+# 1703  VA_South_Central_B2_2017    2017/04/14  2017/12/06
+# 1704  VA_South_Central_B3_2017    2017/04/14  2017/12/07
+# 1836  VA_South_Central_B1_2017    2017/11/16  2018/05/24
+
 
 def get_titiler_datetime(series):
     start = pd.to_datetime(series.collect_start).isoformat() + "Z"
@@ -99,6 +101,7 @@ def get_titiler_datetime(series):
     datestr = f"{start}/{end}"
     # print(datestr)
     return datestr
+
 
 # def add_wesm_metadata_to_properties(item, series):
 #     '''add all WESM metadata with wesm: prefix to STAC properties inplace'''
@@ -131,6 +134,7 @@ def add_wesm_metadata_to_collection(collection, series):
 # https://github.com/developmentseed/titiler/discussions/1223
 # Should deploy our own version anyways
 
+
 # TODO: use aiohttp instead?
 # How to code async functions in a synchronous script...
 def create_stac_item(URL, DATETIME):
@@ -145,13 +149,15 @@ def create_stac_item(URL, DATETIME):
         "with_eo": "false",
         "url": URL,
     }
-    #stacify = f"https://titiler.xyz/cog/stac"
-    stacify = "https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac"
+    # stacify = f"https://titiler.xyz/cog/stac"
+    stacify = (
+        "https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac"
+    )
 
     # Test:
     # https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac?id=USGS_1M_16_x24y472_WI_Statewide_2019_A19&datetime=2019-04-08T00:00:00Z/2019-04-08T00:00:00Z&collection=WI_Statewide_2019_A19&asset_name=elevation&asset_roles=data&with_eo=false&url=https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_Statewide_2019_A19/TIFF/USGS_1M_16_x24y472_WI_Statewide_2019_A19.tif
 
-    #print(f"Requesting STAC item for {ID}")
+    # print(f"Requesting STAC item for {ID}")
     # timeout so one wedged connection can't stall an unattended run's batch,
     # with a short bounded retry on connection errors/timeouts
     TIMEOUT = (10, 120)  # (connect, read) seconds
@@ -161,7 +167,7 @@ def create_stac_item(URL, DATETIME):
             break
         except requests.RequestException as e:
             print(f"{ID}: {e} (attempt {attempt + 1})")
-            time.sleep(2 ** attempt)
+            time.sleep(2**attempt)
     else:
         raise RuntimeError(f"titiler request failed repeatedly for {URL}")
 
@@ -177,11 +183,10 @@ def create_stac_item(URL, DATETIME):
             if r.json().get("detail", "").startswith("Too many bins for data range"):
                 params["with_raster"] = "false"
                 r = requests.get(stacify, params=params, timeout=TIMEOUT)
-        else: # internal server errors seem to be 502?
+        else:  # internal server errors seem to be 502?
             # just retry after a moment
             time.sleep(1)
             r = requests.get(stacify, params=params, timeout=TIMEOUT)
-
 
     return r.text
 
@@ -241,7 +246,7 @@ def get_wesm_series(project, is_workunit=False, df=None, warn=True):
     if project in onemeter_folder_to_wesm:
         name = onemeter_folder_to_wesm[project]
         # NOTE: maybe issue here in cases of updated processing? check for source_dem update?
-        #.e.g. TN_NRCS_L2_2011_12
+        # .e.g. TN_NRCS_L2_2011_12
         rows = df[df.workunit == name]
         if rows.empty:
             raise ValueError(
@@ -251,7 +256,9 @@ def get_wesm_series(project, is_workunit=False, df=None, warn=True):
     else:
         if is_workunit:
             if project not in df.workunit.values:
-                alternatives = df[df.workunit.str.startswith(project)].workunit.to_list()
+                alternatives = df[
+                    df.workunit.str.startswith(project)
+                ].workunit.to_list()
                 raise ValueError(
                     f"Workunit '{project}' not found in WESM metadata, close matches: {alternatives}"
                 )
@@ -292,7 +299,7 @@ def generate_stac_from_titiler(tiflist, DATETIME):
     # waiting on quota increase... from 10 to 1000 :)
     def batch_urls(urls, batch_size=100):
         for i in range(0, len(urls), batch_size):
-            yield urls[i:i + batch_size]
+            yield urls[i : i + batch_size]
 
     results = []
     for batch in batch_urls(tiflist):
@@ -346,12 +353,13 @@ def list_tiffs_in_project(project, bucket="prd-tnm"):
     # NOTE: must paginate! A single list_objects_v2 call returns at most 1000
     # keys, which silently truncated projects with >1000 tiles (e.g. OR_SouthEast_D22)
     project_prefix = f"StagedProducts/Elevation/1m/Projects/{project}/TIFF"
-    paginator = s3.get_paginator('list_objects_v2')
+    paginator = s3.get_paginator("list_objects_v2")
     tiff_files = []
     for page in paginator.paginate(Bucket=bucket, Prefix=project_prefix):
         tiff_files += [
-            obj['Key'] for obj in page.get('Contents', [])
-            if obj['Key'].endswith('.tif')
+            obj["Key"]
+            for obj in page.get("Contents", [])
+            if obj["Key"].endswith(".tif")
         ]
 
     return [f"https://{bucket}.s3.amazonaws.com/{key}" for key in tiff_files]
@@ -363,8 +371,8 @@ def create_stac_catalog(project, is_workunit=False):
 
     # NOTE: not all folders have 0_file_download_links.txt
     # or 0_file_download_links.txt has errors
-    #project_inventory = f"s3://prd-tnm/StagedProducts/Elevation/1m/Projects/{project}/0_file_download_links.txt"
-    #tiflist = get_tif_list_s3(project_inventory)
+    # project_inventory = f"s3://prd-tnm/StagedProducts/Elevation/1m/Projects/{project}/0_file_download_links.txt"
+    # tiflist = get_tif_list_s3(project_inventory)
 
     # Instead list TIFF/ folder directly
     tiflist = list_tiffs_in_project(project)

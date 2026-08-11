@@ -13,8 +13,6 @@ import rustac
 import sys
 from pathlib import Path
 
-import geopandas as gpd
-import stac_geoparquet
 
 async def collection_to_stac_geoparquet(catalog_path, output_path=None):
     """

@@ -1,0 +1,8 @@
+# Lint and format scripts/ only.
+#
+# notebooks/ and checkpoints/ are exploratory: cells carry pasted shell output and
+# GDAL logs that ruff cannot parse, so a repo-wide `ruff format` both errors out on
+# them and rewrites a pile of scratch work nobody asked it to touch. Whitelisting
+# rather than excluding keeps stray .py/.ipynb files at the repo root out of scope
+# too. CI enforces this via `pixi run lint` (.github/workflows/lint.yml).
+include = ["scripts/**/*.py"]

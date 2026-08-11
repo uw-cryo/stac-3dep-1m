@@ -70,7 +70,9 @@ def list_project_folders():
     """All project folder names under the 1m Projects/ prefix (paginated)."""
     paginator = s3.get_paginator("list_objects_v2")
     folders = []
-    for page in paginator.paginate(Bucket=BUCKET, Prefix=PROJECTS_PREFIX, Delimiter="/"):
+    for page in paginator.paginate(
+        Bucket=BUCKET, Prefix=PROJECTS_PREFIX, Delimiter="/"
+    ):
         folders += [c["Prefix"].split("/")[-2] for c in page.get("CommonPrefixes", [])]
     return folders
 
@@ -148,8 +150,9 @@ def wesm_row(project, df):
     """
     for is_workunit in (True, False):
         try:
-            return create_static_stac.get_wesm_series(project, is_workunit=is_workunit,
-                                                      df=df, warn=False)
+            return create_static_stac.get_wesm_series(
+                project, is_workunit=is_workunit, df=df, warn=False
+            )
         except (ValueError, KeyError, IndexError):
             continue
     return None
@@ -296,7 +299,9 @@ def head_check(urls, label, threads=8):
         codes = list(ex.map(head_status, urls))
     n404 = sum(1 for c in codes if c == 404)
     nerr = sum(1 for c in codes if c not in (200, 404))
-    print(f"HEAD {label}: {len(codes)} checked, {n404} x 404, {nerr} errors", flush=True)
+    print(
+        f"HEAD {label}: {len(codes)} checked, {n404} x 404, {nerr} errors", flush=True
+    )
     return len(codes), n404, nerr
 
 
@@ -307,8 +312,10 @@ PR_BODY_MAX_ROWS = 150
 
 
 def _table(rows, headers):
-    out = ["| " + " | ".join(headers) + " |",
-           "| " + " | ".join(["---"] + ["---:"] * (len(headers) - 1)) + " |"]
+    out = [
+        "| " + " | ".join(headers) + " |",
+        "| " + " | ".join(["---"] + ["---:"] * (len(headers) - 1)) + " |",
+    ]
     for r in rows[:PR_BODY_MAX_ROWS]:
         out.append("| " + " | ".join(str(c) for c in r) + " |")
     if len(rows) > PR_BODY_MAX_ROWS:
@@ -322,8 +329,10 @@ def _section(title, rows, headers, collapse_over=25):
         return ""
     body = _table(rows, headers)
     if len(rows) > collapse_over:
-        return (f"<details>\n<summary><b>{title}</b> (click to expand)</summary>\n\n"
-                f"{body}\n\n</details>\n")
+        return (
+            f"<details>\n<summary><b>{title}</b> (click to expand)</summary>\n\n"
+            f"{body}\n\n</details>\n"
+        )
     return f"#### {title}\n\n{body}\n"
 
 
@@ -333,18 +342,26 @@ def render_pr_body(summary, run_url=None):
     failures = set(summary.get("build_failures") or [])
 
     def rows(action, cols):
-        return [cols(p, d) for p, d in sorted(details.items())
-                if d["action"] == action]
+        return [cols(p, d) for p, d in sorted(details.items()) if d["action"] == action]
 
     new = rows("new", lambda p, d: (f"`{p}`", f"+{d['added']}"))
-    rebuilt = rows("rebuilt", lambda p, d: (
-        f"`{p}`", f"+{d['added']}" if d["added"] else "—",
-        f"−{d['removed']}" if d["removed"] else "—"))
+    rebuilt = rows(
+        "rebuilt",
+        lambda p, d: (
+            f"`{p}`",
+            f"+{d['added']}" if d["added"] else "—",
+            f"−{d['removed']}" if d["removed"] else "—",
+        ),
+    )
     pruned = rows("pruned", lambda p, d: (f"`{p}`", f"−{d['removed']}"))
-    metadata = rows("metadata", lambda p, d: (
-        f"`{p}`",
-        ", ".join(f"`{f.removeprefix('wesm:')}`" for f in d["fields"]),
-        d.get("items_updated") or "—"))
+    metadata = rows(
+        "metadata",
+        lambda p, d: (
+            f"`{p}`",
+            ", ".join(f"`{f.removeprefix('wesm:')}`" for f in d["fields"]),
+            d.get("items_updated") or "—",
+        ),
+    )
 
     added, removed = summary["tiles_added"], summary["tiles_removed"]
     before = summary["catalog_items_before"]
@@ -366,40 +383,54 @@ def render_pr_body(summary, run_url=None):
         "",
     ]
     out.append(_section("New collections", new, ["Collection", "Tiles"]))
-    out.append(_section("Rebuilt collections", rebuilt,
-                        ["Collection", "Added", "Removed"]))
+    out.append(
+        _section("Rebuilt collections", rebuilt, ["Collection", "Added", "Removed"])
+    )
     out.append(_section("Pruned collections", pruned, ["Collection", "Tiles"]))
     # tiles untouched: only WESM-derived collection metadata moved, plus item
     # datetimes in the collections whose collect range itself changed
-    out.append(_section("WESM metadata updates", metadata,
-                        ["Collection", "Fields", "Items updated"]))
+    out.append(
+        _section(
+            "WESM metadata updates", metadata, ["Collection", "Fields", "Items updated"]
+        )
+    )
 
     if summary.get("wesm_missing_projects"):
         names = summary["wesm_missing_projects"]
         shown = ", ".join(f"`{p}`" for p in names[:10])
         more = f" … and {len(names) - 10} more" if len(names) > 10 else ""
-        out.append(f"> **No WESM row:** {shown}{more} — cataloged but no longer "
-                   "resolvable in `WESM.csv`; metadata left untouched (the tiles are "
-                   "diffed against S3 independently).\n")
+        out.append(
+            f"> **No WESM row:** {shown}{more} — cataloged but no longer "
+            "resolvable in `WESM.csv`; metadata left untouched (the tiles are "
+            "diffed against S3 independently).\n"
+        )
     if summary.get("metadata_failures"):
         names = ", ".join(f"`{p}`" for p in summary["metadata_failures"])
-        out.append(f"> **⚠️ Metadata refresh failed:** {names} — previous values kept, "
-                   "retried next run.\n")
+        out.append(
+            f"> **⚠️ Metadata refresh failed:** {names} — previous values kept, "
+            "retried next run.\n"
+        )
     if summary.get("carried_empty_projects"):
         names = ", ".join(f"`{p}`" for p in summary["carried_empty_projects"])
-        out.append(f"> **Carried, not pruned:** {names} — TIFF listing empty but the "
-                   "removal probe was inconclusive; re-probed next run.\n")
+        out.append(
+            f"> **Carried, not pruned:** {names} — TIFF listing empty but the "
+            "removal probe was inconclusive; re-probed next run.\n"
+        )
     if failures:
         names = ", ".join(f"`{p}`" for p in sorted(failures))
-        out.append(f"> **⚠️ Build failures:** {names} — previous version kept. Usually a "
-                   "WESM name mismatch (see `onemeter_folder_to_wesm` in "
-                   "`scripts/create_static_stac.py`).\n")
+        out.append(
+            f"> **⚠️ Build failures:** {names} — previous version kept. Usually a "
+            "WESM name mismatch (see `onemeter_folder_to_wesm` in "
+            "`scripts/create_static_stac.py`).\n"
+        )
 
     if run_url:
         out.append(f"Full diff summary in the [workflow run]({run_url}).")
-    out.append("After merging, `release.yml` (monthly cron, or manual "
-               "workflow_dispatch) rebuilds `catalog.parquet`/`catalog.gti` and "
-               "publishes a dated release.")
+    out.append(
+        "After merging, `release.yml` (monthly cron, or manual "
+        "workflow_dispatch) rebuilds `catalog.parquet`/`catalog.gti` and "
+        "publishes a dated release."
+    )
     return "\n".join(out).replace("\n\n\n", "\n\n") + "\n"
 
 
@@ -429,42 +460,92 @@ def github_output(**kwargs):
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--dry-run", action="store_true",
-                    help="report the diff and exit without modifying anything")
-    ap.add_argument("--only", action="append", metavar="PROJECT",
-                    help="restrict the diff/rebuild to named project(s) (testing)")
-    ap.add_argument("--min-projects", type=int, default=900,
-                    help="abort if S3 lists fewer project folders than this")
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    ap.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="report the diff and exit without modifying anything",
+    )
+    ap.add_argument(
+        "--only",
+        action="append",
+        metavar="PROJECT",
+        help="restrict the diff/rebuild to named project(s) (testing)",
+    )
+    ap.add_argument(
+        "--min-projects",
+        type=int,
+        default=900,
+        help="abort if S3 lists fewer project folders than this",
+    )
     # NOTE: this cap counts tiles, not projects -- several small projects can
     # be pruned in one night without tripping it (acceptable blast radius given
     # the folder-present/items-reachable carry logic below)
-    ap.add_argument("--max-removed-tiles", type=int, default=2000,
-                    help="abort if the diff would remove more tiles than this")
-    ap.add_argument("--allow-large-removals", action="store_true",
-                    help="override --max-removed-tiles after human review")
-    ap.add_argument("--skip-wesm-check", action="store_true",
-                    help="skip the WESM summary comparison (tile diff only)")
+    ap.add_argument(
+        "--max-removed-tiles",
+        type=int,
+        default=2000,
+        help="abort if the diff would remove more tiles than this",
+    )
+    ap.add_argument(
+        "--allow-large-removals",
+        action="store_true",
+        help="override --max-removed-tiles after human review",
+    )
+    ap.add_argument(
+        "--skip-wesm-check",
+        action="store_true",
+        help="skip the WESM summary comparison (tile diff only)",
+    )
     # a WESM schema change (column added or renamed) drifts every collection at
     # once -- a legitimate but very large diff, so make a human confirm it
-    ap.add_argument("--max-metadata-updates", type=int, default=300,
-                    help="abort if more cataloged collections than this drifted in WESM")
-    ap.add_argument("--allow-large-metadata-updates", action="store_true",
-                    help="override --max-metadata-updates after human review")
-    ap.add_argument("--sample-new", type=int, default=200,
-                    help="max new/changed item URLs to HEAD-check (all must be 200)")
-    ap.add_argument("--sample-existing", type=int, default=300,
-                    help="random carried-over item URLs to HEAD-check")
-    ap.add_argument("--max-404-pct", type=float, default=1.0,
-                    help="fail if more than this %% of sampled existing URLs 404")
-    ap.add_argument("--threads", type=int, default=8,
-                    help="S3 listing / HEAD check concurrency")
-    ap.add_argument("--summary", type=Path, default=None,
-                    help="write a JSON run summary to this path")
-    ap.add_argument("--pr-body", type=Path, default=None,
-                    help="write the rendered markdown PR body to this path "
-                         "(also written on --dry-run, for local preview)")
+    ap.add_argument(
+        "--max-metadata-updates",
+        type=int,
+        default=300,
+        help="abort if more cataloged collections than this drifted in WESM",
+    )
+    ap.add_argument(
+        "--allow-large-metadata-updates",
+        action="store_true",
+        help="override --max-metadata-updates after human review",
+    )
+    ap.add_argument(
+        "--sample-new",
+        type=int,
+        default=200,
+        help="max new/changed item URLs to HEAD-check (all must be 200)",
+    )
+    ap.add_argument(
+        "--sample-existing",
+        type=int,
+        default=300,
+        help="random carried-over item URLs to HEAD-check",
+    )
+    ap.add_argument(
+        "--max-404-pct",
+        type=float,
+        default=1.0,
+        help="fail if more than this %% of sampled existing URLs 404",
+    )
+    ap.add_argument(
+        "--threads", type=int, default=8, help="S3 listing / HEAD check concurrency"
+    )
+    ap.add_argument(
+        "--summary",
+        type=Path,
+        default=None,
+        help="write a JSON run summary to this path",
+    )
+    ap.add_argument(
+        "--pr-body",
+        type=Path,
+        default=None,
+        help="write the rendered markdown PR body to this path "
+        "(also written on --dry-run, for local preview)",
+    )
     args = ap.parse_args()
 
     if not CATALOG_DIR.is_dir():
@@ -479,12 +560,15 @@ def main():
         holdings = {p: v for p, v in holdings.items() if p in only and v}
         folders = folders & only
     elif len(holdings) < args.min_projects:
-        sys.exit(f"GUARDRAIL: only {len(holdings)} projects listed on S3 "
-                 f"(< {args.min_projects}); bucket may be mid-repopulation (see issue #6)")
+        sys.exit(
+            f"GUARDRAIL: only {len(holdings)} projects listed on S3 "
+            f"(< {args.min_projects}); bucket may be mid-repopulation (see issue #6)"
+        )
 
     new = sorted(set(holdings) - set(local))
-    changed = sorted(p for p in set(holdings) & set(local)
-                     if set(holdings[p]) != local[p])
+    changed = sorted(
+        p for p in set(holdings) & set(local) if set(holdings[p]) != local[p]
+    )
 
     # Prune classification: a cataloged project with no tifs on S3 is either
     # truly deleted (folder prefix gone) or a folder remnant / mid-restage
@@ -503,17 +587,26 @@ def main():
         codes = [head_status(u) for u in urls]
         if any(c == 200 for c in codes):
             carried_empty.append(p)
-            print(f"  CARRIED  {p}: TIFF/ empty but folder present and items still "
-                  "reachable -- possible restage in progress, not pruning", flush=True)
+            print(
+                f"  CARRIED  {p}: TIFF/ empty but folder present and items still "
+                "reachable -- possible restage in progress, not pruning",
+                flush=True,
+            )
         elif codes and all(c == 404 for c in codes):
             removed.append(p)
-            print(f"  {p}: folder remnant with no tifs and all {len(codes)} probed "
-                  "items 404 -- treating as removed", flush=True)
+            print(
+                f"  {p}: folder remnant with no tifs and all {len(codes)} probed "
+                "items 404 -- treating as removed",
+                flush=True,
+            )
         else:
             carried_empty.append(p)
-            print(f"  CARRIED  {p}: TIFF/ empty but probe inconclusive "
-                  f"(HEAD codes {codes}) -- carrying unchanged, will re-probe "
-                  "next run", flush=True)
+            print(
+                f"  CARRIED  {p}: TIFF/ empty but probe inconclusive "
+                f"(HEAD codes {codes}) -- carrying unchanged, will re-probe "
+                "next run",
+                flush=True,
+            )
 
     # WESM revisions that add or remove no tiles are invisible to the diff above,
     # so compare the snapshotted collection summaries too (issue #18). Projects
@@ -522,7 +615,8 @@ def main():
     wesm_drift, wesm_rows, wesm_missing = {}, {}, []
     if not args.skip_wesm_check:
         wesm_drift, wesm_rows, wesm_missing = wesm_diff(
-            sorted(set(local) - set(changed) - set(removed)))
+            sorted(set(local) - set(changed) - set(removed))
+        )
 
     # Per-project tile deltas, computed once and reused by the console log, the
     # summary JSON and the PR body table.
@@ -530,14 +624,21 @@ def main():
     for p in new:
         details[p] = {"action": "new", "added": len(holdings[p]), "removed": 0}
     for p in changed:
-        details[p] = {"action": "rebuilt",
-                      "added": len(set(holdings[p]) - local[p]),
-                      "removed": len(local[p] - set(holdings[p]))}
+        details[p] = {
+            "action": "rebuilt",
+            "added": len(set(holdings[p]) - local[p]),
+            "removed": len(local[p] - set(holdings[p])),
+        }
     for p in removed:
         details[p] = {"action": "pruned", "added": 0, "removed": len(local[p])}
     for p, fields in sorted(wesm_drift.items()):
-        details[p] = {"action": "metadata", "added": 0, "removed": 0,
-                      "fields": fields, "items_updated": 0}
+        details[p] = {
+            "action": "metadata",
+            "added": 0,
+            "removed": 0,
+            "fields": fields,
+            "items_updated": 0,
+        }
 
     n_tiles_added = sum(d["added"] for d in details.values())
     n_tiles_removed = sum(d["removed"] for d in details.values())
@@ -545,9 +646,11 @@ def main():
     n_s3 = sum(len(v) for v in holdings.values())
 
     print(f"\ncatalog items: {n_local}  |  S3 tifs: {n_s3}")
-    print(f"diff: +{n_tiles_added} tiles / -{n_tiles_removed} tiles  "
-          f"({len(new)} new, {len(changed)} changed, {len(removed)} removed, "
-          f"{len(wesm_drift)} metadata-only projects)")
+    print(
+        f"diff: +{n_tiles_added} tiles / -{n_tiles_removed} tiles  "
+        f"({len(new)} new, {len(changed)} changed, {len(removed)} removed, "
+        f"{len(wesm_drift)} metadata-only projects)"
+    )
     for p in new:
         print(f"  NEW      {p} ({details[p]['added']} tiles)")
     for p in changed:
@@ -558,19 +661,29 @@ def main():
         names = ", ".join(f.removeprefix("wesm:") for f in fields)
         print(f"  METADATA {p} ({names})")
     if wesm_missing:
-        print(f"  {len(wesm_missing)} cataloged collections have no WESM row "
-              f"(metadata left untouched): {', '.join(wesm_missing[:10])}"
-              + (" ..." if len(wesm_missing) > 10 else ""))
+        print(
+            f"  {len(wesm_missing)} cataloged collections have no WESM row "
+            f"(metadata left untouched): {', '.join(wesm_missing[:10])}"
+            + (" ..." if len(wesm_missing) > 10 else "")
+        )
 
     changed_any = bool(new or changed or removed or wesm_drift)
     summary = {
-        "s3_projects": len(holdings), "s3_tiles": n_s3,
-        "catalog_projects_before": len(local), "catalog_items_before": n_local,
-        "new_projects": new, "changed_projects": changed, "removed_projects": removed,
+        "s3_projects": len(holdings),
+        "s3_tiles": n_s3,
+        "catalog_projects_before": len(local),
+        "catalog_items_before": n_local,
+        "new_projects": new,
+        "changed_projects": changed,
+        "removed_projects": removed,
         "carried_empty_projects": carried_empty,
-        "metadata_projects": sorted(wesm_drift), "wesm_missing_projects": wesm_missing,
-        "tiles_added": n_tiles_added, "tiles_removed": n_tiles_removed,
-        "dry_run": args.dry_run, "build_failures": [], "metadata_failures": [],
+        "metadata_projects": sorted(wesm_drift),
+        "wesm_missing_projects": wesm_missing,
+        "tiles_added": n_tiles_added,
+        "tiles_removed": n_tiles_removed,
+        "dry_run": args.dry_run,
+        "build_failures": [],
+        "metadata_failures": [],
         "details": details,
     }
     # "+1429/-678 tiles" -- short enough for a PR/commit title on its own; a
@@ -589,18 +702,28 @@ def main():
             args.summary.write_text(json.dumps(summary, indent=1))
         return
 
-    if (n_tiles_removed > args.max_removed_tiles and not args.allow_large_removals
-            and not args.dry_run):
-        sys.exit(f"GUARDRAIL: refusing to remove {n_tiles_removed} tiles "
-                 f"(> {args.max_removed_tiles}); rerun with --allow-large-removals "
-                 "after reviewing the diff")
+    if (
+        n_tiles_removed > args.max_removed_tiles
+        and not args.allow_large_removals
+        and not args.dry_run
+    ):
+        sys.exit(
+            f"GUARDRAIL: refusing to remove {n_tiles_removed} tiles "
+            f"(> {args.max_removed_tiles}); rerun with --allow-large-removals "
+            "after reviewing the diff"
+        )
 
-    if (len(wesm_drift) > args.max_metadata_updates
-            and not args.allow_large_metadata_updates and not args.dry_run):
-        sys.exit(f"GUARDRAIL: {len(wesm_drift)} collections drifted in WESM "
-                 f"(> {args.max_metadata_updates}); a WESM schema change hits every "
-                 "collection at once -- review the diff, then rerun with "
-                 "--allow-large-metadata-updates")
+    if (
+        len(wesm_drift) > args.max_metadata_updates
+        and not args.allow_large_metadata_updates
+        and not args.dry_run
+    ):
+        sys.exit(
+            f"GUARDRAIL: {len(wesm_drift)} collections drifted in WESM "
+            f"(> {args.max_metadata_updates}); a WESM schema change hits every "
+            "collection at once -- review the diff, then rerun with "
+            "--allow-large-metadata-updates"
+        )
 
     if args.dry_run:
         print("dry run -- exiting before rebuild")
@@ -651,18 +774,25 @@ def main():
             continue
         details[p]["items_updated"] = n
         n_items_touched += n
-        print(f"  METADATA {p}: summaries updated"
-              + (f", {n} item datetimes rewritten" if n else ""), flush=True)
+        print(
+            f"  METADATA {p}: summaries updated"
+            + (f", {n} item datetimes rewritten" if n else ""),
+            flush=True,
+        )
 
     sync_root_catalog(removed=removed)
     # add new children + regenerate the meta collection (catalog/collection.json)
     import update_root_catalog
+
     update_root_catalog.update_root_catalog()
     update_root_catalog.create_root_collection()
     write_collections_txt()
     if failures:
-        print(f"WARNING: {len(failures)} project builds failed (kept previous "
-              f"version if any): {failures}", flush=True)
+        print(
+            f"WARNING: {len(failures)} project builds failed (kept previous "
+            f"version if any): {failures}",
+            flush=True,
+        )
 
     # ---------------------------------------------------------- validation
     new_urls = []
@@ -671,28 +801,39 @@ def main():
     random.shuffle(new_urls)
     n, n404, nerr = head_check(new_urls[: args.sample_new], "new/changed", args.threads)
     if n404:
-        sys.exit(f"VALIDATION: {n404}/{n} new/changed URLs return 404 -- not committing")
+        sys.exit(
+            f"VALIDATION: {n404}/{n} new/changed URLs return 404 -- not committing"
+        )
     if n and nerr > max(2, 0.1 * n):
-        sys.exit(f"VALIDATION: {nerr}/{n} new/changed HEAD checks errored -- "
-                 "network looks degraded, not committing")
+        sys.exit(
+            f"VALIDATION: {nerr}/{n} new/changed HEAD checks errored -- "
+            "network looks degraded, not committing"
+        )
 
     # sample only projects NOT successfully rebuilt this run (untouched ones,
     # carried remnants, and failed rebuilds): rebuilt projects' URLs were just
     # HEAD-checked above, and including them would bias this gate away from
     # its purpose -- catching 404 drift in projects the run didn't touch
     rebuilt_ok = {p for p in changed if p not in failures} | set(built_new)
-    carried = [(p, i) for p, ids in catalog_state(only).items()
-               for i in ids
-               if p not in rebuilt_ok and p in local and i in local.get(p, set())]
+    carried = [
+        (p, i)
+        for p, ids in catalog_state(only).items()
+        for i in ids
+        if p not in rebuilt_ok and p in local and i in local.get(p, set())
+    ]
     sample = random.sample(carried, min(args.sample_existing, len(carried)))
     urls = [u for u in (item_asset_url(p, i) for p, i in sample) if u]
     n, n404, nerr = head_check(urls, "existing", args.threads)
     if n and 100.0 * n404 / n > args.max_404_pct:
-        sys.exit(f"VALIDATION: {n404}/{n} sampled existing URLs return 404 "
-                 f"(> {args.max_404_pct}%) -- catalog/S3 disagree, not committing")
+        sys.exit(
+            f"VALIDATION: {n404}/{n} sampled existing URLs return 404 "
+            f"(> {args.max_404_pct}%) -- catalog/S3 disagree, not committing"
+        )
     if n and nerr > max(2, 0.1 * n):
-        sys.exit(f"VALIDATION: {nerr}/{n} existing HEAD checks errored -- "
-                 "network looks degraded, not committing")
+        sys.exit(
+            f"VALIDATION: {nerr}/{n} existing HEAD checks errored -- "
+            "network looks degraded, not committing"
+        )
 
     # ------------------------------------------------------------- summary
     parts = [f"+{n_tiles_added}/-{n_tiles_removed} tiles"]
@@ -712,22 +853,35 @@ def main():
     changelog = "; ".join(parts)
 
     n_after = sum(len(v) for v in catalog_state(only).values())
-    summary.update({
-        "catalog_items_after": n_after, "build_failures": failures,
-        "metadata_projects": metadata_done, "metadata_failures": metadata_failures,
-        "metadata_items_updated": n_items_touched,
-        "changelog": changelog, "elapsed_s": round(time.time() - t0, 1),
-    })
+    summary.update(
+        {
+            "catalog_items_after": n_after,
+            "build_failures": failures,
+            "metadata_projects": metadata_done,
+            "metadata_failures": metadata_failures,
+            "metadata_items_updated": n_items_touched,
+            "changelog": changelog,
+            "elapsed_s": round(time.time() - t0, 1),
+        }
+    )
     if args.summary:
         args.summary.write_text(json.dumps(summary, indent=1))
     if args.pr_body:
         args.pr_body.write_text(render_pr_body(summary, run_url()))
     # `title` and `subject` stay short enough to read in a PR list / git log;
     # the exhaustive project list lives in the PR body table and the summary JSON
-    subject = (f"{title} ({len(new)} new, {len(changed)} rebuilt, "
-               f"{len(removed)} pruned, {len(metadata_done)} metadata)")
-    github_output(changed="true", changelog=changelog, title=title,
-                  subject=subject, n_items=n_after, n_failures=len(failures))
+    subject = (
+        f"{title} ({len(new)} new, {len(changed)} rebuilt, "
+        f"{len(removed)} pruned, {len(metadata_done)} metadata)"
+    )
+    github_output(
+        changed="true",
+        changelog=changelog,
+        title=title,
+        subject=subject,
+        n_items=n_after,
+        n_failures=len(failures),
+    )
     print(f"\nrefresh complete in {summary['elapsed_s']}s: {changelog}")
     print(f"catalog items: {n_local} -> {n_after}")
 
