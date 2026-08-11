@@ -7,16 +7,18 @@ from botocore.client import Config
 import subprocess
 from pathlib import Path
 
-s3 = boto3.client('s3', config=Config(signature_version=UNSIGNED))
+s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 # NOTE: paginate — a single list_objects_v2 call returns at most 1000 prefixes
 # and the bucket currently has ~960 project folders
-paginator = s3.get_paginator('list_objects_v2')
+paginator = s3.get_paginator("list_objects_v2")
 folders = []
-for page in paginator.paginate(Bucket='prd-tnm', Prefix='StagedProducts/Elevation/1m/Projects/', Delimiter='/'):
-    folders += [content['Prefix'] for content in page.get('CommonPrefixes', [])]
-all_folders = [x.split('/')[-2] for x in folders]
+for page in paginator.paginate(
+    Bucket="prd-tnm", Prefix="StagedProducts/Elevation/1m/Projects/", Delimiter="/"
+):
+    folders += [content["Prefix"] for content in page.get("CommonPrefixes", [])]
+all_folders = [x.split("/")[-2] for x in folders]
 
-print('Located {} folders in S3...'.format(len(all_folders)))
+print("Located {} folders in S3...".format(len(all_folders)))
 
 # For some reason these are mising TIFFs
 NO_TIFFS = [
@@ -45,21 +47,29 @@ NO_TIFFS = [
 ]
 
 # For efficiency only work with folders that don't already have a STAC
-catalog_path = Path('catalog')
+catalog_path = Path("catalog")
 subfolders = [f.name for f in catalog_path.iterdir() if f.is_dir()]
 missing_folders = set(all_folders) - set(subfolders) - set(NO_TIFFS)
 
-print('Processing {} folders without local STAC...'.format(len(missing_folders)))
-print('\n'.join(sorted(missing_folders)))
+print("Processing {} folders without local STAC...".format(len(missing_folders)))
+print("\n".join(sorted(missing_folders)))
 
 # Non-elegant approach to creating all STACs for workunit or project
 for i, project in enumerate(missing_folders):
     print(i, project)
     try:
-        subprocess.run(['./scripts/create_static_stac.py', '--workunit', project], check=True, capture_output=False)
+        subprocess.run(
+            ["./scripts/create_static_stac.py", "--workunit", project],
+            check=True,
+            capture_output=False,
+        )
     except subprocess.CalledProcessError:
-        print('Failed processing as WESM Workunit, trying as Project...')
+        print("Failed processing as WESM Workunit, trying as Project...")
         try:
-            subprocess.run(['./scripts/create_static_stac.py', '--project', project], check=True, capture_output=True)
+            subprocess.run(
+                ["./scripts/create_static_stac.py", "--project", project],
+                check=True,
+                capture_output=True,
+            )
         except subprocess.CalledProcessError:
-            print('Failed processing as Project... skipping.')
+            print("Failed processing as Project... skipping.")

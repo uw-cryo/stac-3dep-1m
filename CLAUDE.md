@@ -24,7 +24,10 @@ pixi run collection2geoparquet catalog/<ID>/collection.json out.parquet
 pixi run update-root-catalog       # link new children into catalog/catalog.json
 pixi run list-collections          # regenerate collections.txt
 pixi run ruff                      # ruff check --fix + ruff format
+pixi run lint                      # non-mutating check + format --diff (the CI gate)
 ```
+
+Ruff is scoped to `scripts/` by `include` in `ruff.toml` — `notebooks/` and `checkpoints/` are exploratory and several cells hold pasted shell output ruff cannot parse, so never widen that scope to "fix" a lint error there.
 
 There is no test suite. `catalog2geoparquet` opens one file handle per item (~124k), hence the `ulimit -n` bump.
 
@@ -55,6 +58,7 @@ Some folders have no TIFFs at all; those are listed in `NO_TIFFS` in `create_all
 ### Automation
 
 * `.github/workflows/update-catalog.yml` — weekly (Mon 06:00 UTC) + `workflow_dispatch` (`dry_run`, `allow_large_removals`). Runs `pixi run refresh` and opens a PR; no PR when nothing changed.
+* `.github/workflows/lint.yml` — `pixi run lint` on every PR and push to `main`; fails on a ruff lint error or an unformatted file under `scripts/`.
 * `.github/workflows/release.yml` — monthly (1st, 06:17 UTC) + dispatch. Skips if `catalog/` is unchanged since the latest release *tag* (resolved via the tag, not `targetCommitish`). Otherwise rebuilds the parquet, asserts parquet row count == item-file count, writes `catalog.gti`, and publishes a CalVer `vYYYY.MM.DD` release so `releases/latest/download/catalog.parquet` stays current.
 
 `refresh_catalog.py` is the interesting one — it is destructive by design and its guardrails exist because the USGS bucket has been observed mid-repopulation (issue #6):

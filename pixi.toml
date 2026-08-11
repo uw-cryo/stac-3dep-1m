@@ -15,7 +15,8 @@ catalog2hive = { cmd = "python scripts/catalog2hive.py", description = "Write th
 create-collection-parquets = { cmd = "python scripts/create_collection_parquets.py", description = "Write a .parquet next to each collection.json under a catalog directory" }
 update-root-catalog = { cmd = "python scripts/update_root_catalog.py", description = "Add any new child collections to the top-level catalog.json" }
 list-collections = { cmd = "ls -1d catalog/*/ | sed 's|catalog/||;s|/||' > collections.txt", description = "Write the list of collection IDs in catalog/ to collections.txt" }
-ruff = { cmd = "ruff check --fix ; ruff format", description = "Lint with autofix and format the codebase using ruff" }
+ruff = { cmd = "ruff check --fix ; ruff format", description = "Lint with autofix and format scripts/ using ruff (scope set in ruff.toml)" }
+lint = { cmd = "ruff check --output-format=github && ruff format --diff", description = "Check lint + formatting without modifying anything; what CI gates PRs on" }
 
 [dependencies]
 arro3-core = ">=0.6.3,<0.7"
