@@ -87,10 +87,20 @@ row, min/max collect range over multi-workunit projects) that collections built 
 | `spec`, `vert_crs`, `geoid`, `p_method` | 3–8 each |
 
 105 of those moved a collect range, i.e. ~39k item files whose `start_datetime`/`end_datetime` were wrong.
-No cataloged collection is currently unresolvable in WESM (`UT_StrawberryRiver_2019` resolves again); when one
-is, it is reported and left untouched rather than guessed at.
+**Superseded (2026-08-12):** an earlier revision of this note claimed no cataloged collection was unresolvable
+in WESM, and that `UT_StrawberryRiver_2019` "resolves again". It does not — it has no workunit *or* project row
+in the live `WESM.csv`, and it is the only such collection of the 935 cataloged.
+
+Note that the reported missing-list could not have caught it either way: `wesm_diff()` was only handed
+`local - changed - removed`, and a project with a tile-set delta is in `changed`, so a collection that is *both*
+drifting on S3 and absent from WESM never reached the check. Such a collection is now retired and pruned rather
+than reported (issue #23) — see "WESM is the source of truth for membership" in `CLAUDE.md`.
 
 ## Attributing *why* something changed
+
+> **Implemented (issue #19).** The analysis below is now code: `classify_removal()` in
+> `scripts/refresh_catalog.py` labels every prune candidate, and only the affirmative classes auto-prune.
+> See the label table in `CLAUDE.md`. The rest of this section records how the labels were derived.
 
 The `--dry-run` output says *what* moved, never *why*. That gap is real, but it is largely fillable — just not
 from the field you would first reach for.

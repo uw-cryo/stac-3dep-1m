@@ -64,12 +64,32 @@ Some folders have no TIFFs at all; those are listed in `NO_TIFFS` in `create_all
 `refresh_catalog.py` is the interesting one — it is destructive by design and its guardrails exist because the USGS bucket has been observed mid-repopulation (issue #6):
 
 * abort if S3 lists < `--min-projects` (900) folders;
+* abort if `WESM.csv` has < `--min-wesm-rows` (3000) rows — a truncated table would retire every collection at once;
 * abort if the diff would remove > `--max-removed-tiles` (2000) tiles, unless `--allow-large-removals`;
+* abort if > `--max-wesm-retired` (5) cataloged collections lost their WESM row, unless `--allow-large-wesm-retirement`;
 * a cataloged project whose `TIFF/` went empty is pruned **only** if the folder prefix is gone, or every probed item URL returns 404 — a 200, a probe error, or nothing to probe means carry unchanged and re-decide next run. Never make pruning fire on network errors.
 * new/changed item URLs must all HEAD 200; a random sample of *untouched* carried-over items must 404 below `--max-404-pct`.
 * abort if more than `--max-metadata-updates` (300) collections drift in WESM, unless `--allow-large-metadata-updates` — a WESM schema change (column added/renamed) drifts every collection at once.
 
-A tile-set diff cannot see a WESM revision that adds or removes no tiles (issue #18), so `refresh` also compares each `collection.json`'s snapshotted `wesm:*` summaries against live `WESM.csv` and repairs the drifted ones **in place** — summaries, collection temporal extent, and (only when `collect_start`/`collect_end` moved) every item's `start_datetime`/`end_datetime`. No titiler round trip; the tiles are untouched. Both sides of the comparison go through `create_static_stac.wesm_summary_fields()` so a serialization difference cannot masquerade as drift, and the rewrite is byte-identical to a full rebuild apart from those fields. A collection whose folder name no longer resolves in WESM is reported, never modified. Disable with `--skip-wesm-check`.
+A tile-set diff cannot see a WESM revision that adds or removes no tiles (issue #18), so `refresh` also compares each `collection.json`'s snapshotted `wesm:*` summaries against live `WESM.csv` and repairs the drifted ones **in place** — summaries, collection temporal extent, and (only when `collect_start`/`collect_end` moved) every item's `start_datetime`/`end_datetime`. No titiler round trip; the tiles are untouched. Both sides of the comparison go through `create_static_stac.wesm_summary_fields()` so a serialization difference cannot masquerade as drift, and the rewrite is byte-identical to a full rebuild apart from those fields. Disable with `--skip-wesm-check`.
+
+### WESM is the source of truth for membership
+
+A cataloged collection whose folder name no longer resolves to a WESM workunit *or* project has been retired upstream, and is pruned even while tifs linger in the bucket (issue #23) — `UT_StrawberryRiver_2019` was the first case. Symmetrically, an S3 folder with no WESM row is never built: it would fail its WESM lookup on every run forever. Nothing is lost either way, because both directions are re-derived from live data each run — if USGS re-lists the workunit, the folder is rebuilt from S3 automatically. `--skip-wesm-check` disables both and falls back to the S3-only diff.
+
+### Attributing removals (issue #19)
+
+The tile diff says *what* vanished, never *why*, so `classify_removal()` labels every prune candidate with an evidence class before anything is deleted:
+
+| Label | Signal | Auto-prunes? |
+| --- | --- | --- |
+| `retired-from-wesm` | no workunit/project row in `WESM.csv` | yes |
+| `withdrawn-for-cause` | live `onemeter_category` is `Does not meet` | yes |
+| `superseded-by:<project>` | ≥ `SUPERSEDE_MIN_FRAC` (0.9) of the footprint's grid cells now staged under one other project | yes |
+| `tiffs-missing-from-intact-folder` | `browse/` + `metadata/` companions survive for every cataloged tile — only the tifs are gone | **no** |
+| `unexplained` | nothing above matched | **no** |
+
+The last two are *held*: reported in the PR body, left on disk, re-decided next run. They are the cases worth raising with USGS rather than silently pruning, and `--allow-unexplained-prunes` is the deliberate override. These are evidence classes, not statements of USGS intent — WESM has no attribute covering 1 m staging at all, so `*_reason` fields describe spec compliance and cannot explain a removal. Grid cells come from the tile id (`USGS_1M_<zone>_x<X>y<Y>_…`); the UTM zone is part of the key because x/y repeat in every zone. `--explain` extends the same attribution to *partial* tile loss inside surviving projects, at the cost of two extra S3 listings per project.
 
 Tiles removed in place also need their item JSONs unlinked explicitly after a rebuild, otherwise the same projects are flagged changed every run and the parquet row-count gate diverges.
 

@@ -13,17 +13,28 @@ Designed to run unattended (scheduled CI) but equally usable locally:
      - removed projects    -> prune catalog/<project> and root catalog link
      - WESM metadata drift -> metadata-only refresh of catalog/<project>
        (collection summaries + temporal extent, item datetimes; no titiler)
-3. Guardrails (issue #6: the bucket has been observed mid-repopulation):
+   WESM is the source of truth for membership: a cataloged collection whose
+   workunit/project row is gone has been retired upstream and is pruned even
+   while tifs linger in the bucket, and an S3 folder with no WESM row is not
+   built in the first place (issue #23).
+3. Attribute every prune to an evidence class before acting on it (issue #19).
+   Only `retired-from-wesm`, `withdrawn-for-cause` and `superseded-by:<project>`
+   prune automatically; `tiffs-missing-from-intact-folder` and `unexplained`
+   are held for human review (override with --allow-unexplained-prunes).
+4. Guardrails (issue #6: the bucket has been observed mid-repopulation):
      - abort if S3 lists fewer than --min-projects project folders
+     - abort if WESM.csv has fewer than --min-wesm-rows rows
      - abort if the diff would remove more than --max-removed-tiles tiles
        (override with --allow-large-removals after human review)
+     - abort if more than --max-wesm-retired collections lost their WESM row
+       (override with --allow-large-wesm-retirement)
      - abort if more than --max-metadata-updates collections drifted in WESM
        (override with --allow-large-metadata-updates)
-4. Validate with HTTP HEAD spot checks:
+5. Validate with HTTP HEAD spot checks:
      - every new/changed item URL sampled up to --sample-new must return 200
      - a random sample (--sample-existing) of carried-over item URLs must
        404 at a rate below --max-404-pct
-5. Write a machine-readable summary (--summary), a markdown PR body with a
+6. Write a machine-readable summary (--summary), a markdown PR body with a
    per-collection table (--pr-body), plus GitHub Actions outputs (changed /
    title / subject / changelog / counts) when GITHUB_OUTPUT is set.
 
@@ -40,6 +51,7 @@ import concurrent.futures
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -185,34 +197,31 @@ def collection_wesm_summaries(project):
     return {k: v for k, v in summaries.items() if k.startswith("wesm:")}
 
 
-def wesm_diff(projects):
-    """(drift, rows, missing) for the given cataloged projects.
+def wesm_diff(projects, df):
+    """(drift, rows) for the given cataloged projects.
 
-    drift    {project: [drifted summary field, ...]}
-    rows     {project: live WESM row} for the drifted projects
-    missing  [project, ...] cataloged but no longer resolvable in WESM
+    drift  {project: [drifted summary field, ...]}
+    rows   {project: live WESM row} for the drifted projects
 
     Both sides of the comparison are produced by wesm_summary_fields(), so a
-    serialization difference cannot masquerade as drift. `missing` is reported
-    but never acted on: WESM dropping a workunit says nothing about whether the
-    tiles are still staged (that is the S3 diff's job), so it is a human's call.
+    serialization difference cannot masquerade as drift. Projects with no live
+    WESM row never reach here: they are retired and pruned before the drift
+    check runs (see classify_removal / RETIRED_FROM_WESM).
     """
-    df = create_static_stac.load_wesm()
-    drift, rows, missing = {}, {}, []
+    drift, rows = {}, {}
     for project in projects:
         have = collection_wesm_summaries(project)
         if have is None:
             continue
         series = wesm_row(project, df)
         if series is None:
-            missing.append(project)
             continue
         want = create_static_stac.wesm_summary_fields(series)
         fields = sorted(k for k in set(have) | set(want) if have.get(k) != want.get(k))
         if fields:
             drift[project] = fields
             rows[project] = series
-    return drift, rows, missing
+    return drift, rows
 
 
 def refresh_collection_metadata(project, series):
@@ -253,6 +262,151 @@ def refresh_collection_metadata(project, series):
         item_path.write_text(json.dumps(item, indent=2))
         n_items += 1
     return n_items
+
+
+# ------------------------------------------------------- removal attribution
+# The tile diff reports *what* vanished but never *why*, which leaves a reviewer
+# no basis to judge a prune (issue #19). Attribute each removal to an evidence
+# class first, and let only the classes that rest on an affirmative USGS
+# assertion -- or on the data demonstrably living somewhere else -- prune
+# automatically.
+#
+# These are evidence classes, not statements of USGS intent. WESM has no
+# attribute covering 1m staging at all: every vanished UT_FemaHQ_* workunit
+# still reads onemeter_reason "Meets 3DEP 1-m DEM requirements" while its tifs
+# are gone, so the *_reason fields describe spec compliance, not staging.
+RETIRED_FROM_WESM = "retired-from-wesm"
+WITHDRAWN_FOR_CAUSE = "withdrawn-for-cause"
+SUPERSEDED_BY = "superseded-by"
+TIFFS_MISSING = "tiffs-missing-from-intact-folder"
+UNEXPLAINED = "unexplained"
+UNATTRIBUTED = "unattributed"
+
+# A replacement project has to cover essentially the whole footprint to explain
+# a removal; partial overlap is normal between neighbouring projects.
+SUPERSEDE_MIN_FRAC = 0.9
+
+# Reasons strong enough to destroy a collection without a human looking first.
+AUTO_PRUNABLE = (RETIRED_FROM_WESM, WITHDRAWN_FOR_CAUSE, SUPERSEDED_BY, UNATTRIBUTED)
+
+CELL_RE = re.compile(r"x(\d+)y(\d+)")
+
+
+def auto_prunable(label):
+    """Whether a removal reason justifies pruning without human review."""
+    return label.startswith(AUTO_PRUNABLE)
+
+
+def parse_cell(item_id):
+    """(utm_zone, x, y) grid cell of a USGS 1m tile id, or None.
+
+    Ids look like USGS_1M_12_x49y444_UT_StrawberryRiver_2019. The cell is only
+    comparable across projects because the UTM zone is part of the key -- x/y
+    alone repeat in every zone.
+    """
+    parts = item_id.split("_")
+    if len(parts) < 4 or parts[0] != "USGS" or parts[1] != "1M":
+        return None
+    m = CELL_RE.fullmatch(parts[3])
+    return (parts[2], m.group(1), m.group(2)) if m else None
+
+
+def build_cell_index(holdings):
+    """{grid cell: {project currently holding it}} over all S3 holdings."""
+    index = {}
+    for project, tifs in holdings.items():
+        for item_id in tifs:
+            cell = parse_cell(item_id)
+            if cell:
+                index.setdefault(cell, set()).add(project)
+    return index
+
+
+def companion_counts(project):
+    """{'browse': (n, cells), 'metadata': (n, cells)} still staged for a project.
+
+    USGS stages one .jpg and one .xml per tile alongside the .tif. A folder
+    whose tifs vanished while every companion survives looks like an incomplete
+    re-stage rather than a withdrawal, so it is the one signal that argues
+    *against* pruning.
+    """
+    out = {}
+    paginator = s3.get_paginator("list_objects_v2")
+    for sub, ext in (("browse", ".jpg"), ("metadata", ".xml")):
+        cells, n = set(), 0
+        for page in paginator.paginate(
+            Bucket=BUCKET, Prefix=f"{PROJECTS_PREFIX}{project}/{sub}/"
+        ):
+            for obj in page.get("Contents", []):
+                name = obj["Key"].split("/")[-1]
+                if not name.endswith(ext):
+                    continue
+                n += 1
+                cell = parse_cell(name[: -len(ext)])
+                if cell:
+                    cells.add(cell)
+        out[sub] = (n, cells)
+    return out
+
+
+def classify_removal(project, item_ids, df, cell_index):
+    """(label, evidence) attributing why a cataloged project's tiles vanished.
+
+    Signals are checked in order of how much they actually commit to: an
+    affirmative WESM assertion first, then the footprint demonstrably held by
+    another project, then the folder-shape signal suggesting nothing was
+    withdrawn at all. Anything unmatched stays `unexplained` and is never
+    auto-pruned -- those are the cases worth raising with USGS.
+    """
+    series = wesm_row(project, df)
+    if series is None:
+        return RETIRED_FROM_WESM, "no workunit or project row in WESM.csv"
+
+    category = series.onemeter_category
+    if category == "Does not meet":
+        was = (collection_wesm_summaries(project) or {}).get("wesm:onemeter_category")
+        moved = f", was {was!r} at build time" if was and was != category else ""
+        return (
+            WITHDRAWN_FOR_CAUSE,
+            f"WESM onemeter_category is 'Does not meet'{moved} "
+            f"({series.onemeter_reason})",
+        )
+
+    cells = {c for c in map(parse_cell, item_ids) if c}
+    if cells:
+        covering = {}
+        for cell in cells:
+            for other in cell_index.get(cell, ()):
+                if other != project:
+                    covering[other] = covering.get(other, 0) + 1
+        if covering:
+            # ties broken by name so the label is reproducible run to run
+            best, n = max(covering.items(), key=lambda kv: (kv[1], kv[0]))
+            if n >= SUPERSEDE_MIN_FRAC * len(cells):
+                return (
+                    f"{SUPERSEDED_BY}:{best}",
+                    f"{n}/{len(cells)} grid cells are now staged under {best}",
+                )
+
+    comp = companion_counts(project)
+    n_browse, browse_cells = comp["browse"]
+    n_meta, meta_cells = comp["metadata"]
+    if cells and browse_cells and meta_cells:
+        intact = browse_cells >= cells and meta_cells >= cells
+    else:
+        intact = n_browse >= len(item_ids) and n_meta >= len(item_ids)
+    if intact and (n_browse or n_meta):
+        return (
+            TIFFS_MISSING,
+            f"browse/ ({n_browse}) and metadata/ ({n_meta}) companions survive for "
+            f"all {len(item_ids)} cataloged tiles -- only the tifs are gone",
+        )
+
+    return (
+        UNEXPLAINED,
+        f"WESM still reads onemeter_category {category!r}, no project covers the "
+        f"footprint, and {n_browse} browse / {n_meta} metadata companions remain",
+    )
 
 
 # ------------------------------------------------------------------ rebuild
@@ -332,10 +486,13 @@ def head_check(urls, label, threads=8):
 PR_BODY_MAX_ROWS = 150
 
 
-def _table(rows, headers):
+def _table(rows, headers, align=None):
+    """Markdown table. `align` is one 'l'/'r' per column; counts default to 'r',
+    and anything else (a reason label, a field list) reads better left."""
+    align = align or "l" + "r" * (len(headers) - 1)
     out = [
         "| " + " | ".join(headers) + " |",
-        "| " + " | ".join(["---"] + ["---:"] * (len(headers) - 1)) + " |",
+        "| " + " | ".join("---:" if a == "r" else "---" for a in align) + " |",
     ]
     for r in rows[:PR_BODY_MAX_ROWS]:
         out.append("| " + " | ".join(str(c) for c in r) + " |")
@@ -344,11 +501,11 @@ def _table(rows, headers):
     return "\n".join(out)
 
 
-def _section(title, rows, headers, collapse_over=25):
+def _section(title, rows, headers, collapse_over=25, align=None):
     """A heading plus table, collapsed behind <details> when it gets long."""
     if not rows:
         return ""
-    body = _table(rows, headers)
+    body = _table(rows, headers, align)
     if len(rows) > collapse_over:
         return (
             f"<details>\n<summary><b>{title}</b> (click to expand)</summary>\n\n"
@@ -374,7 +531,16 @@ def render_pr_body(summary, run_url=None):
             f"−{d['removed']}" if d["removed"] else "—",
         ),
     )
-    pruned = rows("pruned", lambda p, d: (f"`{p}`", f"−{d['removed']}"))
+    # the reason is the whole point of the prune table: a bare tile count gives
+    # a reviewer nothing to judge the removal by (issue #19)
+    pruned = rows(
+        "pruned",
+        lambda p, d: (
+            f"`{p}`",
+            f"−{d['removed']}",
+            f"`{d.get('reason', UNATTRIBUTED)}`",
+        ),
+    )
     metadata = rows(
         "metadata",
         lambda p, d: (
@@ -407,23 +573,55 @@ def render_pr_body(summary, run_url=None):
     out.append(
         _section("Rebuilt collections", rebuilt, ["Collection", "Added", "Removed"])
     )
-    out.append(_section("Pruned collections", pruned, ["Collection", "Tiles"]))
+    out.append(
+        _section(
+            "Pruned collections", pruned, ["Collection", "Tiles", "Reason"], align="lrl"
+        )
+    )
+    # evidence is a sentence per collection, too wide for the table above
+    evidence = [
+        f"- `{p}` — {d['evidence']}"
+        for p, d in sorted(details.items())
+        if d["action"] == "pruned" and d.get("evidence")
+    ]
+    if evidence:
+        out.append(
+            "<details>\n<summary>Prune evidence</summary>\n\n"
+            + "\n".join(evidence[:PR_BODY_MAX_ROWS])
+            + "\n\n</details>\n"
+        )
     # tiles untouched: only WESM-derived collection metadata moved, plus item
     # datetimes in the collections whose collect range itself changed
     out.append(
         _section(
-            "WESM metadata updates", metadata, ["Collection", "Fields", "Items updated"]
+            "WESM metadata updates",
+            metadata,
+            ["Collection", "Fields", "Items updated"],
+            align="llr",
         )
     )
 
-    if summary.get("wesm_missing_projects"):
-        names = summary["wesm_missing_projects"]
+    if summary.get("held_projects"):
+        held_reasons = summary.get("held_reasons") or {}
+        lines = "\n".join(
+            f"> - `{p}` — `{held_reasons.get(p, ['?', ''])[0]}`: "
+            f"{held_reasons.get(p, ['', ''])[1]}"
+            for p in summary["held_projects"][:10]
+        )
+        out.append(
+            "> **⏸️ Held for review:** these collections lost their tiles on S3 "
+            "but the removal could not be attributed to an affirmative signal, "
+            "so they were **not** pruned — re-decided next run, or force with "
+            f"`--allow-unexplained-prunes`.\n>\n{lines}\n"
+        )
+    if summary.get("new_unresolved_projects"):
+        names = summary["new_unresolved_projects"]
         shown = ", ".join(f"`{p}`" for p in names[:10])
         more = f" … and {len(names) - 10} more" if len(names) > 10 else ""
         out.append(
-            f"> **No WESM row:** {shown}{more} — cataloged but no longer "
-            "resolvable in `WESM.csv`; metadata left untouched (the tiles are "
-            "diffed against S3 independently).\n"
+            f"> **Not built (no WESM row):** {shown}{more} — present on S3 but "
+            "absent from `WESM.csv`, which is the source of truth for catalog "
+            "membership; built automatically if USGS re-lists them.\n"
         )
     if summary.get("metadata_failures"):
         names = ", ".join(f"`{p}`" for p in summary["metadata_failures"])
@@ -516,6 +714,37 @@ def main():
         help="override --max-removed-tiles after human review",
     )
     ap.add_argument(
+        "--allow-unexplained-prunes",
+        action="store_true",
+        help="also prune collections whose removal could not be attributed to "
+        f"an affirmative signal ({TIFFS_MISSING} / {UNEXPLAINED}); by default "
+        "those are held for review and re-decided next run",
+    )
+    ap.add_argument(
+        "--explain",
+        action="store_true",
+        help="also attribute *partial* tile loss in rebuilt projects, not just "
+        "whole-collection prunes (extra S3 listings per project)",
+    )
+    ap.add_argument(
+        "--min-wesm-rows",
+        type=int,
+        default=3000,
+        help="abort if WESM.csv has fewer rows than this (a truncated table "
+        "would retire collections wholesale)",
+    )
+    ap.add_argument(
+        "--max-wesm-retired",
+        type=int,
+        default=5,
+        help="abort if more cataloged collections than this lost their WESM row",
+    )
+    ap.add_argument(
+        "--allow-large-wesm-retirement",
+        action="store_true",
+        help="override --max-wesm-retired after human review",
+    )
+    ap.add_argument(
         "--full-rebuild",
         action="store_true",
         help="re-derive every item of a rebuilt project from titiler instead of "
@@ -593,9 +822,43 @@ def main():
             f"(< {args.min_projects}); bucket may be mid-repopulation (see issue #6)"
         )
 
+    # WESM is the source of truth for catalog membership. A collection whose
+    # workunit/project row is gone has been retired upstream, so it is pruned
+    # even while tifs linger in the bucket, and an unresolvable S3 folder is not
+    # built in the first place -- otherwise it fails its WESM lookup and raises
+    # the same warning on every run forever (issue #23). Nothing is lost either
+    # way: if USGS re-lists the workunit the folder is rebuilt from S3.
+    wesm_df = None if args.skip_wesm_check else create_static_stac.load_wesm()
+    wesm_retired, new_unresolved = [], []
+    if wesm_df is not None:
+        if len(wesm_df) < args.min_wesm_rows:
+            sys.exit(
+                f"GUARDRAIL: WESM.csv has only {len(wesm_df)} rows "
+                f"(< {args.min_wesm_rows}); refusing to retire collections "
+                "against a possibly truncated table"
+            )
+        wesm_retired = sorted(p for p in local if wesm_row(p, wesm_df) is None)
+        if (
+            len(wesm_retired) > args.max_wesm_retired
+            and not args.allow_large_wesm_retirement
+            and not args.dry_run
+        ):
+            sys.exit(
+                f"GUARDRAIL: {len(wesm_retired)} cataloged collections have no "
+                f"WESM row (> {args.max_wesm_retired}); a revision that drops "
+                "many workunits at once needs review -- rerun with "
+                "--allow-large-wesm-retirement"
+            )
+
+    retired = set(wesm_retired)
     new = sorted(set(holdings) - set(local))
+    if wesm_df is not None:
+        new_unresolved = sorted(p for p in new if wesm_row(p, wesm_df) is None)
+        new = [p for p in new if p not in set(new_unresolved)]
     changed = sorted(
-        p for p in set(holdings) & set(local) if set(holdings[p]) != local[p]
+        p
+        for p in (set(holdings) & set(local)) - retired
+        if set(holdings[p]) != local[p]
     )
 
     # Prune classification: a cataloged project with no tifs on S3 is either
@@ -606,33 +869,60 @@ def main():
     # errors or nothing to probe -> inconclusive -> carry with a warning and
     # let a later run decide (pruning is destructive, so never prune on
     # network errors or unreadable item JSONs).
-    removed, carried_empty = [], []
-    for p in sorted(set(local) - set(holdings)):
-        if p not in folders:
-            removed.append(p)
-            continue
-        urls = [u for u in (item_asset_url(p, i) for i in sorted(local[p])[:5]) if u]
-        codes = [head_status(u) for u in urls]
-        if any(c == 200 for c in codes):
-            carried_empty.append(p)
-            print(
-                f"  CARRIED  {p}: TIFF/ empty but folder present and items still "
-                "reachable -- possible restage in progress, not pruning",
-                flush=True,
-            )
-        elif codes and all(c == 404 for c in codes):
-            removed.append(p)
-            print(
-                f"  {p}: folder remnant with no tifs and all {len(codes)} probed "
-                "items 404 -- treating as removed",
-                flush=True,
-            )
+    removed, carried_empty, held = [], [], []
+    reasons = {}
+    cell_index = build_cell_index(holdings)
+
+    # retired upstream: pruned on WESM's say-so, whatever S3 still holds
+    for p in wesm_retired:
+        reasons[p] = classify_removal(p, local[p], wesm_df, cell_index)
+        removed.append(p)
+        print(
+            f"  RETIRED  {p}: {reasons[p][1]} -- pruning {len(local[p])} tiles",
+            flush=True,
+        )
+
+    for p in sorted(set(local) - set(holdings) - retired):
+        if p in folders:
+            urls = [
+                u for u in (item_asset_url(p, i) for i in sorted(local[p])[:5]) if u
+            ]
+            codes = [head_status(u) for u in urls]
+            if any(c == 200 for c in codes):
+                carried_empty.append(p)
+                print(
+                    f"  CARRIED  {p}: TIFF/ empty but folder present and items "
+                    "still reachable -- possible restage in progress, not pruning",
+                    flush=True,
+                )
+                continue
+            if not (codes and all(c == 404 for c in codes)):
+                carried_empty.append(p)
+                print(
+                    f"  CARRIED  {p}: TIFF/ empty but probe inconclusive "
+                    f"(HEAD codes {codes}) -- carrying unchanged, will re-probe "
+                    "next run",
+                    flush=True,
+                )
+                continue
+
+        # Reachability says the tiles are gone; ask *why* before destroying the
+        # collection (issue #19). Without WESM there is nothing to attribute
+        # with, so --skip-wesm-check keeps the pre-#19 reachability-only rule.
+        if wesm_df is None:
+            reasons[p] = (UNATTRIBUTED, "WESM check skipped (--skip-wesm-check)")
         else:
-            carried_empty.append(p)
+            reasons[p] = classify_removal(p, local[p], wesm_df, cell_index)
+        label, evidence = reasons[p]
+
+        if auto_prunable(label) or args.allow_unexplained_prunes:
+            removed.append(p)
+            print(f"  REMOVED  {p}: {label} -- {evidence}", flush=True)
+        else:
+            held.append(p)
             print(
-                f"  CARRIED  {p}: TIFF/ empty but probe inconclusive "
-                f"(HEAD codes {codes}) -- carrying unchanged, will re-probe "
-                "next run",
+                f"  HELD     {p}: {label} -- {evidence}; not pruning without "
+                "review (--allow-unexplained-prunes overrides)",
                 flush=True,
             )
 
@@ -640,10 +930,10 @@ def main():
     # so compare the snapshotted collection summaries too (issue #18). Projects
     # about to be rebuilt or pruned are skipped: a rebuild re-reads WESM anyway,
     # and a failed rebuild leaves the drift to be caught next run.
-    wesm_drift, wesm_rows, wesm_missing = {}, {}, []
-    if not args.skip_wesm_check:
-        wesm_drift, wesm_rows, wesm_missing = wesm_diff(
-            sorted(set(local) - set(changed) - set(removed))
+    wesm_drift, wesm_rows = {}, {}
+    if wesm_df is not None:
+        wesm_drift, wesm_rows = wesm_diff(
+            sorted(set(local) - set(changed) - set(removed)), wesm_df
         )
 
     # Per-project tile deltas, computed once and reused by the console log, the
@@ -652,13 +942,27 @@ def main():
     for p in new:
         details[p] = {"action": "new", "added": len(holdings[p]), "removed": 0}
     for p in changed:
-        details[p] = {
+        d = {
             "action": "rebuilt",
             "added": len(set(holdings[p]) - local[p]),
             "removed": len(local[p] - set(holdings[p])),
         }
+        # partial tile loss inside a surviving project gets no attribution by
+        # default -- the collection is not at stake, and each classification
+        # costs two more S3 listings
+        if args.explain and d["removed"] and wesm_df is not None:
+            lost = local[p] - set(holdings[p])
+            d["reason"], d["evidence"] = classify_removal(p, lost, wesm_df, cell_index)
+        details[p] = d
     for p in removed:
-        details[p] = {"action": "pruned", "added": 0, "removed": len(local[p])}
+        label, evidence = reasons.get(p, (UNATTRIBUTED, ""))
+        details[p] = {
+            "action": "pruned",
+            "added": 0,
+            "removed": len(local[p]),
+            "reason": label,
+            "evidence": evidence,
+        }
     for p, fields in sorted(wesm_drift.items()):
         details[p] = {
             "action": "metadata",
@@ -684,15 +988,17 @@ def main():
     for p in changed:
         print(f"  CHANGED  {p} (+{details[p]['added']} / -{details[p]['removed']})")
     for p in removed:
-        print(f"  REMOVED  {p} ({details[p]['removed']} tiles)")
+        print(f"  REMOVED  {p} ({details[p]['removed']} tiles, {details[p]['reason']})")
     for p, fields in sorted(wesm_drift.items()):
         names = ", ".join(f.removeprefix("wesm:") for f in fields)
         print(f"  METADATA {p} ({names})")
-    if wesm_missing:
+    for p in held:
+        print(f"  HELD     {p} ({len(local[p])} tiles, {reasons[p][0]})")
+    if new_unresolved:
         print(
-            f"  {len(wesm_missing)} cataloged collections have no WESM row "
-            f"(metadata left untouched): {', '.join(wesm_missing[:10])}"
-            + (" ..." if len(wesm_missing) > 10 else "")
+            f"  {len(new_unresolved)} S3 folders have no WESM row and were not "
+            f"built: {', '.join(new_unresolved[:10])}"
+            + (" ..." if len(new_unresolved) > 10 else "")
         )
 
     changed_any = bool(new or changed or removed or wesm_drift)
@@ -705,8 +1011,11 @@ def main():
         "changed_projects": changed,
         "removed_projects": removed,
         "carried_empty_projects": carried_empty,
+        "held_projects": held,
+        "held_reasons": {p: list(reasons[p]) for p in held},
+        "wesm_retired_projects": wesm_retired,
+        "new_unresolved_projects": new_unresolved,
         "metadata_projects": sorted(wesm_drift),
-        "wesm_missing_projects": wesm_missing,
         "tiles_added": n_tiles_added,
         "tiles_removed": n_tiles_removed,
         "dry_run": args.dry_run,
