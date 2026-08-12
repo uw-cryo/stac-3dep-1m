@@ -179,14 +179,33 @@ def create_stac_item(URL, DATETIME):
         print(r.status_code)
         print(r.text)
 
-        if r.status_code == 500:
-            if r.json().get("detail", "").startswith("Too many bins for data range"):
-                params["with_raster"] = "false"
-                r = requests.get(stacify, params=params, timeout=TIMEOUT)
+        # NOTE: match on r.text, not r.json(). A 502 body is plain text
+        # ("Internal Server Error"), so r.json() raised JSONDecodeError here.
+        if r.status_code == 500 and "Too many bins for data range" in r.text:
+            params["with_raster"] = "false"
+            r = requests.get(stacify, params=params, timeout=TIMEOUT)
         else:  # internal server errors seem to be 502?
             # just retry after a moment
             time.sleep(1)
             r = requests.get(stacify, params=params, timeout=TIMEOUT)
+
+        # Statistics are what titiler actually chokes on: it asks GDAL for a
+        # decimated read (max_size=1024), which is a few hundred KB off a COG
+        # overview but a full-resolution pass over a re-staged non-COG -- e.g.
+        # TX_WestTexas_2018_D19's two uncompressed, un-overviewed, 148 MB
+        # tiles, which 502 every time. Drop the stats before giving up.
+        if r.status_code != 200 and params.get("with_raster") != "false":
+            print(f"{ID}: retrying without raster statistics")
+            params["with_raster"] = "false"
+            r = requests.get(stacify, params=params, timeout=TIMEOUT)
+
+        # Never return an unvalidated body: it used to surface ~1000 tiles
+        # later as an opaque JSONDecodeError from json.loads("Internal Server
+        # Error"), taking the whole collection build down with it.
+        if r.status_code != 200:
+            raise RuntimeError(
+                f"titiler HTTP {r.status_code} for {URL}: {r.text[:200]!r}"
+            )
 
     return r.text
 
@@ -344,8 +363,8 @@ def normalize_projection(item_dict):
 
 
 # TODO: can probably speed this up a lot just by taking min/max of bboxes
-def get_collection_bbox(results):
-    gf = gpd.GeoDataFrame.from_features([json.loads(x) for x in results])
+def get_collection_bbox(item_dicts):
+    gf = gpd.GeoDataFrame.from_features(item_dicts)
     return gf.total_bounds.tolist()
 
 
@@ -365,7 +384,43 @@ def list_tiffs_in_project(project, bucket="prd-tnm"):
     return [f"https://{bucket}.s3.amazonaws.com/{key}" for key in tiff_files]
 
 
-def create_stac_catalog(project, is_workunit=False):
+def reusable_items(project, datetime_str, full=False):
+    """{item_id: item dict} for items already in catalog/<project>.
+
+    A rebuild is triggered by the tile *set* changing, but re-deriving all ~1000
+    existing items from titiler to pick up 22 new ones is both slow and fragile:
+    one tile titiler cannot answer for kills the whole collection (issue: two of
+    TX_WestTexas_2018_D19's tiles were re-staged as 148 MB non-COGs and 502 on
+    every statistics request). Everything titiler derives from a tile -- geometry,
+    projection, raster stats -- is a function of that tile alone, so an unchanged
+    tile's item can be reused as is. Only the datetimes come from WESM, and those
+    are restamped here so an incremental rebuild ends up where a full one would.
+
+    full=True re-derives everything from titiler instead (after a titiler
+    upgrade, or to pick up tiles whose pixels were re-staged in place).
+    """
+    if full:
+        return {}
+    start, end = datetime_str.split("/")
+    items = {}
+    for path in sorted(Path(f"./catalog/{project}").glob("*.json")):
+        if path.name == "collection.json":
+            continue
+        try:
+            item = json.loads(path.read_text())
+        except Exception:
+            continue  # unreadable -> let titiler rebuild it
+        item["properties"]["start_datetime"] = start
+        item["properties"]["end_datetime"] = end
+        # drop the on-disk root/collection/parent links: they are relative
+        # ("./collection.json") and unresolvable until the item has an href, and
+        # collection.add_items() + normalize_hrefs() rewrite them regardless
+        item["links"] = []
+        items[path.stem] = item
+    return items
+
+
+def create_stac_catalog(project, is_workunit=False, full=False):
     """Create a STAC catalog from a 3DEP 1m project"""
     s = get_wesm_series(project, is_workunit=is_workunit)
 
@@ -379,13 +434,23 @@ def create_stac_catalog(project, is_workunit=False):
     if len(tiflist) == 0:
         raise ValueError(f"No tiffs found for project '{project}'")
 
-    print(f"creating STAC Items from {len(tiflist)} tifs...")
     # Same datatime range for all tifs in a project
     # Formatted for TITILER 2019-08-21T00:00:00Z/2019-09-19T00:00:00Z'
     DATETIME = get_titiler_datetime(s)
 
+    reused = reusable_items(project, DATETIME, full=full)
+    todo = [url for url in tiflist if url.split("/")[-1][:-4] not in reused]
+    # tiles that vanished upstream are simply not in tiflist, so they drop out
+    reused = {
+        i: d for i, d in reused.items() if i in {u.split("/")[-1][:-4] for u in tiflist}
+    }
+    print(
+        f"creating STAC Items from {len(tiflist)} tifs "
+        f"({len(todo)} from titiler, {len(reused)} reused)..."
+    )
+
     # ASYNC
-    results = generate_stac_from_titiler(tiflist, DATETIME)
+    results = generate_stac_from_titiler(todo, DATETIME) if todo else []
 
     # SYNC
     # results = []
@@ -422,11 +487,15 @@ def create_stac_catalog(project, is_workunit=False):
     #     item = pystac.read_dict(json.loads(x))
     #     print(item.id)
     #     items.append(item)
-    items = [pystac.read_dict(normalize_projection(json.loads(x))) for x in results]
+    # normalize_projection() on the titiler responses only: reused items came
+    # out of the catalog, which is already uniformly projection v2.0.0
+    item_dicts = [normalize_projection(json.loads(x)) for x in results]
+    item_dicts += list(reused.values())
+    items = [pystac.read_dict(d) for d in item_dicts]
 
     # THis will be 'collection' level metadata, not in each item
     # [add_wesm_metadata_to_properties(item, s) for item in items]
-    collection_bbox = get_collection_bbox(results)
+    collection_bbox = get_collection_bbox(item_dicts)
 
     # extent either from metadata or geodataframe
     # Probably fastest to get it from WESM GPKG from fid lookup
@@ -506,7 +575,16 @@ if __name__ == "__main__":
         "--overwrite",
         action="store_true",
         default=False,
-        help="Overwrite existing project folder if it exists",
+        help="Overwrite existing project folder if it exists "
+        "(items already present are reused; only new tiles hit titiler)",
+    )
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        default=False,
+        help="With --overwrite, re-derive every item from titiler instead of "
+        "reusing existing ones (after a titiler upgrade, or to pick up tiles "
+        "whose pixels were re-staged in place)",
     )
     args = parser.parse_args()
 
@@ -525,8 +603,8 @@ if __name__ == "__main__":
     if stac_path.exists():
         if args.overwrite:
             print(f"Overwriting existing project folder '{project}'.")
-            create_stac_catalog(project, is_workunit)
+            create_stac_catalog(project, is_workunit, full=args.full)
         else:
             print(f"Output folder '{project}' already exists, skipping.")
     else:
-        create_stac_catalog(project, is_workunit)
+        create_stac_catalog(project, is_workunit, full=args.full)

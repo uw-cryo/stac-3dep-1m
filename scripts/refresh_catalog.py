@@ -256,16 +256,20 @@ def refresh_collection_metadata(project, series):
 
 
 # ------------------------------------------------------------------ rebuild
-def build_project(project, overwrite=False):
+def build_project(project, overwrite=False, full=False):
     """Run create_static_stac.py for one project; True on success.
 
     Mirrors create_all.py: try as WESM workunit first, then as project.
+    A rebuild reuses the items already on disk and asks titiler only about new
+    tiles; full=True re-derives every item instead (see --full-rebuild).
     """
     script = Path(__file__).parent / "create_static_stac.py"
     for flag in ("--workunit", "--project"):
         cmd = [sys.executable, str(script), flag, project]
         if overwrite:
             cmd.append("--overwrite")
+        if full:
+            cmd.append("--full")
         try:
             subprocess.run(cmd, check=True)
             return True
@@ -510,6 +514,13 @@ def main():
         "--allow-large-removals",
         action="store_true",
         help="override --max-removed-tiles after human review",
+    )
+    ap.add_argument(
+        "--full-rebuild",
+        action="store_true",
+        help="re-derive every item of a rebuilt project from titiler instead of "
+        "reusing unchanged ones (slow: one request per tile, and it re-reads "
+        "tiles titiler may no longer be able to answer for)",
     )
     ap.add_argument(
         "--skip-wesm-check",
@@ -759,7 +770,7 @@ def main():
         if not build_project(p):
             failures.append(p)
     for p in changed:
-        if not build_project(p, overwrite=True):
+        if not build_project(p, overwrite=True, full=args.full_rebuild):
             failures.append(p)
     for p in removed:
         prune_project(p)
