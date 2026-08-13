@@ -292,30 +292,26 @@ def refresh_collection_metadata(project, series):
         raise ValueError(f"unusable WESM collect range ({start}/{end})")
 
     path = CATALOG_DIR / project / "collection.json"
-    original = path.read_text()
-    collection = json.loads(original)
-    dumps = create_static_stac.stac_json_dumper(original, collection)
+    collection = json.loads(path.read_text())
     summaries = collection.get("summaries", {})
     for key in [k for k in summaries if k.startswith("wesm:")]:
         del summaries[key]
     summaries.update(create_static_stac.wesm_summary_fields(series))
     collection["summaries"] = summaries
     collection["extent"]["temporal"]["interval"] = [[start, end]]
-    path.write_text(dumps(collection))
+    path.write_text(create_static_stac.dump_stac_json(collection))
 
     n_items = 0
     for item_path in sorted((CATALOG_DIR / project).glob("*.json")):
         if item_path.name == "collection.json":
             continue
-        item_original = item_path.read_text()
-        item = json.loads(item_original)
+        item = json.loads(item_path.read_text())
         props = item.get("properties", {})
         if props.get("start_datetime") == start and props.get("end_datetime") == end:
             continue
-        item_dumps = create_static_stac.stac_json_dumper(item_original, item)
         props["start_datetime"] = start
         props["end_datetime"] = end
-        item_path.write_text(item_dumps(item))
+        item_path.write_text(create_static_stac.dump_stac_json(item))
         n_items += 1
     return n_items
 

@@ -65,16 +65,12 @@ def backfill_project(project, dry_run=False):
             # apply), not this script's. Leave it exactly as it is.
             n_orphaned += 1
             continue
-        original = path.read_text()
-        item = json.loads(original)
+        item = json.loads(path.read_text())
         if create_static_stac.item_file_metadata(item) == meta:
             continue  # already current
-        # decide how to serialize before mutating, so the file keeps its own
-        # float formatting and the diff is only the added lines
-        dumps = create_static_stac.stac_json_dumper(original, item)
         create_static_stac.add_file_metadata(item, meta)
         if not dry_run:
-            path.write_text(dumps(item))
+            path.write_text(create_static_stac.dump_stac_json(item))
         n_updated += 1
 
     n_missing = sum(1 for m in live.values() if "file:checksum" not in m)

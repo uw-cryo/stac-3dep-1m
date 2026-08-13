@@ -58,11 +58,13 @@ Some folders have no TIFFs at all; those are listed in `NO_TIFFS` in `create_all
 
 Every item also carries the STAC `file` extension's `file:size` and `file:checksum` on its `elevation` asset, stamped by `add_file_metadata()` (see below). Same rule applies: all ~124k or none.
 
-### In-place rewrites must preserve each file's own JSON formatting
+### JSON serialization is pinned to the stdlib
 
-pystac serializes with **orjson** when it is installed and the stdlib otherwise, and the two disagree on float repr — orjson writes `0.00009924415650406505` and `-3.4028230607370965e38`, the stdlib writes `9.924415650406505e-05` and `-3.4028230607370965e+38`. The committed catalog contains **both**, because it was built across environments that differed: ~18.4k items carry the stdlib spelling, 33 the orjson one, and one file has both (a stdlib-written item later half-rewritten by an orjson-based in-place repair).
+pystac picks its serializer by what happens to be importable — orjson if present, the stdlib otherwise — and the two disagree on float repr: orjson writes `0.00009924415650406505` and `-3.4028230607370965e38` where the stdlib writes `9.924415650406505e-05` and `-3.4028230607370965e+38`. The catalog was built across environments that differed, so it accumulated **both** spellings (~18.4k items stdlib, 32 orjson, one file mixed) and an in-place edit silently reformatted whatever it touched.
 
-So there is no single correct serializer to normalize to. Anything editing an item or collection in place must call `create_static_stac.stac_json_dumper(original_text, parsed_dict)` **before mutating**, and write with what it returns — that picks whichever serializer reproduces the file in hand, keeping the diff to the lines actually changed. `refresh_collection_metadata()` and `backfill_file_metadata.py` both do this. Normalizing the catalog to one serializer would be a legitimate change, but a deliberate, separate one touching every item.
+`create_static_stac.StdlibStacIO` is now installed via `pystac.StacIO.set_default()`, so every write goes through `json.dumps(indent=2)` regardless of what is installed, and `dump_stac_json()` is the single helper for direct writes. The catalog has been normalized to match (32 files). **Keep it that way**: a float rendered two ways is a diff on every item that touches it.
+
+The pin is what guarantees this, not the absence of orjson. `stac-geoparquet` — the only package that pulled orjson in — was dropped because nothing imports it (`rustac` does all the GeoParquet work), but any future dependency could pull it back without warning, and the failure mode is silent.
 
 ### Content drift: `file:size` + `file:checksum` (issue #17)
 

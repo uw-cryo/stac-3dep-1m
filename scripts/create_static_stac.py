@@ -487,46 +487,32 @@ def add_file_metadata(item_dict, meta):
     return item_dict
 
 
-# Anything that rewrites a catalog file in place has to reproduce that file's own
-# JSON formatting, or the rewrite churns lines it never meant to touch. The
-# catalog contains *both* of these, because pystac serializes with orjson when it
-# is installed and with the stdlib when it is not, and the two disagree on float
-# repr -- orjson writes 0.00009924415650406505 and -3.4028230607370965e38 where
-# the stdlib writes 9.924415650406505e-05 and -3.4028230607370965e+38. Roughly
-# 18.4k committed items carry the stdlib spelling and 33 the orjson one, so there
-# is no single "correct" serializer to normalize to; picking whichever one
-# reproduces the file in hand keeps an in-place edit purely additive and leaves
-# the question of normalizing the catalog to a separate, deliberate change.
-_STAC_IO = pystac.stac_io.DefaultStacIO()
+# pystac picks its JSON serializer by what happens to be installed: orjson if it
+# can import it, the stdlib otherwise. The two disagree on float repr -- orjson
+# writes 0.00009924415650406505 and -3.4028230607370965e38 where the stdlib
+# writes 9.924415650406505e-05 and -3.4028230607370965e+38 -- so the on-disk
+# format of an item depended on the environment that built it, and the catalog
+# ended up holding both spellings (~18.4k items stdlib, 32 orjson).
+#
+# Removing orjson is not an option: stac-geoparquet depends on it, so it is
+# always in the environment. Pinning the serializer here is the better fix
+# anyway, because it makes the output independent of what is installed rather
+# than merely consistent with today's solve. The stdlib is the one to pin to --
+# 125309 of the 125341 committed files already match it, so normalizing costs 32
+# files instead of 18435.
+class StdlibStacIO(pystac.stac_io.DefaultStacIO):
+    """StacIO that always serializes with the stdlib, never orjson."""
+
+    def json_dumps(self, json_dict, *args, **kwargs):
+        return json.dumps(json_dict, indent=2)
 
 
-def _dumps_pystac(d):
-    return _STAC_IO.json_dumps(d)
-
-
-def _dumps_stdlib(d):
-    return json.dumps(d, indent=2)
-
-
-_DUMPERS = (_dumps_pystac, _dumps_stdlib)
-
-
-def stac_json_dumper(original_text, item_dict):
-    """The serializer that reproduces `original_text` from `item_dict`.
-
-    Call it *before* mutating item_dict, then use the returned function to write
-    the mutated version. Falls back to pystac's own serializer when neither
-    matches (a file that was hand-edited, or a future pystac formatting change).
-    """
-    for dumps in _DUMPERS:
-        if dumps(item_dict) == original_text:
-            return dumps
-    return _DUMPERS[0]
+pystac.StacIO.set_default(StdlibStacIO)
 
 
 def dump_stac_json(d):
-    """Serialize a catalog dict the way pystac's save() would."""
-    return _dumps_pystac(d)
+    """Serialize a catalog dict exactly as pystac's save() now writes it."""
+    return json.dumps(d, indent=2)
 
 
 def item_file_metadata(item_dict):
