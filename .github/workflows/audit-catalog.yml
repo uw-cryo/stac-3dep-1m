@@ -150,7 +150,7 @@ jobs:
       # uploaded whether or not the part failed, so findings survive a timeout
       - name: Upload part report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: audit-report-part${{ matrix.part }}
           path: audit_report_part${{ matrix.part }}.json
@@ -174,7 +174,9 @@ jobs:
         with:
           cache: true
 
-      - uses: actions/download-artifact@v4
+      # v8 defaults digest-mismatch to error rather than a warning, which is
+      # what we want: a corrupted part must fail the run, not quietly shrink it
+      - uses: actions/download-artifact@v8
         with:
           pattern: audit-report-part*
           path: reports
@@ -187,7 +189,7 @@ jobs:
 
       - name: Upload merged report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: audit-report
           path: audit_report.json
