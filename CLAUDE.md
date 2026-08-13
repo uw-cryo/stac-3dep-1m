@@ -19,6 +19,7 @@ pixi run create-stac --project WA_KingCounty_2021_B21 --overwrite  # one project
 pixi run create-all                # every S3 project folder not already in catalog/
 pixi run refresh --dry-run         # diff catalog/ vs S3, report only
 pixi run refresh                   # diff + rebuild/prune + validate (mutates catalog/)
+pixi run backfill-file-metadata    # re-stamp file:size/file:checksum from S3 (idempotent)
 ulimit -n 500000 && pixi run catalog2geoparquet   # full catalog -> catalog.parquet
 pixi run collection2geoparquet catalog/<ID>/collection.json out.parquet
 pixi run update-root-catalog       # link new children into catalog/catalog.json
@@ -55,6 +56,29 @@ Some folders have no TIFFs at all; those are listed in `NO_TIFFS` in `create_all
 
 `normalize_projection()` rewrites projection extension v1.x (`proj:epsg`) to v2.0.0 (`proj:code`) so the whole catalog — and therefore the GeoParquet column schema — stays uniform regardless of which TiTiler version answered. Anything that changes Item properties has to keep all ~124k items consistent or the parquet build produces a mixed schema.
 
+Every item also carries the STAC `file` extension's `file:size` and `file:checksum` on its `elevation` asset, stamped by `add_file_metadata()` (see below). Same rule applies: all ~124k or none.
+
+### In-place rewrites must preserve each file's own JSON formatting
+
+pystac serializes with **orjson** when it is installed and the stdlib otherwise, and the two disagree on float repr — orjson writes `0.00009924415650406505` and `-3.4028230607370965e38`, the stdlib writes `9.924415650406505e-05` and `-3.4028230607370965e+38`. The committed catalog contains **both**, because it was built across environments that differed: ~18.4k items carry the stdlib spelling, 33 the orjson one, and one file has both (a stdlib-written item later half-rewritten by an orjson-based in-place repair).
+
+So there is no single correct serializer to normalize to. Anything editing an item or collection in place must call `create_static_stac.stac_json_dumper(original_text, parsed_dict)` **before mutating**, and write with what it returns — that picks whichever serializer reproduces the file in hand, keeping the diff to the lines actually changed. `refresh_collection_metadata()` and `backfill_file_metadata.py` both do this. Normalizing the catalog to one serializer would be a legitimate change, but a deliberate, separate one touching every item.
+
+### Content drift: `file:size` + `file:checksum` (issue #17)
+
+The refresh diff is over tile *sets*, so a tile reprocessed under its existing S3 key — same name, new pixels — produces no add and no remove and is invisible. `USGS_1M_12_x29y395_AZ_AubreyCherry_2020_D20` went from 10012×10012 to 1234×1549 on an off-grid origin and was caught only because its project independently lost 5 tiles.
+
+`file:checksum` holds S3's **CRC64NVME** as a hex multihash: multicodec `crc64-nvme` is `0x0165`, varint `e5 02`, then the 8-byte length — so every checksum is `"e50208"` + 16 hex digits. AWS stores this as object metadata for all 124,407 tiles, so re-checking it costs one HEAD per tile (~1100/s, ~2 min for the catalog), not a re-read of 30.2 TB. Why not the alternatives:
+
+* **`file:size` alone** cannot see a same-size pixel rewrite, and 12.6% of the catalog (15,622 tiles) is stored uncompressed, where the byte count is fixed by `proj:shape` × dtype and *cannot* move when pixels change.
+* **ETag** is a hash of part hashes for 65% of these tiles, so a plain server-side re-copy changes it while no pixel moved. CRC64NVME is `FULL_OBJECT`, computed over the whole object independent of part layout.
+* **LastModified** is useless here: all 124,407 objects carry a 2026 stamp from a bulk prefix rewrite (issue #6).
+* **SHA-256** would be a stronger, more portable digest, but S3 does not hold one — computing it means reading all 30.2 TB, which makes it a write-once field that can never be re-verified on a weekly run. That is the opposite of what the issue needs.
+
+Flow: `refresh` compares each item's recorded values against a live HEAD (`restaged_diff`), and any project with drift joins the rebuild list. `reusable_items()` then declines to reuse exactly the drifted items, so titiler is asked about those tiles and no others. Guardrails mirror the rest of the script — `--max-restaged-tiles` (2000) with `--allow-large-restaging`, and `--skip-checksum-check` to skip the HEAD pass entirely.
+
+`backfill_file_metadata.py` established the baseline without a titiler round trip. It is a **go-forward** baseline, not an audit: an item whose tile was re-staged *before* the backfill got today's size and checksum paired with yesterday's geometry, and will look self-consistent forever. Correcting those needs `refresh --full-rebuild` (~3.5 h at the measured 10 items/s), which is a separate call.
+
 ### Automation
 
 * `.github/workflows/update-catalog.yml` — weekly (Mon 06:00 UTC) + `workflow_dispatch` (`dry_run`, `allow_large_removals`). Runs `pixi run refresh` and opens a PR; no PR when nothing changed.
@@ -70,6 +94,7 @@ Some folders have no TIFFs at all; those are listed in `NO_TIFFS` in `create_all
 * a cataloged project whose `TIFF/` went empty is pruned **only** if the folder prefix is gone, or every probed item URL returns 404 — a 200, a probe error, or nothing to probe means carry unchanged and re-decide next run. Never make pruning fire on network errors.
 * new/changed item URLs must all HEAD 200; a random sample of *untouched* carried-over items must 404 below `--max-404-pct`.
 * abort if more than `--max-metadata-updates` (300) collections drift in WESM, unless `--allow-large-metadata-updates` — a WESM schema change (column added/renamed) drifts every collection at once.
+* abort if more than `--max-restaged-tiles` (2000) tiles changed content under an existing key, unless `--allow-large-restaging` — a genuine bulk reprocessing upstream would otherwise queue one titiler request per tile across the whole catalog.
 
 A tile-set diff cannot see a WESM revision that adds or removes no tiles (issue #18), so `refresh` also compares each `collection.json`'s snapshotted `wesm:*` summaries against live `WESM.csv` and repairs the drifted ones **in place** — summaries, collection temporal extent, and (only when `collect_start`/`collect_end` moved) every item's `start_datetime`/`end_datetime`. No titiler round trip; the tiles are untouched. Both sides of the comparison go through `create_static_stac.wesm_summary_fields()` so a serialization difference cannot masquerade as drift, and the rewrite is byte-identical to a full rebuild apart from those fields. Disable with `--skip-wesm-check`.
 
