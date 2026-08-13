@@ -6,6 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Only consider tracked files in the repository. Do not consider untracked files, even if they are in the same directory as tracked files.
 
+## Filing issues
+
+**Never open an issue in an upstream repository.** Not titiler, rio-tiler, rio-stac, GDAL, numpy, pystac, or anything else outside this repo — no exceptions, and no "it's clearly a bug there" shortcut. When something looks like an upstream bug, ask first, then offer a write-up (minimal reproduction, versions tested, expected vs actual) for the user to file manually under their own account.
+
+Issues in *this* repo are fine when the user asks for one.
+
 ## Python Environment
 
 Always use `pixi run python ...` when running Python commands. Do NOT create virtual environments (no `python -m venv`, `conda create`, `uv venv`, etc.). All Python execution should go through pixi.
