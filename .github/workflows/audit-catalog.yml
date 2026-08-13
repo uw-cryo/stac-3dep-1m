@@ -185,14 +185,19 @@ jobs:
         run: |
           set -euo pipefail
           pixi run python scripts/audit_catalog.py \
-            --merge-reports reports --json audit_report.json --fail-on-mismatch
+            --merge-reports reports --json audit_report.json \
+            --markdown audit-summary.md --fail-on-mismatch
 
+      # audit-summary.md is the one to read; audit_report.json has the old vs
+      # new value of every differing leaf behind it
       - name: Upload merged report
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: audit-report
-          path: audit_report.json
+          path: |
+            audit-summary.md
+            audit_report.json
           if-no-files-found: warn
 
       - name: Report failed parts

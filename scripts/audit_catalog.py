@@ -294,52 +294,189 @@ def changed_fields(problems, limit=8):
     return shown
 
 
+# What a finding means and what to do about it. A mismatch is not automatically
+# a rebuild: two of these are titiler telling us something about itself rather
+# than about the tile, and one of those would *lose* metadata if acted on. Order
+# matters -- the first match wins -- so the "do not act" cases are tested first.
+#
+# Keys are stable; the audit reports the class, it does not act on it.
+FINDING_CLASSES = (
+    (
+        "raster-bands-lost",
+        "loses `raster:bands`",
+        "**do not rebuild** — titiler could not compute statistics for this tile "
+        "and fell back to `with_raster=false`; rebuilding would delete metadata "
+        "the item already has",
+    ),
+    (
+        "tile-missing",
+        "tile absent from S3",
+        "`refresh` — this is a removal, and its prune guardrails should decide it",
+    ),
+    (
+        "file-metadata",
+        "`file:size` / `file:checksum` only",
+        "`refresh` — re-staged after the backfill, so `restaged_diff` already "
+        "catches it",
+    ),
+    (
+        "raster-bands-gained",
+        "gains `raster:bands`",
+        "rebuild — restores statistics the item lost to a `with_raster=false` fallback",
+    ),
+    (
+        "band-unit",
+        "gains `raster:bands[].unit`",
+        "rebuild — the tile's band metadata really did change (a titiler-version "
+        "effect would hit every item, not a handful)",
+    ),
+    (
+        "geometry",
+        "geometry / projection drift",
+        "rebuild — the pixels were re-staged in place, which is the drift "
+        "`refresh` cannot see",
+    ),
+    ("other", "other", "inspect the report before acting"),
+)
+
+
+def classify(problems):
+    """Which FINDING_CLASSES key describes this tile's problems."""
+    text = "\n".join(problems)
+    # both conditions on the *same* problem: some other field going missing is
+    # not this class, and should fall through to "other" rather than borrow a
+    # recommendation written for raster:bands
+    if any("absent in fresh" in p and "raster:bands" in p for p in problems):
+        return "raster-bands-lost"
+    if any(p == "tile not present in S3 listing" for p in problems):
+        return "tile-missing"
+    if all(p.startswith(("file:size", "file:checksum")) for p in problems):
+        return "file-metadata"
+    if "raster:bands: absent in item" in text:
+        return "raster-bands-gained"
+    if re.search(r"^/properties/proj:(shape|transform|bbox|geometry)", text, re.M) or (
+        re.search(r"^/(geometry|bbox)", text, re.M)
+    ):
+        return "geometry"
+    if "/unit:" in text:
+        return "band-unit"
+    return "other"
+
+
+def render_summary(report):
+    """The whole report as human-readable markdown.
+
+    One renderer feeds both the GitHub job summary and the audit-summary.md
+    artifact, so what you read in the run and what you download cannot drift
+    apart.
+    """
+    findings, errors, notes = report["findings"], report["errors"], report["notes"]
+    checked, collections = report["tiles_checked"], report["collections"]
+    out = ["# Catalog audit\n"]
+
+    if findings:
+        projects = {d["project"] for d in findings.values()}
+        out.append(
+            f"**{len(findings)} of {checked:,} tiles ({100 * len(findings) / checked:.3f}%) "
+            f"would change if rebuilt**, across {len(projects)} of {collections:,} "
+            f"collections. Scope: {report['scope']}.\n"
+        )
+    else:
+        out.append(
+            f"**No mismatches.** All {checked:,} tiles across {collections:,} "
+            f"collections are what a rebuild would produce. Scope: {report['scope']}.\n"
+        )
+    if errors:
+        out.append(
+            f"{len(errors)} tiles could not be checked at all (after a retry). Those "
+            "are **not** drift — they are tiles the audit failed to reach, usually "
+            "titiler shedding load. They are listed separately below.\n"
+        )
+    if report.get("missing_parts"):
+        out.append(
+            f"⚠️ **Parts {report['missing_parts']} never reported.** This summary "
+            "covers only the parts that did, so it is incomplete, not clean.\n"
+        )
+
+    if findings:
+        grouped = {}
+        for item_id, d in findings.items():
+            grouped.setdefault(classify(d["problems"]), []).append((item_id, d))
+
+        out.append("\n## What changed, and what to do about it\n")
+        out.append("| Change | Tiles | Collections | Recommended |")
+        out.append("| --- | ---: | ---: | --- |")
+        for key, label, action in FINDING_CLASSES:
+            rows = grouped.get(key)
+            if not rows:
+                continue
+            ncoll = len({d["project"] for _, d in rows})
+            out.append(f"| {label} | {len(rows)} | {ncoll} | {action} |")
+        out.append(
+            "\nThese are descriptions of the difference, not statements about "
+            "USGS's intent. Read the per-tile detail before acting on anything "
+            "outside the plain geometry case.\n"
+        )
+
+        out.append("\n## By collection\n")
+        by_project = {}
+        for key, rows in grouped.items():
+            for item_id, d in rows:
+                by_project.setdefault(d["project"], []).append(key)
+        out.append("| Collection | Tiles | Changes |")
+        out.append("| --- | ---: | --- |")
+        labels = {k: label for k, label, _ in FINDING_CLASSES}
+        for project, keys in sorted(
+            by_project.items(), key=lambda kv: (-len(kv[1]), kv[0])
+        ):
+            counts = collections_counter(keys)
+            detail = ", ".join(f"{labels[k]} ×{n}" for k, n in counts)
+            out.append(f"| `{project}` | {len(keys)} | {detail} |")
+
+        out.append("\n## Tiles\n")
+        out.append("| Item | Collection | Changed | Diffs |")
+        out.append("| --- | --- | --- | --- |")
+        for item_id, d in sorted(findings.items())[:200]:
+            out.append(
+                f"| `{item_id}` | `{d['project']}` | {changed_fields(d['problems'])} "
+                f"| {len(d['problems'])} |"
+            )
+        if len(findings) > 200:
+            out.append(f"\n… and {len(findings) - 200} more.")
+        out.append(
+            "\nOne row per tile. The old vs new value of every differing leaf is "
+            "in `audit_report.json`.\n"
+        )
+
+    if errors:
+        out.append(f"\n## Unchecked ({len(errors)})\n")
+        out.append("| Item | Collection | Error |")
+        out.append("| --- | --- | --- |")
+        for item_id, d in sorted(errors.items())[:50]:
+            out.append(f"| `{item_id}` | `{d['project']}` | {d['error']} |")
+        if len(errors) > 50:
+            out.append(f"\n… and {len(errors) - 50} more.")
+
+    if notes:
+        out.append(f"\n## Skipped collections ({len(notes)})\n")
+        for project, note in sorted(notes.items()):
+            out.append(f"- `{project}` — {note}")
+
+    return "\n".join(out) + "\n"
+
+
+def collections_counter(keys):
+    """[(key, count)] in FINDING_CLASSES order, for stable rendering."""
+    order = [k for k, _, _ in FINDING_CLASSES]
+    return [(k, keys.count(k)) for k in order if k in keys]
+
+
 def write_step_summary(report):
     """Render a report to the GitHub job summary, if we are in Actions."""
     path = os.environ.get("GITHUB_STEP_SUMMARY")
-    if not path:
-        return
-    findings, errors, notes = report["findings"], report["errors"], report["notes"]
-    with open(path, "a") as f:
-        f.write("## Catalog audit\n\n")
-        f.write(
-            f"**{len(findings)} mismatched** of {report['tiles_checked']:,} tiles "
-            f"checked across {report['collections']:,} collections "
-            f"({report['scope']}). A mismatch means rebuilding that item would "
-            "change it.\n\n"
-        )
-        if findings:
-            f.write("| Item | Collection | Changed | Diffs |\n")
-            f.write("| --- | --- | --- | --- |\n")
-            for item_id, d in sorted(findings.items())[:100]:
-                fields = changed_fields(d["problems"])
-                f.write(
-                    f"| `{item_id}` | `{d['project']}` | {fields} "
-                    f"| {len(d['problems'])} |\n"
-                )
-            if len(findings) > 100:
-                f.write(f"\n… and {len(findings) - 100} more.\n")
-            f.write(
-                "\nOne row per tile. The per-field differences (old vs new "
-                "value for every leaf) are in the `audit-report` artifact.\n"
-            )
-        else:
-            f.write("Every audited item is what a rebuild would produce.\n")
-        if errors:
-            f.write(
-                f"\n**{len(errors)} tiles could not be checked** (after a retry). "
-                "These are not catalog drift — they are tiles the audit failed to "
-                "reach, usually titiler shedding load.\n\n"
-            )
-            f.write("| Item | Collection | Error |\n| --- | --- | --- |\n")
-            for item_id, d in sorted(errors.items())[:25]:
-                f.write(f"| `{item_id}` | `{d['project']}` | {d['error']} |\n")
-            if len(errors) > 25:
-                f.write(f"\n… and {len(errors) - 25} more (see the artifact).\n")
-        if notes:
-            f.write("\n**Skipped:**\n\n")
-            for p, n in sorted(notes.items()):
-                f.write(f"- `{p}` — {n}\n")
+    if path:
+        with open(path, "a") as f:
+            f.write(render_summary(report))
 
 
 def print_totals(report):
@@ -441,6 +578,13 @@ def main():
     )
     ap.add_argument("--json", type=Path, help="write the full report here")
     ap.add_argument(
+        "--markdown",
+        type=Path,
+        metavar="PATH",
+        help="write a human-readable summary here (the same rendering the "
+        "GitHub job summary gets)",
+    )
+    ap.add_argument(
         "--merge-reports",
         type=Path,
         metavar="DIR",
@@ -470,6 +614,9 @@ def main():
         if args.json:
             args.json.write_text(json.dumps(report, indent=2))
             print(f"report written to {args.json}")
+        if args.markdown:
+            args.markdown.write_text(render_summary(report))
+            print(f"summary written to {args.markdown}")
         if report["missing_parts"]:
             sys.exit(
                 f"parts {report['missing_parts']} never reported -- "
@@ -596,6 +743,9 @@ def main():
     if args.json:
         args.json.write_text(json.dumps(report, indent=2))
         print(f"report written to {args.json}")
+    if args.markdown:
+        args.markdown.write_text(render_summary(report))
+        print(f"summary written to {args.markdown}")
     return finish(report, args)
 
 
