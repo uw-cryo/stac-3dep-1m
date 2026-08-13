@@ -42,6 +42,7 @@ import json
 import math
 import os
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -263,6 +264,36 @@ def parse_part(text):
     return i, n
 
 
+def changed_fields(problems, limit=8):
+    """The item fields a set of problems touches, deduped, for a one-line note.
+
+    deep_diff reports one entry per differing leaf, so a single re-staged tile
+    yields dozens of rows that all say the same thing -- every float in the
+    geometry moved. The step summary wants the shape of the change and the
+    tile it happened to; the artifact keeps the per-leaf detail.
+    """
+    fields = []
+    for problem in problems:
+        path = problem.split(": ", 1)[0] if ": " in problem else problem
+        path = re.sub(r"\[\d+\]", "", path)
+        if path.startswith("/"):
+            parts = [s for s in path.split("/") if s]
+            # /properties/proj:shape -> proj:shape, but /geometry/coordinates
+            # -> geometry: under properties the leaf is the interesting name,
+            # everywhere else the top-level field is
+            field = (
+                parts[1] if parts[0] == "properties" and len(parts) > 1 else parts[0]
+            )
+        else:
+            field = path
+        if field not in fields:
+            fields.append(field)
+    shown = ", ".join(f"`{f}`" for f in fields[:limit])
+    if len(fields) > limit:
+        shown += f" +{len(fields) - limit} more"
+    return shown
+
+
 def write_step_summary(report):
     """Render a report to the GitHub job summary, if we are in Actions."""
     path = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -278,12 +309,20 @@ def write_step_summary(report):
             "change it.\n\n"
         )
         if findings:
-            f.write("| Item | Collection | Difference |\n| --- | --- | --- |\n")
+            f.write("| Item | Collection | Changed | Diffs |\n")
+            f.write("| --- | --- | --- | --- |\n")
             for item_id, d in sorted(findings.items())[:100]:
-                for p in d["problems"]:
-                    f.write(f"| `{item_id}` | `{d['project']}` | {p} |\n")
+                fields = changed_fields(d["problems"])
+                f.write(
+                    f"| `{item_id}` | `{d['project']}` | {fields} "
+                    f"| {len(d['problems'])} |\n"
+                )
             if len(findings) > 100:
-                f.write(f"\n… and {len(findings) - 100} more (see the artifact).\n")
+                f.write(f"\n… and {len(findings) - 100} more.\n")
+            f.write(
+                "\nOne row per tile. The per-field differences (old vs new "
+                "value for every leaf) are in the `audit-report` artifact.\n"
+            )
         else:
             f.write("Every audited item is what a rebuild would produce.\n")
         if errors:
