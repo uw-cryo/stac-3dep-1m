@@ -21,6 +21,8 @@ Usage: python create_static_stac.py CO_WestCentral_2019_A19
 """
 
 import asyncio
+import base64
+import concurrent.futures
 import json
 import requests
 import geopandas as gpd
@@ -36,7 +38,10 @@ import boto3
 from botocore import UNSIGNED
 from botocore.client import Config
 
-s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
+# max_pool_connections has to keep up with the HEAD fan-out in file_metadata()
+s3 = boto3.client(
+    "s3", config=Config(signature_version=UNSIGNED, max_pool_connections=64)
+)
 
 # explicitly instantiate a client that always uses the local cache
 client = S3Client(local_cache_dir="/tmp", no_sign_request=True)
@@ -384,7 +389,139 @@ def list_tiffs_in_project(project, bucket="prd-tnm"):
     return [f"https://{bucket}.s3.amazonaws.com/{key}" for key in tiff_files]
 
 
-def reusable_items(project, datetime_str, full=False):
+# ------------------------------------------------------- file metadata (#17)
+# refresh_catalog.py diffs *tile sets*, so a tile reprocessed in place -- same S3
+# key, new pixels -- is invisible: no add, no remove (issue #17;
+# USGS_1M_12_x29y395_AZ_AubreyCherry_2020_D20 went 10012x10012 -> 1234x1549 and
+# was only caught because its project independently lost 5 tiles). Recording the
+# STAC file extension's file:size + file:checksum per asset gives the catalog its
+# own drift baseline, and lets a consumer tell whether its copy is current.
+#
+# The checksum is S3's CRC64NVME, not a hash we compute: AWS stores it as object
+# metadata for every object in prd-tnm (verified: 124407/124407), so re-checking
+# it every refresh is a HEAD, not a 30 TB read. Two properties make it the right
+# signal where the alternatives are not:
+#   * it is derived from the bytes, so a re-staged tile that happens to keep its
+#     byte count still changes it. file:size alone cannot see that, and 12.6% of
+#     the catalog (15622 tiles) is stored uncompressed, where the byte count is
+#     fixed by proj:shape x dtype and *cannot* move when pixels change.
+#   * ChecksumType is FULL_OBJECT, i.e. over the whole object regardless of how
+#     it was chunked on upload -- unlike ETag, which is a hash of part hashes for
+#     65% of these tiles and so changes on a plain re-copy that touched no pixels.
+#     LastModified is useless here for the same reason: all 124407 objects carry a
+#     2026 stamp from a bulk prefix rewrite (issue #6).
+FILE_EXT = "https://stac-extensions.github.io/file/v2.1.0/schema.json"
+
+# multihash prefix for a CRC64NVME digest: multicodec crc64-nvme is 0x0165, whose
+# unsigned-varint encoding is e5 02, followed by the 8-byte digest length. The
+# file extension wants the whole thing hex-encoded lowercase, so a checksum is
+# always "e50208" + 16 hex digits.
+CRC64NVME_MULTIHASH_PREFIX = "e50208"
+
+
+def crc64nvme_multihash(b64_digest):
+    """S3's base64 ChecksumCRC64NVME -> hex multihash for file:checksum."""
+    return CRC64NVME_MULTIHASH_PREFIX + base64.b64decode(b64_digest).hex()
+
+
+def file_metadata(urls, threads=32):
+    """{item_id: {"file:size": int, "file:checksum": str}} for tif URLs.
+
+    One HEAD per tile (~1100/s at 32-64 threads, so ~2 min for the whole
+    catalog). file:checksum is omitted -- not faked -- if S3 has no CRC64NVME
+    for an object; every object in prd-tnm has one today, so a gap is worth
+    seeing in the PR body rather than papering over.
+    """
+
+    def head(url):
+        key = url.split(".amazonaws.com/", 1)[-1]
+        resp = s3.head_object(Bucket="prd-tnm", Key=key, ChecksumMode="ENABLED")
+        meta = {"file:size": resp["ContentLength"]}
+        digest = resp.get("ChecksumCRC64NVME")
+        if digest:
+            meta["file:checksum"] = crc64nvme_multihash(digest)
+        return meta
+
+    urls = list(urls)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as ex:
+        metas = list(ex.map(head, urls))
+    return {url.split("/")[-1][:-4]: meta for url, meta in zip(urls, metas)}
+
+
+# pystac.Asset.to_dict() emits href/type/title/description, then extra_fields in
+# insertion order, then roles -- so file:* has to land after the other extra
+# fields but *before* roles, or a backfilled item and a rebuilt one differ by key
+# order alone and every project churns on its next rebuild.
+_ASSET_LEADING = ("href", "type", "title", "description")
+FILE_FIELDS = ("file:size", "file:checksum")
+
+
+def add_file_metadata(item_dict, meta):
+    """Stamp file:size/file:checksum onto an item's asset(s), in place.
+
+    Applied identically by the builder and by backfill_file_metadata.py, so a
+    backfilled item is byte-identical to a freshly built one.
+    """
+    if not meta:
+        return item_dict
+    exts = item_dict.setdefault("stac_extensions", [])
+    if FILE_EXT not in exts:
+        # the catalog's extension lists are uniformly sorted; keep them that way
+        item_dict["stac_extensions"] = sorted(exts + [FILE_EXT])
+    assets = item_dict.get("assets", {})
+    for name, asset in assets.items():
+        rebuilt = {k: asset[k] for k in _ASSET_LEADING if k in asset}
+        rebuilt.update(
+            {
+                k: v
+                for k, v in asset.items()
+                # drop any previously recorded file:* so a stale checksum can
+                # never survive alongside a fresh size
+                if k not in _ASSET_LEADING and k not in ("roles", *FILE_FIELDS)
+            }
+        )
+        rebuilt.update(meta)
+        if "roles" in asset:
+            rebuilt["roles"] = asset["roles"]
+        assets[name] = rebuilt
+    return item_dict
+
+
+# pystac picks its JSON serializer by what happens to be installed: orjson if it
+# can import it, the stdlib otherwise. The two disagree on float repr -- orjson
+# writes 0.00009924415650406505 and -3.4028230607370965e38 where the stdlib
+# writes 9.924415650406505e-05 and -3.4028230607370965e+38 -- so the on-disk
+# format of an item depended on the environment that built it, and the catalog
+# ended up holding both spellings (~18.4k items stdlib, 32 orjson).
+#
+# Removing orjson is not an option: stac-geoparquet depends on it, so it is
+# always in the environment. Pinning the serializer here is the better fix
+# anyway, because it makes the output independent of what is installed rather
+# than merely consistent with today's solve. The stdlib is the one to pin to --
+# 125309 of the 125341 committed files already match it, so normalizing costs 32
+# files instead of 18435.
+class StdlibStacIO(pystac.stac_io.DefaultStacIO):
+    """StacIO that always serializes with the stdlib, never orjson."""
+
+    def json_dumps(self, json_dict, *args, **kwargs):
+        return json.dumps(json_dict, indent=2)
+
+
+pystac.StacIO.set_default(StdlibStacIO)
+
+
+def dump_stac_json(d):
+    """Serialize a catalog dict exactly as pystac's save() now writes it."""
+    return json.dumps(d, indent=2)
+
+
+def item_file_metadata(item_dict):
+    """The file:size/file:checksum recorded on an item's elevation asset."""
+    asset = item_dict.get("assets", {}).get(ASSET_NAME, {})
+    return {k: asset[k] for k in FILE_FIELDS if k in asset}
+
+
+def reusable_items(project, datetime_str, full=False, live_meta=None):
     """{item_id: item dict} for items already in catalog/<project>.
 
     A rebuild is triggered by the tile *set* changing, but re-deriving all ~1000
@@ -398,6 +535,13 @@ def reusable_items(project, datetime_str, full=False):
 
     full=True re-derives everything from titiler instead (after a titiler
     upgrade, or to pick up tiles whose pixels were re-staged in place).
+
+    live_meta ({item_id: file_metadata}) makes reuse content-aware: an item whose
+    recorded file:size/file:checksum disagrees with what S3 holds now describes
+    bytes that no longer exist, so it is *not* reused and falls through to
+    titiler (issue #17). Items with nothing recorded yet are reused as before --
+    backfill_file_metadata.py establishes the baseline without a titiler round
+    trip, and everything built after that carries one.
     """
     if full:
         return {}
@@ -410,6 +554,13 @@ def reusable_items(project, datetime_str, full=False):
             item = json.loads(path.read_text())
         except Exception:
             continue  # unreadable -> let titiler rebuild it
+        if live_meta is not None:
+            have = item_file_metadata(item)
+            want = live_meta.get(path.stem, {})
+            # compare only the fields the item actually carries, so a
+            # not-yet-backfilled item is not treated as drifted
+            if have and any(have[k] != want.get(k) for k in have):
+                continue  # re-staged in place -> re-derive from titiler
         item["properties"]["start_datetime"] = start
         item["properties"]["end_datetime"] = end
         # drop the on-disk root/collection/parent links: they are relative
@@ -438,7 +589,11 @@ def create_stac_catalog(project, is_workunit=False, full=False):
     # Formatted for TITILER 2019-08-21T00:00:00Z/2019-09-19T00:00:00Z'
     DATETIME = get_titiler_datetime(s)
 
-    reused = reusable_items(project, DATETIME, full=full)
+    # size + checksum for every live tile: the baseline stamped onto the items
+    # below, and the yardstick reusable_items() checks the existing ones against
+    live_meta = file_metadata(tiflist)
+
+    reused = reusable_items(project, DATETIME, full=full, live_meta=live_meta)
     todo = [url for url in tiflist if url.split("/")[-1][:-4] not in reused]
     # tiles that vanished upstream are simply not in tiflist, so they drop out
     reused = {
@@ -491,6 +646,15 @@ def create_stac_catalog(project, is_workunit=False, full=False):
     # out of the catalog, which is already uniformly projection v2.0.0
     item_dicts = [normalize_projection(json.loads(x)) for x in results]
     item_dicts += list(reused.values())
+    # stamp both paths: a titiler item has no file metadata at all, and a reused
+    # one may predate the backfill
+    for d in item_dicts:
+        add_file_metadata(d, live_meta.get(d["id"], {}))
+    n_nochecksum = sum(
+        1 for d in item_dicts if "file:checksum" not in d["assets"].get(ASSET_NAME, {})
+    )
+    if n_nochecksum:
+        warnings.warn(f"{n_nochecksum} tiles have no CRC64NVME checksum in S3")
     items = [pystac.read_dict(d) for d in item_dicts]
 
     # THis will be 'collection' level metadata, not in each item

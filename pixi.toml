@@ -11,6 +11,7 @@ create-stac = { cmd = "python scripts/create_static_stac.py", description = "Cre
 collection2geoparquet = { cmd = "python scripts/collection2geoparquet.py", description = "Convert one collection.json and its items to a STAC-GeoParquet file" }
 catalog2geoparquet = { cmd = "python scripts/catalog2geoparquet.py catalog/catalog.json catalog.parquet", description = "Convert the full root catalog to a single STAC-GeoParquet file" }
 refresh = { cmd = "python scripts/refresh_catalog.py", description = "Diff catalog/ against current S3 holdings and WESM; rebuild new/changed projects, prune deleted ones, refresh drifted metadata, validate" }
+backfill-file-metadata = { cmd = "python scripts/backfill_file_metadata.py", description = "Stamp file:size + file:checksum onto existing catalog items from S3 object metadata (idempotent; no titiler)" }
 catalog2hive = { cmd = "python scripts/catalog2hive.py", description = "Write the catalog as hive-partitioned STAC-GeoParquet (collection=<id>/part0.parquet)" }
 create-collection-parquets = { cmd = "python scripts/create_collection_parquets.py", description = "Write a .parquet next to each collection.json under a catalog directory" }
 update-root-catalog = { cmd = "python scripts/update_root_catalog.py", description = "Add any new child collections to the top-level catalog.json" }
@@ -35,7 +36,6 @@ python = ">=3.13.2,<3.14"
 pystac = ">=1.12.1,<2"
 ruff = ">=0.9.7,<0.10"
 rustac = ">=0.9.8,<0.10"
-stac-geoparquet = ">=0.7.0,<0.8"
 cartopy = ">=0.25.0,<0.26"
 rioxarray = ">=0.22.0,<0.23"
 cql2 = "*"

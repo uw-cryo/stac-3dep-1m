@@ -163,6 +163,58 @@ def item_asset_url(project, item_id):
         return None
 
 
+# ------------------------------------------------- content drift (issue #17)
+# The diff above is over tile *sets*, so a tile reprocessed under its existing
+# key -- same name, new pixels -- produces no add and no remove and is invisible.
+# Items carry file:size + file:checksum (S3's FULL_OBJECT CRC64NVME) precisely so
+# that case has a baseline to fail against; re-checking it costs one HEAD per
+# tile, not a re-read of the tile. A project with any drifted tile joins the
+# rebuild list, and create_static_stac.reusable_items() then re-derives exactly
+# the drifted tiles from titiler and reuses the rest.
+def catalog_file_metadata(project):
+    """{item_id: recorded file metadata} for one collection's items.
+
+    Items predating the backfill record nothing; they yield {} and so can never
+    look drifted.
+    """
+    meta = {}
+    for path in sorted((CATALOG_DIR / project).glob("*.json")):
+        if path.name == "collection.json":
+            continue
+        try:
+            item = json.loads(path.read_text())
+        except Exception:
+            continue  # unreadable -> the rebuild path deals with it
+        meta[path.stem] = create_static_stac.item_file_metadata(item)
+    return meta
+
+
+def restaged_diff(projects, holdings, threads=8):
+    """{project: [item_id, ...]} for tiles whose bytes changed under the same key.
+
+    Only fields the item actually carries are compared, so a not-yet-backfilled
+    item is never mistaken for a drifted one.
+    """
+    drift = {}
+
+    def check(project):
+        live = create_static_stac.file_metadata(holdings[project].values())
+        recorded = catalog_file_metadata(project)
+        return sorted(
+            item_id
+            for item_id, have in recorded.items()
+            if have
+            and item_id in live
+            and any(have[k] != live[item_id].get(k) for k in have)
+        )
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as ex:
+        for project, ids in zip(projects, ex.map(check, projects)):
+            if ids:
+                drift[project] = ids
+    return drift
+
+
 # ------------------------------------------------------------ WESM metadata
 # A rebuild triggers on tile-set change, so a WESM revision that adds or removes
 # no tiles would otherwise never reach the catalog (issue #18): collection wesm:*
@@ -247,7 +299,7 @@ def refresh_collection_metadata(project, series):
     summaries.update(create_static_stac.wesm_summary_fields(series))
     collection["summaries"] = summaries
     collection["extent"]["temporal"]["interval"] = [[start, end]]
-    path.write_text(json.dumps(collection, indent=2))
+    path.write_text(create_static_stac.dump_stac_json(collection))
 
     n_items = 0
     for item_path in sorted((CATALOG_DIR / project).glob("*.json")):
@@ -259,7 +311,7 @@ def refresh_collection_metadata(project, series):
             continue
         props["start_datetime"] = start
         props["end_datetime"] = end
-        item_path.write_text(json.dumps(item, indent=2))
+        item_path.write_text(create_static_stac.dump_stac_json(item))
         n_items += 1
     return n_items
 
@@ -529,8 +581,16 @@ def render_pr_body(summary, run_url=None):
             f"`{p}`",
             f"+{d['added']}" if d["added"] else "—",
             f"−{d['removed']}" if d["removed"] else "—",
+            f"~{d['restaged']}" if d.get("restaged") else "—",
         ),
     )
+    # tiles reprocessed under an existing key: no add, no remove, invisible to a
+    # tile-set diff, and caught only by the recorded checksum (issue #17)
+    restaged = [
+        (f"`{p}`", f"~{d['restaged']}")
+        for p, d in sorted(details.items())
+        if d.get("restaged")
+    ]
     # the reason is the whole point of the prune table: a bare tile count gives
     # a reviewer nothing to judge the removal by (issue #19)
     pruned = rows(
@@ -557,22 +617,40 @@ def render_pr_body(summary, run_url=None):
     counts = [f"{len(new)} new", f"{len(rebuilt)} rebuilt", f"{len(pruned)} pruned"]
     if metadata:
         counts.append(f"{len(metadata)} metadata-only")
+    n_restaged = summary.get("tiles_restaged") or 0
 
     out = [
         "Automated run of `pixi run refresh` — S3 diff, incremental rebuild, "
         "prune, WESM metadata refresh, HEAD validation "
         "(see `scripts/refresh_catalog.py`).",
         "",
-        f"**+{added:,} / −{removed:,} tiles** across {len(details):,} collections "
-        f"— {', '.join(counts)}.",
+        f"**+{added:,} / −{removed:,} tiles**"
+        + (f" / **~{n_restaged:,} re-staged**" if n_restaged else "")
+        + f" across {len(details):,} collections — {', '.join(counts)}.",
         "",
         f"Catalog items: {before:,}" + (f" → **{after:,}**" if after else ""),
         "",
     ]
     out.append(_section("New collections", new, ["Collection", "Tiles"]))
     out.append(
-        _section("Rebuilt collections", rebuilt, ["Collection", "Added", "Removed"])
+        _section(
+            "Rebuilt collections",
+            rebuilt,
+            ["Collection", "Added", "Removed", "Re-staged"],
+        )
     )
+    if restaged:
+        out.append(
+            _section(
+                "Re-staged in place", restaged, ["Collection", "Tiles"], align="lr"
+            )
+        )
+        out.append(
+            "> Same S3 key, different bytes — invisible to a tile-set diff and "
+            "caught only by the `file:checksum` recorded at build time (issue "
+            "#17). These items were re-derived from titiler; every other tile in "
+            "the collection was reused unchanged.\n"
+        )
     out.append(
         _section(
             "Pruned collections", pruned, ["Collection", "Tiles", "Reason"], align="lrl"
@@ -756,6 +834,24 @@ def main():
         action="store_true",
         help="skip the WESM summary comparison (tile diff only)",
     )
+    ap.add_argument(
+        "--skip-checksum-check",
+        action="store_true",
+        help="skip the file:size/file:checksum comparison that detects tiles "
+        "re-staged under an existing key (issue #17); saves one HEAD per tile",
+    )
+    ap.add_argument(
+        "--max-restaged-tiles",
+        type=int,
+        default=2000,
+        help="abort if more tiles than this were re-staged in place (each one "
+        "costs a titiler request to re-derive)",
+    )
+    ap.add_argument(
+        "--allow-large-restaging",
+        action="store_true",
+        help="override --max-restaged-tiles after human review",
+    )
     # a WESM schema change (column added or renamed) drifts every collection at
     # once -- a legitimate but very large diff, so make a human confirm it
     ap.add_argument(
@@ -861,6 +957,19 @@ def main():
         if set(holdings[p]) != local[p]
     )
 
+    # Tiles re-staged under their existing key are invisible to the set diff
+    # above (issue #17): check the recorded file:size/file:checksum against S3.
+    # One HEAD per tile, ~2 min for the whole catalog.
+    restaged = {}
+    if not args.skip_checksum_check:
+        restaged = restaged_diff(
+            sorted((set(holdings) & set(local)) - retired),
+            holdings,
+            threads=args.threads,
+        )
+        # a project that only drifted still needs a rebuild to pick it up
+        changed = sorted(set(changed) | set(restaged))
+
     # Prune classification: a cataloged project with no tifs on S3 is either
     # truly deleted (folder prefix gone) or a folder remnant / mid-restage
     # (folder still present, e.g. only browse/ thumbnails remain, issue #6).
@@ -953,6 +1062,8 @@ def main():
         if args.explain and d["removed"] and wesm_df is not None:
             lost = local[p] - set(holdings[p])
             d["reason"], d["evidence"] = classify_removal(p, lost, wesm_df, cell_index)
+        if p in restaged:
+            d["restaged"] = len(restaged[p])
         details[p] = d
     for p in removed:
         label, evidence = reasons.get(p, (UNATTRIBUTED, ""))
@@ -974,19 +1085,24 @@ def main():
 
     n_tiles_added = sum(d["added"] for d in details.values())
     n_tiles_removed = sum(d["removed"] for d in details.values())
+    n_tiles_restaged = sum(len(v) for v in restaged.values())
     n_local = sum(len(v) for v in local.values())
     n_s3 = sum(len(v) for v in holdings.values())
 
     print(f"\ncatalog items: {n_local}  |  S3 tifs: {n_s3}")
     print(
-        f"diff: +{n_tiles_added} tiles / -{n_tiles_removed} tiles  "
+        f"diff: +{n_tiles_added} tiles / -{n_tiles_removed} tiles / "
+        f"~{n_tiles_restaged} re-staged  "
         f"({len(new)} new, {len(changed)} changed, {len(removed)} removed, "
         f"{len(wesm_drift)} metadata-only projects)"
     )
     for p in new:
         print(f"  NEW      {p} ({details[p]['added']} tiles)")
     for p in changed:
-        print(f"  CHANGED  {p} (+{details[p]['added']} / -{details[p]['removed']})")
+        extra = f", {details[p]['restaged']} re-staged" if p in restaged else ""
+        print(
+            f"  CHANGED  {p} (+{details[p]['added']} / -{details[p]['removed']}{extra})"
+        )
     for p in removed:
         print(f"  REMOVED  {p} ({details[p]['removed']} tiles, {details[p]['reason']})")
     for p, fields in sorted(wesm_drift.items()):
@@ -1001,7 +1117,7 @@ def main():
             + (" ..." if len(new_unresolved) > 10 else "")
         )
 
-    changed_any = bool(new or changed or removed or wesm_drift)
+    changed_any = bool(new or changed or removed or wesm_drift or restaged)
     summary = {
         "s3_projects": len(holdings),
         "s3_tiles": n_s3,
@@ -1016,8 +1132,10 @@ def main():
         "wesm_retired_projects": wesm_retired,
         "new_unresolved_projects": new_unresolved,
         "metadata_projects": sorted(wesm_drift),
+        "restaged_projects": sorted(restaged),
         "tiles_added": n_tiles_added,
         "tiles_removed": n_tiles_removed,
+        "tiles_restaged": n_tiles_restaged,
         "dry_run": args.dry_run,
         "build_failures": [],
         "metadata_failures": [],
@@ -1026,6 +1144,8 @@ def main():
     # "+1429/-678 tiles" -- short enough for a PR/commit title on its own; a
     # metadata-only run has no tile delta to report, so it names itself
     title = f"+{n_tiles_added}/-{n_tiles_removed} tiles"
+    if n_tiles_restaged:
+        title += f", {n_tiles_restaged} re-staged"
     if wesm_drift:
         title += f", {len(wesm_drift)} WESM metadata"
     if not (new or changed or removed):
@@ -1048,6 +1168,22 @@ def main():
             f"GUARDRAIL: refusing to remove {n_tiles_removed} tiles "
             f"(> {args.max_removed_tiles}); rerun with --allow-large-removals "
             "after reviewing the diff"
+        )
+
+    # A genuine bulk reprocessing at USGS would drift every tile at once, which
+    # means a 124k-request titiler pass and a catalog-wide diff -- worth a human
+    # look first. (A bulk *re-copy* that preserves the bytes does not trip this:
+    # CRC64NVME is FULL_OBJECT and content-derived, unlike ETag or LastModified.)
+    if (
+        n_tiles_restaged > args.max_restaged_tiles
+        and not args.allow_large_restaging
+        and not args.dry_run
+    ):
+        sys.exit(
+            f"GUARDRAIL: {n_tiles_restaged} tiles were re-staged in place "
+            f"(> {args.max_restaged_tiles}); rebuilding them all means one "
+            "titiler request each -- review the diff, then rerun with "
+            "--allow-large-restaging"
         )
 
     if (
