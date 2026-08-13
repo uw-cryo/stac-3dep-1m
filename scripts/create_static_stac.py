@@ -745,7 +745,15 @@ def create_stac_catalog(project, is_workunit=False, full=False):
     )
     collection.add_links([license])
 
-    collection.add_items(items)
+    # sorted by id, because link order is add_items() order and nothing
+    # downstream re-sorts it: pystac takes no ordering argument on add_items(),
+    # normalize_hrefs() or save(). Unsorted, the order is
+    # [items from titiler] + [items reused from disk], so it shifts with the
+    # ratio of rebuilt to reused tiles and a rebuild that changed three items
+    # rewrites every link in the collection. The Summarizer below walks the
+    # same links, so this also fixes list-valued summaries (proj:code) flipping
+    # order for the same reason.
+    collection.add_items(sorted(items, key=lambda i: i.id))
 
     # Automatic summaries of Item propertes (e.g. proj:code)
     summaries = pystac.summaries.Summarizer().summarize(
