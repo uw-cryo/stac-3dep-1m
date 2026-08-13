@@ -1,0 +1,89 @@
+# On-demand audit: would rebuilding these items change them?
+#
+# Read-only by design: no commits, no PR, no release. Each sampled item is
+# re-derived from its current tile through the same titiler endpoint the builder
+# uses, and diffed against what is committed -- so a clean run means a rebuild
+# would be a no-op, and a mismatch is exactly the change a rebuild would make.
+#
+# This is the one check that can see drift predating the file:checksum backfill
+# (issue #17): those items pair today's bytes with yesterday's geometry, so they
+# look self-consistent to `refresh` forever. A sample of 10 tiles per collection
+# found 17 such tiles across 8 collections.
+#
+# The job FAILS when anything mismatches -- that is the signal. The findings are
+# in the job summary and in the uploaded JSON artifact either way.
+name: Audit Catalog
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: "Collection to audit exhaustively (blank = sample every collection)"
+        type: string
+        default: ""
+      sample:
+        description: "Tiles sampled per collection (ignored when a project is named, or with all_tiles)"
+        type: string
+        default: "3"
+      all_tiles:
+        description: "Audit every tile of every collection (~124k header reads, slow)"
+        type: boolean
+        default: false
+      seed:
+        description: "Sampling seed, so a run can be reproduced exactly"
+        type: string
+        default: "0"
+
+# read-only: this workflow never writes to the repository
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-catalog-${{ inputs.project }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    # a full --all-tiles pass is one titiler request per tile at ~10/s, so ~3.5 h
+    # against the 6 h hosted-runner ceiling; a sampled run is minutes
+    timeout-minutes: 350
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: prefix-dev/setup-pixi@v0.10.1
+        with:
+          cache: true
+
+      - name: Audit catalog against S3 tiles
+        id: audit
+        # inputs go through the environment, never interpolated into the script:
+        # a dispatch input is attacker-controlled text as far as the shell cares
+        env:
+          PROJECT: ${{ inputs.project }}
+          SAMPLE: ${{ inputs.sample }}
+          ALL_TILES: ${{ inputs.all_tiles }}
+          SEED: ${{ inputs.seed }}
+        run: |
+          set -euo pipefail
+          ARGS=(--json audit_report.json --threads 16 --seed "$SEED" --fail-on-mismatch)
+          if [ -n "$PROJECT" ]; then
+            ARGS+=(--project "$PROJECT")
+          fi
+          if [ "$ALL_TILES" = "true" ]; then
+            ARGS+=(--all-tiles)
+          elif [ -z "$PROJECT" ]; then
+            ARGS+=(--sample "$SAMPLE")
+          fi
+          echo "running: audit_catalog.py ${ARGS[*]}"
+          pixi run python scripts/audit_catalog.py "${ARGS[@]}"
+
+      # uploaded whether or not the audit failed, so the findings survive
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-report${{ inputs.project && format('-{0}', inputs.project) || '' }}
+          path: audit_report.json
+          if-no-files-found: warn

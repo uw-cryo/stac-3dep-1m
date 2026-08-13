@@ -20,6 +20,8 @@ pixi run create-all                # every S3 project folder not already in cata
 pixi run refresh --dry-run         # diff catalog/ vs S3, report only
 pixi run refresh                   # diff + rebuild/prune + validate (mutates catalog/)
 pixi run backfill-file-metadata    # re-stamp file:size/file:checksum from S3 (idempotent)
+pixi run audit                     # 3 tiles/collection: would a rebuild change them?
+pixi run audit --project <ID>      # one collection, every tile
 ulimit -n 500000 && pixi run catalog2geoparquet   # full catalog -> catalog.parquet
 pixi run collection2geoparquet catalog/<ID>/collection.json out.parquet
 pixi run update-root-catalog       # link new children into catalog/catalog.json
@@ -81,7 +83,19 @@ Flow: `refresh` compares each item's recorded values against a live HEAD (`resta
 
 `backfill_file_metadata.py` established the baseline without a titiler round trip. It is a **go-forward** baseline, not an audit: an item whose tile was re-staged *before* the backfill got today's size and checksum paired with yesterday's geometry, and will look self-consistent forever.
 
-Note `refresh --full-rebuild` does **not** correct those. It only changes *how* projects the tile-set diff already flagged are rebuilt ([refresh_catalog.py:1217](scripts/refresh_catalog.py#L1217)) — and a project whose tiles were reprocessed under their existing names is never flagged, which is the whole reason this issue exists. Rebuilding an affected project means `create-stac --project <ID> --overwrite --full`; finding which projects those are needs a check that re-reads the tiles.
+Note `refresh --full-rebuild` does **not** correct those. It only changes *how* projects the tile-set diff already flagged are rebuilt ([refresh_catalog.py:1217](scripts/refresh_catalog.py#L1217)) — and a project whose tiles were reprocessed under their existing names is never flagged, which is the whole reason this issue exists. Rebuilding an affected project means `create-stac --project <ID> --overwrite --full`; finding which projects those are is what the audit below is for.
+
+### Finding pre-backfill drift: `audit_catalog.py`
+
+`refresh` cannot see that class of drift, by construction. `audit_catalog.py` (`pixi run audit`, and the `Audit Catalog` workflow_dispatch) can: it ignores the recorded metadata and re-derives each sampled item from the tile as it stands today, through `create_stac_item()` — **the same titiler endpoint the builder uses** — then diffs that against what is committed. So the audit exercises the production code path, and its result is directly actionable: a clean run means a rebuild would be a no-op, and a mismatch *is* the change a rebuild would make.
+
+Reading the GeoTIFF header locally would be ~4x faster, but it can only confirm the `proj:*` fields. The WGS84 `geometry`/`bbox` and `proj:geometry` come from titiler reprojecting, and nothing read locally can check them — on drifted tiles those were wrong too. One code path that checks everything beats two that each check part of it.
+
+Exactly these are ignored in the diff, determined empirically from a known-good tile that differs in them and nothing else: `links` (pystac rewrites them), `stac_extensions` (the file extension is added after titiler answers), `file:*` (titiler never sees S3 object metadata — they are checked separately against S3), and `statistics`/`histogram` (titiler's own nondeterminism: the same tile re-read returns `mean -0.43414297933755347` vs `-0.43414293580320523`). Everything else must match within 1 ULP.
+
+A collection with no WESM row is reported, not worked around: since issue #23 those are pruned, so it would mean the catalog and WESM have diverged. Verified: 0 of 934 cataloged collections lack a WESM row.
+
+Observed on a 10-tile-per-collection sample (9105 tiles): **17 mismatched across 8 collections**, all the same signature — items claiming 10012×10012 against tiles now 10000×10000 or 10001×10000, i.e. USGS re-staged those tiles without the 6 m overlap and snapped them to the grid. Drift is **partial within a project** (`AZ_NavajoCorridor_2020_D20` audits 6/20 bad, `AZ_Safford_QL2_2016` 3/15, `UT_Central_Ql2_TL_2018` 3/13), so a small sample under-detects — use `--project <ID>` to audit a suspect collection exhaustively before rebuilding it.
 
 ### Automation
 
