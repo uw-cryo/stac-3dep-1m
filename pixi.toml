@@ -12,7 +12,7 @@ collection2geoparquet = { cmd = "python scripts/collection2geoparquet.py", descr
 catalog2geoparquet = { cmd = "python scripts/catalog2geoparquet.py catalog/catalog.json catalog.parquet", description = "Convert the full root catalog to a single STAC-GeoParquet file" }
 refresh = { cmd = "python scripts/refresh_catalog.py", description = "Diff catalog/ against current S3 holdings and WESM; rebuild new/changed projects, prune deleted ones, refresh drifted metadata, validate" }
 backfill-file-metadata = { cmd = "python scripts/backfill_file_metadata.py", description = "Stamp file:size + file:checksum onto existing catalog items from S3 object metadata (idempotent; no titiler)" }
-audit = { cmd = "python scripts/audit_catalog.py", description = "Re-derive sampled items from their current tiles through titiler and diff against the catalog: would a rebuild change them? (read-only; 3 tiles per collection by default)" }
+audit = { cmd = "python scripts/audit_catalog.py", description = "Re-derive sampled items from their current tiles through titiler and diff against the catalog: would a rebuild change them? (read-only; 3 tiles per collection by default; --part i/N splits one audit across parallel runs)" }
 catalog2hive = { cmd = "python scripts/catalog2hive.py", description = "Write the catalog as hive-partitioned STAC-GeoParquet (collection=<id>/part0.parquet)" }
 create-collection-parquets = { cmd = "python scripts/create_collection_parquets.py", description = "Write a .parquet next to each collection.json under a catalog directory" }
 update-root-catalog = { cmd = "python scripts/update_root_catalog.py", description = "Add any new child collections to the top-level catalog.json" }

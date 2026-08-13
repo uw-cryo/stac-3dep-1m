@@ -22,6 +22,8 @@ pixi run refresh                   # diff + rebuild/prune + validate (mutates ca
 pixi run backfill-file-metadata    # re-stamp file:size/file:checksum from S3 (idempotent)
 pixi run audit                     # 3 tiles/collection: would a rebuild change them?
 pixi run audit --project <ID>      # one collection, every tile
+pixi run audit --all-tiles --part 3/12   # one runner's share of a split audit
+pixi run audit --merge-reports <dir>     # combine the parts of a split audit
 ulimit -n 500000 && pixi run catalog2geoparquet   # full catalog -> catalog.parquet
 pixi run collection2geoparquet catalog/<ID>/collection.json out.parquet
 pixi run update-root-catalog       # link new children into catalog/catalog.json
@@ -95,12 +97,21 @@ Exactly these are ignored in the diff, determined empirically from a known-good 
 
 A collection with no WESM row is reported, not worked around: since issue #23 those are pruned, so it would mean the catalog and WESM have diverged. Verified: 0 of 934 cataloged collections lack a WESM row.
 
+**Findings and errors are different things and are kept apart.** A finding says the catalog is wrong — rebuilding that item would change it. An error means the tile could not be checked at all, which at high concurrency is nearly always the titiler lambda shedding load. Errored tiles are retried once at 1/8 the concurrency, and what survives that is reported separately: `--fail-on-mismatch` fails on findings, while `--max-error-pct` (default 1%) fails a run that could not reach enough tiles to conclude anything. Reporting a throttled request as drift would be exactly the false alarm this script exists to rule out.
+
+**Concurrency is per tile, not per collection.** Sampling is per collection, but the work is pooled flat across every selected tile: an earlier version pooled over collections and walked items serially inside each one, which left every run bounded by its largest collection (`KS_Statewide_2018_A18` alone is 1691 items — ~46 min on its own, now 42 s at `--threads 32`). Phase 1 resolves collections to tile tasks (one S3 LIST plus a HEAD per *sampled* tile — it used to HEAD every tile in the project regardless of sample size, ~40x more requests than the default run reads); phase 2 is one pool over tiles.
+
+`--part i/N` splits the collections across N runs, greedily bin-packed by tile count so the parts finish together (measured spread at N=12: 1.000x). It is deterministic and order-independent — seeded per collection by name, so a collection samples the same tiles whichever part it lands in — so `--part 3/12` means the same thing locally as in CI. `--merge-reports` combines the parts and **verifies every part reported**: a part whose job died would otherwise shrink the totals silently and the run would look clean because the tiles it would have flagged were never checked.
+
+Measured ~40 tiles/s per runner at `--threads 32`, and it scales across runners (4 concurrent clients aggregated 108.7 tiles/s), so the ceiling is not the runner count but the lambda's account concurrency — past ~1000 concurrent invocations it sheds load, which shows up as unchecked tiles. 12 parts × 32 threads leaves room; that is why `parallel_jobs` defaults to 12 rather than the 60 concurrent runners the plan allows.
+
 Observed on a 10-tile-per-collection sample (9105 tiles): **17 mismatched across 8 collections**, all the same signature — items claiming 10012×10012 against tiles now 10000×10000 or 10001×10000, i.e. USGS re-staged those tiles without the 6 m overlap and snapped them to the grid. Drift is **partial within a project** (`AZ_NavajoCorridor_2020_D20` audits 6/20 bad, `AZ_Safford_QL2_2016` 3/15, `UT_Central_Ql2_TL_2018` 3/13), so a small sample under-detects — use `--project <ID>` to audit a suspect collection exhaustively before rebuilding it.
 
 ### Automation
 
 * `.github/workflows/update-catalog.yml` — weekly (Mon 06:00 UTC) + `workflow_dispatch` (`dry_run`, `allow_large_removals`). Runs `pixi run refresh` and opens a PR; no PR when nothing changed.
 * `.github/workflows/lint.yml` — `pixi run lint` on every PR and push to `main`; fails on a ruff lint error or an unformatted file under `scripts/`.
+* `.github/workflows/audit-catalog.yml` — `workflow_dispatch` only, `permissions: contents: read` (no commits, no PR, no release). Inputs: `projects` (space/comma separated; blank sweeps everything), `sample`, `all_tiles`, `parallel_jobs`, `seed`. Three jobs: `prepare` emits the matrix (`parallel_jobs` capped at the number of collections selected, so naming one collection runs exactly one job), `audit` runs the parts with `fail-fast: false`, and `summarize` merges them and owns the exit code — the parts deliberately do *not* pass `--fail-on-mismatch`, so drift in one part cannot be mistaken for a broken part. `prepare`/`summarize` sparse-checkout `scripts` only; they never need the 1.1 GB of item JSON.
 * `.github/workflows/release.yml` — monthly (1st, 06:17 UTC) + dispatch. Skips if `catalog/` is unchanged since the latest release *tag* (resolved via the tag, not `targetCommitish`). Otherwise rebuilds the parquet, asserts parquet row count == item-file count, writes `catalog.gti`, and publishes a CalVer `vYYYY.MM.DD` release so `releases/latest/download/catalog.parquet` stays current.
 
 `refresh_catalog.py` is the interesting one — it is destructive by design and its guardrails exist because the USGS bucket has been observed mid-repopulation (issue #6):
