@@ -79,7 +79,9 @@ The refresh diff is over tile *sets*, so a tile reprocessed under its existing S
 
 Flow: `refresh` compares each item's recorded values against a live HEAD (`restaged_diff`), and any project with drift joins the rebuild list. `reusable_items()` then declines to reuse exactly the drifted items, so titiler is asked about those tiles and no others. Guardrails mirror the rest of the script — `--max-restaged-tiles` (2000) with `--allow-large-restaging`, and `--skip-checksum-check` to skip the HEAD pass entirely.
 
-`backfill_file_metadata.py` established the baseline without a titiler round trip. It is a **go-forward** baseline, not an audit: an item whose tile was re-staged *before* the backfill got today's size and checksum paired with yesterday's geometry, and will look self-consistent forever. Correcting those needs `refresh --full-rebuild` (~3.5 h at the measured 10 items/s), which is a separate call.
+`backfill_file_metadata.py` established the baseline without a titiler round trip. It is a **go-forward** baseline, not an audit: an item whose tile was re-staged *before* the backfill got today's size and checksum paired with yesterday's geometry, and will look self-consistent forever.
+
+Note `refresh --full-rebuild` does **not** correct those. It only changes *how* projects the tile-set diff already flagged are rebuilt ([refresh_catalog.py:1217](scripts/refresh_catalog.py#L1217)) — and a project whose tiles were reprocessed under their existing names is never flagged, which is the whole reason this issue exists. Rebuilding an affected project means `create-stac --project <ID> --overwrite --full`; finding which projects those are needs a check that re-reads the tiles.
 
 ### Automation
 
