@@ -1,0 +1,200 @@
+# On-demand audit: would rebuilding these items change them?
+#
+# Read-only by design: no commits, no PR, no release. Each audited item is
+# re-derived from its current tile through the same titiler endpoint the builder
+# uses, and diffed against what is committed -- so a clean run means a rebuild
+# would be a no-op, and a mismatch is exactly the change a rebuild would make.
+#
+# This is the one check that can see drift predating the file:checksum backfill
+# (issue #17): those items pair today's bytes with yesterday's geometry, so they
+# look self-consistent to `refresh` forever. A sample of 10 tiles per collection
+# found 17 such tiles across 8 collections.
+#
+# The work is split across `parallel_jobs` runners, each auditing one part of
+# the collections (balanced by tile count), and one summarize job merges the
+# parts and owns the exit code. The job FAILS when anything mismatches -- that
+# is the signal. Findings are in the job summary and the JSON artifact either
+# way.
+#
+#   gh workflow run audit-catalog.yml -f projects=AZ_NavajoCorridor_2020_D20
+#   gh workflow run audit-catalog.yml -f sample=10
+#   gh workflow run audit-catalog.yml -f all_tiles=true
+name: Audit Catalog
+
+on:
+  workflow_dispatch:
+    inputs:
+      projects:
+        description: "Collections to audit exhaustively, space or comma separated (blank = sample every collection)"
+        type: string
+        default: ""
+      sample:
+        description: "Tiles sampled per collection (ignored when collections are named, or with all_tiles)"
+        type: string
+        default: "3"
+      all_tiles:
+        description: "Audit every tile of every selected collection"
+        type: boolean
+        default: false
+      parallel_jobs:
+        description: "Runners to split the audit across. Capped at the number of collections selected"
+        type: string
+        default: "12"
+      seed:
+        description: "Sampling seed, so a run can be reproduced exactly"
+        type: string
+        default: "0"
+
+# read-only: this workflow never writes to the repository
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-catalog-${{ inputs.projects }}
+  cancel-in-progress: true
+
+env:
+  # Concurrent titiler requests per runner. The ceiling that matters is not the
+  # runner count but the lambda's account concurrency (default 1000): past that
+  # it sheds load, which the audit reports as unchecked tiles rather than drift,
+  # but a run that could not reach titiler proves nothing. 12 x 32 leaves room.
+  THREADS: 32
+
+jobs:
+  # Decides how many parts to split into: never more than there are collections
+  # to audit, so naming one collection runs exactly one job with no matrix
+  # overhead. Needs only the tree, not the 1.1 GB of item JSON.
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      parts: ${{ steps.plan.outputs.parts }}
+      nparts: ${{ steps.plan.outputs.nparts }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          filter: blob:none
+          sparse-checkout: scripts
+
+      - name: Plan the split
+        id: plan
+        env:
+          PROJECTS: ${{ inputs.projects }}
+          PARALLEL_JOBS: ${{ inputs.parallel_jobs }}
+        run: |
+          set -euo pipefail
+          if [ -n "$PROJECTS" ]; then
+            selected=$(echo "${PROJECTS//,/ }" | wc -w | tr -d ' ')
+          else
+            selected=$(git ls-tree -d --name-only HEAD catalog/ | wc -l | tr -d ' ')
+          fi
+          nparts="$PARALLEL_JOBS"
+          # a non-numeric or out-of-range input falls back to one job rather
+          # than emitting a matrix the runner cannot parse
+          [ "$nparts" -ge 1 ] 2>/dev/null || nparts=1
+          [ "$nparts" -le "$selected" ] || nparts="$selected"
+          [ "$nparts" -ge 1 ] || nparts=1
+          echo "nparts=$nparts" >> "$GITHUB_OUTPUT"
+          # jq, not `seq -s,`: BSD seq emits a trailing separator and GNU does
+          # not, and a trailing comma here is an unparseable matrix
+          echo "parts=$(jq -nc --argjson n "$nparts" '[range(1; $n + 1)]')" >> "$GITHUB_OUTPUT"
+          echo "$selected collections selected, splitting across $nparts job(s)"
+
+  audit:
+    needs: prepare
+    name: audit (part ${{ matrix.part }}/${{ needs.prepare.outputs.nparts }})
+    runs-on: ubuntu-latest
+    # a single-job full pass is ~124k tiles at ~40 tiles/s; split 12 ways it is
+    # minutes, but the timeout has to cover parallel_jobs=1
+    timeout-minutes: 180
+    strategy:
+      # one part finding drift must not cancel the others: the point of the run
+      # is the complete picture, and a cancelled part is an incomplete answer
+      fail-fast: false
+      matrix:
+        part: ${{ fromJSON(needs.prepare.outputs.parts) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: prefix-dev/setup-pixi@v0.10.1
+        with:
+          cache: true
+
+      - name: Audit catalog against S3 tiles
+        # inputs go through the environment, never interpolated into the script:
+        # a dispatch input is attacker-controlled text as far as the shell cares
+        env:
+          PROJECTS: ${{ inputs.projects }}
+          SAMPLE: ${{ inputs.sample }}
+          ALL_TILES: ${{ inputs.all_tiles }}
+          SEED: ${{ inputs.seed }}
+          PART: ${{ matrix.part }}
+          NPARTS: ${{ needs.prepare.outputs.nparts }}
+        run: |
+          set -euo pipefail
+          ARGS=(--json "audit_report_part${PART}.json" --threads "$THREADS"
+                --seed "$SEED" --part "${PART}/${NPARTS}")
+          for p in ${PROJECTS//,/ }; do
+            ARGS+=(--project "$p")
+          done
+          if [ "$ALL_TILES" = "true" ]; then
+            ARGS+=(--all-tiles)
+          elif [ -z "$PROJECTS" ]; then
+            ARGS+=(--sample "$SAMPLE")
+          fi
+          # no --fail-on-mismatch here: summarize owns the exit code, so a
+          # mismatch in one part cannot be mistaken for a broken part
+          echo "running: audit_catalog.py ${ARGS[*]}"
+          pixi run python scripts/audit_catalog.py "${ARGS[@]}"
+
+      # uploaded whether or not the part failed, so findings survive a timeout
+      - name: Upload part report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-report-part${{ matrix.part }}
+          path: audit_report_part${{ matrix.part }}.json
+          if-no-files-found: warn
+
+  # Merges the parts and owns the verdict. Runs even when a part failed, so the
+  # findings that were collected are still reported -- but a part that never
+  # reported is an incomplete answer, not a clean one, and fails the run.
+  summarize:
+    needs: [prepare, audit]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          filter: blob:none
+          sparse-checkout: scripts
+
+      - uses: prefix-dev/setup-pixi@v0.10.1
+        with:
+          cache: true
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: audit-report-part*
+          path: reports
+
+      - name: Merge part reports
+        run: |
+          set -euo pipefail
+          pixi run python scripts/audit_catalog.py \
+            --merge-reports reports --json audit_report.json --fail-on-mismatch
+
+      - name: Upload merged report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-report
+          path: audit_report.json
+          if-no-files-found: warn
+
+      - name: Report failed parts
+        if: needs.audit.result != 'success'
+        run: |
+          echo "::error::one or more audit parts did not complete (${{ needs.audit.result }})"
+          exit 1

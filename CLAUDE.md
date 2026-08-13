@@ -20,6 +20,10 @@ pixi run create-all                # every S3 project folder not already in cata
 pixi run refresh --dry-run         # diff catalog/ vs S3, report only
 pixi run refresh                   # diff + rebuild/prune + validate (mutates catalog/)
 pixi run backfill-file-metadata    # re-stamp file:size/file:checksum from S3 (idempotent)
+pixi run audit                     # 3 tiles/collection: would a rebuild change them?
+pixi run audit --project <ID>      # one collection, every tile
+pixi run audit --all-tiles --part 3/12   # one runner's share of a split audit
+pixi run audit --merge-reports <dir>     # combine the parts of a split audit
 ulimit -n 500000 && pixi run catalog2geoparquet   # full catalog -> catalog.parquet
 pixi run collection2geoparquet catalog/<ID>/collection.json out.parquet
 pixi run update-root-catalog       # link new children into catalog/catalog.json
@@ -42,7 +46,9 @@ The repository *is* the product: `catalog/` holds ~124k committed STAC Item JSON
 Data flow:
 
 1. **S3 listing** — `s3://prd-tnm/StagedProducts/Elevation/1m/Projects/<project>/TIFF/*.tif`, unsigned boto3, **always paginated** (a bare `list_objects_v2` truncates at 1000 keys and has silently dropped tiles from large projects before). Tile lists come from listing `TIFF/` directly, *not* from `0_file_download_links.txt` — that file is missing for some projects and contains duplicates/wrong case in others.
-2. **STAC Item generation** — `scripts/create_static_stac.py` POSTs each TIFF URL to a TiTiler `/cog/stac` endpoint (currently a private Lambda URL constant in the script; `titiler.xyz` is rate limited). Requests are batched async (100 at a time) with bounded retries. Two known server responses are handled specially: "Too many bins for data range" → retry with `with_raster=false`; 5xx → short sleep and retry.
+2. **STAC Item generation** — `scripts/create_static_stac.py` POSTs each TIFF URL to a TiTiler `/cog/stac` endpoint (currently a private Lambda URL constant in the script). Requests are batched async (100 at a time) with bounded retries. Two known server responses are handled specially: "Too many bins for data range" → retry with `with_raster=false`; 5xx → short sleep and retry.
+
+   **Every batched request goes to our own deployment.** The canonical public `titiler.xyz` is significantly rate limited — it is fine for a one-off spot check (confirming an endpoint's behavior, comparing versions) and unusable for anything per-tile. Ours is pinned old at **titiler 0.22.4** (rasterio 1.4.3, GDAL 3.9.3) against 2.2.1 upstream; upgrading it is issue #22, and `/healthz` on either reports the versions. When a behavior looks like a titiler quirk, check it against `titiler.xyz` once before assuming it is our version: the `asset_media_type` and `/cog/validate` behavior in issue #33 is byte-identical on both, so that one is not staleness.
 3. **Collection metadata** — joined from USGS `WESM.csv` (`s3://prd-tnm/StagedProducts/Elevation/metadata/WESM.csv`) and attached to `collection.summaries` with a `wesm:` prefix (technically invalid STAC, but STAC Browser renders it). Layout is flat/self-contained (`TemplateLayoutStrategy(item_template="")`, `CatalogType.SELF_CONTAINED`) so `catalog/` is relocatable.
 4. **Aggregation** — `catalog2geoparquet.py` walks the root catalog with `rustac` and writes zstd STAC-GeoParquet; `collection2geoparquet.py` embeds collection metadata for a single collection. `update_root_catalog.py` adds child links and regenerates the `catalog/collection.json` "All Cataloged" meta collection (union bbox + temporal extent across all collections).
 
@@ -81,12 +87,33 @@ Flow: `refresh` compares each item's recorded values against a live HEAD (`resta
 
 `backfill_file_metadata.py` established the baseline without a titiler round trip. It is a **go-forward** baseline, not an audit: an item whose tile was re-staged *before* the backfill got today's size and checksum paired with yesterday's geometry, and will look self-consistent forever.
 
-Note `refresh --full-rebuild` does **not** correct those. It only changes *how* projects the tile-set diff already flagged are rebuilt ([refresh_catalog.py:1217](scripts/refresh_catalog.py#L1217)) — and a project whose tiles were reprocessed under their existing names is never flagged, which is the whole reason this issue exists. Rebuilding an affected project means `create-stac --project <ID> --overwrite --full`; finding which projects those are needs a check that re-reads the tiles.
+Note `refresh --full-rebuild` does **not** correct those. It only changes *how* projects the tile-set diff already flagged are rebuilt ([refresh_catalog.py:1217](scripts/refresh_catalog.py#L1217)) — and a project whose tiles were reprocessed under their existing names is never flagged, which is the whole reason this issue exists. Rebuilding an affected project means `create-stac --project <ID> --overwrite --full`; finding which projects those are is what the audit below is for.
+
+### Finding pre-backfill drift: `audit_catalog.py`
+
+`refresh` cannot see that class of drift, by construction. `audit_catalog.py` (`pixi run audit`, and the `Audit Catalog` workflow_dispatch) can: it ignores the recorded metadata and re-derives each sampled item from the tile as it stands today, through `create_stac_item()` — **the same titiler endpoint the builder uses** — then diffs that against what is committed. So the audit exercises the production code path, and its result is directly actionable: a clean run means a rebuild would be a no-op, and a mismatch *is* the change a rebuild would make.
+
+Reading the GeoTIFF header locally would be ~4x faster, but it can only confirm the `proj:*` fields. The WGS84 `geometry`/`bbox` and `proj:geometry` come from titiler reprojecting, and nothing read locally can check them — on drifted tiles those were wrong too. One code path that checks everything beats two that each check part of it.
+
+Exactly these are ignored in the diff, determined empirically from a known-good tile that differs in them and nothing else: `links` (pystac rewrites them), `stac_extensions` (the file extension is added after titiler answers), `file:*` (titiler never sees S3 object metadata — they are checked separately against S3), and `statistics`/`histogram` (titiler's own nondeterminism: the same tile re-read returns `mean -0.43414297933755347` vs `-0.43414293580320523`). Everything else must match within 1 ULP.
+
+A collection with no WESM row is reported, not worked around: since issue #23 those are pruned, so it would mean the catalog and WESM have diverged. Verified: 0 of 934 cataloged collections lack a WESM row.
+
+**Findings and errors are different things and are kept apart.** A finding says the catalog is wrong — rebuilding that item would change it. An error means the tile could not be checked at all, which at high concurrency is nearly always the titiler lambda shedding load. Errored tiles are retried once at 1/8 the concurrency, and what survives that is reported separately: `--fail-on-mismatch` fails on findings, while `--max-error-pct` (default 1%) fails a run that could not reach enough tiles to conclude anything. Reporting a throttled request as drift would be exactly the false alarm this script exists to rule out.
+
+**Concurrency is per tile, not per collection.** Sampling is per collection, but the work is pooled flat across every selected tile: an earlier version pooled over collections and walked items serially inside each one, which left every run bounded by its largest collection (`KS_Statewide_2018_A18` alone is 1691 items — ~46 min on its own, now 42 s at `--threads 32`). Phase 1 resolves collections to tile tasks (one S3 LIST plus a HEAD per *sampled* tile — it used to HEAD every tile in the project regardless of sample size, ~40x more requests than the default run reads); phase 2 is one pool over tiles.
+
+`--part i/N` splits the collections across N runs, greedily bin-packed by tile count so the parts finish together (measured spread at N=12: 1.000x). It is deterministic and order-independent — seeded per collection by name, so a collection samples the same tiles whichever part it lands in — so `--part 3/12` means the same thing locally as in CI. `--merge-reports` combines the parts and **verifies every part reported**: a part whose job died would otherwise shrink the totals silently and the run would look clean because the tiles it would have flagged were never checked.
+
+Measured ~40 tiles/s per runner at `--threads 32`, and it scales across runners (4 concurrent clients aggregated 108.7 tiles/s), so the ceiling is not the runner count but the lambda's account concurrency — past ~1000 concurrent invocations it sheds load, which shows up as unchecked tiles. 12 parts × 32 threads leaves room; that is why `parallel_jobs` defaults to 12 rather than the 60 concurrent runners the plan allows.
+
+Observed on a 10-tile-per-collection sample (9105 tiles): **17 mismatched across 8 collections**, all the same signature — items claiming 10012×10012 against tiles now 10000×10000 or 10001×10000, i.e. USGS re-staged those tiles without the 6 m overlap and snapped them to the grid. Drift is **partial within a project** (`AZ_NavajoCorridor_2020_D20` audits 6/20 bad, `AZ_Safford_QL2_2016` 3/15, `UT_Central_Ql2_TL_2018` 3/13), so a small sample under-detects — use `--project <ID>` to audit a suspect collection exhaustively before rebuilding it.
 
 ### Automation
 
 * `.github/workflows/update-catalog.yml` — weekly (Mon 06:00 UTC) + `workflow_dispatch` (`dry_run`, `allow_large_removals`). Runs `pixi run refresh` and opens a PR; no PR when nothing changed.
 * `.github/workflows/lint.yml` — `pixi run lint` on every PR and push to `main`; fails on a ruff lint error or an unformatted file under `scripts/`.
+* `.github/workflows/audit-catalog.yml` — `workflow_dispatch` only, `permissions: contents: read` (no commits, no PR, no release). Inputs: `projects` (space/comma separated; blank sweeps everything), `sample`, `all_tiles`, `parallel_jobs`, `seed`. Three jobs: `prepare` emits the matrix (`parallel_jobs` capped at the number of collections selected, so naming one collection runs exactly one job), `audit` runs the parts with `fail-fast: false`, and `summarize` merges them and owns the exit code — the parts deliberately do *not* pass `--fail-on-mismatch`, so drift in one part cannot be mistaken for a broken part. `prepare`/`summarize` sparse-checkout `scripts` only; they never need the 1.1 GB of item JSON.
 * `.github/workflows/release.yml` — monthly (1st, 06:17 UTC) + dispatch. Skips if `catalog/` is unchanged since the latest release *tag* (resolved via the tag, not `targetCommitish`). Otherwise rebuilds the parquet, asserts parquet row count == item-file count, writes `catalog.gti`, and publishes a CalVer `vYYYY.MM.DD` release so `releases/latest/download/catalog.parquet` stays current.
 
 `refresh_catalog.py` is the interesting one — it is destructive by design and its guardrails exist because the USGS bucket has been observed mid-repopulation (issue #6):

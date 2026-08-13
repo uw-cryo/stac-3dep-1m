@@ -15,10 +15,13 @@ geometry, projection and raster statistics titiler derived -- is left untouched.
 
 That makes this a *go-forward* baseline, not an audit. An item whose tile was
 already re-staged before this ran gets today's size and checksum paired with
-yesterday's geometry, and will look self-consistent forever after. Correcting
-those needs `refresh --full-rebuild`, which re-derives every item from titiler;
-this script deliberately does not, because a 3.5 h titiler pass is a much larger
-and more fragile change than recording metadata S3 already has.
+yesterday's geometry, and will look self-consistent forever after. Finding those
+is what `audit_catalog.py` is for, and correcting one means rebuilding its
+collection outright (`create-stac --project <ID> --overwrite --full`) -- not
+`refresh --full-rebuild`, which only changes *how* projects the tile-set diff
+already flagged are rebuilt, and such a project is never flagged. This script
+deliberately re-derives nothing, because a catalog-wide titiler pass is a much
+larger and more fragile change than recording metadata S3 already has.
 
 Idempotent: re-running rewrites only items whose recorded values disagree with
 S3, so a second run is a no-op and prints 0 updated.
