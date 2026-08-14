@@ -571,6 +571,63 @@ def reusable_items(project, datetime_str, full=False, live_meta=None):
     return items
 
 
+def preserve_raster_bands(item_dicts, project, live_meta):
+    """Carry forward raster:bands that a rebuild would otherwise drop.
+
+    titiler answers a tile whose valid pixels span less than one float32 ULP --
+    a perfectly flat water surface -- with 500 "Too many bins for data range",
+    because numpy takes the bin dtype from the array and 10 float32 bins across
+    a one-ULP range collapse to duplicate edges. (The same data histograms fine
+    in float64, and the failure is not size: the smallest offender here is
+    3.7 MB. It is not fixed by upgrading either -- titiler 2.2.1 fails the same
+    tile with "Cannot create 3 finite-sized bins".)
+
+    create_stac_item's fallback then retries with with_raster=false, which is
+    all or nothing: it drops data_type, nodata, scale, offset and unit along
+    with the statistics, none of which needed a histogram. The rebuilt item is
+    strictly worse than the committed one, and audit_catalog.py cannot see it,
+    because a fresh derivation of that tile returns nothing either -- both
+    sides agree and it reports clean.
+
+    Statistics describe pixels, so the committed block is only carried forward
+    when the tile's bytes are unchanged. If the tile was re-staged, the old
+    numbers are no longer about it and are dropped with a warning rather than
+    silently attached to different data.
+    """
+    restored = stale = 0
+    for d in item_dicts:
+        asset = d.get("assets", {}).get(ASSET_NAME, {})
+        if not asset or asset.get("raster:bands"):
+            continue
+        path = Path(f"./catalog/{project}/{d['id']}.json")
+        if not path.is_file():
+            continue
+        try:
+            old_asset = json.loads(path.read_text())["assets"][ASSET_NAME]
+        except Exception:
+            continue
+        if not old_asset.get("raster:bands"):
+            continue
+        have = {k: old_asset[k] for k in FILE_FIELDS if k in old_asset}
+        want = live_meta.get(d["id"], {})
+        if have and any(have[k] != want.get(k) for k in have):
+            stale += 1
+            continue
+        asset["raster:bands"] = old_asset["raster:bands"]
+        restored += 1
+    if restored:
+        warnings.warn(
+            f"{restored} item(s) kept their committed raster:bands: titiler "
+            "returned none this time (see preserve_raster_bands)"
+        )
+    if stale:
+        warnings.warn(
+            f"{stale} item(s) lost raster:bands: titiler returned none and the "
+            "tile's bytes changed, so the committed statistics cannot be reused"
+        )
+    return item_dicts
+
+
 def create_stac_catalog(project, is_workunit=False, full=False):
     """Create a STAC catalog from a 3DEP 1m project"""
     s = get_wesm_series(project, is_workunit=is_workunit)
@@ -646,6 +703,9 @@ def create_stac_catalog(project, is_workunit=False, full=False):
     # out of the catalog, which is already uniformly projection v2.0.0
     item_dicts = [normalize_projection(json.loads(x)) for x in results]
     item_dicts += list(reused.values())
+    # before add_file_metadata, so a carried-forward raster:bands lands in the
+    # same key position a titiler-derived one would (ahead of file:* and roles)
+    preserve_raster_bands(item_dicts, project, live_meta)
     # stamp both paths: a titiler item has no file metadata at all, and a reused
     # one may predate the backfill
     for d in item_dicts:

@@ -3,7 +3,8 @@
   "stac_version": "1.1.0",
   "stac_extensions": [
     "https://stac-extensions.github.io/file/v2.1.0/schema.json",
-    "https://stac-extensions.github.io/projection/v2.0.0/schema.json"
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
   ],
   "id": "USGS_1M_19_x61y492_ME_MidCoast_2021_B21",
   "geometry": {
@@ -230,6 +231,40 @@
     "elevation": {
       "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/ME_MidCoast_2021_B21/TIFF/USGS_1M_19_x61y492_ME_MidCoast_2021_B21.tif",
       "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "unit": "metre",
+          "statistics": {
+            "mean": -1.3000000515812755,
+            "minimum": -1.2999999523162842,
+            "maximum": -1.2999999523162842,
+            "stddev": 9.926499133783297e-08,
+            "valid_percent": 1.4444351196289062
+          },
+          "histogram": {
+            "count": 11,
+            "min": -1.7999999523162842,
+            "max": -0.7999999523162842,
+            "buckets": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              15146,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ],
       "file:size": 3719538,
       "file:checksum": "e502082f852cc95474d1a8",
       "roles": [
