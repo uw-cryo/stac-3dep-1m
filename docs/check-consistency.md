@@ -31,12 +31,22 @@ prefixes in 6.4 s at 32 threads. Sampling one tile per collection would have mis
    `item_asset_url()` is only consulted for probes. I had argued for parsing `assets.elevation.href` because
    that is the field that actually breaks downstream. Verified equivalent on a 1,500-item sample, and cheap
    either way (~35 s to parse all 123,659) — but as written, an item whose href is wrong while its filename is
-   right is invisible. Low severity, easy to tighten.
+   right is invisible. Low severity, easy to tighten. **Closed by `check_catalog.py`** (point 2 below): the
+   refresh still keys off the stem, and a separate check now asserts the two agree.
 
-2. **No internal-consistency check.** Items listed in `collection.json` but absent on disk (or vice versa),
-   collections missing from root `catalog.json`, hrefs pointing at the wrong collection. This is the free,
-   no-network half of the check, and it catches *our* bugs rather than USGS's. `refresh_catalog.py` maintains
-   these invariants when it runs, but nothing verifies them.
+2. ~~**No internal-consistency check.**~~ **Closed ([#20](https://github.com/uw-cryo/stac-3dep-1m/issues/20)):**
+   `scripts/check_catalog.py` (`pixi run check-catalog`) verifies the catalog against itself with no network
+   at all — item links vs item files in both directions, collections vs root `catalog.json` in both
+   directions, each item's `assets.elevation.href` against its own collection, plus the meta collection's
+   extent, collection extents/summaries against their items, one item schema catalog-wide, and the
+   `json.dumps(indent=2)` pin. ~55 s for 936 collections / 125,187 items, which is what lets it gate every PR
+   touching `catalog/` and the release build rather than run occasionally. Point 1 above is closed with it:
+   filename stem, `id`, and asset href are now checked to agree, so an item whose href names another project
+   is no longer invisible. It also validates sampled objects against the published STAC schemas (collections
+   as committed, which required wrapping the `wesm:*` summary values in one-element lists to be legal STAC
+   — `scripts/wrap_wesm_summaries.py`, 936/936 pass) and, given
+   `--parquet`, compares a built `catalog.parquet` to the items row for row. Current state: 0 findings;
+   caught all 46 injected fault classes. See the `check_catalog.py` section in `CLAUDE.md`.
 
 3. **Diff granularity is the tile set only.** Which is correct for existence — and is exactly why the two gaps
    below are invisible to it.
@@ -205,6 +215,10 @@ Note the labels are evidence classes, not statements of USGS intent — only `wi
    `superseded`-link approach preserves the record but pushes filtering onto every consumer.
 3. **Which artifact is checked — `catalog/` or the release parquet?** `main` runs ahead of the tag that
    SlideRule's AMS table is built from, so "the repo is right" and "what people use is right" are different
-   questions.
+   questions. Half-answered: `check_catalog.py --parquet` compares a parquet to the items row for row, and
+   `release.yml` now runs it on the artifact it is about to publish, so what ships matches the commit it was
+   built from. Pointing the same check at a *downloaded* release asset answers the other half — but every
+   item that changed since the tag reports as a difference, which is the release being old rather than
+   wrong, so that direction wants a "drift since tag" framing rather than a pass/fail gate.
 4. ~~**Does WESM drift trigger a full titiler rebuild, or a metadata-only collection refresh?**~~ Resolved:
    metadata-only refresh, implemented in `refresh_catalog.py` (see Gap 2 above).

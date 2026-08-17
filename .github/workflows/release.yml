@@ -65,21 +65,19 @@ jobs:
         with:
           cache: true
 
+      # Cheap gate before the expensive build: the parquet inherits whatever
+      # inconsistency the catalog has, and a mixed item schema or a collection
+      # nothing links to becomes a published artifact consumers build databases
+      # from. ~20 s against ~15 min for the parquet (issue #20).
+      - name: Check catalog consistency
+        if: steps.changed.outputs.changed == 'true'
+        run: pixi run check-catalog --markdown check-summary.md
+
       - name: Build STAC-GeoParquet + GTI
         if: steps.changed.outputs.changed == 'true'
         run: |
           ulimit -n 65536
           pixi run catalog2geoparquet
-          # sanity: parquet row count must equal the catalog item-file count
-          pixi run python - <<'EOF'
-          from pathlib import Path
-          import pyarrow.parquet as pq
-          n_parquet = pq.ParquetFile("catalog.parquet").metadata.num_rows
-          n_items = sum(1 for p in Path("catalog").glob("*/*.json")
-                        if p.name != "collection.json")
-          print(f"parquet rows: {n_parquet}, catalog item files: {n_items}")
-          assert n_parquet == n_items, "parquet row count != catalog item count"
-          EOF
           cat > catalog.gti <<'EOF'
           <GDALTileIndexDataset>
               <!-- Minimal metadata for GDAL to avoid reading a first .tif -->
@@ -95,6 +93,18 @@ jobs:
               <LocationField>assets.elevation.href</LocationField>
           </GDALTileIndexDataset>
           EOF
+
+      # The artifact this release exists to publish, checked against the items
+      # it was walked from: row count and id sets both ways, then every row's
+      # collection, href (the GTI LocationField), file:size/checksum, proj:code,
+      # proj:shape, datetimes, bbox and geometry. This replaces the row-count
+      # assert that used to live in the build step -- a count cannot see a row
+      # whose href or footprint drifted, and the href is what consumers read.
+      - name: Check parquet against the catalog
+        if: steps.changed.outputs.changed == 'true'
+        run: |
+          pixi run check-catalog --check parquet --parquet catalog.parquet \
+            --markdown parquet-summary.md
 
       - name: Tag and release
         if: steps.changed.outputs.changed == 'true'

@@ -1,0 +1,71 @@
+# Internal-consistency gate: does the catalog agree with itself? (issue #20)
+#
+# No titiler, no S3, no tile reads -- everything checked here comes from the
+# committed files, so the whole catalog is ~55 s and this can gate every PR that
+# touches it. What it catches is our bugs rather than USGS's: an item linked from
+# a collection.json but not on disk, a collection missing from the root catalog,
+# an asset href naming a different project than the item's own, a stray property
+# key that would split catalog.parquet into two column schemas, a file an orjson
+# environment silently reformatted, an object that no longer passes the STAC
+# schemas.
+#
+# The `parquet` check is not run here: catalog.parquet is gitignored and takes
+# ~4 minutes to build, so it belongs where one is built -- release.yml runs it
+# on the artifact it is about to publish.
+#
+# The weekly refresh PR is opened with GITHUB_TOKEN, and PRs opened that way do
+# not trigger workflows -- so update-catalog.yml runs this check itself, on its
+# own working tree, rather than relying on this file to catch it.
+#
+#   gh workflow run check-catalog.yml
+#   pixi run check-catalog        # the same thing locally, ~20 s
+name: Check Catalog
+
+on:
+  pull_request:
+    paths:
+      - "catalog/**"
+      - "scripts/**"
+      - ".github/workflows/check-catalog.yml"
+  push:
+    branches: [main]
+    paths:
+      - "catalog/**"
+      - "scripts/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-catalog-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    # the check itself is ~20 s; the budget is checking out 1.1 GB of item JSON
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: prefix-dev/setup-pixi@v0.10.1
+        with:
+          cache: true
+
+      # writes the same rendering to the job summary automatically; the JSON
+      # carries every finding when the printed list is capped
+      - name: Check catalog against itself
+        run: |
+          pixi run check-catalog --json check_report.json --markdown check-summary.md
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: consistency-report
+          path: |
+            check-summary.md
+            check_report.json
+          if-no-files-found: warn

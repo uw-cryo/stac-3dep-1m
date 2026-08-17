@@ -80,6 +80,27 @@ jobs:
             echo "refresh_summary.json not produced (guardrail/validation failure -- see log)" >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      # Does the tree refresh just produced agree with itself? (issue #20)
+      # --untracked because the walk has to see the working tree as it stands:
+      # the rebuilt items are not committed yet, so `git ls-files` would list
+      # the pruned ones and miss the new ones.
+      # --exit-zero because the PR is worth opening either way -- the findings
+      # go into its body, and "Fail on consistency findings" below reddens the
+      # run once the diff a human needs to look at is on GitHub.
+      - name: Check catalog consistency
+        id: consistency
+        if: steps.refresh.outputs.changed == 'true'
+        run: |
+          pixi run check-catalog --untracked --exit-zero \
+            --json check_report.json --markdown check-summary.md
+          n=$(jq '.findings | length' check_report.json)
+          echo "findings=$n" >> "$GITHUB_OUTPUT"
+          if [ "$n" != "0" ]; then
+            echo "::warning::$n internal-consistency findings in the refreshed catalog"
+            printf '\n---\n\n' >> pr_body.md
+            cat check-summary.md >> pr_body.md
+          fi
+
       - name: Warn on per-project build failures
         if: steps.refresh.outputs.n_failures != '' && steps.refresh.outputs.n_failures != '0'
         run: |
@@ -97,5 +118,13 @@ jobs:
           commit-message: "Refresh catalog: ${{ steps.refresh.outputs.subject }}"
           title: "Update catalog (${{ steps.refresh.outputs.title }})"
           # rendered by refresh_catalog.py --pr-body: headline counts plus a
-          # per-collection table (too long for a GITHUB_OUTPUT variable)
+          # per-collection table (too long for a GITHUB_OUTPUT variable), with
+          # the consistency findings appended when there are any
           body-path: pr_body.md
+
+      # after the PR exists, so a broken refresh is both visible and reviewable
+      - name: Fail on consistency findings
+        if: steps.consistency.outputs.findings != '' && steps.consistency.outputs.findings != '0'
+        run: |
+          echo "::error::the refreshed catalog is not internally consistent (${{ steps.consistency.outputs.findings }} findings) -- see the PR body and the job summary"
+          exit 1

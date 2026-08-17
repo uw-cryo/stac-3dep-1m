@@ -8,9 +8,9 @@ already-committed collections to that same order without a titiler round trip
 -- the alternative is one request per tile across the whole catalog to change
 nothing but the order of a list.
 
-Two things are order-dependent, and only these two (verified across all 934
-collections: proj:code is the only list-valued summary; every wesm:* is a
-scalar):
+Two things are order-dependent, and only these two. The wesm:* summaries are
+lists too since 2026-08 (wrap_wesm_summaries.py), but each holds exactly one
+value, so nothing about them can be reordered:
 
     * the rel="item" links, which are add_items() order
     * the proj:code summary, which pystac's Summarizer builds by walking those

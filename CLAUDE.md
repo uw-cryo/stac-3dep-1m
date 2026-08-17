@@ -30,8 +30,12 @@ pixi run audit                     # 3 tiles/collection: would a rebuild change 
 pixi run audit --project <ID>      # one collection, every tile
 pixi run audit --all-tiles --part 3/12   # one runner's share of a split audit
 pixi run audit --merge-reports <dir>     # combine the parts of a split audit
+pixi run check-catalog             # catalog vs itself (~55 s, whole catalog)
+pixi run check-catalog --project <ID> --check schema   # one collection, one check
+pixi run check-catalog --parquet catalog.parquet       # + the built artifact, row for row
 ulimit -n 500000 && pixi run catalog2geoparquet   # full catalog -> catalog.parquet
 pixi run collection2geoparquet catalog/<ID>/collection.json out.parquet
+pixi run wrap-wesm-summaries       # wesm:* summaries -> one-element lists (idempotent)
 pixi run update-root-catalog       # link new children into catalog/catalog.json
 pixi run list-collections          # regenerate collections.txt
 pixi run ruff                      # ruff check --fix + ruff format
@@ -55,7 +59,7 @@ Data flow:
 2. **STAC Item generation** — `scripts/create_static_stac.py` POSTs each TIFF URL to a TiTiler `/cog/stac` endpoint (currently a private Lambda URL constant in the script). Requests are batched async (100 at a time) with bounded retries. Two known server responses are handled specially: "Too many bins for data range" → retry with `with_raster=false`; 5xx → short sleep and retry.
 
    **Every batched request goes to our own deployment.** The canonical public `titiler.xyz` is significantly rate limited — it is fine for a one-off spot check (confirming an endpoint's behavior, comparing versions) and unusable for anything per-tile. Ours is pinned old at **titiler 0.22.4** (rasterio 1.4.3, GDAL 3.9.3) against 2.2.1 upstream; upgrading it is issue #22, and `/healthz` on either reports the versions. When a behavior looks like a titiler quirk, check it against `titiler.xyz` once before assuming it is our version: the `asset_media_type` and `/cog/validate` behavior in issue #33 is byte-identical on both, so that one is not staleness.
-3. **Collection metadata** — joined from USGS `WESM.csv` (`s3://prd-tnm/StagedProducts/Elevation/metadata/WESM.csv`) and attached to `collection.summaries` with a `wesm:` prefix (technically invalid STAC, but STAC Browser renders it). Layout is flat/self-contained (`TemplateLayoutStrategy(item_template="")`, `CatalogType.SELF_CONTAINED`) so `catalog/` is relocatable.
+3. **Collection metadata** — joined from USGS `WESM.csv` (`s3://prd-tnm/StagedProducts/Elevation/metadata/WESM.csv`) and attached to `collection.summaries` with a `wesm:` prefix, **each value a one-element list**. Summaries were chosen over `extra_fields` because that is the block STAC Browser renders (Mar 2025, "render wesm metadata on collection page"), but the values were bare scalars until 2026-08-17, which is illegal — a summary value must be a JSON Schema, a set, or a Range, so every collection failed validation on its first `wesm:` field. Wrapping each in a list makes it a legal one-value set and keeps the rendering; `wesm_summary_fields()` emits that form and `wesm_value()` reads one back (tolerating the old spelling). `scripts/wrap_wesm_summaries.py` migrated the 936 committed collections. Layout is flat/self-contained (`TemplateLayoutStrategy(item_template="")`, `CatalogType.SELF_CONTAINED`) so `catalog/` is relocatable.
 4. **Aggregation** — `catalog2geoparquet.py` walks the root catalog with `rustac` and writes zstd STAC-GeoParquet; `collection2geoparquet.py` embeds collection metadata for a single collection. `update_root_catalog.py` adds child links and regenerates the `catalog/collection.json` "All Cataloged" meta collection (union bbox + temporal extent across all collections).
 
 ### Project vs. workunit naming
@@ -115,12 +119,49 @@ Measured ~40 tiles/s per runner at `--threads 32`, and it scales across runners 
 
 Observed on a 10-tile-per-collection sample (9105 tiles): **17 mismatched across 8 collections**, all the same signature — items claiming 10012×10012 against tiles now 10000×10000 or 10001×10000, i.e. USGS re-staged those tiles without the 6 m overlap and snapped them to the grid. Drift is **partial within a project** (`AZ_NavajoCorridor_2020_D20` audits 6/20 bad, `AZ_Safford_QL2_2016` 3/15, `UT_Central_Ql2_TL_2018` 3/13), so a small sample under-detects — use `--project <ID>` to audit a suspect collection exhaustively before rebuilding it.
 
+### Internal consistency: `check_catalog.py` (issue #20)
+
+`refresh` checks the catalog against USGS and `audit` checks it against titiler. Neither asks whether the catalog agrees with *itself*, which is the free half of the problem and the half that catches our bugs. `pixi run check-catalog` reads committed files and does the whole catalog (936 collections / 125,187 items) in ~55 s, which is what makes it usable as a per-PR and pre-release gate rather than an occasional sweep.
+
+Nine checks, selectable with `--check`:
+
+| Check | Question |
+| --- | --- |
+| `root` | are `catalog.json`'s children exactly the collection directories, and does every child href resolve? |
+| `meta` | is the "All Cataloged" extent what those collections imply (overall bbox first, then one per collection in sorted order)? |
+| `links` | are a collection's `rel="item"` links exactly the item files beside it, in sorted-by-id order? |
+| `items` | id == filename stem == asset href stem, href names the item's *own* collection, bbox == geometry bounds, `proj:shape`×gsd spans `proj:bbox`, `file:*` well-formed |
+| `summaries` | collection bbox == union of its items, temporal extent + every item's `start_datetime`/`end_datetime` == the snapshotted `wesm:collect_*`, `proj:code` summary in first-seen order |
+| `schema` | one item shape and one collection shape catalog-wide — every key *and its position* |
+| `format` | every file byte-identical to `json.dumps(indent=2)` (the orjson pin above) |
+| `validate` | do sampled objects pass the published STAC JSON schemas? |
+| `parquet` | does `catalog.parquet` say the same thing as the items it was walked from? (needs `--parquet`) |
+
+The `items` check closes the gap the issue names: `catalog_state()` takes item identity from the filename stem, so an item whose href points at another project is invisible to everything else we have.
+
+`schema` compares each item against the *modal* shape rather than a hardcoded one, so it needs no maintenance when the schema legitimately moves — but it fires the moment part of the catalog moves and the rest does not, which is what produces a mixed GeoParquet column schema.
+
+**Tracked files only, by default**, because the committed tree *is* the published product: a locally built collection `update-root-catalog` has not linked yet is work in progress, not a broken catalog. `--untracked` walks the filesystem instead and is what CI passes after `refresh` has mutated the tree but before anything is committed — there `git ls-files` would still list the pruned items and miss the new ones. Both modes skip a directory with no `collection.json`, the same rule `refresh_catalog.collection_dirs()` follows.
+
+**`validate` is the only check that reaches the network**, and only for the JSON schemas themselves. pystac bundles the 13 core v1.1.0 schemas, so what is actually fetched is the three extension schemas (file, projection, raster) — once, then cached for the run. That is why the warm-up probes an *extension* schema and not `item.json`: probing a bundled schema succeeds offline, and every item would then fail its extension fetch one at a time. Offline the check is skipped with one note and the run continues, because an unreachable schema says nothing about the catalog (verified by simulating a dead network: one note, exit 0, every other check still runs). Two things make it sampled rather than exhaustive: it costs ~11 ms per item (23 min for the catalog, against 17 s for everything else), and `schema` already proves there is exactly one item shape catalog-wide, so the marginal item adds little. It validates every collection, the root catalog, the meta collection, and `--validate-sample` items per collection (default 1, seeded per collection so a finding reproduces).
+
+Collections are validated **as committed** — no exemptions. That is only true since the `wesm:*` values were wrapped in one-element lists (see step 3 above); before that every collection failed on its first `wesm:` field, and an earlier revision of this checker stripped the block before validating. The invariant is now checked directly too: a `wesm:*` summary that is not a one-element list is a `summaries` finding naming `pixi run wrap-wesm-summaries`, which says what to do about it instead of surfacing as a schema error 30 lines deep. Current state: 936/936 collections, the root catalog, the meta collection and every sampled item pass.
+
+**`parquet` compares the published artifact to the repo.** `catalog.parquet` is gitignored and rebuilt in CI, so nothing here had ever verified it says what the items say — `release.yml` asserted the row count and stopped, which cannot see a row whose href or footprint drifted. The check compares row count and id sets both ways, then per row: `collection`, `assets.elevation.href` (the GTI `LocationField`), `file:size`, `file:checksum`, `proj:code`, `proj:shape`, the three datetimes, `bbox`, and the geometry's coordinates decoded from WKB. 15 s for 125,187 rows.
+
+Coordinates there are compared at 1 ULP, and they need to be: **rustac's JSON float parse and Python's disagree in the last bit on ~47% of coordinates** (an item reading `-119.49674045532203` lands in the parquet as `-119.49674045532204`). Everything else is compared exactly. Verified: a 1-ULP shift is not reported, a 1e-6 one is.
+
+**Findings fail, notes do not.** A finding is a disagreement between two things we wrote and exits 1. A note is a documented, harmless divergence: today the 11 collections carrying WESM `lpc`/`sourcedem`/`metadata` links from an older builder. The 9 items with no `raster:bands` (titiler cannot histogram a tile whose valid pixels span one float32 ULP — `docs/upstream-titiler-hist-issue.md`) are listed by id in `KNOWN_NO_RASTER_BANDS`, not tolerated by count, so a *tenth* is a finding and one that regains bands is reported as a stale entry to delete.
+
+Current state: **0 findings, 11 notes**, including the parquet check against a freshly built `catalog.parquet`. Verified against 46 injected fault classes (wrong id, href pointing at another project, deleted/extra item file, unsorted links, drifted collection bbox, stale meta extent, stray property key, reordered asset keys, orjson float repr, a dropped/duplicated/edited parquet row, a collection missing its license, a wesm summary unwrapped back to a scalar, …) — each one is caught by the check that owns it.
+
 ### Automation
 
 * `.github/workflows/update-catalog.yml` — weekly (Mon 06:00 UTC) + `workflow_dispatch` (`dry_run`, `allow_large_removals`). Runs `pixi run refresh` and opens a PR; no PR when nothing changed.
 * `.github/workflows/lint.yml` — `pixi run lint` on every PR and push to `main`; fails on a ruff lint error or an unformatted file under `scripts/`.
 * `.github/workflows/audit-catalog.yml` — `workflow_dispatch` only, `permissions: contents: read` (no commits, no PR, no release). Inputs: `projects` (space/comma separated; blank sweeps everything), `sample`, `all_tiles`, `parallel_jobs`, `seed`. Three jobs: `prepare` emits the matrix (`parallel_jobs` capped at the number of collections selected, so naming one collection runs exactly one job), `audit` runs the parts with `fail-fast: false`, and `summarize` merges them and owns the exit code — the parts deliberately do *not* pass `--fail-on-mismatch`, so drift in one part cannot be mistaken for a broken part. `prepare`/`summarize` sparse-checkout `scripts` only; they never need the 1.1 GB of item JSON.
-* `.github/workflows/release.yml` — monthly (1st, 06:17 UTC) + dispatch. Skips if `catalog/` is unchanged since the latest release *tag* (resolved via the tag, not `targetCommitish`). Otherwise rebuilds the parquet, asserts parquet row count == item-file count, writes `catalog.gti`, and publishes a CalVer `vYYYY.MM.DD` release so `releases/latest/download/catalog.parquet` stays current.
+* `.github/workflows/check-catalog.yml` — `pixi run check-catalog` on every PR and push to `main` that touches `catalog/` or `scripts/`, plus dispatch; `permissions: contents: read`. The weekly refresh PR is opened with `GITHUB_TOKEN` and PRs opened that way **do not trigger workflows**, so `update-catalog.yml` runs the check itself (with `--untracked --exit-zero`) rather than relying on this one: findings are appended to the PR body and a final step fails the run *after* the PR exists, so a broken refresh is both visible and reviewable. `release.yml` runs it as a gate before the parquet build — ~20 s against ~15 min, and the parquet inherits whatever inconsistency the catalog has.
+* `.github/workflows/release.yml` — monthly (1st, 06:17 UTC) + dispatch. Skips if `catalog/` is unchanged since the latest release *tag* (resolved via the tag, not `targetCommitish`). Otherwise checks consistency, rebuilds the parquet, checks the parquet against the items row for row (this replaced the row-count assert), writes `catalog.gti`, and publishes a CalVer `vYYYY.MM.DD` release so `releases/latest/download/catalog.parquet` stays current.
 
 `refresh_catalog.py` is the interesting one — it is destructive by design and its guardrails exist because the USGS bucket has been observed mid-repopulation (issue #6):
 
