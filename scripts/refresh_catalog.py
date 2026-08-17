@@ -416,7 +416,9 @@ def classify_removal(project, item_ids, df, cell_index):
 
     category = series.onemeter_category
     if category == "Does not meet":
-        was = (collection_wesm_summaries(project) or {}).get("wesm:onemeter_category")
+        was = create_static_stac.wesm_value(
+            collection_wesm_summaries(project) or {}, "wesm:onemeter_category"
+        )
         moved = f", was {was!r} at build time" if was and was != category else ""
         return (
             WITHDRAWN_FOR_CAUSE,

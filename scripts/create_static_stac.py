@@ -116,6 +116,15 @@ def get_titiler_datetime(series):
 def wesm_summary_fields(series):
     """The wesm:-prefixed collection summaries for one WESM row (JSON-safe).
 
+    Each value is a *one-element list*, not the scalar it describes. A STAC
+    summary value has to be a JSON Schema, a set, or a Range object -- scalars
+    are not allowed, and this block used to make every collection fail
+    validation ("218210 is not valid under any of the given schemas"). Wrapping
+    each value makes it a legal one-value set, and STAC Browser still renders
+    it, which is the whole reason the metadata lives in summaries rather than in
+    extra_fields (see the Mar 2025 "render wesm metadata on collection page"
+    commit). Use wesm_value() to read one back.
+
     Kept separate from add_wesm_metadata_to_collection so refresh_catalog.py can
     compare a live WESM row field-for-field against the summaries snapshotted in
     an existing collection.json (issue #18) -- both sides have to come out of the
@@ -123,7 +132,16 @@ def wesm_summary_fields(series):
     """
     links = ["lpc_link", "sourcedem_link", "metadata_link"]
     # Ensure JSON-serializable
-    return json.loads(series.drop(links).add_prefix("wesm:").to_json())
+    fields = json.loads(series.drop(links).add_prefix("wesm:").to_json())
+    return {k: [v] for k, v in fields.items()}
+
+
+def wesm_value(summaries, key):
+    """One wesm:* summary as a scalar, tolerating the pre-2026 unwrapped form."""
+    value = summaries.get(key)
+    if isinstance(value, list):
+        return value[0] if len(value) == 1 else value
+    return value
 
 
 def add_wesm_metadata_to_collection(collection, series):
@@ -745,7 +763,15 @@ def create_stac_catalog(project, is_workunit=False, full=False):
     )
     collection.add_links([license])
 
-    collection.add_items(items)
+    # sorted by id, because link order is add_items() order and nothing
+    # downstream re-sorts it: pystac takes no ordering argument on add_items(),
+    # normalize_hrefs() or save(). Unsorted, the order is
+    # [items from titiler] + [items reused from disk], so it shifts with the
+    # ratio of rebuilt to reused tiles and a rebuild that changed three items
+    # rewrites every link in the collection. The Summarizer below walks the
+    # same links, so this also fixes list-valued summaries (proj:code) flipping
+    # order for the same reason.
+    collection.add_items(sorted(items, key=lambda i: i.id))
 
     # Automatic summaries of Item propertes (e.g. proj:code)
     summaries = pystac.summaries.Summarizer().summarize(
