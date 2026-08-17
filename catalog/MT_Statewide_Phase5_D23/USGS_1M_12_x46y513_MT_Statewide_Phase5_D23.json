@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x46y513_MT_Statewide_Phase5_D23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -111.51883393311729,
+          46.23234544994588
+        ],
+        [
+          -111.38899282201842,
+          46.23286096106865
+        ],
+        [
+          -111.38963095893318,
+          46.32296592636519
+        ],
+        [
+          -111.51968505201127,
+          46.32244880058576
+        ],
+        [
+          -111.51883393311729,
+          46.23234544994588
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -111.51968505201127,
+    46.23234544994588,
+    -111.38899282201842,
+    46.32296592636519
+  ],
+  "properties": {
+    "start_datetime": "2023-07-06T00:00:00Z",
+    "end_datetime": "2023-10-08T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            459993.9999698645,
+            5119994.000039392
+          ],
+          [
+            470005.9999698645,
+            5119994.000039392
+          ],
+          [
+            470005.9999698645,
+            5130006.000039392
+          ],
+          [
+            459993.9999698645,
+            5130006.000039392
+          ],
+          [
+            459993.9999698645,
+            5119994.000039392
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      459993.9999698645,
+      5119994.000039392,
+      470005.9999698645,
+      5130006.000039392
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      459993.9999698645,
+      0.0,
+      -1.0,
+      5130006.000039392,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/MT_Statewide_Phase5_D23/TIFF/USGS_1M_12_x46y513_MT_Statewide_Phase5_D23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1235.0848388671875,
+            "minimum": 1164.6029052734375,
+            "maximum": 1385.62939453125,
+            "stddev": 58.0244564596578,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1164.6029052734375,
+            "max": 1385.62939453125,
+            "buckets": [
+              320060,
+              144422,
+              110301,
+              107193,
+              77950,
+              76049,
+              85893,
+              76485,
+              43921,
+              6302
+            ]
+          }
+        }
+      ],
+      "file:size": 261956919,
+      "file:checksum": "e502089db59eee69738ec8",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "MT_Statewide_Phase5_D23"
+}
