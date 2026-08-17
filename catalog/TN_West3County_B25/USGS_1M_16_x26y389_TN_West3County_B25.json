@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x26y389_TN_West3County_B25",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -89.63093067271485,
+          35.034142899289016
+        ],
+        [
+          -89.52127621400281,
+          35.03647244209837
+        ],
+        [
+          -89.52405453714087,
+          35.12666609486063
+        ],
+        [
+          -89.63382949637537,
+          35.124328788778705
+        ],
+        [
+          -89.63093067271485,
+          35.034142899289016
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -89.63382949637537,
+    35.034142899289016,
+    -89.52127621400281,
+    35.12666609486063
+  ],
+  "properties": {
+    "start_datetime": "2025-03-26T00:00:00Z",
+    "end_datetime": "2025-04-01T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            259993.99969163042,
+            3879994.0002878215
+          ],
+          [
+            270005.9996916304,
+            3879994.0002878215
+          ],
+          [
+            270005.9996916304,
+            3890006.0002878215
+          ],
+          [
+            259993.99969163042,
+            3890006.0002878215
+          ],
+          [
+            259993.99969163042,
+            3879994.0002878215
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      259993.99969163042,
+      3879994.0002878215,
+      270005.9996916304,
+      3890006.0002878215
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      259993.99969163042,
+      0.0,
+      -1.0,
+      3890006.0002878215,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/TN_West3County_B25/TIFF/USGS_1M_16_x26y389_TN_West3County_B25.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 102.39982604980469,
+            "minimum": 86.43170928955078,
+            "maximum": 141.36500549316406,
+            "stddev": 10.445991131546787,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 86.43170928955078,
+            "max": 141.36500549316406,
+            "buckets": [
+              159641,
+              270900,
+              181296,
+              158785,
+              111625,
+              81702,
+              50659,
+              22965,
+              8740,
+              2263
+            ]
+          }
+        }
+      ],
+      "file:size": 351444611,
+      "file:checksum": "e5020829e407aa7e683d5b",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "TN_West3County_B25"
+}
