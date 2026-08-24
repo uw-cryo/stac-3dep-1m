@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_18_x61y450_NY_LongIsland_A24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -73.70087501457601,
+          40.55340925410604
+        ],
+        [
+          -73.58265750697508,
+          40.55201924400353
+        ],
+        [
+          -73.58075162512691,
+          40.642188357773335
+        ],
+        [
+          -73.69912798408325,
+          40.643582773144274
+        ],
+        [
+          -73.70087501457601,
+          40.55340925410604
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -73.70087501457601,
+    40.55201924400353,
+    -73.58075162512691,
+    40.643582773144274
+  ],
+  "properties": {
+    "start_datetime": "2024-03-24T00:00:00Z",
+    "end_datetime": "2024-04-16T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            609994.0000131055,
+            4489994.000016841
+          ],
+          [
+            620006.0000131055,
+            4489994.000016841
+          ],
+          [
+            620006.0000131055,
+            4500006.000016841
+          ],
+          [
+            609994.0000131055,
+            4500006.000016841
+          ],
+          [
+            609994.0000131055,
+            4489994.000016841
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      609994.0000131055,
+      4489994.000016841,
+      620006.0000131055,
+      4500006.000016841
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      609994.0000131055,
+      0.0,
+      -1.0,
+      4500006.000016841,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/NY_LongIsland_A24/TIFF/USGS_1M_18_x61y450_NY_LongIsland_A24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1.203206343999256,
+            "minimum": -2.281249523162842,
+            "maximum": 41.86800765991211,
+            "stddev": 2.470579018682819,
+            "valid_percent": 75.87604522705078
+          },
+          "histogram": {
+            "count": 11,
+            "min": -2.281249523162842,
+            "max": 41.86800765991211,
+            "buckets": [
+              580296,
+              204530,
+              6561,
+              632,
+              640,
+              742,
+              614,
+              560,
+              563,
+              480
+            ]
+          }
+        }
+      ],
+      "file:size": 224155212,
+      "file:checksum": "e50208b8a1911df4924f9d",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "NY_LongIsland_A24"
+}

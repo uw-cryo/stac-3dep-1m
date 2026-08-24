@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x52y470_OR_2022Jackson_C25",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -122.75719716518876,
+          42.36195958042912
+        ],
+        [
+          -122.63561557960631,
+          42.36163764926097
+        ],
+        [
+          -122.63509337650825,
+          42.45180416065047
+        ],
+        [
+          -122.75684919669612,
+          42.45212710404974
+        ],
+        [
+          -122.75719716518876,
+          42.36195958042912
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -122.75719716518876,
+    42.36163764926097,
+    -122.63509337650825,
+    42.45212710404974
+  ],
+  "properties": {
+    "start_datetime": "2022-11-14T00:00:00Z",
+    "end_datetime": "2023-06-30T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            519994.0000119593,
+            4689994.000034827
+          ],
+          [
+            530006.0000119593,
+            4689994.000034827
+          ],
+          [
+            530006.0000119593,
+            4700006.000034827
+          ],
+          [
+            519994.0000119593,
+            4700006.000034827
+          ],
+          [
+            519994.0000119593,
+            4689994.000034827
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      519994.0000119593,
+      4689994.000034827,
+      530006.0000119593,
+      4700006.000034827
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      519994.0000119593,
+      0.0,
+      -1.0,
+      4700006.000034827,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/OR_2022Jackson_C25/TIFF/USGS_1M_10_x52y470_OR_2022Jackson_C25.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 591.3496784399567,
+            "minimum": 428.1538391113281,
+            "maximum": 943.146240234375,
+            "stddev": 94.28223647680588,
+            "valid_percent": 82.95269012451172
+          },
+          "histogram": {
+            "count": 11,
+            "min": 428.1538391113281,
+            "max": 943.146240234375,
+            "buckets": [
+              97715,
+              173080,
+              175694,
+              148004,
+              120443,
+              83747,
+              46715,
+              20990,
+              2627,
+              807
+            ]
+          }
+        }
+      ],
+      "file:size": 261111032,
+      "file:checksum": "e50208d2b1f8b1df9ef498",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "OR_2022Jackson_C25"
+}
