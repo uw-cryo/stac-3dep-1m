@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_13_x59y489_SD_BlackHills_D23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -103.87616828386074,
+          44.06762699653513
+        ],
+        [
+          -103.75132599232654,
+          44.06633063221733
+        ],
+        [
+          -103.74942870926444,
+          44.15636051999203
+        ],
+        [
+          -103.87446058799347,
+          44.157660939342115
+        ],
+        [
+          -103.87616828386074,
+          44.06762699653513
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -103.87616828386074,
+    44.06633063221733,
+    -103.74942870926444,
+    44.157660939342115
+  ],
+  "properties": {
+    "start_datetime": "2023-08-06T00:00:00Z",
+    "end_datetime": "2023-08-26T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            590000.0000216743,
+            4879997.999993628
+          ],
+          [
+            600000.0000216743,
+            4879997.999993628
+          ],
+          [
+            600000.0000216743,
+            4889999.999993628
+          ],
+          [
+            590000.0000216743,
+            4889999.999993628
+          ],
+          [
+            590000.0000216743,
+            4879997.999993628
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      590000.0000216743,
+      4879997.999993628,
+      600000.0000216743,
+      4889999.999993628
+    ],
+    "proj:shape": [
+      10002,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      590000.0000216743,
+      0.0,
+      -1.0,
+      4889999.999993628,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 13N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 13N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -105,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26913
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26913"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/SD_BlackHills_D23/TIFF/USGS_1M_13_x59y489_SD_BlackHills_D23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1877.6089908603196,
+            "minimum": 1661.4512939453125,
+            "maximum": 2124.5791015625,
+            "stddev": 107.7881703400368,
+            "valid_percent": 96.50812149047852
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1661.4512939453125,
+            "max": 2124.5791015625,
+            "buckets": [
+              21494,
+              92495,
+              165206,
+              192803,
+              166045,
+              78045,
+              72977,
+              92875,
+              98068,
+              31953
+            ]
+          }
+        }
+      ],
+      "file:size": 463427142,
+      "file:checksum": "e50208555cd7f8c7341daf",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "SD_BlackHills_D23"
+}
