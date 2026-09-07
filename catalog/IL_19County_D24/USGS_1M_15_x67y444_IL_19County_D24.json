@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_15_x67y444_IL_19County_D24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -91.0084803368441,
+          40.00303817232982
+        ],
+        [
+          -90.89126028598568,
+          40.00096379207978
+        ],
+        [
+          -90.88847972747122,
+          40.09110791050338
+        ],
+        [
+          -91.00585408634375,
+          40.09318888436605
+        ],
+        [
+          -91.0084803368441,
+          40.00303817232982
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -91.0084803368441,
+    40.00096379207978,
+    -90.88847972747122,
+    40.09318888436605
+  ],
+  "properties": {
+    "start_datetime": "2024-11-23T00:00:00Z",
+    "end_datetime": "2026-03-28T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            669993.999990522,
+            4429994.000336714
+          ],
+          [
+            680005.999990522,
+            4429994.000336714
+          ],
+          [
+            680005.999990522,
+            4440006.000336714
+          ],
+          [
+            669993.999990522,
+            4440006.000336714
+          ],
+          [
+            669993.999990522,
+            4429994.000336714
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      669993.999990522,
+      4429994.000336714,
+      680005.999990522,
+      4440006.000336714
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      669993.999990522,
+      0.0,
+      -1.0,
+      4440006.000336714,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 15N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 15N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -93,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26915
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26915"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/IL_19County_D24/TIFF/USGS_1M_15_x67y444_IL_19County_D24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 218.1101531982422,
+            "minimum": 167.71481323242188,
+            "maximum": 239.63479614257812,
+            "stddev": 10.318085770765926,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 167.71481323242188,
+            "max": 239.63479614257812,
+            "buckets": [
+              3057,
+              11866,
+              17907,
+              30482,
+              37338,
+              68327,
+              167486,
+              507067,
+              200793,
+              4253
+            ]
+          }
+        }
+      ],
+      "file:size": 328667034,
+      "file:checksum": "e50208198891e2d2f9ec05",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "IL_19County_D24"
+}
