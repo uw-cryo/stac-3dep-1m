@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_11_x49y369_CA_SanDiegoCo_D24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -117.10742728706884,
+          33.258896718555555
+        ],
+        [
+          -116.99993558578072,
+          33.25894312144716
+        ],
+        [
+          -116.99993551935754,
+          33.34925073294901
+        ],
+        [
+          -117.10753806454234,
+          33.3492041713109
+        ],
+        [
+          -117.10742728706884,
+          33.258896718555555
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -117.10753806454234,
+    33.258896718555555,
+    -116.99993551935754,
+    33.34925073294901
+  ],
+  "properties": {
+    "start_datetime": "2024-11-08T00:00:00Z",
+    "end_datetime": "2024-12-01T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            489993.9996694008,
+            3679994.00003696
+          ],
+          [
+            500005.9996694008,
+            3679994.00003696
+          ],
+          [
+            500005.9996694008,
+            3690006.00003696
+          ],
+          [
+            489993.9996694008,
+            3690006.00003696
+          ],
+          [
+            489993.9996694008,
+            3679994.00003696
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      489993.9996694008,
+      3679994.00003696,
+      500005.9996694008,
+      3690006.00003696
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      489993.9996694008,
+      0.0,
+      -1.0,
+      3690006.00003696,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 11N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 11N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -117,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26911
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26911"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CA_SanDiegoCo_D24/TIFF/USGS_1M_11_x49y369_CA_SanDiegoCo_D24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 354.0140380859375,
+            "minimum": 101.10720825195312,
+            "maximum": 654.5010375976562,
+            "stddev": 94.24659017835647,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 101.10720825195312,
+            "max": 654.5010375976562,
+            "buckets": [
+              8251,
+              37158,
+              172182,
+              207138,
+              210260,
+              164715,
+              151233,
+              86607,
+              8098,
+              2934
+            ]
+          }
+        }
+      ],
+      "file:size": 361740681,
+      "file:checksum": "e50208417b41040cb45645",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CA_SanDiegoCo_D24"
+}
