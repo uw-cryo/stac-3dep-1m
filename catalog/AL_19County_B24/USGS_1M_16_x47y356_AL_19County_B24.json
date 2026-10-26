@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_16_x47y356_AL_19County_B24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -87.3179697860103,
+          32.08583367376743
+        ],
+        [
+          -87.21187466715986,
+          32.086055520812565
+        ],
+        [
+          -87.21208353967309,
+          32.176379428716956
+        ],
+        [
+          -87.31828324674596,
+          32.176156808057854
+        ],
+        [
+          -87.3179697860103,
+          32.08583367376743
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -87.31828324674596,
+    32.08583367376743,
+    -87.21187466715986,
+    32.176379428716956
+  ],
+  "properties": {
+    "start_datetime": "2024-12-12T00:00:00Z",
+    "end_datetime": "2025-07-29T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            469993.9996751588,
+            3549994.0003359364
+          ],
+          [
+            480005.9996751588,
+            3549994.0003359364
+          ],
+          [
+            480005.9996751588,
+            3560006.0003359364
+          ],
+          [
+            469993.9996751588,
+            3560006.0003359364
+          ],
+          [
+            469993.9996751588,
+            3549994.0003359364
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      469993.9996751588,
+      3549994.0003359364,
+      480005.9996751588,
+      3560006.0003359364
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      469993.9996751588,
+      0.0,
+      -1.0,
+      3560006.0003359364,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 16N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 16N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -87,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26916
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26916"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AL_19County_B24/TIFF/USGS_1M_16_x47y356_AL_19County_B24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 32.09721850155993,
+            "minimum": 24.1299991607666,
+            "maximum": 83.03031158447266,
+            "stddev": 11.111041912018662,
+            "valid_percent": 46.27971649169922
+          },
+          "histogram": {
+            "count": 11,
+            "min": 24.1299991607666,
+            "max": 83.03031158447266,
+            "buckets": [
+              313843,
+              94153,
+              18083,
+              14473,
+              10117,
+              8226,
+              7942,
+              7461,
+              7648,
+              3332
+            ]
+          }
+        }
+      ],
+      "file:size": 167171529,
+      "file:checksum": "e5020859eb50d4ef9c00f3",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AL_19County_B24"
+}

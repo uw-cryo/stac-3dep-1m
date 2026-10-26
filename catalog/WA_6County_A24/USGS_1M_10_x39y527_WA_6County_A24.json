@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_10_x39y527_WA_6County_A24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -124.46013635269844,
+          47.484127834396006
+        ],
+        [
+          -124.3274352040001,
+          47.48574108966769
+        ],
+        [
+          -124.32970764319684,
+          47.57570512812913
+        ],
+        [
+          -124.46263577499997,
+          47.57408681300006
+        ],
+        [
+          -124.46013635269844,
+          47.484127834396006
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -124.46263577499997,
+    47.484127834396006,
+    -124.3274352040001,
+    47.57570512812913
+  ],
+  "properties": {
+    "start_datetime": "2024-09-24T00:00:00Z",
+    "end_datetime": "2025-02-28T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            389999.99996286316,
+            5259998.999988611
+          ],
+          [
+            399999.99996286316,
+            5259998.999988611
+          ],
+          [
+            399999.99996286316,
+            5269999.999988611
+          ],
+          [
+            389999.99996286316,
+            5269999.999988611
+          ],
+          [
+            389999.99996286316,
+            5259998.999988611
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      389999.99996286316,
+      5259998.999988611,
+      399999.99996286316,
+      5269999.999988611
+    ],
+    "proj:shape": [
+      10001,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      389999.99996286316,
+      0.0,
+      -1.0,
+      5269999.999988611,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 10N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 10N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -123,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26910
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26910"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WA_6County_A24/TIFF/USGS_1M_10_x39y527_WA_6County_A24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1.5555726532004301,
+            "minimum": 1.413880705833435,
+            "maximum": 6.1308913230896,
+            "stddev": 0.1198046470844937,
+            "valid_percent": 1.1971473693847656
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1.413880705833435,
+            "max": 6.1308913230896,
+            "buckets": [
+              12536,
+              1,
+              0,
+              2,
+              2,
+              1,
+              2,
+              2,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "file:size": 2349114,
+      "file:checksum": "e50208d8d43e4eb657d829",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "WA_6County_A24"
+}
