@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x33y401_AZ_NWGrandCanyonNP_D25",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -112.87589982021821,
+          36.13001653367283
+        ],
+        [
+          -112.7781264348383,
+          36.13150832776392
+        ],
+        [
+          -112.78016456237755,
+          36.221630532461994
+        ],
+        [
+          -112.87804986145089,
+          36.220133835715195
+        ],
+        [
+          -112.87589982021821,
+          36.13001653367283
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -112.87804986145089,
+    36.13001653367283,
+    -112.7781264348383,
+    36.221630532461994
+  ],
+  "properties": {
+    "start_datetime": "2025-05-10T00:00:00Z",
+    "end_datetime": "2025-05-25T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            331198.292858917,
+            3999998.999983144
+          ],
+          [
+            340000.292858917,
+            3999998.999983144
+          ],
+          [
+            340000.292858917,
+            4009999.999983144
+          ],
+          [
+            331198.292858917,
+            4009999.999983144
+          ],
+          [
+            331198.292858917,
+            3999998.999983144
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      331198.292858917,
+      3999998.999983144,
+      340000.292858917,
+      4009999.999983144
+    ],
+    "proj:shape": [
+      10001,
+      8802
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      331198.292858917,
+      0.0,
+      -1.0,
+      4009999.999983144,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AZ_NWGrandCanyonNP_D25/TIFF/USGS_1M_12_x33y401_AZ_NWGrandCanyonNP_D25.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1507.4553705799317,
+            "minimum": 924.5015258789062,
+            "maximum": 1824.5802001953125,
+            "stddev": 243.89142144039394,
+            "valid_percent": 18.560533883037696
+          },
+          "histogram": {
+            "count": 11,
+            "min": 924.5015258789062,
+            "max": 1824.5802001953125,
+            "buckets": [
+              992,
+              3374,
+              8313,
+              29543,
+              28450,
+              15974,
+              7543,
+              8521,
+              10903,
+              57821
+            ]
+          }
+        }
+      ],
+      "file:size": 83253597,
+      "file:checksum": "e502087fcc1f4683ba71bf",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AZ_NWGrandCanyonNP_D25"
+}

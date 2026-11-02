@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_11_x33y495_OR_NorthEastGaps_D24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -119.14190821198927,
+          44.59320737670119
+        ],
+        [
+          -119.01584709327098,
+          44.59550293000886
+        ],
+        [
+          -119.01896984217161,
+          44.68557995817741
+        ],
+        [
+          -119.14522588808514,
+          44.68327722398248
+        ],
+        [
+          -119.14190821198927,
+          44.59320737670119
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -119.14522588808514,
+    44.59320737670119,
+    -119.01584709327098,
+    44.68557995817741
+  ],
+  "properties": {
+    "start_datetime": "2024-10-18T00:00:00Z",
+    "end_datetime": "2025-07-12T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            329993.9997278132,
+            4939994.000028628
+          ],
+          [
+            340005.9997278132,
+            4939994.000028628
+          ],
+          [
+            340005.9997278132,
+            4950006.000028628
+          ],
+          [
+            329993.9997278132,
+            4950006.000028628
+          ],
+          [
+            329993.9997278132,
+            4939994.000028628
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      329993.9997278132,
+      4939994.000028628,
+      340005.9997278132,
+      4950006.000028628
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      329993.9997278132,
+      0.0,
+      -1.0,
+      4950006.000028628,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 11N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 11N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -117,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26911
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26911"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/OR_NorthEastGaps_D24/TIFF/USGS_1M_11_x33y495_OR_NorthEastGaps_D24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1473.4030809311662,
+            "minimum": 1329.83935546875,
+            "maximum": 1744.810302734375,
+            "stddev": 87.17772385065005,
+            "valid_percent": 35.72721481323242
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1329.83935546875,
+            "max": 1744.810302734375,
+            "buckets": [
+              37876,
+              65954,
+              80294,
+              60625,
+              42293,
+              31037,
+              29746,
+              16750,
+              7600,
+              2452
+            ]
+          }
+        }
+      ],
+      "file:size": 99653820,
+      "file:checksum": "e50208e34f6ebaba4b9473",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "OR_NorthEastGaps_D24"
+}
