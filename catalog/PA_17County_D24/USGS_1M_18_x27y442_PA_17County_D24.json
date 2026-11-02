@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_18_x27y442_PA_17County_D24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -77.68689251010741,
+          39.808832151537445
+        ],
+        [
+          -77.57004725766839,
+          39.81148081287338
+        ],
+        [
+          -77.57341305330922,
+          39.90159813110745
+        ],
+        [
+          -77.69041088908139,
+          39.89894104376947
+        ],
+        [
+          -77.68689251010741,
+          39.808832151537445
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -77.69041088908139,
+    39.808832151537445,
+    -77.57004725766839,
+    39.90159813110745
+  ],
+  "properties": {
+    "start_datetime": "2024-04-14T00:00:00Z",
+    "end_datetime": "2025-04-02T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            269993.9999679868,
+            4409993.999990696
+          ],
+          [
+            280005.9999679868,
+            4409993.999990696
+          ],
+          [
+            280005.9999679868,
+            4420005.999990696
+          ],
+          [
+            269993.9999679868,
+            4420005.999990696
+          ],
+          [
+            269993.9999679868,
+            4409993.999990696
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      269993.9999679868,
+      4409993.999990696,
+      280005.9999679868,
+      4420005.999990696
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      269993.9999679868,
+      0.0,
+      -1.0,
+      4420005.999990696,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 18N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 18N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -75,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26918
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26918"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/PA_17County_D24/TIFF/USGS_1M_18_x27y442_PA_17County_D24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 238.20216369628906,
+            "minimum": 164.3928680419922,
+            "maximum": 331.3095703125,
+            "stddev": 21.763344643248367,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 164.3928680419922,
+            "max": 331.3095703125,
+            "buckets": [
+              6354,
+              43249,
+              112872,
+              187261,
+              315128,
+              293518,
+              77864,
+              8657,
+              2692,
+              981
+            ]
+          }
+        }
+      ],
+      "file:size": 329033094,
+      "file:checksum": "e502080da2977bcdb733d6",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "PA_17County_D24"
+}
