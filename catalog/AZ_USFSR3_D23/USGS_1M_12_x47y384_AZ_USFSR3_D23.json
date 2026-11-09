@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x47y384_AZ_USFSR3_D23",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -111.32728635494286,
+          34.611356170331746
+        ],
+        [
+          -111.21808270402023,
+          34.611600245306015
+        ],
+        [
+          -111.21831933025368,
+          34.701887318304266
+        ],
+        [
+          -111.32764146609027,
+          34.701642424547416
+        ],
+        [
+          -111.32728635494286,
+          34.611356170331746
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -111.32764146609027,
+    34.611356170331746,
+    -111.21808270402023,
+    34.701887318304266
+  ],
+  "properties": {
+    "start_datetime": "2023-08-27T00:00:00Z",
+    "end_datetime": "2024-08-03T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            469993.99995497224,
+            3829994.0000136467
+          ],
+          [
+            480005.99995497224,
+            3829994.0000136467
+          ],
+          [
+            480005.99995497224,
+            3840006.0000136467
+          ],
+          [
+            469993.99995497224,
+            3840006.0000136467
+          ],
+          [
+            469993.99995497224,
+            3829994.0000136467
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      469993.99995497224,
+      3829994.0000136467,
+      480005.99995497224,
+      3840006.0000136467
+    ],
+    "proj:shape": [
+      10012,
+      10012
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      469993.99995497224,
+      0.0,
+      -1.0,
+      3840006.0000136467,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/AZ_USFSR3_D23/TIFF/USGS_1M_12_x47y384_AZ_USFSR3_D23.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 2107.708251953125,
+            "minimum": 2010.5042724609375,
+            "maximum": 2250.807861328125,
+            "stddev": 38.56212758399604,
+            "valid_percent": 100.0
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2010.5042724609375,
+            "max": 2250.807861328125,
+            "buckets": [
+              7484,
+              90921,
+              214145,
+              239910,
+              190869,
+              162242,
+              102025,
+              37167,
+              2544,
+              1269
+            ]
+          }
+        }
+      ],
+      "file:size": 239675240,
+      "file:checksum": "e502086298d4e2babc18e6",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "AZ_USFSR3_D23"
+}
