@@ -9,7 +9,7 @@ version = "0.1.0"
 create-all = { cmd = "python scripts/create_all.py", description = "Create static STAC for every 3DEP 1m S3 project folder that isn't already in catalog/" }
 create-stac = { cmd = "python scripts/create_static_stac.py", description = "Create a static STAC catalog+collection for a single project or WESM workunit" }
 collection2geoparquet = { cmd = "python scripts/collection2geoparquet.py", description = "Convert one collection.json and its items to a STAC-GeoParquet file" }
-catalog2geoparquet = { cmd = "python scripts/catalog2geoparquet.py catalog/catalog.json catalog.parquet", description = "Convert the full root catalog to a single STAC-GeoParquet file" }
+catalog2geoparquet = { cmd = "python scripts/catalog2geoparquet.py", description = "Convert the full root catalog to a single STAC-GeoParquet file (default: catalog/catalog.json -> /tmp/catalog.parquet; pass [catalog.json] [output.parquet] to override)" }
 refresh = { cmd = "python scripts/refresh_catalog.py", description = "Diff catalog/ against current S3 holdings and WESM; rebuild new/changed projects, prune deleted ones, refresh drifted metadata, validate" }
 backfill-file-metadata = { cmd = "python scripts/backfill_file_metadata.py", description = "Stamp file:size + file:checksum onto existing catalog items from S3 object metadata (idempotent; no titiler)" }
 check-catalog = { cmd = "python scripts/check_catalog.py", description = "Check the catalog against itself: links, ids, hrefs, extents, schema uniformity, JSON formatting, STAC schema validation (--parquet also checks a built catalog.parquet)" }

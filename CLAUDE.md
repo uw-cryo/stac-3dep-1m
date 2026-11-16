@@ -36,8 +36,8 @@ pixi run audit --all-tiles --part 3/12   # one runner's share of a split audit
 pixi run audit --merge-reports <dir>     # combine the parts of a split audit
 pixi run check-catalog             # catalog vs itself (~55 s, whole catalog)
 pixi run check-catalog --project <ID> --check schema   # one collection, one check
-pixi run check-catalog --parquet catalog.parquet       # + the built artifact, row for row
-ulimit -n 500000 && pixi run catalog2geoparquet   # full catalog -> catalog.parquet
+pixi run check-catalog --parquet /tmp/catalog.parquet  # + the built artifact, row for row
+ulimit -n 500000 && pixi run catalog2geoparquet   # full catalog -> /tmp/catalog.parquet (args override)
 pixi run collection2geoparquet catalog/<ID>/collection.json out.parquet
 pixi run wrap-wesm-summaries       # wesm:* summaries -> one-element lists (idempotent)
 pixi run update-root-catalog       # link new children into catalog/catalog.json
