@@ -8,7 +8,11 @@ Only consider tracked files in the repository. Do not consider untracked files, 
 
 ## Filing issues
 
-**Never open an issue in an upstream repository.** Not titiler, rio-tiler, rio-stac, GDAL, numpy, pystac, or anything else outside this repo — no exceptions, and no "it's clearly a bug there" shortcut. When something looks like an upstream bug, ask first, then offer a write-up (minimal reproduction, versions tested, expected vs actual) for the user to file manually under their own account.
+**Never open an issue in an upstream repository.** Not titiler, rio-tiler, rio-stac, GDAL, numpy, pystac, or anything else outside this repo — no exceptions, and no "it's clearly a bug there" shortcut. When something looks like an upstream bug, or an upstream feature would help, write it up in `upstream_issues/` (gitignored, local only) for the user to file manually under their own account.
+
+* One markdown file per issue, named `<project>-<short-kebab-summary>.md` (e.g. `rustac-py-json-float-parse-off-by-one-ulp.md`).
+* Concise: what happens, what was expected, versions tested, and a minimal reproducible example that runs on its own — not a pointer into this repo. Search the upstream tracker first (read-only) and say what was found.
+* Never link an upstream issue, or a write-up of one, from a PR, commit message or issue in this repo without the user's explicit consent.
 
 Issues in *this* repo are fine when the user asks for one.
 
@@ -152,7 +156,7 @@ Collections are validated **as committed** — no exemptions. That is only true 
 
 Coordinates there are compared at 1 ULP, and they need to be: **rustac's JSON float parse and Python's disagree in the last bit on ~47% of coordinates** (an item reading `-119.49674045532203` lands in the parquet as `-119.49674045532204`). Everything else is compared exactly. Verified: a 1-ULP shift is not reported, a 1e-6 one is.
 
-**Findings fail, notes do not.** A finding is a disagreement between two things we wrote and exits 1. A note is a documented, harmless divergence: today the 11 collections carrying WESM `lpc`/`sourcedem`/`metadata` links from an older builder. The 9 items with no `raster:bands` (titiler cannot histogram a tile whose valid pixels span one float32 ULP — `docs/upstream-titiler-hist-issue.md`) are listed by id in `KNOWN_NO_RASTER_BANDS`, not tolerated by count, so a *tenth* is a finding and one that regains bands is reported as a stale entry to delete.
+**Findings fail, notes do not.** A finding is a disagreement between two things we wrote and exits 1. A note is a documented, harmless divergence: today the 11 collections carrying WESM `lpc`/`sourcedem`/`metadata` links from an older builder. The 9 items with no `raster:bands` (titiler cannot histogram a tile whose valid pixels span one float32 ULP: `numpy.histogram` bins in the data's float32, and a one-ULP range cannot be split) are listed by id in `KNOWN_NO_RASTER_BANDS`, not tolerated by count, so a *tenth* is a finding and one that regains bands is reported as a stale entry to delete.
 
 Current state: **0 findings, 11 notes**, including the parquet check against a freshly built `catalog.parquet`. Verified against 46 injected fault classes (wrong id, href pointing at another project, deleted/extra item file, unsorted links, drifted collection bbox, stale meta extent, stray property key, reordered asset keys, orjson float repr, a dropped/duplicated/edited parquet row, a collection missing its license, a wesm summary unwrapped back to a scalar, …) — each one is caught by the check that owns it.
 

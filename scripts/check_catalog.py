@@ -39,8 +39,8 @@ owners (`pixi run refresh`, `pixi run audit`).
 
 Two documented divergences are reported as notes rather than findings, because
 they are known and harmless: the 9 items with no raster:bands (titiler cannot
-histogram a tile whose valid pixels span one float32 ULP -- see
-docs/upstream-titiler-hist-issue.md), and 11 collections carrying WESM
+histogram a tile whose valid pixels span one float32 ULP), and 11
+collections carrying WESM
 lpc/sourcedem/metadata links from an older builder. A *tenth* raster-less item
 is a finding: the exception list is explicit so a new one cannot hide in it.
 
@@ -83,8 +83,9 @@ RASTER_EXT = "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
 
 # Items that carry no raster:bands at all, because titiler answers their tile
 # with 500 "Too many bins for data range" and the with_raster=false fallback is
-# all or nothing. All nine are perfectly flat water; the diagnosis and the
-# upstream write-up are in docs/upstream-titiler-hist-issue.md. Listed rather
+# all or nothing. All nine are perfectly flat water: numpy.histogram takes its
+# bin dtype from the float32 data, and a range one float32 ULP wide cannot be
+# split into finite-sized bins (the same data bins fine as float64). Listed rather
 # than tolerated by count so that a tenth is a finding -- and so that one
 # gaining bands (the tile being re-staged with varied pixels) shows up as a
 # stale entry to delete.
