@@ -50,6 +50,12 @@ STAC_MAP = "https://developmentseed.org/stac-map/?href="
 KOPAH = "https://s3.kopah.uw.edu/tacolab/stac-3dep-1m"
 # a section longer than this is folded into a <details> block
 FOLD_ROWS = 25
+# GitHub caps a release body at 125,000 characters, and --generate-notes
+# appends the merged-PR list after ours. A catalog-wide sweep (every collection
+# updated) overruns that, so past this budget links are dropped, then long
+# sections are cut to SHORT_ROWS with a pointer to the full diff.
+MAX_CHARS = 100_000
+SHORT_ROWS = 200
 
 
 def git(*args):
@@ -112,11 +118,22 @@ class Change:
 
 
 def wesm_summaries(collection):
+    """wesm:* summaries as plain values, so only a value change is a change.
+
+    Before v2026.08.17 they were bare scalars; since then each is a one-element
+    list (see wrap_wesm_summaries.py). Unwrap as create_static_stac.wesm_value()
+    does, or that migration reads as every field of every collection changing.
+    """
+    summaries = (collection or {}).get("summaries", {})
     return {
-        k: v
-        for k, v in (collection or {}).get("summaries", {}).items()
+        k: v[0] if isinstance(v, list) and len(v) == 1 else v
+        for k, v in summaries.items()
         if k.startswith("wesm:")
     }
+
+
+# git's empty tree: the baseline for a first release, where everything is new
+EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
 
 def catalog_changes(prev_ref, ref):
@@ -211,8 +228,8 @@ def collected(collection):
     return start if not end or end == start else f"{start} to {end}"
 
 
-def link(cid, tag, repo):
-    if not tag:
+def link(cid, tag, repo, links=True):
+    if not tag or not links:
         return f"`{cid}`"
     url = f"{STAC_BROWSER}/{repo}/refs/tags/{tag}/catalog/{cid}/collection.json"
     return f"[{cid}]({url})"
@@ -239,10 +256,13 @@ def table(header, rows):
     return "\n".join(lines)
 
 
-def section(title, header, rows):
+def section(title, header, rows, max_rows=None, more=""):
     if not rows:
         return []
-    body = table(header, rows)
+    shown = rows if max_rows is None else rows[:max_rows]
+    body = table(header, shown)
+    if len(shown) < len(rows):
+        body += f"\n\n...and {len(rows) - len(shown):,} more{more}."
     if len(rows) > FOLD_ROWS:
         body = (
             f"<details><summary>Show all {len(rows)}</summary>\n\n{body}\n\n</details>"
@@ -256,7 +276,7 @@ def delta(before, after, fmt="{:+,}"):
     return fmt.format(after - before)
 
 
-def render(changes, totals, coverage, prev_ref, tag, repo):
+def render(changes, totals, coverage, prev_ref, tag, repo, links=True, max_rows=None):
     n_cells, cov_before, cov_after = coverage
     (col_before, col_after), (tiles_before, tiles_after) = totals.values()
     pct = lambda n: None if n is None else 100 * n / n_cells  # noqa: E731
@@ -272,7 +292,7 @@ def render(changes, totals, coverage, prev_ref, tag, repo):
         "## Catalog summary",
         "",
         table(
-            ["", "This release", f"Previous ({prev_ref})", "Change"],
+            ["", "This release", f"Previous ({prev_ref or 'none'})", "Change"],
             [
                 [
                     "Collections",
@@ -311,31 +331,40 @@ def render(changes, totals, coverage, prev_ref, tag, repo):
     ]
     if not any(changes.values()):
         out += ["No collection changed.", ""]
+    more = ""
+    if prev_ref and tag:
+        more = f" (full diff: https://github.com/{repo}/compare/{prev_ref}...{tag})"
     out += section(
         "New collections",
         ["Collection", "Tiles", "Collected", "Quality level"],
         [
             [
-                link(c, tag, repo),
+                link(c, tag, repo, links),
                 f"{ch.tiles:,}",
                 collected(ch.collection),
                 first(ch.collection, "wesm:ql") or "",
             ]
             for c, ch in changes["new"].items()
         ],
+        max_rows,
+        more,
     )
     out += section(
         "Updated collections",
         ["Collection", "Tiles", "Change"],
         [
-            [link(c, tag, repo), f"{ch.tiles:,}", describe(ch)]
+            [link(c, tag, repo, links), f"{ch.tiles:,}", describe(ch)]
             for c, ch in changes["updated"].items()
         ],
+        max_rows,
+        more,
     )
     out += section(
         "Removed collections",
         ["Collection", "Tiles"],
         [[f"`{c}`", f"{ch.tiles:,}"] for c, ch in changes["removed"].items()],
+        max_rows,
+        more,
     )
     return "\n".join(out).rstrip() + "\n"
 
@@ -343,7 +372,10 @@ def render(changes, totals, coverage, prev_ref, tag, repo):
 def main(args=None):
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     p.add_argument("--ref", default="HEAD", help="commit being released (default HEAD)")
-    p.add_argument("--previous-ref", required=True, help="previous release tag")
+    p.add_argument(
+        "--previous-ref",
+        help="previous release tag (omit for a first release: every collection is new)",
+    )
     p.add_argument("--parquet", required=True, help="this release's catalog.parquet")
     p.add_argument(
         "--previous-parquet",
@@ -357,20 +389,25 @@ def main(args=None):
     p.add_argument("-o", "--output", type=Path, help="write here instead of stdout")
     a = p.parse_args(args)
 
-    changes, totals = catalog_changes(a.previous_ref, a.ref)
+    changes, totals = catalog_changes(a.previous_ref or EMPTY_TREE, a.ref)
     centers = load_conus_cells()
     cov_after = covered_cells(a.parquet, centers)
     cov_before = None
     if a.previous_parquet and Path(a.previous_parquet).exists():
         cov_before = covered_cells(a.previous_parquet, centers)
-    notes = render(
-        changes,
-        totals,
-        (len(centers), cov_before, cov_after),
-        a.previous_ref,
-        a.tag,
-        a.repo,
-    )
+    for links, max_rows in [(True, None), (False, None), (False, SHORT_ROWS)]:
+        notes = render(
+            changes,
+            totals,
+            (len(centers), cov_before, cov_after),
+            a.previous_ref,
+            a.tag,
+            a.repo,
+            links,
+            max_rows,
+        )
+        if len(notes) <= MAX_CHARS:
+            break
     if a.output:
         a.output.write_text(notes)
     else:
