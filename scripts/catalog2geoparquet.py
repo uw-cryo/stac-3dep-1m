@@ -17,10 +17,56 @@ python scripts/catalog2geoparquet.py [catalog.json] [output.parquet]
 import argparse
 import asyncio
 import json
+import os
 import sys
 from pathlib import Path
 
+import pyarrow as pa
+import pyarrow.parquet as pq
 import rustac
+
+
+def plain_string_columns(path):
+    """Rewrite the file at `path` with its dictionary columns as plain strings.
+
+    rustac writes `type`, `stac_version` and `collection` as Arrow dictionary
+    columns, and has no option not to. GDAL's Parquet driver reads a dictionary
+    column as an Integer field with a coded domain, so a GTI or ogr2ogr filter
+    on it fails: `<Filter>collection LIKE 'HI_%'</Filter>` gives "Type mismatch
+    or improper type of arguments to LIKE operator". As plain strings they
+    filter as the values they are.
+
+    Parquet page dictionaries are kept for exactly the columns that were Arrow
+    dictionaries, plus `proj:code`: a dozen distinct values over every row.
+    pyarrow's default dictionary-encodes every column, which on the floats and
+    WKB (each value distinct) costs more than it saves; with that and zstd at
+    level 9 the file comes out ~5% smaller than rustac writes it (24.5 vs
+    25.6 MB at 128,599 rows), where pyarrow's defaults made it ~9% larger.
+
+    The footer's key-value metadata (`geo`, `stac-geoparquet`) is carried over
+    from `pq.read_metadata()`, not `table.schema.metadata`, which is rebuilt
+    from `ARROW:schema` and lacks the `stac-geoparquet` key. Returns the names
+    of the columns it converted.
+    """
+    table = pq.read_table(path)
+    converted = [f.name for f in table.schema if pa.types.is_dictionary(f.type)]
+    if not converted:
+        return converted
+    schema = pa.schema(
+        f.with_type(f.type.value_type) if f.name in converted else f
+        for f in table.schema
+    )
+    metadata = {
+        k: v for k, v in pq.read_metadata(path).metadata.items() if k != b"ARROW:schema"
+    }
+    table = table.cast(schema).replace_schema_metadata(metadata)
+    tmp = f"{path}.tmp"
+    dictionary = converted + [c for c in ["proj:code"] if c in table.column_names]
+    pq.write_table(
+        table, tmp, compression="zstd", compression_level=9, use_dictionary=dictionary
+    )
+    os.replace(tmp, path)
+    return converted
 
 
 def embedded_collection(path):
@@ -71,6 +117,7 @@ async def catalog_to_stac_geoparquet(catalog_path, output_path):
             w.add_collection(
                 embedded_collection(catalog_dir / collection_id / "collection.json")
             )
+    plain_string_columns(output_path)
     print(f"{len(all_items):,} items, {len(ids)} collections -> {output_path}")
 
 

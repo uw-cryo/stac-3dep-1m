@@ -15,6 +15,8 @@ from pathlib import Path
 import rustac
 import pystac
 
+from catalog2geoparquet import plain_string_columns
+
 
 async def collection_to_stac_geoparquet(
     collection_path, output_path=None, prune_links=False
@@ -37,6 +39,8 @@ async def collection_to_stac_geoparquet(
             if prune_links:
                 collection_dict.pop("links", None)
             w.add_collection(collection_dict)
+    # plain strings, not dictionaries, so GDAL can filter on them
+    plain_string_columns(output_path)
 
 
 def parse_args(args=None):
