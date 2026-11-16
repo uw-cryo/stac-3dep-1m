@@ -682,6 +682,9 @@ def check_collection(project, item_paths, checks, opts):
             f["signature"]: item_id for item_id, f in item_facts.items()
         },
         "records": records,
+        # what catalog2geoparquet embeds in the parquet footer for it: links
+        # dropped, which rustac writes back as the required empty list
+        "embedded": ({**collection, "links": []} if "parquet" in checks else None),
     }
     return findings, notes, facts
 
@@ -1016,13 +1019,17 @@ def iso(value):
     return value.isoformat().replace("+00:00", "Z")
 
 
-def check_parquet(path, records, partial):
+def check_parquet(path, records, collections, partial):
     """catalog.parquet against the item files, row for row.
 
     Coordinates are compared at the same 1 ULP as everywhere else, and they need
     it: rustac's JSON float parse and Python's disagree in the last bit on ~47%
     of coordinates (an item reading -119.49674045532203 lands in the parquet as
     -119.49674045532204). Everything in PARQUET_EXACT does compare exactly.
+
+    The footer's embedded collections (stac-geoparquet `collections`) are
+    checked too: exactly the ids the `collection` column names, each equal to
+    its collection.json with `links: []`.
 
     `partial` means only some collections were selected, so the rows for the
     others are expected to be there and the both-directions id check is skipped.
@@ -1038,6 +1045,7 @@ def check_parquet(path, records, partial):
 
     table = pq.read_table(path)
     ids = table["id"].to_pylist()
+    out += check_parquet_collections(path, table, collections)
 
     duplicates = [i for i, n in Counter(ids).items() if n > 1]
     if duplicates:
@@ -1111,6 +1119,65 @@ def check_parquet(path, records, partial):
             f"against {expected!r}",
             item=item_id,
         )
+    return out
+
+
+def check_parquet_collections(path, table, collections):
+    """The collections embedded in the footer against collection.json.
+
+    Read from the parquet key/value metadata, not table.schema.metadata:
+    pyarrow builds that from the stored ARROW:schema, which predates the
+    `stac-geoparquet` key rustac adds alongside it.
+    """
+    import pyarrow.parquet as pq
+
+    out = []
+
+    def add(msg, collection=None):
+        out.append(finding("parquet", msg, collection=collection))
+
+    footer = pq.read_metadata(path).metadata or {}
+    meta = json.loads(footer.get(b"stac-geoparquet", b"{}"))
+    embedded = meta.get("collections")
+    if not embedded:
+        return [
+            finding(
+                "parquet",
+                "no collections embedded in the footer -- build it with "
+                "`pixi run catalog2geoparquet`",
+            )
+        ]
+
+    named = set(table["collection"].unique().to_pylist())
+    keyed_wrong = sorted(k for k, c in embedded.items() if c.get("id") != k)
+    if keyed_wrong:
+        add(
+            f"{len(keyed_wrong)} embedded collections are keyed by another id, "
+            f"e.g. {keyed_wrong[0]}"
+        )
+    unnamed = sorted(set(embedded) - named)
+    if unnamed:
+        add(f"{len(unnamed)} embedded collections describe no row, e.g. {unnamed[0]}")
+    absent = sorted(named - set(embedded))
+    if absent:
+        add(
+            f"{len(absent)} collections named by rows are not embedded, "
+            f"e.g. {absent[0]}"
+        )
+
+    for project, want in sorted(collections.items()):
+        if want is None or project not in embedded:
+            continue  # no collection.json (reported elsewhere) or reported above
+        got = embedded[project]
+        if got != want:
+            keys = sorted(k for k in set(got) | set(want) if got.get(k) != want.get(k))
+            add(
+                "embedded collection differs from collection.json on "
+                f"{', '.join(keys)}",
+                collection=project,
+            )
+    # A collection missing from the footer is a collection missing from the
+    # rows, which the id check in check_parquet already reports.
     return out
 
 
@@ -1387,7 +1454,10 @@ def main():
             for fact in facts.values()
             for item_id, record in fact["records"].items()
         }
-        findings += check_parquet(args.parquet, records, partial=bool(args.project))
+        embedded = {project: fact["embedded"] for project, fact in facts.items()}
+        findings += check_parquet(
+            args.parquet, records, embedded, partial=bool(args.project)
+        )
 
     order = {name: i for i, (name, _) in enumerate(CHECKS)}
     findings.sort(
