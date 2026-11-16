@@ -63,7 +63,7 @@ pixi run create-all
 Create STAC GeoParquet from static STAC catalog
 ```
 ulimit -n 500000
-pixi run catalog2geoparquet
+pixi run catalog2geoparquet        # writes /tmp/catalog.parquet
 ```
 
 See NOTES.md for more details on the creation process and some of the challenges we ran into.

@@ -10,9 +10,11 @@ footer under the `stac-geoparquet` key's `collections` map (stac-geoparquet
 and wesm:* summaries -- without a second request to the static catalog.
 
 Usage:
-python scripts/catalog2geoparquet.py catalog/catalog.json catalog.parquet
+pixi run catalog2geoparquet                     # catalog/catalog.json -> /tmp/catalog.parquet
+python scripts/catalog2geoparquet.py [catalog.json] [output.parquet]
 """
 
+import argparse
 import asyncio
 import json
 import sys
@@ -39,7 +41,7 @@ def embedded_collection(path):
     return collection
 
 
-async def catalog_to_stac_geoparquet(catalog_path, output_path=None):
+async def catalog_to_stac_geoparquet(catalog_path, output_path):
     """
     Given path to catalog.json read all child items & save as STAC-geoparquet
     """
@@ -47,9 +49,11 @@ async def catalog_to_stac_geoparquet(catalog_path, output_path=None):
     all_items = []
     async for _, _, items in rustac.walk(catalog):
         all_items.extend(items)
-
-    if not output_path:
-        output_path = catalog_path.replace(".json", ".parquet")
+    # The walk is async, so items arrive in a different order every run, and
+    # the parquet's struct field order follows whichever item comes first.
+    # Sorting makes the rows, and therefore the schema, reproducible, and
+    # keeps each collection's rows contiguous.
+    all_items.sort(key=lambda item: (item["collection"], item["id"]))
 
     # Only collections some item names: the root's "All Cataloged" meta
     # collection has no items and describes none of the rows. The layout is
@@ -71,8 +75,14 @@ async def catalog_to_stac_geoparquet(catalog_path, output_path=None):
 
 
 if __name__ == "__main__":
-    # rustac resolves relative child hrefs against the input path, so it must
-    # be absolute (a relative path resolves them against the filesystem root)
-    catalog_path = str(Path(sys.argv[1]).resolve())
-    output_path = sys.argv[2] if len(sys.argv) > 2 else None
+    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("catalog", nargs="?", default="catalog/catalog.json")
+    parser.add_argument("output", nargs="?", default="/tmp/catalog.parquet")
+    args = parser.parse_args()
+    # Both must be absolute: rustac resolves a relative catalog's child hrefs,
+    # and a relative output path for geoparquet_writer, against the filesystem
+    # root rather than the working directory (`catalog.parquet` is written to
+    # `/catalog.parquet`)
+    catalog_path = str(Path(args.catalog).resolve())
+    output_path = str(Path(args.output).resolve())
     asyncio.run(catalog_to_stac_geoparquet(catalog_path, output_path))
