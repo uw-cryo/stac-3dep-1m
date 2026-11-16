@@ -26,6 +26,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    outputs:
+      changed: ${{ steps.changed.outputs.changed }}
+      tag: ${{ steps.tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -107,6 +110,7 @@ jobs:
             --markdown parquet-summary.md
 
       - name: Tag and release
+        id: tag
         if: steps.changed.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -124,3 +128,14 @@ jobs:
             --notes "Automated catalog release for: $SUBJECT
 
           See the commit history for the catalog diff."
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+  # Mirror the parquet to the public Kopah bucket for browser tools (stac-map).
+  # A separate job so only it holds the `kopah` environment's keys, and so a
+  # failed upload can be re-run without re-releasing.
+  upload:
+    needs: release
+    if: needs.release.outputs.changed == 'true'
+    uses: ./.github/workflows/upload-parquet.yml
+    with:
+      tag: ${{ needs.release.outputs.tag }}

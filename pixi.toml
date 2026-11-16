@@ -18,6 +18,7 @@ catalog2hive = { cmd = "python scripts/catalog2hive.py", description = "Write th
 create-collection-parquets = { cmd = "python scripts/create_collection_parquets.py", description = "Write a .parquet next to each collection.json under a catalog directory" }
 wrap-wesm-summaries = { cmd = "python scripts/wrap_wesm_summaries.py", description = "Wrap each committed wesm:* collection summary in a one-element list, so collections are valid STAC (idempotent; no titiler)" }
 sort-collection-links = { cmd = "python scripts/sort_collection_links.py", description ="Reorder committed collection.json item links + proj:code into the order a rebuild now produces (idempotent; no titiler)" }
+upload-parquet = { cmd = "python scripts/upload_parquet.py", description = "Copy a release's catalog.parquet to s3://tacolab/stac-3dep-1m/<tag>.parquet (+ latest.parquet); needs AWS_PROFILE=kopah-tacolab locally" }
 update-root-catalog = { cmd = "python scripts/update_root_catalog.py", description = "Add any new child collections to the top-level catalog.json" }
 list-collections = { cmd = "ls -1d catalog/*/ | sed 's|catalog/||;s|/||' > collections.txt", description = "Write the list of collection IDs in catalog/ to collections.txt" }
 ruff = { cmd = "ruff check --fix ; ruff format", description = "Lint with autofix and format scripts/ using ruff (scope set in ruff.toml)" }

@@ -1,0 +1,71 @@
+# Copy a release's catalog.parquet to the public Kopah bucket:
+#   s3://tacolab/stac-3dep-1m/<tag>.parquet   (+ latest.parquet for the newest release)
+#
+# GitHub release assets redirect, so browser tools (stac-map) cannot read them;
+# the bucket gives them a plain, CORS-capable URL without committing binaries.
+#
+# Called by release.yml after each release, and dispatchable by hand to
+# backfill or re-upload a tag. Credentials come from the `kopah` GitHub
+# environment (secrets AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY, variable
+# AWS_ENDPOINT_URL), so only this job ever sees the keys.
+name: Upload Parquet to S3
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: "Release tag to upload"
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to upload (blank = latest release)"
+        required: false
+        type: string
+      overwrite:
+        description: "Replace <tag>.parquet if it already exists"
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: kopah
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL: ${{ vars.AWS_ENDPOINT_URL || 'https://s3.kopah.uw.edu' }}
+      AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION || 'us-west-2' }}
+      # Ceph RGW rejects the CRC checksums recent AWS SDKs send by default
+      AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+      AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # the script and pixi env only; never the 1.1 GB of item JSON
+          sparse-checkout: scripts
+
+      - uses: prefix-dev/setup-pixi@v0.11.2
+        with:
+          cache: true
+
+      - name: Upload
+        env:
+          TAG: ${{ inputs.tag }}
+          OVERWRITE: ${{ inputs.overwrite }}
+          BUCKET: ${{ vars.S3_BUCKET || 'tacolab' }}
+        run: |
+          args=(--bucket "$BUCKET")
+          [ -n "$TAG" ] && args+=(--tag "$TAG")
+          [ "$OVERWRITE" = "true" ] && args+=(--overwrite)
+          pixi run upload-parquet "${args[@]}" | tee upload.log
+          {
+            echo "### Uploaded catalog.parquet"
+            grep '^https://' upload.log | sed 's/^/- /'
+          } >> "$GITHUB_STEP_SUMMARY"
