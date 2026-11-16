@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_17_x51y292_FL_PalmBeach_B25",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -80.89981338123197,
+          26.30981948583433
+        ],
+        [
+          -80.79962712988495,
+          26.30971451635238
+        ],
+        [
+          -80.79947145465871,
+          26.400017147000952
+        ],
+        [
+          -80.8997355429996,
+          26.40012253143711
+        ],
+        [
+          -80.89981338123197,
+          26.30981948583433
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -80.89981338123197,
+    26.30971451635238,
+    -80.79947145465871,
+    26.40012253143711
+  ],
+  "properties": {
+    "start_datetime": "2025-04-16T00:00:00Z",
+    "end_datetime": "2025-07-26T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            509999.99995867186,
+            2909999.0000133933
+          ],
+          [
+            519999.99995867186,
+            2909999.0000133933
+          ],
+          [
+            519999.99995867186,
+            2920000.0000133933
+          ],
+          [
+            509999.99995867186,
+            2920000.0000133933
+          ],
+          [
+            509999.99995867186,
+            2909999.0000133933
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      509999.99995867186,
+      2909999.0000133933,
+      519999.99995867186,
+      2920000.0000133933
+    ],
+    "proj:shape": [
+      10001,
+      10000
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      509999.99995867186,
+      0.0,
+      -1.0,
+      2920000.0000133933,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 17N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 17N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -81,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26917
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26917"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/FL_PalmBeach_B25/TIFF/USGS_1M_17_x51y292_FL_PalmBeach_B25.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 3.5625730774468325,
+            "minimum": 2.4264557361602783,
+            "maximum": 7.335850715637207,
+            "stddev": 0.24972497353340234,
+            "valid_percent": 60.92805862426758
+          },
+          "histogram": {
+            "count": 11,
+            "min": 2.4264557361602783,
+            "max": 7.335850715637207,
+            "buckets": [
+              2268,
+              159620,
+              429654,
+              43619,
+              874,
+              875,
+              1010,
+              565,
+              284,
+              108
+            ]
+          }
+        }
+      ],
+      "file:size": 323471094,
+      "file:checksum": "e5020849f419d7358873fd",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "FL_PalmBeach_B25"
+}

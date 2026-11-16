@@ -1,0 +1,275 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/file/v2.1.0/schema.json",
+    "https://stac-extensions.github.io/projection/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
+  ],
+  "id": "USGS_1M_12_x74y402_CO_CONMGaps_D24",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -108.27450352945888,
+          36.20381930282032
+        ],
+        [
+          -108.21935910684904,
+          36.20254989819768
+        ],
+        [
+          -108.21639511724932,
+          36.286115546574536
+        ],
+        [
+          -108.2715981408321,
+          36.2873888162181
+        ],
+        [
+          -108.27450352945888,
+          36.20381930282032
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    -108.27450352945888,
+    36.20254989819768,
+    -108.21639511724932,
+    36.2873888162181
+  ],
+  "properties": {
+    "start_datetime": "2024-09-06T00:00:00Z",
+    "end_datetime": "2024-10-26T00:00:00Z",
+    "proj:geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            745037.0461713979,
+            4009999.291087735
+          ],
+          [
+            750000.0461713979,
+            4009999.291087735
+          ],
+          [
+            750000.0461713979,
+            4019279.291087735
+          ],
+          [
+            745037.0461713979,
+            4019279.291087735
+          ],
+          [
+            745037.0461713979,
+            4009999.291087735
+          ]
+        ]
+      ]
+    },
+    "proj:bbox": [
+      745037.0461713979,
+      4009999.291087735,
+      750000.0461713979,
+      4019279.291087735
+    ],
+    "proj:shape": [
+      9280,
+      4963
+    ],
+    "proj:transform": [
+      1.0,
+      0.0,
+      745037.0461713979,
+      0.0,
+      -1.0,
+      4019279.291087735,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "proj:projjson": {
+      "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+      "type": "ProjectedCRS",
+      "name": "NAD83 / UTM zone 12N",
+      "base_crs": {
+        "name": "NAD83",
+        "datum": {
+          "type": "GeodeticReferenceFrame",
+          "name": "North American Datum 1983",
+          "ellipsoid": {
+            "name": "GRS 1980",
+            "semi_major_axis": 6378137,
+            "inverse_flattening": 298.257222101
+          }
+        },
+        "coordinate_system": {
+          "subtype": "ellipsoidal",
+          "axis": [
+            {
+              "name": "Geodetic latitude",
+              "abbreviation": "Lat",
+              "direction": "north",
+              "unit": "degree"
+            },
+            {
+              "name": "Geodetic longitude",
+              "abbreviation": "Lon",
+              "direction": "east",
+              "unit": "degree"
+            }
+          ]
+        },
+        "id": {
+          "authority": "EPSG",
+          "code": 4269
+        }
+      },
+      "conversion": {
+        "name": "UTM zone 12N",
+        "method": {
+          "name": "Transverse Mercator",
+          "id": {
+            "authority": "EPSG",
+            "code": 9807
+          }
+        },
+        "parameters": [
+          {
+            "name": "Latitude of natural origin",
+            "value": 0,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8801
+            }
+          },
+          {
+            "name": "Longitude of natural origin",
+            "value": -111,
+            "unit": "degree",
+            "id": {
+              "authority": "EPSG",
+              "code": 8802
+            }
+          },
+          {
+            "name": "Scale factor at natural origin",
+            "value": 0.9996,
+            "unit": "unity",
+            "id": {
+              "authority": "EPSG",
+              "code": 8805
+            }
+          },
+          {
+            "name": "False easting",
+            "value": 500000,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8806
+            }
+          },
+          {
+            "name": "False northing",
+            "value": 0,
+            "unit": "metre",
+            "id": {
+              "authority": "EPSG",
+              "code": 8807
+            }
+          }
+        ]
+      },
+      "coordinate_system": {
+        "subtype": "Cartesian",
+        "axis": [
+          {
+            "name": "Easting",
+            "abbreviation": "",
+            "direction": "east",
+            "unit": "metre"
+          },
+          {
+            "name": "Northing",
+            "abbreviation": "",
+            "direction": "north",
+            "unit": "metre"
+          }
+        ]
+      },
+      "id": {
+        "authority": "EPSG",
+        "code": 26912
+      }
+    },
+    "datetime": null,
+    "proj:code": "EPSG:26912"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "collection",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "./collection.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "elevation": {
+      "href": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/CO_CONMGaps_D24/TIFF/USGS_1M_12_x74y402_CO_CONMGaps_D24.tif",
+      "type": "image/tiff; application=geotiff",
+      "raster:bands": [
+        {
+          "data_type": "float32",
+          "scale": 1.0,
+          "offset": 0.0,
+          "sampling": "area",
+          "nodata": -999999.0,
+          "statistics": {
+            "mean": 1807.5443092494886,
+            "minimum": 1764.973876953125,
+            "maximum": 1863.3538818359375,
+            "stddev": 25.690535408889268,
+            "valid_percent": 8.27494154881387
+          },
+          "histogram": {
+            "count": 11,
+            "min": 1764.973876953125,
+            "max": 1863.3538818359375,
+            "buckets": [
+              6478,
+              4141,
+              2075,
+              5293,
+              12935,
+              6615,
+              1829,
+              1214,
+              1290,
+              4565
+            ]
+          }
+        }
+      ],
+      "file:size": 16403538,
+      "file:checksum": "e50208604d93076daf62c4",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "CO_CONMGaps_D24"
+}
