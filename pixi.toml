@@ -19,6 +19,8 @@ create-collection-parquets = { cmd = "python scripts/create_collection_parquets.
 wrap-wesm-summaries = { cmd = "python scripts/wrap_wesm_summaries.py", description = "Wrap each committed wesm:* collection summary in a one-element list, so collections are valid STAC (idempotent; no titiler)" }
 sort-collection-links = { cmd = "python scripts/sort_collection_links.py", description ="Reorder committed collection.json item links + proj:code into the order a rebuild now produces (idempotent; no titiler)" }
 upload-parquet = { cmd = "python scripts/upload_parquet.py", description = "Copy a release's catalog.parquet to s3://tacolab/stac-3dep-1m/<tag>.parquet (+ latest.parquet); needs AWS_PROFILE=kopah-tacolab locally" }
+release-notes = { cmd = "python scripts/release_notes.py", description = "Write a release body: new/updated/removed collections since the previous release tag, tile totals, and % of the CONUS 10 km grid covered" }
+build-conus-grid = { cmd = "python scripts/build_conus_grid.py", description = "Regenerate data/conus_10km_cells.csv (the CONUS cells of the USGS 1 m 10 km grid) from USGS + Census sources" }
 update-root-catalog = { cmd = "python scripts/update_root_catalog.py", description = "Add any new child collections to the top-level catalog.json" }
 list-collections = { cmd = "ls -1d catalog/*/ | sed 's|catalog/||;s|/||' > collections.txt", description = "Write the list of collection IDs in catalog/ to collections.txt" }
 ruff = { cmd = "ruff check --fix ; ruff format", description = "Lint with autofix and format scripts/ using ruff (scope set in ruff.toml)" }

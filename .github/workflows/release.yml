@@ -5,7 +5,9 @@
 #
 # Rebuilds catalog.parquet from the static catalog, checks the row count
 # against the item-file count, regenerates the catalog.gti wrapper, and
-# publishes a dated CalVer release (vYYYY.MM.DD). Skips cleanly when the
+# publishes a dated CalVer release (vYYYY.MM.DD) whose notes list the
+# collections changed since the previous release and the catalog's coverage
+# of the CONUS 10 km grid (scripts/release_notes.py). Skips cleanly when the
 # catalog is unchanged since the latest release. For a quarterly cadence,
 # change the cron to "17 6 1 1,4,7,10 *".
 name: Release Catalog Assets
@@ -48,6 +50,7 @@ jobs:
           # compare HEAD to HEAD and always skip). No previous release, or a
           # tag that doesn't resolve, counts as changed -> publish.
           LAST_TAG="$(gh release view --json tagName --jq .tagName 2>/dev/null || echo '')"
+          echo "last_tag=$LAST_TAG" >> "$GITHUB_OUTPUT"
           LAST_COMMIT=""
           if [ -n "$LAST_TAG" ]; then
             LAST_COMMIT="$(git rev-list -n 1 "$LAST_TAG" 2>/dev/null || echo '')"
@@ -110,11 +113,18 @@ jobs:
           pixi run check-catalog --check parquet --parquet catalog.parquet \
             --markdown parquet-summary.md
 
+      # The body lists new/updated/removed collections since the previous
+      # release (a git diff of catalog/ between the two tags) and the tile and
+      # CONUS-coverage totals. Coverage is read from the parquets, so the
+      # previous release's is downloaded for the change column; if that fails
+      # the column is left blank rather than failing the release. GitHub's own
+      # generated notes (merged PRs, full changelog) are appended below it.
       - name: Tag and release
         id: tag
         if: steps.changed.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          LAST_TAG: ${{ steps.changed.outputs.last_tag }}
         run: |
           TAG="v$(date -u +%Y.%m.%d)"
           N=1
@@ -122,13 +132,25 @@ jobs:
             N=$((N + 1))
             TAG="v$(date -u +%Y.%m.%d).$N"
           done
-          SUBJECT="$(git log -1 --format=%s)"
+
+          START=()
+          if [ -n "$LAST_TAG" ] && git rev-parse -q --verify "$LAST_TAG^{commit}" >/dev/null; then
+            gh release download "$LAST_TAG" -p catalog.parquet -O previous.parquet \
+              || echo "::warning::could not download $LAST_TAG catalog.parquet; coverage change left blank"
+            pixi run release-notes --previous-ref "$LAST_TAG" \
+              --parquet catalog.parquet --previous-parquet previous.parquet \
+              --tag "$TAG" -o release-notes.md
+            START=(--notes-start-tag "$LAST_TAG")
+          else
+            echo "Automated catalog release: no previous release to compare against." > release-notes.md
+          fi
+          cat release-notes.md >> "$GITHUB_STEP_SUMMARY"
+
           gh release create "$TAG" catalog.parquet catalog.gti \
             --target "$(git rev-parse HEAD)" \
             --title "$TAG" \
-            --notes "Automated catalog release for: $SUBJECT
-
-          See the commit history for the catalog diff."
+            --notes-file release-notes.md \
+            --generate-notes "${START[@]}"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
   # Mirror the parquet to the public Kopah bucket for browser tools (stac-map).

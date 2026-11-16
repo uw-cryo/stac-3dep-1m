@@ -55,8 +55,33 @@ def latest_tag():
     ]
 
 
+def release_asset_url(tag):
+    """Download URL of the release's catalog parquet.
+
+    Every release since v0.1 names it catalog.parquet except v2026.08.17,
+    whose only parquet is catalog_v20260817.parquet. Prefer the canonical
+    name; otherwise take the single catalog*.parquet asset, and refuse to
+    guess between several.
+    """
+    assets = github_json(f"https://api.github.com/repos/{REPO}/releases/tags/{tag}")[
+        "assets"
+    ]
+    names = {a["name"]: a["browser_download_url"] for a in assets}
+    if ASSET in names:
+        return names[ASSET]
+    candidates = sorted(
+        n for n in names if n.startswith("catalog") and n.endswith(".parquet")
+    )
+    if len(candidates) != 1:
+        sys.exit(
+            f"release {tag} has no {ASSET} and {len(candidates)} other catalog*.parquet "
+            f"assets ({', '.join(candidates) or 'none'}); pass --file"
+        )
+    return names[candidates[0]]
+
+
 def download_asset(tag, dest):
-    url = f"https://github.com/{REPO}/releases/download/{tag}/{ASSET}"
+    url = release_asset_url(tag)
     print(f"downloading {url}")
     with urllib.request.urlopen(url, timeout=300) as r, open(dest, "wb") as f:
         shutil.copyfileobj(r, f, length=8 << 20)
