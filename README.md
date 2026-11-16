@@ -17,10 +17,10 @@ https://radiantearth.github.io/stac-browser/#/external/raw.githubusercontent.com
 ### stac-map
 * Render the STAC GeoParquet with [stac-map](https://developmentseed.org/stac-map/):
 
-#### full STAC-Geoparquet catalog:
-https://developmentseed.org/stac-map/?href=https://raw.githubusercontent.com/scottyhq/files/refs/heads/main/catalog.parquet
+#### full STAC-Geoparquet catalog (latest release):
+https://developmentseed.org/stac-map/?href=https://s3.kopah.uw.edu/tacolab/stac-3dep-1m/latest.parquet
 
-☝️ Note: stac-map does not work with release assets (which dynamically redirect), it needs 'raw.githubusercontent' so in order to not clutter up this repository with large binary files, we put ~20MB STAC-geoparquet files in a separate repo: https://github.com/scottyhq/files
+☝️ Note: stac-map does not work with release assets (which dynamically redirect), so each release's `catalog.parquet` is also copied to a public bucket on UW's Kopah object store: `https://s3.kopah.uw.edu/tacolab/stac-3dep-1m/<tag>.parquet` for a specific release (e.g. [`v2026.11.01.parquet`](https://developmentseed.org/stac-map/?href=https://s3.kopah.uw.edu/tacolab/stac-3dep-1m/v2026.11.01.parquet)), and `latest.parquet` for the newest one. Browse every uploaded version at https://s3.kopah.uw.edu/tacolab?prefix=stac-3dep-1m/
 
 #### full STAC JSON catalog:
 https://developmentseed.org/stac-map/?href=https://raw.githubusercontent.com/uw-cryo/stac-3dep-1m/refs/heads/main/catalog/catalog.json
