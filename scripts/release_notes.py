@@ -25,7 +25,6 @@ pixi run release-notes --ref v2026.11.01 --previous-ref v2026.10.01 \
 """
 
 import argparse
-import csv
 import json
 import os
 import subprocess
@@ -37,7 +36,7 @@ import numpy as np
 import pyarrow.parquet as pq
 import shapely
 
-from build_conus_grid import DEFAULT_OUTPUT as CONUS_CELLS_CSV, cell_centers
+from build_conus_grid import DEFAULT_OUTPUT as CONUS_CELLS_CSV, cell_centers, read_cells
 
 GRID_URL = (
     "https://prd-tnm.s3.amazonaws.com/index.html?prefix="
@@ -195,12 +194,7 @@ def catalog_changes(prev_ref, ref):
 
 
 def load_conus_cells(path=CONUS_CELLS_CSV):
-    with open(path, newline="") as f:
-        rows = list(csv.DictReader(f))
-    zones = [int(r["utm_zone"]) for r in rows]
-    xs = [int(r["name"][1:].split("y")[0]) for r in rows]
-    ys = [int(r["name"].split("y")[1]) for r in rows]
-    lon, lat = cell_centers(zones, xs, ys)
+    lon, lat = cell_centers(*read_cells(path))
     return shapely.points(lon, lat)
 
 

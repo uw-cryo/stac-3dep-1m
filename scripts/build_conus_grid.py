@@ -52,6 +52,8 @@ CONUS_ZONES = range(10, 20)
 # lower-48 bounding box: keeps CONUS, drops Alaska, Hawaii, PR/USVI
 CONUS_BBOX = (-125.5, 24.0, -66.5, 49.6)
 DEFAULT_OUTPUT = Path(__file__).resolve().parent.parent / "data/conus_10km_cells.csv"
+# File format: one row per zone and grid row y, with the row's x values as
+# space-separated runs -- "10,402,60-76" is cells x60y402 ... x76y402 in zone 10.
 
 
 def cell_centers(zones, xs, ys):
@@ -85,6 +87,40 @@ def conus_cells(grid_path, boundary_path):
     return [(int(z), f"x{x}y{y}") for z, x, y in rows]
 
 
+def encode_runs(cells):
+    """One row per (zone, grid row): the x values as runs, "60-76 80".
+
+    One line per cell is 78k lines; CONUS is mostly contiguous along a row, so
+    runs bring it to ~1.9k lines (26 KB) and the diff stays readable.
+    """
+    by_row = {}
+    for zone, name in cells:
+        x, y = map(int, name[1:].split("y"))
+        by_row.setdefault((zone, y), []).append(x)
+    for (zone, y), xs in sorted(by_row.items()):
+        xs.sort()
+        runs, start = [], xs[0]
+        for prev, x in zip(xs, xs[1:] + [None]):
+            if x != prev + 1:
+                runs.append(f"{start}-{prev}" if prev > start else str(start))
+                start = x
+        yield zone, y, " ".join(runs)
+
+
+def read_cells(path=DEFAULT_OUTPUT):
+    """(zones, xs, ys) arrays of the cells in a file written by encode_runs()."""
+    zones, xs, ys = [], [], []
+    with open(path, newline="") as f:
+        for row in csv.DictReader(f):
+            for run in row["x"].split():
+                lo, _, hi = run.partition("-")
+                for x in range(int(lo), int(hi or lo) + 1):
+                    zones.append(int(row["utm_zone"]))
+                    xs.append(x)
+                    ys.append(int(row["y"]))
+    return np.array(zones), np.array(xs), np.array(ys)
+
+
 def fetch(url, dest):
     print(f"downloading {url}")
     urllib.request.urlretrieve(url, dest)
@@ -106,8 +142,8 @@ def main(args=None):
     a.output.parent.mkdir(parents=True, exist_ok=True)
     with open(a.output, "w", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
-        w.writerow(["utm_zone", "name"])
-        w.writerows(cells)
+        w.writerow(["utm_zone", "y", "x"])
+        w.writerows(encode_runs(cells))
     print(f"wrote {len(cells):,} CONUS cells to {a.output}")
 
 
