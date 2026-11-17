@@ -10,11 +10,11 @@ Only consider tracked files in the repository. Do not consider untracked files, 
 
 **Never open an issue in an upstream repository.** Not titiler, rio-tiler, rio-stac, GDAL, numpy, pystac, or anything else outside this repo — no exceptions, and no "it's clearly a bug there" shortcut. When something looks like an upstream bug, or an upstream feature would help, write it up in `upstream_issues/` (gitignored, local only) for the user to file manually under their own account.
 
-* One markdown file per issue, named `<project>-<short-kebab-summary>.md` (e.g. `rustac-py-json-float-parse-off-by-one-ulp.md`).
-* Concise: what happens, what was expected, versions tested, and a minimal reproducible example that runs on its own — not a pointer into this repo. Search the upstream tracker first (read-only) and say what was found.
+* **Read `upstream_issues/README.md` first.** It is the only tracked file in that folder. It covers the naming, the required parts (the project's own template, a self-contained reproducer verified by running it as written, permalinks at a full SHA, and AI disclosure) and each upstream project's template and AI policy. GDAL and PROJ close verbose or undisclosed AI-written tickets.
+* Search the upstream tracker first (read-only) and say what was found.
 * Never link an upstream issue, or a write-up of one, from a PR, commit message or issue in this repo without the user's explicit consent.
 
-Issues in *this* repo are fine when the user asks for one.
+Issues in *this* repo are fine when the user asks for one. Follow the forms in `.github/ISSUE_TEMPLATE/` and, for PRs, `.github/pull_request_template.md`. Both ask for the same thing upstream projects do: a few sentences and a runnable example against public data with its real output. `gh issue create --body` bypasses the forms, so reproduce their headings by hand.
 
 ## Python Environment
 
