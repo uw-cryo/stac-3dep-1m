@@ -1,0 +1,49 @@
+name: Bug report
+description: Something in the catalog, the published parquet/GTI, or a script is wrong.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep it short. A maintainer should understand the problem from the first sentence and reproduce it by pasting one snippet. No background essays, and no restating the template.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens
+      description: One to three sentences. Name the item, collection, file or command.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproducible example
+      description: |
+        Self-contained and runnable as pasted, against public data only: an item on GitHub, `https://s3.kopah.uw.edu/tacolab/stac-3dep-1m/latest.parquet`, or a USGS tile on `prd-tnm.s3.amazonaws.com`. Include the output exactly as it printed.
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+      description: What should have happened instead, and why (a spec, a USGS source, another tool's output).
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Release tag or commit, plus the library versions the example depends on (e.g. GDAL 3.13.3, pyproj 3.8.0 / PROJ 9.9.0).
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Optional. Impact, possible fixes, related issues in this repo. Use permalinks (`/blob/<sha>/path#L10-L20`) for code.
+
