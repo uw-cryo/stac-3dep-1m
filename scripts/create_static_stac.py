@@ -366,39 +366,18 @@ PROJ_EXT_V2 = "https://stac-extensions.github.io/projection/v2.0.0/schema.json"
 PROJ_EXT_V1_PREFIX = "https://stac-extensions.github.io/projection/v1."
 
 
-# proj:projjson for every CRS in the catalog, keyed by proj:code, frozen from
-# the committed items. rio-stac >= 0.10 (Oct 2024) only writes projjson
-# for a CRS that has no EPSG code, so titiler 2.4.1 never returns it for our
-# tiles; titiler 0.22.4 did, from each GeoTIFF's own CRS. Rebuilding it from
-# the EPSG database does not reproduce those bytes (the database adds
-# scope/area/bbox and axis abbreviations), so the table is what keeps a rebuilt
-# item byte-identical to the one it replaces.
-PROJJSON_BY_CODE = json.loads(
-    (Path(__file__).resolve().parent.parent / "data/projjson_by_code.json").read_text()
-)
-
-
-def projjson_for(code):
-    """proj:projjson for `code`, from the frozen table or else the EPSG database."""
-    if code in PROJJSON_BY_CODE:
-        return PROJJSON_BY_CODE[code]
-    # A CRS the catalog has never held. Still emit the key, so the item keeps
-    # the catalog's one property shape (check_catalog --check schema); the
-    # value comes from the local PROJ and is worth freezing into the table.
-    from pyproj import CRS
-
-    print(f"WARNING: {code} not in data/projjson_by_code.json; using PROJ's")
-    return CRS.from_user_input(code).to_json_dict()
-
-
 def normalize_projection(item_dict):
-    """Normalize projection extension to v2.0.0 (proj:code + proj:projjson).
+    """Normalize projection extension to v2.0.0, CRS as proj:code only.
 
-    The existing catalog uniformly uses projection v2.0.0 with proj:code and
-    proj:projjson, but depending on the deployed titiler version the STAC
-    endpoint may return v1.1.0 with proj:epsg, with or without projjson. Keep
-    the catalog (and the geoparquet column schema) uniform -- keys *and* their
-    order -- regardless of which titiler is answering.
+    Depending on the deployed titiler version the STAC endpoint may return
+    projection v1.1.0 with proj:epsg, with or without proj:projjson. Keep the
+    catalog (and the geoparquet column schema) uniform regardless of which
+    titiler is answering: v2.0.0, proj:code, and no proj:projjson.
+
+    projjson is dropped whenever the CRS has a code. The projection extension
+    recommends proj:code and keeps WKT2/PROJJSON for CRSs outside a standard
+    registry; rio-stac >= 0.10 (titiler 2.x) follows that and omits it. It was
+    45% of every item's bytes, repeating 13 NAD83 UTM definitions.
     """
     exts = item_dict.get("stac_extensions", [])
     item_dict["stac_extensions"] = [
@@ -408,17 +387,8 @@ def normalize_projection(item_dict):
     epsg = props.pop("proj:epsg", None)
     if epsg is not None and "proj:code" not in props:
         props["proj:code"] = f"EPSG:{epsg}"
-    code = props.get("proj:code")
-    if code is not None and "proj:projjson" not in props:
-        # catalog order: projjson directly after proj:transform
-        reordered = {}
-        for k, v in props.items():
-            reordered[k] = v
-            if k == "proj:transform":
-                reordered["proj:projjson"] = projjson_for(code)
-        reordered.setdefault("proj:projjson", projjson_for(code))
-        props.clear()
-        props.update(reordered)
+    if props.get("proj:code") is not None:
+        props.pop("proj:projjson", None)
     return item_dict
 
 
