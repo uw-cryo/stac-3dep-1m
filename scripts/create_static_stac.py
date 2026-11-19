@@ -153,9 +153,12 @@ def add_wesm_metadata_to_collection(collection, series):
         collection.summaries.add(k, v)
 
 
-# NOTE: TiTiler now rate limited :(
-# https://github.com/developmentseed/titiler/discussions/1223
-# Should deploy our own version anyways
+# Our own titiler deployment (API Gateway in front of a Lambda): titiler
+# 2.4.1, rasterio 1.5.2, GDAL 3.12.2 -- `/healthz` reports the versions. The
+# public titiler.xyz is rate limited
+# (https://github.com/developmentseed/titiler/discussions/1223), fine for a
+# one-off spot check but unusable for per-tile requests.
+TITILER_ENDPOINT = "https://d5xjfba2wj.execute-api.us-west-2.amazonaws.com"
 
 
 # TODO: use aiohttp instead?
@@ -172,13 +175,10 @@ def create_stac_item(URL, DATETIME):
         "with_eo": "false",
         "url": URL,
     }
-    # stacify = f"https://titiler.xyz/cog/stac"
-    stacify = (
-        "https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac"
-    )
+    stacify = f"{TITILER_ENDPOINT}/cog/stac"
 
     # Test:
-    # https://xpohtuqdoyg4w7ze7loqenojje0earua.lambda-url.us-west-2.on.aws/cog/stac?id=USGS_1M_16_x24y472_WI_Statewide_2019_A19&datetime=2019-04-08T00:00:00Z/2019-04-08T00:00:00Z&collection=WI_Statewide_2019_A19&asset_name=elevation&asset_roles=data&with_eo=false&url=https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_Statewide_2019_A19/TIFF/USGS_1M_16_x24y472_WI_Statewide_2019_A19.tif
+    # https://d5xjfba2wj.execute-api.us-west-2.amazonaws.com/cog/stac?id=USGS_1M_16_x24y472_WI_Statewide_2019_A19&datetime=2019-04-08T00:00:00Z/2019-04-08T00:00:00Z&collection=WI_Statewide_2019_A19&asset_name=elevation&asset_roles=data&with_eo=false&url=https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/1m/Projects/WI_Statewide_2019_A19/TIFF/USGS_1M_16_x24y472_WI_Statewide_2019_A19.tif
 
     # print(f"Requesting STAC item for {ID}")
     # timeout so one wedged connection can't stall an unattended run's batch,
@@ -366,13 +366,39 @@ PROJ_EXT_V2 = "https://stac-extensions.github.io/projection/v2.0.0/schema.json"
 PROJ_EXT_V1_PREFIX = "https://stac-extensions.github.io/projection/v1."
 
 
-def normalize_projection(item_dict):
-    """Normalize projection extension to v2.0.0 (proj:code).
+# proj:projjson for every CRS in the catalog, keyed by proj:code, frozen from
+# the committed items. rio-stac >= 0.10 (Oct 2024) only writes projjson
+# for a CRS that has no EPSG code, so titiler 2.4.1 never returns it for our
+# tiles; titiler 0.22.4 did, from each GeoTIFF's own CRS. Rebuilding it from
+# the EPSG database does not reproduce those bytes (the database adds
+# scope/area/bbox and axis abbreviations), so the table is what keeps a rebuilt
+# item byte-identical to the one it replaces.
+PROJJSON_BY_CODE = json.loads(
+    (Path(__file__).resolve().parent.parent / "data/projjson_by_code.json").read_text()
+)
 
-    The existing catalog (~123k items) uniformly uses projection v2.0.0 with
-    proj:code, but depending on the deployed titiler version the STAC endpoint
-    may return v1.1.0 with proj:epsg. Keep the catalog (and the geoparquet
-    column schema) uniform regardless of which titiler is answering.
+
+def projjson_for(code):
+    """proj:projjson for `code`, from the frozen table or else the EPSG database."""
+    if code in PROJJSON_BY_CODE:
+        return PROJJSON_BY_CODE[code]
+    # A CRS the catalog has never held. Still emit the key, so the item keeps
+    # the catalog's one property shape (check_catalog --check schema); the
+    # value comes from the local PROJ and is worth freezing into the table.
+    from pyproj import CRS
+
+    print(f"WARNING: {code} not in data/projjson_by_code.json; using PROJ's")
+    return CRS.from_user_input(code).to_json_dict()
+
+
+def normalize_projection(item_dict):
+    """Normalize projection extension to v2.0.0 (proj:code + proj:projjson).
+
+    The existing catalog uniformly uses projection v2.0.0 with proj:code and
+    proj:projjson, but depending on the deployed titiler version the STAC
+    endpoint may return v1.1.0 with proj:epsg, with or without projjson. Keep
+    the catalog (and the geoparquet column schema) uniform -- keys *and* their
+    order -- regardless of which titiler is answering.
     """
     exts = item_dict.get("stac_extensions", [])
     item_dict["stac_extensions"] = [
@@ -382,6 +408,17 @@ def normalize_projection(item_dict):
     epsg = props.pop("proj:epsg", None)
     if epsg is not None and "proj:code" not in props:
         props["proj:code"] = f"EPSG:{epsg}"
+    code = props.get("proj:code")
+    if code is not None and "proj:projjson" not in props:
+        # catalog order: projjson directly after proj:transform
+        reordered = {}
+        for k, v in props.items():
+            reordered[k] = v
+            if k == "proj:transform":
+                reordered["proj:projjson"] = projjson_for(code)
+        reordered.setdefault("proj:projjson", projjson_for(code))
+        props.clear()
+        props.update(reordered)
     return item_dict
 
 
